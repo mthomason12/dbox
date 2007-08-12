@@ -1,4 +1,4 @@
 A platform and programming language. Makes it quite easy to create multiplatform applications. DBox is created in Java, so you need to download and install java before you can use dbox. You should use Java version 6, but it will probably work on java 5 too.
 
-More info: http://en.wikipedia.org/wiki/Java_%28programming_language%29
-Official home: http://java.sun.com
+* More info: http://en.wikipedia.org/wiki/Java_%28programming_language%29
+* Official home: http://java.sun.com
