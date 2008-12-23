@@ -31,15 +31,11 @@ public class BoxListe implements Serializable {
      **/
     public DosItem getGame(String name) {
         name = name.toLowerCase();
-        System.out.println("Finner " + name);
         for(DosItem item : gamelist) {
-            System.out.println("ser etter " + item.getName().toLowerCase());
             if(item.getName().toLowerCase().equals(name)) {
-                System.out.println("Fant!");
                 return item;
             }
         }
-        System.out.println("ikke funnet");
         return null;
     }
     
@@ -53,7 +49,6 @@ public class BoxListe implements Serializable {
         for(DosItem item : gamelist) {
             if(item.getName().toLowerCase().equals(name)) {
                 gamelist.remove(item);
-                System.out.println("Fjerner " + item.getName());
                 return item;
             }
         }
