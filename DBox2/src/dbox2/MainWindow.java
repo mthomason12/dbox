@@ -26,14 +26,16 @@ public class MainWindow extends javax.swing.JFrame {
     
     /** Creates new form MainWindow */
     public MainWindow() {
-        bl = deSerialize("database.dat");
-        pref = deSerializePref("preferences.dat");
+        
         try {
             initComponents();
         }
         catch(Exception e) {
             pack();
         }
+
+        bl = deSerialize("database.dat");
+        pref = deSerializePref("preferences.dat");
         centerScreen();
         updateList();
     }
@@ -70,10 +72,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
             ois.close();
         } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Hi!\n\nSeems like this is the first time you launch D-Box. I will now open the preferences window so you can fill in the blanks in my memory.", "Welcome!", JOptionPane.INFORMATION_MESSAGE);
-            mnuPrefsActionPerformed(null);
-            skrivObjekt("preferences.dat", pref);
-            JOptionPane.showMessageDialog(this, "Thank you for assisting me! Now, go and have fun!", "Thank You!", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Hey! Welcome to D-Box. Please check your preferences before you start! Just click on the cogwheel in the main window.", "Welcome!", JOptionPane.INFORMATION_MESSAGE);
             return s;
         }
         
