@@ -23,6 +23,7 @@ public class MainWindow extends javax.swing.JFrame {
     
     public static BoxListe bl = new BoxListe();
     public static Preferences pref = new Preferences();
+
     
     /** Creates new form MainWindow */
     public MainWindow() {
