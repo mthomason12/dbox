@@ -1,5 +1,5 @@
 #summary How to run D-Box. Use this document as a troubleshooter. Most people won't have any problems:)
-#labels Featured
+#labels Featured,installation
 
 = Introduction =
 
