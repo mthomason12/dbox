@@ -1,0 +1,29 @@
+#summary How to run D-Box. Use this document as a troubleshooter. Most people won't have any problems:)
+#labels Featured
+
+= Introduction =
+
+D-Box is a Java program, which means it runs on many different platforms. We currently only ship D-Box in Java's own JAR format, and have currently not used any time to make it run more like a native application (i.e. exe file on Windows).
+
+But don't worry, it's still super easy to use, execute and install!
+
+
+= How to install =
+
+What you need:
+  * A computer (duh...)
+  * Java 5.0 or better (sometimes called Java 1.5)
+  * Native DosBox binaries (found here: http://i1.no/06wt)
+  * Some kind of unzipper (built in in most operating systems)
+
+What to do:
+  * Download the newest D-Box
+  * Unzip the archive into a nice folder (i.e. C:\games\dbox on Windows)
+  * Double-click on dbox.jar
+  * Follow the instructions on the screen
+
+
+= Troubleshooting =
+  * To check if you have the right java version, type "java -version" in your command line
+    # Good enough Java (1.5, 1.6, 5.0, 6.0)? Move on...
+    # Old Java (1.3,1.4)? Go to java.com and download
