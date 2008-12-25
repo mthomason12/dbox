@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.io.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,6 +25,15 @@ public class MainWindow extends javax.swing.JFrame {
     public static BoxListe bl = new BoxListe();
     public static Preferences pref = new Preferences();
 
+    //images
+    Icon fileEnabled;
+    Icon fileDisabled;
+    Icon runEnabled;
+    Icon runDisabled;
+    Icon prefEnabled;
+    Icon prefDisabled;
+
+
     
     /** Creates new form MainWindow */
     public MainWindow() {
@@ -34,6 +44,16 @@ public class MainWindow extends javax.swing.JFrame {
         catch(Exception e) {
             pack();
         }
+
+        // Set up images
+        runEnabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start.png"));
+        runDisabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start-disabled.png"));
+        fileEnabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/utilities-terminal.png"));
+        fileDisabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/utilities-terminal-disabled.png"));
+        prefEnabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/emblem-system.png"));
+        prefDisabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/emblem-system-disabled.png"));
+
+
 
         bl = deSerialize("database.dat");
         pref = deSerializePref("preferences.dat");
@@ -272,7 +292,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/utilities-terminal.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/utilities-terminal-disabled.png"))); // NOI18N
         jLabel2.setToolTipText("Game information");
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, editMenu, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel2, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
@@ -288,9 +308,15 @@ public class MainWindow extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2MouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
         });
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start-disabled.png"))); // NOI18N
         jLabel4.setToolTipText("Run Application");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -302,9 +328,15 @@ public class MainWindow extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel4MouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel4MouseEntered(evt);
+            }
         });
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/emblem-system.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/emblem-system-disabled.png"))); // NOI18N
         jLabel5.setToolTipText("Preferences");
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -316,11 +348,17 @@ public class MainWindow extends javax.swing.JFrame {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel5MouseClicked(evt);
             }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel5MouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel5MouseEntered(evt);
+            }
         });
 
         jLabel6.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.shadow"));
         jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("D-Box 1.5");
+        jLabel6.setText("D-Box 1.6");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -577,6 +615,30 @@ private void gameListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
     BrowserControl.openUrl("http://code.google.com/p/dbox/");
 }//GEN-LAST:event_jLabel3MouseClicked
+
+private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
+    jLabel4.setIcon(runEnabled);
+}//GEN-LAST:event_jLabel4MouseEntered
+
+private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
+    jLabel2.setIcon(fileEnabled);
+}//GEN-LAST:event_jLabel2MouseEntered
+
+private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
+    jLabel4.setIcon(runDisabled);
+}//GEN-LAST:event_jLabel4MouseExited
+
+private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
+    jLabel2.setIcon(fileDisabled);
+}//GEN-LAST:event_jLabel2MouseExited
+
+private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
+    jLabel5.setIcon(prefEnabled);
+}//GEN-LAST:event_jLabel5MouseEntered
+
+private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
+    jLabel5.setIcon(prefDisabled);
+}//GEN-LAST:event_jLabel5MouseExited
  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
