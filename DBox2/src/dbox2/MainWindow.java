@@ -231,6 +231,7 @@ public class MainWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("D-Box");
 
+        gameList.setComponentPopupMenu(runMenu);
         gameList.setFocusCycleRoot(true);
         gameList.setNextFocusableComponent(txtSearch);
         gameList.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -353,7 +354,6 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 596, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
@@ -362,13 +362,14 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 596, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(jLabel3)
+                .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 318, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
                 .add(18, 18, 18)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -567,7 +568,7 @@ private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_jLabel5MouseClicked
 
 private void gameListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gameListMouseReleased
-    if(evt.getButton() == MouseEvent.BUTTON3) {
+    if(evt.getButton() == 9){//MouseEvent.BUTTON3) {
     runMenu.show(evt.getComponent(),
                        evt.getX(), evt.getY());
     }
@@ -576,7 +577,7 @@ private void gameListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
     BrowserControl.openUrl("http://code.google.com/p/dbox/");
 }//GEN-LAST:event_jLabel3MouseClicked
-    
+ 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu editMenu;
@@ -587,41 +588,12 @@ private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JSeparator jSeparator3;
-    private javax.swing.JSeparator jSeparator4;
-    private javax.swing.JMenuItem mnuAbout;
-    private javax.swing.JMenuItem mnuDelete;
-    private javax.swing.JMenuItem mnuDelete1;
     private javax.swing.JMenuItem mnuDelete2;
-    private javax.swing.JMenuItem mnuEdit;
-    private javax.swing.JMenuItem mnuEdit1;
     private javax.swing.JMenuItem mnuEdit2;
-    private javax.swing.JMenuItem mnuExit;
-    private javax.swing.JMenuItem mnuExit1;
-    private javax.swing.JMenu mnuGame;
-    private javax.swing.JMenu mnuGame1;
-    private javax.swing.JMenu mnuHelp;
-    private javax.swing.JMenu mnuHelp1;
-    private javax.swing.JMenuItem mnuNew;
-    private javax.swing.JMenuItem mnuNew1;
     private javax.swing.JMenuItem mnuNew2;
-    private javax.swing.JMenuItem mnuPrefs;
-    private javax.swing.JMenuItem mnuPrefs1;
-    private javax.swing.JMenuItem mnuRun;
-    private javax.swing.JMenuItem mnuRun1;
     private javax.swing.JMenuItem mnuRun2;
-    private javax.swing.JMenuItem mnuRunDosBox;
-    private javax.swing.JMenuItem mnuRunDosBox1;
-    private javax.swing.JMenuItem mnuSetup;
-    private javax.swing.JMenuItem mnuSetup1;
     private javax.swing.JMenuItem mnuSetup2;
     private javax.swing.JPopupMenu runMenu;
     private javax.swing.JTextField txtSearch;

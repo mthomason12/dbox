@@ -71,7 +71,18 @@ public class ItemGUI extends javax.swing.JDialog {
         appName = new javax.swing.JTextField();
         cmdWizard = new javax.swing.JButton();
         cmdConfirm = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel(){
+            ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/bg.jpg"));
+            Image image = backImage.getImage();
+            int w = backImage.getIconWidth();
+
+            public void paintComponent (Graphics g) {
+                for(int i=0;i<50;i++)
+                g.drawImage(image, w*i, 0, this);
+                super.paintComponent(g);
+            }
+        }
+        ;
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         sldCycles = new javax.swing.JSlider();
@@ -112,8 +123,10 @@ public class ItemGUI extends javax.swing.JDialog {
         });
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setOpaque(false);
 
         jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18));
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Edit Game");
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
@@ -123,7 +136,7 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel5)
-                .addContainerGap(276, Short.MAX_VALUE))
+                .addContainerGap(330, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -153,6 +166,7 @@ public class ItemGUI extends javax.swing.JDialog {
         jLabel7.setText("CD ROM Directory");
 
         jButton1.setText("...");
+        jButton1.setToolTipText("Browse...");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -160,6 +174,7 @@ public class ItemGUI extends javax.swing.JDialog {
         });
 
         jButton2.setText("...");
+        jButton2.setToolTipText("Browse...");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -167,6 +182,7 @@ public class ItemGUI extends javax.swing.JDialog {
         });
 
         jButton3.setText("...");
+        jButton3.setToolTipText("Browse...");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -187,19 +203,19 @@ public class ItemGUI extends javax.swing.JDialog {
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                                .add(appSetup, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                                .add(appSetup, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jButton2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(layout.createSequentialGroup()
-                                .add(appExec, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
+                                .add(appExec, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jButton1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, appPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
-                            .add(appName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, appPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
+                            .add(appName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 399, Short.MAX_VALUE)
                             .add(jButton3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addContainerGap())))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(176, Short.MAX_VALUE)
+                .addContainerGap(230, Short.MAX_VALUE)
                 .add(cmdWizard)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(cmdConfirm)
@@ -209,13 +225,13 @@ public class ItemGUI extends javax.swing.JDialog {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel6)
-                    .add(sldCycles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE))
+                    .add(sldCycles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 405, Short.MAX_VALUE))
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel7)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, appCD, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 298, Short.MAX_VALUE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, appCD, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE))
                 .add(67, 67, 67))
         );
         layout.setVerticalGroup(
@@ -248,7 +264,7 @@ public class ItemGUI extends javax.swing.JDialog {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(appCD, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButton3))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 21, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .add(jLabel6)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(sldCycles, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -367,21 +383,40 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 }//GEN-LAST:event_jButton2ActionPerformed
 
-private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    final JFileChooser fc = new JFileChooser();
-    int returnVal = fc.showOpenDialog(this);
-    if (returnVal == JFileChooser.APPROVE_OPTION) {
-        File file = fc.getSelectedFile();
-        String s = file.getAbsolutePath();
-        int last = 0;
-        for(int i = s.length()-1; i >= 0; i--)
-            if(s.charAt(i) == File.separatorChar) {
-                last = i;
-                break;
-            }
 
-        System.out.println(s);
-        appCD.setText(s.substring(0,last));
+
+private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    if(helperClass.isMac()) {
+            // use the native file dialog on the mac
+            FileDialog dialog =
+               new FileDialog(this, "Get CD Dir",FileDialog.LOAD);
+            dialog.setVisible(true);
+            if(!dialog.getFile().equals("")) {
+                int last = 0;
+                for(int i = dialog.getFile().length()-1; i >= 0; i--)
+                    if(dialog.getFile().charAt(i) == File.separatorChar) {
+                        last = i;
+                        break;
+                    }
+
+                appCD.setText(dialog.getFile().substring(0,last));
+            }
+    }
+    else {
+        final JFileChooser fc = new JFileChooser();
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            String s = file.getAbsolutePath();
+            int last = 0;
+            for(int i = s.length()-1; i >= 0; i--)
+                if(s.charAt(i) == File.separatorChar) {
+                    last = i;
+                    break;
+                }
+
+            appCD.setText(s.substring(0,last));
+            }
     }
 }//GEN-LAST:event_jButton3ActionPerformed
 
