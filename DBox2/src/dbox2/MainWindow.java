@@ -512,7 +512,7 @@ private void mnuSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     
     DosItem di = bl.getGame((String)gameList.getSelectedValue());
     
-        String[] par = new String[9];
+        String[] par = new String[7];
         par[0] = pref.getDosBoxPath();
         par[1] = "-c";
         par[2] = "mount c: \"" + di.getPath()+"\"";
@@ -520,8 +520,6 @@ private void mnuSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         par[4] = "c:";
         par[5] = "-c";
         par[6] = di.getInstaller();
-        par[7] = "-c";
-        par[8] = "exit";
         
         try {
             Runtime.getRuntime().exec(par);
