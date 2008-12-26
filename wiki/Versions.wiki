@@ -6,20 +6,20 @@
 I thought it might be funny to see how D-Box evolves, so this page will include screenshots and maybe some facts about the previous versions of D-Box.
 
 
-= D-Box 1.0 =
+== D-Box 1.0 ==
 
 http://dbox.googlecode.com/svn/wiki/img/screenshots/1.0/main.png
 
   * First iteration
   * _Download: http://dbox.googlecode.com/files/dbox.zip _
 
-= D-Box 1.5 =
+== D-Box 1.5 ==
 
 http://dbox.googlecode.com/svn/wiki/img/screenshots/1.5/main.png
 
  * _Download: http://dbox.googlecode.com/files/dbox15.zip _
 
-= D-Box 1.6 =
+== D-Box 1.6 ==
 
 http://dbox.googlecode.com/svn/wiki/img/screenshots/1.6/main.png
 
