@@ -1,1 +1,3 @@
 An MS DOS Emulator. More info at http://en.wikipedia.org/wiki/Dosbox. Download latest dosbox here: http://dosbox.sourceforge.net/download.php. D-Box depends on having DosBox binaries available.
+
+http://dbox.googlecode.com/svn/wiki/img/icons/dosbox.png
