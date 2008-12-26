@@ -311,12 +311,8 @@ private void cmdWizardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     if(name == null)
         return;
     appName.setText(name);
-    final JFileChooser fc = new JFileChooser();
-    int returnVal = fc.showOpenDialog(this);
-    
-    if (returnVal == JFileChooser.APPROVE_OPTION) {
-        File file = fc.getSelectedFile();
-        String s = file.getAbsolutePath();
+    String s = helperClass.getFileAWT(this);
+    if (s != null) {
         int last = 0;
         for(int i = s.length()-1; i >= 0; i--)
             if(s.charAt(i) == File.separatorChar) {
@@ -347,11 +343,8 @@ private void appNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_appNameActionPerformed
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    final JFileChooser fc = new JFileChooser();
-    int returnVal = fc.showOpenDialog(this);
-    if (returnVal == JFileChooser.APPROVE_OPTION) {
-        File file = fc.getSelectedFile();
-        String s = file.getAbsolutePath();
+    String s = helperClass.getFileAWT(this);
+    if (s != null) {
         int last = 0;
         for(int i = s.length()-1; i >= 0; i--)
             if(s.charAt(i) == File.separatorChar) {
@@ -366,11 +359,8 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jButton1ActionPerformed
 
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    final JFileChooser fc = new JFileChooser();
-    int returnVal = fc.showOpenDialog(this);
-    if (returnVal == JFileChooser.APPROVE_OPTION) {
-        File file = fc.getSelectedFile();
-        String s = file.getAbsolutePath();
+    String s = helperClass.getFileAWT(this);
+    if (s != null) {
         int last = 0;
         for(int i = s.length()-1; i >= 0; i--)
             if(s.charAt(i) == File.separatorChar) {
@@ -386,38 +376,19 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    if(helperClass.isMac()) {
-            // use the native file dialog on the mac
-            FileDialog dialog =
-               new FileDialog(this, "Get CD Dir",FileDialog.LOAD);
-            dialog.setVisible(true);
-            if(!dialog.getFile().equals("")) {
-                int last = 0;
-                for(int i = dialog.getFile().length()-1; i >= 0; i--)
-                    if(dialog.getFile().charAt(i) == File.separatorChar) {
-                        last = i;
-                        break;
-                    }
-
-                appCD.setText(dialog.getFile().substring(0,last));
+    String s = helperClass.getFileAWT(this);
+    if (s != null) {
+        int last = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            if (s.charAt(i) == File.separatorChar) {
+                last = i;
+                break;
             }
-    }
-    else {
-        final JFileChooser fc = new JFileChooser();
-        int returnVal = fc.showOpenDialog(this);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            String s = file.getAbsolutePath();
-            int last = 0;
-            for(int i = s.length()-1; i >= 0; i--)
-                if(s.charAt(i) == File.separatorChar) {
-                    last = i;
-                    break;
-                }
+        }
 
-            appCD.setText(s.substring(0,last));
-            }
+        appCD.setText(s.substring(0, last));
     }
+
 }//GEN-LAST:event_jButton3ActionPerformed
 
     

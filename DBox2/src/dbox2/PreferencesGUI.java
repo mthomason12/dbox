@@ -136,10 +136,6 @@ public class PreferencesGUI extends javax.swing.JDialog {
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(cmdBrowse)
                         .addContainerGap())))
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(396, Short.MAX_VALUE)
-                .add(cmdConfirm)
-                .addContainerGap())
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(chkFullscreen, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
@@ -148,6 +144,10 @@ public class PreferencesGUI extends javax.swing.JDialog {
                 .addContainerGap()
                 .add(chkKeepOpen, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
                 .add(3, 3, 3))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(396, Short.MAX_VALUE)
+                .add(cmdConfirm)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -163,27 +163,21 @@ public class PreferencesGUI extends javax.swing.JDialog {
                 .add(chkKeepOpen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(7, 7, 7)
                 .add(chkFullscreen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(73, 73, 73)
+                .add(28, 28, 28)
                 .add(cmdConfirm)
-                .add(17, 17, 17))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
 private void cmdBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBrowseActionPerformed
-
-    final JFileChooser fc = new JFileChooser();
-    int returnVal = fc.showOpenDialog(this);
-    
-    if (returnVal == JFileChooser.APPROVE_OPTION) {
-        File file = fc.getSelectedFile();
-        String s = file.getAbsolutePath();
-        if(s.endsWith("app"))
-                s+="/Contents/MacOS/DOSBox";
-        txtDosBoxPath.setText(s);
+    String file = helperClass.getFileAWT(this);
+    if(file != null) {
+            if(file.endsWith("app"))
+                    file+="/Contents/MacOS/DOSBox";
+            txtDosBoxPath.setText(file);
     }
-
 }//GEN-LAST:event_cmdBrowseActionPerformed
 
 private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConfirmActionPerformed
