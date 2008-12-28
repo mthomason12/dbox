@@ -3,9 +3,9 @@
 
 = Introduction =
 
-D-Box is a Java program, which means it runs on many different platforms. We currently only ship D-Box in Java's own JAR format, and have currently not used any time to make it run more like a native application (i.e. exe file on Windows).
+D-Box is a Java program, which means it runs on many different platforms. We currently ship D-Box in Java's own JAR format for use on all platforms, and a version that works only on Windows. This document focuses on using the JAR version.
 
-But don't worry, it's still super easy to use, execute and install!
+The Windows version is exactly the same version, but it is wrapped as a standard exe file using JSmooth (http://jsmooth.sourceforge.net).
 
 
 = How to install =
@@ -18,7 +18,7 @@ What you need:
 
 What to do:
   * Download the newest D-Box
-  * Unzip the archive into a nice folder (i.e. C:\games\dbox on Windows)
+  * Unzip the archive into a nice folder (i.e. ~\dbox)
   * Double-click on dbox.jar
   * Follow the instructions on the screen
 
@@ -31,4 +31,4 @@ What to do:
   * Windows tell me that dbox.jar is an archive, and want to extract it!
     # Jar is actually a zipped file, but it is structured in a special way that makes it able to "run" like a native application. If your operating system tries to extract the file, try one of the following methods:
     # Right click on the file and select "open as.." and then "Jar Launcher" (or something similar)
-    # Open your favorite terminal (Start > Run > type "cmd", on Windows), navigate to the dbox directory and type java -jar dbox.jar
+    # Open your favorite terminal, navigate to the dbox directory and type java -jar dbox.jar
