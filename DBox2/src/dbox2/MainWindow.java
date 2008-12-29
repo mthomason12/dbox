@@ -130,7 +130,6 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void writeConfig(String filename, int cpucycles, boolean fullscreen, String dir, String extra, int skip){
         String ut;
-        System.out.println("Skriver cfg fil til " + filename);
         // CPU
         ut = "[CPU]\n" +
              "cycles="+cpucycles+"\n\n";
@@ -561,6 +560,17 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
             return;
 
     }
+
+    if(bl.getNrGames() == 0) {
+        int answ = JOptionPane.showConfirmDialog(this,
+                   "To make D-Box useful, you got to add a game or two. Do you want to add one now?",
+                   null, JOptionPane.YES_NO_OPTION);
+        if(answ == JOptionPane.YES_OPTION) {
+            mnuNewActionPerformed(null);
+        }
+        return;
+
+    }
     DosItem di = bl.getGame((String)gameList.getSelectedValue());
         writeConfig(
                     getCurrentDir() + File.separator + "dosbox.conf",
@@ -574,19 +584,16 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         par[0] = pref.getDosBoxPath();
         par[1] = "-c";
         par[2] = "@echo Go go go!";
-        System.out.println(par[2]);
         par[3] = "-c";
         par[4] = "c:";
         par[5] = "-c";
         par[6] = di.getGame();
       
         if(!pref.isKeepOpen()){
-            System.out.println("hold!");
             par[7] = "-c";
             par[8] = "exit";
         }
         else {
-            System.out.println("ikke hold!");
             par[7] = "-c";
             par[8] = "@echo Keep on rockin'!";
         }

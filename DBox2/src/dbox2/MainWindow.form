@@ -202,9 +202,6 @@
           <Image iconType="3" name="/dbox2/img/title.jpg"/>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
-        <Property name="componentPopupMenu" type="javax.swing.JPopupMenu" editor="org.netbeans.modules.form.ComponentChooserEditor">
-          <ComponentRef name="prefMenu"/>
-        </Property>
       </Properties>
       <BindingProperties>
         <BindingProperty name="componentPopupMenu" source="mnuWeb" target="jLabel3" targetPath="componentPopupMenu" updateStrategy="0" immediately="false"/>
