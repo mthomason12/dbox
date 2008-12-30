@@ -38,9 +38,12 @@ public class MainWindow extends javax.swing.JFrame {
     
     /** Creates new form MainWindow */
     public MainWindow() {
+
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/ikon.gif")).getImage());
         
         try {
             initComponents();
+            
         }
         catch(Exception e) {
             pack();
