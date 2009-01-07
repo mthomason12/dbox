@@ -6,3 +6,5 @@
 D-Box is completely open source, which means that you can take the source code and modify it. I created D-Box using [http://netbeans.org Netbeans 7], so I recommend everybody to use the same tool if you want to start hacking.
 
 If you make any useful changes, please contact me! (i.e. add a comment on this page)
+
+Most of the fun stuff is in MainWindow.java:)
