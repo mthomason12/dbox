@@ -26,6 +26,7 @@ public class MainWindow extends javax.swing.JFrame {
     public static BoxListe bl = new BoxListe();
     public static Preferences pref = new Preferences();
 
+
     //images
     Icon fileEnabled;
     Icon fileDisabled;
@@ -169,7 +170,7 @@ public class MainWindow extends javax.swing.JFrame {
         gameList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = bl.getGameList();
             public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+            public Object getElementAt(int i) { if(strings[i].equals("")) return "(untitled)"; else return strings[i]; }
         });
         skrivObjekt("database.dat", bl);
     }
@@ -268,7 +269,8 @@ public class MainWindow extends javax.swing.JFrame {
         prefMenu.add(mnuPreferences);
         prefMenu.add(jSeparator1);
 
-        mnuAbout.setText("D-Box version 1.6");
+        mnuAbout.setText("D-Box version 1.7");
+        mnuAbout.setActionCommand("D-Box version 1.7");
         mnuAbout.setEnabled(false);
         prefMenu.add(mnuAbout);
 
@@ -315,7 +317,6 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/title.jpg"))); // NOI18N
         jLabel3.setToolTipText("");
-        jLabel3.setComponentPopupMenu(prefMenu);
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, mnuWeb, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel3, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
         bindingGroup.addBinding(binding);
@@ -612,7 +613,11 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_mnuRunActionPerformed
 
 private void mnuEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuEditActionPerformed
-    ItemGUI ui = new ItemGUI(bl.removeGame((String)gameList.getSelectedValue()), this);
+    String gm = "";
+    if(!((String)gameList.getSelectedValue()).equals("(untitled)"))
+        gm = (String)gameList.getSelectedValue();
+
+    ItemGUI ui = new ItemGUI(bl.removeGame(gm), this);
     ui.setVisible(true);
     ui = null;
     updateList();
@@ -630,8 +635,11 @@ private void mnuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_txtSearchKeyReleased
 
 private void mnuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDeleteActionPerformed
+    String gm = "";
+    if(!((String)gameList.getSelectedValue()).equals("(untitled)"))
+        gm = (String)gameList.getSelectedValue();
 
-    bl.removeGame((String)gameList.getSelectedValue());
+    bl.removeGame(gm);
     updateList();
 }//GEN-LAST:event_mnuDeleteActionPerformed
 

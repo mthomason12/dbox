@@ -172,7 +172,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
 private void cmdBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBrowseActionPerformed
-    String file = helperClass.getFileAWT(this);
+    String file = helperClass.getFileAWTDosBox(this);
     if(file != null) {
             if(file.endsWith("app"))
                     file+="/Contents/MacOS/DOSBox";

@@ -150,6 +150,7 @@ public class ItemGUI extends javax.swing.JDialog {
         jLabel6.setToolTipText("How fast should the emulated\ncomputer be? If you draw the slider\nto the left, it will be slower, and to\nthe right it will be faster");
 
         sldCycles.setMaximum(15000);
+        sldCycles.setMinimum(1);
         sldCycles.setToolTipText("3000 CPU Cycles");
         sldCycles.setValue(3000);
         sldCycles.addPropertyChangeListener(new java.beans.PropertyChangeListener() {

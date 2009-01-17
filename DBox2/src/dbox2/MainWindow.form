@@ -89,7 +89,8 @@
         </Component>
         <MenuItem class="javax.swing.JMenuItem" name="mnuAbout">
           <Properties>
-            <Property name="text" type="java.lang.String" value="D-Box version 1.6"/>
+            <Property name="text" type="java.lang.String" value="D-Box version 1.7"/>
+            <Property name="actionCommand" type="java.lang.String" value="D-Box version 1.7"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </MenuItem>
