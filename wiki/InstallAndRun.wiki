@@ -5,7 +5,7 @@
 
 D-Box is a Java program, which means it runs on many different platforms. We currently ship D-Box in Java's own JAR format for use on all platforms, and a version that works only on Windows. This document focuses on using the JAR version.
 
-The Windows version is exactly the same version, but it is wrapped as a standard exe file using JSmooth (http://jsmooth.sourceforge.net).
+The Windows version is exactly the same as the jar version, but it is packed as a familiar setup file which creates shortcut icons in the start menu and on the desktop (optional).
 
 
 = How to install =
