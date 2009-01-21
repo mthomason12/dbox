@@ -50,6 +50,9 @@ public class MainWindow extends javax.swing.JFrame {
             pack();
         }
 
+        // Images in the list!
+        gameList.setCellRenderer(new ImageRenderer());
+
         // Set up images
         runEnabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start.png"));
         runDisabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start-disabled.png"));
