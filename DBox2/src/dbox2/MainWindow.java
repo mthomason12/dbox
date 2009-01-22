@@ -6,16 +6,25 @@
 
 package dbox2;
 
-import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.ListCellRenderer;
 
 /**
  *
@@ -25,6 +34,8 @@ public class MainWindow extends javax.swing.JFrame {
     
     public static BoxListe bl = new BoxListe();
     public static Preferences pref = new Preferences();
+    BufferedImage[] images;
+
 
 
     //images
@@ -42,16 +53,21 @@ public class MainWindow extends javax.swing.JFrame {
 
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/ikon.gif")).getImage());
         
+        //createIconList();
+
         try {
             initComponents();
             
         }
-        catch(Exception e) {
+        catch(java.lang.ClassCastException e) {
             pack();
         }
+        
+
+        //this.jLabel2.setIcon(loadImage("/Users/Truben/Prince-of-Persia-48x48.png"));
 
         // Images in the list!
-        gameList.setCellRenderer(new ImageRenderer());
+        //gameList.setCellRenderer(new ImageRenderer());
 
         // Set up images
         runEnabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start.png"));
@@ -168,8 +184,34 @@ public class MainWindow extends javax.swing.JFrame {
         }
         
     }
+
+    private void createIconList() {
+        String[] strings = bl.getGameList();
+        images = new BufferedImage[bl.getNrGames()];
+        for(int i = 0; i < images.length;i++) {
+
+            if(bl.getGame(strings[i]).getIcon().equals(""))
+                try {
+                    images[i] = ImageIO.read(getClass().getResource("/dbox2/img/application-x-executable.png"));
+                } catch (IOException ex) {
+                    System.out.println("Føkk!!!");
+            }
+            else
+                try {
+                    images[i] = ImageIO.read(getClass().getResource(bl.getGame(strings[i]).getIcon()));
+                } catch (IOException ex) {
+                try {
+                    images[i] = ImageIO.read(getClass().getResource("/dbox2/img/application-x-executable.png"));
+                } catch (IOException ex1) {
+                    System.out.println("Icon file not found");
+                }
+            }
+        }
+    }
     
-    private void updateList() {
+    private void updateList()  {
+        
+        
         gameList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = bl.getGameList();
             public int getSize() { return strings.length; }
@@ -212,6 +254,7 @@ public class MainWindow extends javax.swing.JFrame {
         mnuDosbox = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         gameList = new javax.swing.JList();
+        gameList.setCellRenderer(new GameListRenderer());
         jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         txtSearch = new javax.swing.JTextField();
@@ -273,7 +316,6 @@ public class MainWindow extends javax.swing.JFrame {
         prefMenu.add(jSeparator1);
 
         mnuAbout.setText("D-Box version 1.7");
-        mnuAbout.setActionCommand("D-Box version 1.7");
         mnuAbout.setEnabled(false);
         prefMenu.add(mnuAbout);
 
@@ -542,6 +584,7 @@ private String getCurrentDir() {
      catch(Exception e) {
        e.printStackTrace();
        }
+
     return null;
 }
 
@@ -788,5 +831,27 @@ private void txtSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     private javax.swing.JTextField txtSearch;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
-    
+
+    public ImageIcon loadImage(String file) {
+        ImageIcon thumbnail  = new ImageIcon();
+
+        if (file == null) {
+            thumbnail = null;
+            return thumbnail;
+        }
+        //Don't use createImageIcon (which is a wrapper for getResource)
+        //because the image we're trying to load is probably not one
+        //of this program's own resources.
+        ImageIcon tmpIcon = new ImageIcon(file);
+        if (tmpIcon != null) {
+            if (tmpIcon.getIconWidth() > 22) {
+                thumbnail = new ImageIcon(tmpIcon.getImage().
+                                          getScaledInstance(22, -1,
+                                                      Image.SCALE_DEFAULT));
+            } else { //no need to miniaturize
+                thumbnail = tmpIcon;
+            }
+        }
+        return thumbnail;
+    }
 }

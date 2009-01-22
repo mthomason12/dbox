@@ -63,6 +63,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
         cmdBrowse = new javax.swing.JButton();
         chkKeepOpen = new javax.swing.JCheckBox();
         chkFullscreen = new javax.swing.JCheckBox();
+        chkFullscreen1 = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -86,7 +87,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
 
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18));
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Preferences");
 
@@ -122,6 +123,15 @@ public class PreferencesGUI extends javax.swing.JDialog {
         chkFullscreen.setToolTipText("If you check this, your programs will run in full screen.\nYou can toggle by using the key combination Alt + Enter");
         chkFullscreen.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
+        chkFullscreen1.setText("Hide icons in game list");
+        chkFullscreen1.setToolTipText("If you check this, your programs will run in full screen.\nYou can toggle by using the key combination Alt + Enter");
+        chkFullscreen1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        chkFullscreen1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkFullscreen1ActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -144,6 +154,10 @@ public class PreferencesGUI extends javax.swing.JDialog {
                 .addContainerGap()
                 .add(chkKeepOpen, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
                 .add(3, 3, 3))
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(chkFullscreen1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(396, Short.MAX_VALUE)
                 .add(cmdConfirm)
@@ -163,7 +177,9 @@ public class PreferencesGUI extends javax.swing.JDialog {
                 .add(chkKeepOpen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(7, 7, 7)
                 .add(chkFullscreen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(28, 28, 28)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(chkFullscreen1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(cmdConfirm)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -192,11 +208,16 @@ private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
 private void txtDosBoxPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDosBoxPathActionPerformed
     
 }//GEN-LAST:event_txtDosBoxPathActionPerformed
+
+private void chkFullscreen1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFullscreen1ActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_chkFullscreen1ActionPerformed
     
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox chkFullscreen;
+    private javax.swing.JCheckBox chkFullscreen1;
     private javax.swing.JCheckBox chkKeepOpen;
     private javax.swing.JButton cmdBrowse;
     private javax.swing.JButton cmdConfirm;

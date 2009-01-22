@@ -193,6 +193,10 @@
             <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="gameListMouseReleased"/>
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="Double"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JList()"/>
+            <AuxValue name="JavaCodeGenerator_CreateCodePost" type="java.lang.String" value="gameList.setCellRenderer(new GameListRenderer());"/>
+          </AuxValues>
         </Component>
       </SubComponents>
     </Container>
