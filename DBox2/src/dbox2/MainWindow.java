@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
 public class MainWindow extends javax.swing.JFrame {
     
     public static BoxListe bl = new BoxListe();
-    public static Preferences pref = new Preferences();
+    public static NewPreferences pref = new NewPreferences();
     BufferedImage[] images;
 
 
@@ -46,8 +46,6 @@ public class MainWindow extends javax.swing.JFrame {
     public MainWindow() {
 
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/ikon.gif")).getImage());
-        
-        //createIconList();
 
         try {
             initComponents();
@@ -58,10 +56,7 @@ public class MainWindow extends javax.swing.JFrame {
         }
         
 
-        //this.jLabel2.setIcon(loadImage("/Users/Truben/Prince-of-Persia-48x48.png"));
-
         // Images in the list!
-        //gameList.setCellRenderer(new ImageRenderer());
 
         // Set up images
         runEnabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start.png"));
@@ -74,7 +69,13 @@ public class MainWindow extends javax.swing.JFrame {
 
 
         bl = deSerialize("database.dat");
-        pref = deSerializePref("preferences.dat");
+        //Preferences oldpref = deSerializePref("preferences.dat");
+        pref.readConfig("dbox.config");
+        try {
+            pref.writeConfig("dbox.config");
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
         centerScreen();
         updateList();
     }
@@ -547,6 +548,7 @@ private void mnuPrefsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     prf.setModal(true);
     prf.setVisible(true);
     prf = null;
+
     skrivObjekt("preferences.dat", pref);
 }//GEN-LAST:event_mnuPrefsActionPerformed
 

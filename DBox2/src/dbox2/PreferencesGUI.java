@@ -197,7 +197,7 @@ private void cmdBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_cmdBrowseActionPerformed
 
 private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConfirmActionPerformed
-    Preferences p = new Preferences();
+    NewPreferences p = new NewPreferences();
     p.setDosBoxPath(txtDosBoxPath.getText());
     p.setKeepOpen(chkKeepOpen.isSelected());
     p.setFullScreen(chkFullscreen.isSelected());
