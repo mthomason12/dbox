@@ -90,7 +90,42 @@ public class helperClass {
         }
     }
 
+        public static String getFileAWTIcon(java.awt.Component c) {
+        if(isMac()) {
+            FileDialog fd = new FileDialog((Frame)c.getParent(), "Select File", FileDialog.LOAD);
+            if(!currentDir.equals(""))
+                fd.setDirectory(currentDir); // back to where we were
+            fd.pack();
+            fd.setVisible(true);
+
+            //lastdir = fd.getDirectory();
+            if (fd.getFile() != null){
+                currentDir = fd.getDirectory();
+                return fd.getDirectory() + fd.getFile();}
+            else
+                return null;
+        }
+        else {
+            final JFileChooser fc = new JFileChooser();
+            if(!currentDir.equals(""))
+                fc.setCurrentDirectory(new File(currentDir)); // back to where we were
+            fc.addChoosableFileFilter(new IconFilteret());
+            int returnVal = fc.showOpenDialog(c);
+
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                currentDir = file.getAbsolutePath();
+                return file.getAbsolutePath();
+            }
+            else
+                return null;
+        }
+    }
+
+
 }
+
+
 
 class Filteret extends javax.swing.filechooser.FileFilter {
         public boolean accept(File file) {
@@ -110,6 +145,28 @@ class Filteret extends javax.swing.filechooser.FileFilter {
             return "Executable DOS files (*.exe, *.com, *.bat)";
         }
     }
+
+class IconFilteret extends javax.swing.filechooser.FileFilter {
+        public boolean accept(File file) {
+            String filename = file.getName().toLowerCase();
+            if(file.isDirectory())
+                return true;
+            if(filename.endsWith(".ico"))
+                return true;
+            if(filename.endsWith(".gif"))
+                return true;
+            if(filename.endsWith(".png"))
+                return true;
+            if(filename.endsWith(".jpg"))
+                return true;
+
+            return false;
+        }
+        public String getDescription() {
+            return "Icon files (*.ico, *.gif, *.png, *.jpg)";
+        }
+    }
+
 class DosBoxFilteret extends javax.swing.filechooser.FileFilter {
         public boolean accept(File file) {
             String filename = file.getName().toLowerCase();

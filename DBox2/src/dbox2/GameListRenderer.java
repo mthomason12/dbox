@@ -6,9 +6,15 @@
 package dbox2;
 
 import java.awt.Component;
-import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
+import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
+
 
 /**
  *
@@ -27,12 +33,26 @@ import javax.swing.*;
      {
          String s = value.toString();
          setText(s);
-         String ikon = MainWindow.bl.getGame(s).getIcon();
+         String ikon = "";
+         if(MainWindow.bl.getGame(s) != null)
+            ikon = MainWindow.bl.getGame(s).getIcon();
          if(ikon.equals(""))
-             setIcon(defaultIcon); // NOI18N
+             setIcon(defaultIcon);
          else {
              //try {
-                ImageIcon ii = new ImageIcon(ikon);
+                ImageIcon ii = defaultIcon;
+                if(ikon.toLowerCase().endsWith("ico")) { // If the file is a ICO file
+                    try {
+                        ImageInputStream in = ImageIO.createImageInputStream(new FileInputStream(new File(ikon)));
+                        ICOFile f;
+                        f = new ICOFile(in);
+                        IconEntry ie = f.getEntry(0);
+                        ii = new ImageIcon(ie.getBitmap().getImage());
+                    } catch (IOException ex) {
+                    }
+                }
+                else
+                    ii = new ImageIcon(ikon);
 
                 BufferedImage bi = new BufferedImage(22, 22,
                 BufferedImage.TYPE_INT_ARGB);
@@ -40,7 +60,7 @@ import javax.swing.*;
                 ii = new ImageIcon(bi);
 
                 setIcon(ii);
-                System.out.println(ikon);
+                //System.out.println(ikon);
              //}
              //catch(Exception e) {
                  //System.out.println("Icon for " + s + " not found! -> " + ikon);

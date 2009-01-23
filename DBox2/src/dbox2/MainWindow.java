@@ -553,11 +553,12 @@ private void mnuPrefsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void mnuSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSetupActionPerformed
     
     DosItem di = bl.getGame((String)gameList.getSelectedValue());
+    System.out.println("jo!"+di.getPath());
     
         String[] par = new String[7];
         par[0] = pref.getDosBoxPath();
         par[1] = "-c";
-        par[2] = "mount c: \"" + di.getPath()+"\"";
+        par[2] = "mount c \"" + di.getPath()+"\"";
         par[3] = "-c";
         par[4] = "c:";
         par[5] = "-c";
