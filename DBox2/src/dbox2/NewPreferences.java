@@ -50,25 +50,21 @@ public class NewPreferences implements Serializable {
             if(io.trim().startsWith("#"))
                 continue; // Comment
 
-            Scanner line = new Scanner(io.trim().toLowerCase());
-            line.useDelimiter(":");
-            String keyword = line.next();
-            System.out.println("Keyword: " + keyword);
-
-            if(keyword.equals("dosboxpath"))
-                DosBoxPath = line.next().trim();
-            else if(keyword.equals("iconwidth"))
-                IconWidth = Integer.parseInt(line.next().trim());
-            else if(keyword.equals("iconheight"))
-                IconHeight = Integer.parseInt(line.next().trim());
-            else if(keyword.equals("iconresize"))
-                IconResize = Boolean.parseBoolean(line.next().trim());
-            else if(keyword.equals("showicons"))
-                ShowIcons = Boolean.parseBoolean(line.next().trim());
-            else if(keyword.equals("fullscreen"))
-                FullScreen = Boolean.parseBoolean(line.next().trim());
-            else if(keyword.equals("keepopen"))
-                KeepOpen = Boolean.parseBoolean(line.next().trim());
+            String parts[] = io.toLowerCase().split(":");
+            if(parts[0].equals("dosboxpath"))
+                DosBoxPath = parts[1].trim();
+            else if(parts[0].equals("iconwidth"))
+                IconWidth = Integer.parseInt(parts[1].trim());
+            else if(parts[0].equals("iconheight"))
+                IconHeight = Integer.parseInt(parts[1].trim());
+            else if(parts[0].equals("iconresize"))
+                IconResize = Boolean.parseBoolean(parts[1].trim());
+            else if(parts[0].equals("showicons"))
+                ShowIcons = Boolean.parseBoolean(parts[1].trim());
+            else if(parts[0].equals("fullscreen"))
+                FullScreen = Boolean.parseBoolean(parts[1].trim());
+            else if(parts[0].equals("keepopen"))
+                KeepOpen = Boolean.parseBoolean(parts[1].trim());
 
         }
     }
@@ -77,7 +73,8 @@ public class NewPreferences implements Serializable {
         return       "# D-Box' config file. Please handle with care!\n" +
                      "DosBoxPath: " + DosBoxPath + "\n" +
                      "KeepOpen: " + KeepOpen + "\n" +
-                     "FullScreen: " + ShowIcons + "\n" +
+                     "FullScreen: " + FullScreen + "\n" +
+                     "ShowIcons: " + ShowIcons + "\n" +
                      "IconWidth: " + IconWidth + "\n" +
                      "IconHeight: " + IconHeight + "\n" +
                      "IconResize: " + IconResize;
