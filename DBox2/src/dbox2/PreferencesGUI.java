@@ -7,7 +7,9 @@
 package dbox2;
 
 import java.awt.*;
-import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -22,7 +24,13 @@ public class PreferencesGUI extends javax.swing.JDialog {
         txtDosBoxPath.setText(MainWindow.pref.getDosBoxPath());
         chkKeepOpen.setSelected(MainWindow.pref.isKeepOpen());
         chkFullscreen.setSelected(MainWindow.pref.isFullScreen());
+        chkShowIcons.setSelected(MainWindow.pref.isShowIcons());
         centerScreen();
+        try {
+            MainWindow.pref.writeConfig("dbox.config");
+        } catch (IOException ex) {
+            System.out.println("Error writing config file!");
+        }
     }
     
     /**
@@ -63,7 +71,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
         cmdBrowse = new javax.swing.JButton();
         chkKeepOpen = new javax.swing.JCheckBox();
         chkFullscreen = new javax.swing.JCheckBox();
-        chkFullscreen1 = new javax.swing.JCheckBox();
+        chkShowIcons = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -98,7 +106,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel5)
-                .addContainerGap(368, Short.MAX_VALUE))
+                .addContainerGap(372, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -123,12 +131,12 @@ public class PreferencesGUI extends javax.swing.JDialog {
         chkFullscreen.setToolTipText("If you check this, your programs will run in full screen.\nYou can toggle by using the key combination Alt + Enter");
         chkFullscreen.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        chkFullscreen1.setText("Hide icons in game list");
-        chkFullscreen1.setToolTipText("If you check this, your programs will run in full screen.\nYou can toggle by using the key combination Alt + Enter");
-        chkFullscreen1.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        chkFullscreen1.addActionListener(new java.awt.event.ActionListener() {
+        chkShowIcons.setText("Show icons in game list");
+        chkShowIcons.setToolTipText("If you check this, your programs will run in full screen.\nYou can toggle by using the key combination Alt + Enter");
+        chkShowIcons.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        chkShowIcons.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                chkFullscreen1ActionPerformed(evt);
+                chkShowIconsActionPerformed(evt);
             }
         });
 
@@ -142,13 +150,13 @@ public class PreferencesGUI extends javax.swing.JDialog {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel1)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(txtDosBoxPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 354, Short.MAX_VALUE)
+                        .add(txtDosBoxPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 384, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(cmdBrowse)
                         .addContainerGap())))
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(chkFullscreen, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                .add(chkFullscreen, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
                 .addContainerGap())
             .add(layout.createSequentialGroup()
                 .addContainerGap()
@@ -156,10 +164,10 @@ public class PreferencesGUI extends javax.swing.JDialog {
                 .add(3, 3, 3))
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(chkFullscreen1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 455, Short.MAX_VALUE)
+                .add(chkShowIcons, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(396, Short.MAX_VALUE)
+                .addContainerGap(420, Short.MAX_VALUE)
                 .add(cmdConfirm)
                 .addContainerGap())
         );
@@ -178,7 +186,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
                 .add(7, 7, 7)
                 .add(chkFullscreen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(chkFullscreen1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(chkShowIcons, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(cmdConfirm)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -201,6 +209,7 @@ private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     p.setDosBoxPath(txtDosBoxPath.getText());
     p.setKeepOpen(chkKeepOpen.isSelected());
     p.setFullScreen(chkFullscreen.isSelected());
+    p.setShowIcons(chkShowIcons.isSelected());
     MainWindow.pref = p;
     this.setVisible(false);
 }//GEN-LAST:event_cmdConfirmActionPerformed
@@ -209,16 +218,16 @@ private void txtDosBoxPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN
     
 }//GEN-LAST:event_txtDosBoxPathActionPerformed
 
-private void chkFullscreen1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkFullscreen1ActionPerformed
+private void chkShowIconsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkShowIconsActionPerformed
     // TODO add your handling code here:
-}//GEN-LAST:event_chkFullscreen1ActionPerformed
+}//GEN-LAST:event_chkShowIconsActionPerformed
     
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox chkFullscreen;
-    private javax.swing.JCheckBox chkFullscreen1;
     private javax.swing.JCheckBox chkKeepOpen;
+    private javax.swing.JCheckBox chkShowIcons;
     private javax.swing.JButton cmdBrowse;
     private javax.swing.JButton cmdConfirm;
     private javax.swing.JLabel jLabel1;

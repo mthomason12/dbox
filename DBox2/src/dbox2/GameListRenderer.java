@@ -33,39 +33,44 @@ import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
      {
          String s = value.toString();
          setText(s);
-         String ikon = "";
-         if(MainWindow.bl.getGame(s) != null)
-            ikon = MainWindow.bl.getGame(s).getIcon();
-         if(ikon.equals(""))
-             setIcon(defaultIcon);
-         else {
-             //try {
-                ImageIcon ii = defaultIcon;
-                if(ikon.toLowerCase().endsWith("ico")) { // If the file is a ICO file
-                    try {
-                        ImageInputStream in = ImageIO.createImageInputStream(new FileInputStream(new File(ikon)));
-                        ICOFile f;
-                        f = new ICOFile(in);
-                        IconEntry ie = f.getEntry(0);
-                        ii = new ImageIcon(ie.getBitmap().getImage());
-                    } catch (IOException ex) {
+         if(MainWindow.pref.isShowIcons()) {
+             String ikon = "";
+             if(MainWindow.bl.getGame(s) != null)
+                ikon = MainWindow.bl.getGame(s).getIcon();
+             if(ikon.equals(""))
+                 setIcon(defaultIcon);
+             else {
+                 //try {
+                    ImageIcon ii = defaultIcon;
+                    if(ikon.toLowerCase().endsWith("ico")) { // If the file is a ICO file
+                        try {
+                            ImageInputStream in = ImageIO.createImageInputStream(new FileInputStream(new File(ikon)));
+                            ICOFile f;
+                            f = new ICOFile(in);
+                            IconEntry ie = f.getEntry(0);
+                            ii = new ImageIcon(ie.getBitmap().getImage());
+                        } catch (IOException ex) {
+                        }
                     }
-                }
-                else
-                    ii = new ImageIcon(ikon);
+                    else
+                        ii = new ImageIcon(ikon);
 
-                BufferedImage bi = new BufferedImage(22, 22,
-                BufferedImage.TYPE_INT_ARGB);
-                bi.getGraphics().drawImage(ii.getImage(), 0, 0, 22, 22, null);
-                ii = new ImageIcon(bi);
+                    BufferedImage bi = new BufferedImage(22, 22,
+                    BufferedImage.TYPE_INT_ARGB);
+                    bi.getGraphics().drawImage(ii.getImage(), 0, 0, 22, 22, null);
+                    ii = new ImageIcon(bi);
 
-                setIcon(ii);
-                //System.out.println(ikon);
-             //}
-             //catch(Exception e) {
-                 //System.out.println("Icon for " + s + " not found! -> " + ikon);
-                 //setIcon(defaultIcon);
-             //}
+                    setIcon(ii);
+                    //System.out.println(ikon);
+                 //}
+                 //catch(Exception e) {
+                     //System.out.println("Icon for " + s + " not found! -> " + ikon);
+                     //setIcon(defaultIcon);
+                 //}
+             }
+         }
+         else {
+             setIcon(null);
          }
 
          if (isSelected) {

@@ -50,7 +50,7 @@ public class NewPreferences implements Serializable {
             if(io.trim().startsWith("#"))
                 continue; // Comment
 
-            String parts[] = io.toLowerCase().split(":");
+            String parts[] = io.toLowerCase().split(":=");
             if(parts[0].equals("dosboxpath"))
                 DosBoxPath = parts[1].trim();
             else if(parts[0].equals("iconwidth"))
@@ -71,13 +71,13 @@ public class NewPreferences implements Serializable {
 
     public String toString() {
         return       "# D-Box' config file. Please handle with care!\n" +
-                     "DosBoxPath: " + DosBoxPath + "\n" +
-                     "KeepOpen: " + KeepOpen + "\n" +
-                     "FullScreen: " + FullScreen + "\n" +
-                     "ShowIcons: " + ShowIcons + "\n" +
-                     "IconWidth: " + IconWidth + "\n" +
-                     "IconHeight: " + IconHeight + "\n" +
-                     "IconResize: " + IconResize;
+                     "DosBoxPath:= " + DosBoxPath + "\n" +
+                     "KeepOpen:= " + KeepOpen + "\n" +
+                     "FullScreen:= " + FullScreen + "\n" +
+                     "ShowIcons:= " + ShowIcons + "\n" +
+                     "IconWidth:= " + IconWidth + "\n" +
+                     "IconHeight:= " + IconHeight + "\n" +
+                     "IconResize:= " + IconResize;
     }
 
     public boolean isFullScreen() {
