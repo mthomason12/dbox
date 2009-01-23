@@ -6,6 +6,8 @@
 package dbox2;
 
 import java.awt.Component;
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
 import javax.swing.*;
 
 /**
@@ -31,6 +33,12 @@ import javax.swing.*;
          else {
              //try {
                 ImageIcon ii = new ImageIcon(ikon);
+
+                BufferedImage bi = new BufferedImage(22, 22,
+                BufferedImage.TYPE_INT_ARGB);
+                bi.getGraphics().drawImage(ii.getImage(), 0, 0, 22, 22, null);
+                ii = new ImageIcon(bi);
+
                 setIcon(ii);
                 System.out.println(ikon);
              //}
@@ -53,6 +61,4 @@ import javax.swing.*;
          setOpaque(true);
          return this;
      }
-
-
  }

@@ -6,7 +6,6 @@
 
 package dbox2;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Rectangle;
@@ -14,17 +13,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
-import javax.swing.ListCellRenderer;
 
 /**
  *
@@ -753,7 +747,8 @@ private void gameListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 }//GEN-LAST:event_gameListMouseReleased
 
 private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-
+    AboutWindow aw = new AboutWindow(this,true);
+    aw.setVisible(true);
 }//GEN-LAST:event_jLabel3MouseClicked
 
 private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered

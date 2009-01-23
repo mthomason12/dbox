@@ -3,9 +3,6 @@ package dbox2;
  * Preferences.java
  *
  * Created on 8. juni 2007, 16:39
- *
- * To change this template, choose Tools | Template Manager
- * and open the template in the editor.
  */
 
 /**
