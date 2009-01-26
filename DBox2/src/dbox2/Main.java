@@ -12,10 +12,8 @@ import javax.swing.*;
  */
 public class Main {
 
-    /** Creates a new instance of Main */
-    public Main() {
-        
-    }
+    public static final int MAJORVERSION = 1;
+    public static final int MINORVERSION = 7;
 
     /**
      * @param args the command line arguments

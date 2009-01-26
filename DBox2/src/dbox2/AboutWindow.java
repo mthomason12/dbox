@@ -34,14 +34,17 @@ public class AboutWindow extends javax.swing.JDialog {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About");
 
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, 24));
-        jLabel1.setText("D-Box");
+        jLabel1.setText("D-Box " + Main.MAJORVERSION + "." + Main.MINORVERSION + "");
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel2.setText("Code and design by Truben (www.truben.no)");
+        jLabel2.setText("Code and design by Peder Skeidsvoll (truben.no)");
 
         jLabel3.setText("Uses ICOReader lib by J.B. van der Burgh (http://www.vdburgh.net/2/f/files/ICOReader)");
 
@@ -49,6 +52,17 @@ public class AboutWindow extends javax.swing.JDialog {
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Licenced under Mozilla Public Licence 1.1 (http://www.mozilla.org/MPL/MPL-1.1.html)");
+
+        jLabel5.setFont(jLabel5.getFont());
+        jLabel5.setForeground(new java.awt.Color(0, 0, 255));
+        jLabel5.setText("Visit D-Box' homepage");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
             }
         });
 
@@ -60,27 +74,39 @@ public class AboutWindow extends javax.swing.JDialog {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel1)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(jLabel2)
-                            .add(jLabel3)))
+                            .add(jLabel3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jLabel4))
+                    .add(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .add(193, 193, 193)
-                        .add(jButton1)))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(jButton1))
+                    .add(layout.createSequentialGroup()
+                        .add(172, 172, 172)
+                        .add(jLabel5)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel1)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(11, 11, 11)
                 .add(jLabel2)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel3)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel4)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jLabel5)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 13, Short.MAX_VALUE)
                 .add(jButton1)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -89,6 +115,10 @@ public class AboutWindow extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+        BrowserControl.openUrl("http://dbox.googlecode.com");
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     public void centerScreen() {
     	  Dimension dim = getToolkit().getScreenSize();
@@ -102,6 +132,8 @@ public class AboutWindow extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     // End of variables declaration//GEN-END:variables
     
 }

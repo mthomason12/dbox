@@ -34,19 +34,12 @@ import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
          String s = value.toString();
          setText(s);
          if(MainWindow.pref.isShowIcons()) {
+             setSize(this.getWidth(), MainWindow.pref.getIconHeight());
              String ikon = "";
              if(MainWindow.bl.getGame(s) != null)
                 ikon = MainWindow.bl.getGame(s).getIcon();
              if(ikon.equals("")) {
-                 setIcon(defaultIcon);
-                 int width = MainWindow.pref.getIconWidth();
-                 int height = MainWindow.pref.getIconHeight();
-
-                 BufferedImage bi = new BufferedImage(width, height,
-                 BufferedImage.TYPE_INT_ARGB);
-                 bi.getGraphics().drawImage(defaultIcon.getImage(), 0, 0, width, height, null);
-
-                 setIcon(new ImageIcon(bi));
+                 setIcon(resizeIcon(defaultIcon));
              }
              else {
                  //try {
@@ -59,20 +52,13 @@ import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
                             IconEntry ie = f.getEntry(0);
                             ii = new ImageIcon(ie.getBitmap().getImage());
                         } catch (IOException ex) {
+                            System.out.println("Error reading icon " + ikon);
                         }
                     }
                     else
                         ii = new ImageIcon(ikon);
 
-                    int width = MainWindow.pref.getIconWidth();
-                    int height = MainWindow.pref.getIconHeight();
-
-                    BufferedImage bi = new BufferedImage(width, height,
-                    BufferedImage.TYPE_INT_ARGB);
-                    bi.getGraphics().drawImage(ii.getImage(), 0, 0, width, height, null);
-                    ii = new ImageIcon(bi);
-
-                    setIcon(ii);
+                    setIcon(resizeIcon(ii));
              }
          }
          else {
@@ -88,8 +74,29 @@ import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
                setForeground(list.getForeground());
            }
            setEnabled(list.isEnabled());
+           setSize(this.getWidth(), MainWindow.pref.getIconHeight());
            setFont(list.getFont());
          setOpaque(true);
          return this;
+     }
+
+     /**
+      * Resizes a icon according to preferences
+      * @param icon icon that should be resized
+      * @return a resized icon
+      */
+     private ImageIcon resizeIcon(ImageIcon icon) {
+         if(MainWindow.pref.isIconResize()) {
+             int width = MainWindow.pref.getIconWidth();
+             int height = MainWindow.pref.getIconHeight();
+
+             BufferedImage bi = new BufferedImage(width, height,
+             BufferedImage.TYPE_INT_ARGB);
+             bi.getGraphics().drawImage(icon.getImage(), 0, 0, width, height, null);
+
+             return new ImageIcon(bi);
+         }
+         else
+             return icon;
      }
  }

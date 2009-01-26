@@ -310,8 +310,12 @@ public class MainWindow extends javax.swing.JFrame {
         prefMenu.add(mnuPreferences);
         prefMenu.add(jSeparator1);
 
-        mnuAbout.setText("D-Box version 1.7");
-        mnuAbout.setEnabled(false);
+        mnuAbout.setText("D-Box version " + Main.MAJORVERSION + "." + Main.MINORVERSION + "");
+        mnuAbout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuAboutActionPerformed(evt);
+            }
+        });
         prefMenu.add(mnuAbout);
 
         mnuWeb.setText("Web links");
@@ -340,17 +344,17 @@ public class MainWindow extends javax.swing.JFrame {
         gameList.setComponentPopupMenu(runMenu);
         gameList.setFocusCycleRoot(true);
         gameList.setNextFocusableComponent(txtSearch);
-        gameList.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                gameListKeyPressed(evt);
-            }
-        });
         gameList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Double(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 gameListMouseReleased(evt);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Double(evt);
+        });
+        gameList.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                gameListKeyPressed(evt);
             }
         });
         jScrollPane1.setViewportView(gameList);
@@ -469,7 +473,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(jLabel2)
                 .add(18, 18, 18)
                 .add(jLabel5)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 268, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 302, Short.MAX_VALUE)
                 .add(lblSearch)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtSearch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -490,7 +494,7 @@ public class MainWindow extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 584, Short.MAX_VALUE)
                 .addContainerGap())
             .add(layout.createSequentialGroup()
                 .addContainerGap()
@@ -519,8 +523,7 @@ public class MainWindow extends javax.swing.JFrame {
 }//GEN-LAST:event_lblSearchMouseClicked
 
 private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutActionPerformed
-    AboutWindow ass = new AboutWindow(this, true);
-    ass.setVisible(true);
+    jLabel3MouseClicked(null);
 }//GEN-LAST:event_mnuAboutActionPerformed
 
 private void Double(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Double
@@ -548,8 +551,12 @@ private void mnuPrefsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     prf.setModal(true);
     prf.setVisible(true);
     prf = null;
-
-    skrivObjekt("preferences.dat", pref);
+        try {
+            pref.writeConfig("dbox.config");
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    gameList.repaint();
 }//GEN-LAST:event_mnuPrefsActionPerformed
 
 private void mnuSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSetupActionPerformed
@@ -678,6 +685,9 @@ private void mnuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_txtSearchKeyReleased
 
 private void mnuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDeleteActionPerformed
+    int a = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove this game from the list?", "Please Confirm", JOptionPane.YES_NO_OPTION);
+    if(a == JOptionPane.NO_OPTION)
+        return;
     String gm = "";
     if(!((String)gameList.getSelectedValue()).equals("(untitled)"))
         gm = (String)gameList.getSelectedValue();
@@ -693,6 +703,8 @@ private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 private void gameListKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gameListKeyPressed
     if(evt.getKeyCode() == KeyEvent.VK_ENTER)
         mnuRunActionPerformed(null);
+    if(evt.getKeyCode() == KeyEvent.VK_DELETE || evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+        mnuDeleteActionPerformed(null);
 }//GEN-LAST:event_gameListKeyPressed
 
 private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed

@@ -1,18 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package dbox2;
 
-/**
- *
- * @author pederskeidsvoll
- */
 import java.lang.reflect.Method;
 
 public class BrowserControl {
-
     /**
      * Method to Open the Broser with Given URL
      * @param url
