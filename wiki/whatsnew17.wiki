@@ -1,0 +1,14 @@
+#summary Check out what's new in D-Box 1.7
+
+= What's new in D-Box 1.7 =
+
+_D-Box 1.7 has not been released yet_
+
+  * You can now have icons in the game list
+  * New human readable preferences file format
+  * New about page
+  * New edit game icon
+  * Keyboard shortcut and confirm dialog for removal of game from list
+  * Remembers last used directory
+  * Filters in file dialog. F.eks. just show .exe and *.com files (not MacOS)
+  * Fixed some bugs when running on Linux
