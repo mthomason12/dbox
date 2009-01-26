@@ -20,6 +20,8 @@ public class PreferencesGUI extends javax.swing.JDialog {
     
     /** Creates new form PreferencesGUI */
     public PreferencesGUI() {
+
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/ikon.gif")).getImage());
         initComponents();
         txtDosBoxPath.setText(MainWindow.pref.getDosBoxPath());
         chkKeepOpen.setSelected(MainWindow.pref.isKeepOpen());

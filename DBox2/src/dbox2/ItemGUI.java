@@ -21,11 +21,13 @@ public class ItemGUI extends javax.swing.JDialog {
     private MainWindow g;
     
     public ItemGUI(MainWindow parent) {
+        
         dos = new DosItem();
         g = parent;
         setModal(true);
         initComponents();
         centerScreen();
+        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/ikon.gif")).getImage());
     }
     
     public ItemGUI(DosItem di, MainWindow parent) {
