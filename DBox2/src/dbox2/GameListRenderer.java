@@ -37,8 +37,17 @@ import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
              String ikon = "";
              if(MainWindow.bl.getGame(s) != null)
                 ikon = MainWindow.bl.getGame(s).getIcon();
-             if(ikon.equals(""))
+             if(ikon.equals("")) {
                  setIcon(defaultIcon);
+                 int width = MainWindow.pref.getIconWidth();
+                 int height = MainWindow.pref.getIconHeight();
+
+                 BufferedImage bi = new BufferedImage(width, height,
+                 BufferedImage.TYPE_INT_ARGB);
+                 bi.getGraphics().drawImage(defaultIcon.getImage(), 0, 0, width, height, null);
+
+                 setIcon(new ImageIcon(bi));
+             }
              else {
                  //try {
                     ImageIcon ii = defaultIcon;
@@ -55,18 +64,15 @@ import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
                     else
                         ii = new ImageIcon(ikon);
 
-                    BufferedImage bi = new BufferedImage(22, 22,
+                    int width = MainWindow.pref.getIconWidth();
+                    int height = MainWindow.pref.getIconHeight();
+
+                    BufferedImage bi = new BufferedImage(width, height,
                     BufferedImage.TYPE_INT_ARGB);
-                    bi.getGraphics().drawImage(ii.getImage(), 0, 0, 22, 22, null);
+                    bi.getGraphics().drawImage(ii.getImage(), 0, 0, width, height, null);
                     ii = new ImageIcon(bi);
 
                     setIcon(ii);
-                    //System.out.println(ikon);
-                 //}
-                 //catch(Exception e) {
-                     //System.out.println("Icon for " + s + " not found! -> " + ikon);
-                     //setIcon(defaultIcon);
-                 //}
              }
          }
          else {
