@@ -16,10 +16,12 @@ import javax.swing.JFileChooser;
  */
 public class helperClass {
 
-    public static String currentDir = "";
-
 
     public static boolean isMac() {
+        if(MainWindow.pref.getTypeOfFileDialog() == 1)
+            return false;
+        if(MainWindow.pref.getTypeOfFileDialog() == 2)
+            return true;
         if("Mac OS X".equals(System.getProperty("os.name")))
             return true;
         return false;
@@ -28,14 +30,14 @@ public class helperClass {
     public static String getFileAWT(java.awt.Component c) {
         if(isMac()) {
             FileDialog fd = new FileDialog((Frame)c.getParent(), "Select File", FileDialog.LOAD);
-            if(!currentDir.equals(""))
-                fd.setDirectory(currentDir); // back to where we were
+            if(!MainWindow.pref.getLastUsedPath().equals(""))
+                fd.setDirectory(MainWindow.pref.getLastUsedPath()); // back to where we were
             fd.pack();
             fd.setVisible(true);
 
             //lastdir = fd.getDirectory();
             if (fd.getFile() != null) {
-                currentDir = fd.getDirectory();
+                MainWindow.pref.setLastUsedPath(fd.getDirectory());
                 return fd.getDirectory() + fd.getFile();
                 
                 }
@@ -44,14 +46,14 @@ public class helperClass {
         }
         else {
             final JFileChooser fc = new JFileChooser();
-            if(!currentDir.equals(""))
-                fc.setCurrentDirectory(new File(currentDir)); // back to where we were
+            if(!MainWindow.pref.getLastUsedPath().equals(""))
+                fc.setCurrentDirectory(new File(MainWindow.pref.getLastUsedPath())); // back to where we were
             fc.addChoosableFileFilter(new Filteret());
             int returnVal = fc.showOpenDialog(c);
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                currentDir = file.getAbsolutePath();
+                MainWindow.pref.setLastUsedPath(file.getAbsolutePath());
                 return file.getAbsolutePath();
             }
             else
@@ -61,28 +63,28 @@ public class helperClass {
     public static String getFileAWTDosBox(java.awt.Component c) {
         if(isMac()) {
             FileDialog fd = new FileDialog((Frame)c.getParent(), "Select File", FileDialog.LOAD);
-            if(!currentDir.equals(""))
-                fd.setDirectory(currentDir); // back to where we were
+            if(!MainWindow.pref.getLastUsedPath().equals(""))
+                fd.setDirectory(MainWindow.pref.getLastUsedPath()); // back to where we were
             fd.pack();
             fd.setVisible(true);
 
             //lastdir = fd.getDirectory();
             if (fd.getFile() != null){
-                currentDir = fd.getDirectory();
+                MainWindow.pref.setLastUsedPath(fd.getDirectory());
                 return fd.getDirectory() + fd.getFile();}
             else
                 return null;
         }
         else {
             final JFileChooser fc = new JFileChooser();
-            if(!currentDir.equals(""))
-                fc.setCurrentDirectory(new File(currentDir)); // back to where we were
+            if(!MainWindow.pref.getLastUsedPath().equals(""))
+                fc.setCurrentDirectory(new File(MainWindow.pref.getLastUsedPath())); // back to where we were
             fc.addChoosableFileFilter(new DosBoxFilteret());
             int returnVal = fc.showOpenDialog(c);
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                currentDir = file.getAbsolutePath();
+                MainWindow.pref.setLastUsedPath(file.getAbsolutePath());
                 return file.getAbsolutePath();
             }
             else
@@ -93,28 +95,28 @@ public class helperClass {
         public static String getFileAWTIcon(java.awt.Component c) {
         if(isMac()) {
             FileDialog fd = new FileDialog((Frame)c.getParent(), "Select File", FileDialog.LOAD);
-            if(!currentDir.equals(""))
-                fd.setDirectory(currentDir); // back to where we were
+            if(!MainWindow.pref.getLastUsedPath().equals(""))
+                fd.setDirectory(MainWindow.pref.getLastUsedPath()); // back to where we were
             fd.pack();
             fd.setVisible(true);
 
             //lastdir = fd.getDirectory();
             if (fd.getFile() != null){
-                currentDir = fd.getDirectory();
+                MainWindow.pref.setLastUsedPath(fd.getDirectory());
                 return fd.getDirectory() + fd.getFile();}
             else
                 return null;
         }
         else {
             final JFileChooser fc = new JFileChooser();
-            if(!currentDir.equals(""))
-                fc.setCurrentDirectory(new File(currentDir)); // back to where we were
+            if(!MainWindow.pref.getLastUsedPath().equals(""))
+                fc.setCurrentDirectory(new File(MainWindow.pref.getLastUsedPath())); // back to where we were
             fc.addChoosableFileFilter(new IconFilteret());
             int returnVal = fc.showOpenDialog(c);
 
             if (returnVal == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
-                currentDir = file.getAbsolutePath();
+                MainWindow.pref.setLastUsedPath(file.getAbsolutePath());
                 return file.getAbsolutePath();
             }
             else
