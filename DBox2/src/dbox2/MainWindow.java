@@ -70,9 +70,9 @@ public class MainWindow extends javax.swing.JFrame {
 
         bl = deSerialize("database.dat");
         //Preferences oldpref = deSerializePref("preferences.dat");
-        pref.readConfig("dbox.config");
+        pref.readConfig(Main.configFile);
         try {
-            pref.writeConfig("dbox.config");
+            pref.writeConfig(Main.configFile);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -133,7 +133,12 @@ public class MainWindow extends javax.swing.JFrame {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+		exportGameList();
+        try {
+            pref.writeConfig(Main.configFile);
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
 	}
     
     /**
@@ -552,7 +557,7 @@ private void mnuPrefsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     prf.setVisible(true);
     prf = null;
         try {
-            pref.writeConfig("dbox.config");
+            pref.writeConfig(Main.configFile);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -863,5 +868,34 @@ private void txtSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
             }
         }
         return thumbnail;
+    }
+
+    /**
+     * Exports the game list so we can get ready for our next release!
+     */
+    private void exportGameList() {
+        FileWriter fstream = null;
+        try {
+            String[] games = bl.getGameList();
+            String out = "## D-Box game list. Not in use yet, but next version will use it! ##\n\n";
+            for (String g : games) {
+                DosItem d = bl.getGame(g);
+                out += "start game" + "\n" + "  name := " + d.getName() + "\n" + "  path := " + d.getPath() + "\n" + "  game := " + d.getGame() + "\n" + "  installer := " + d.getInstaller() + "\n" + "  floppy := " + d.getFloppy() + "\n" + "  cdrom := " + d.getCdrom() + "\n" + "  extra :=" + d.getExtra() + "\n" + "  icon := " + d.getIcon() + "\n" + "end game\n\n";
+            }
+            fstream = new FileWriter(Main.gameFile);
+            BufferedWriter writer = new BufferedWriter(fstream);
+            writer.write(out);
+            //Close the output stream
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fstream.close();
+            } catch (IOException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
     }
 }
