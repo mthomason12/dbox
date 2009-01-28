@@ -603,6 +603,8 @@ private String getCurrentDir() {
 }
 
 private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRunActionPerformed
+    if(gameList.getSelectedIndex() == -1)
+        return;
     if(pref.getDosBoxPath().equals("")) {
         String[] choices = {
             "Let me show you where DOSBox is!",
@@ -674,6 +676,9 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
 private void mnuEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuEditActionPerformed
     String gm = "";
+    if(gameList.getSelectedIndex() == -1)
+        return;
+    
     if(!((String)gameList.getSelectedValue()).equals("(untitled)"))
         gm = (String)gameList.getSelectedValue();
 
@@ -695,7 +700,9 @@ private void mnuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_txtSearchKeyReleased
 
 private void mnuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDeleteActionPerformed
-    int a = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove this game from the list?", "Please Confirm", JOptionPane.YES_NO_OPTION);
+    if(gameList.getSelectedIndex() == -1)
+        return;
+    int a = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove " + gameList.getSelectedValue() + " from the list?", "Please Confirm", JOptionPane.YES_NO_OPTION);
     if(a == JOptionPane.NO_OPTION)
         return;
     String gm = "";
