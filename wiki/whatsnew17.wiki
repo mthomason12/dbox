@@ -13,3 +13,4 @@ _D-Box 1.7 has not been released yet_
   * Filters in file dialog. E.g. just show .exe and .com files (not MacOS)
   * Fixed some bugs when running on Linux
   * Added application icon
+  * Lot's of bug fixes
