@@ -24,6 +24,7 @@ public class NewPreferences implements Serializable {
     
     private String DosBoxPath = "";
     private String LastUsedPath = "";
+    private String KeyBoardCode = "us";
     private boolean KeepOpen = false;
     private boolean FullScreen = false;
     private boolean ShowIcons = true;
@@ -53,6 +54,7 @@ public class NewPreferences implements Serializable {
                 continue; // Comment or blank line
 
             String parts[] = io.toLowerCase().split(":=");
+            parts[0] = parts[0].trim();
             if(parts[0].equals("dosboxpath"))
                 DosBoxPath = parts[1].trim();
             else if(parts[0].equals("iconwidth"))
@@ -71,6 +73,8 @@ public class NewPreferences implements Serializable {
                 TypeOfFileDialog = Integer.parseInt(parts[1].trim());
             else if(parts[0].equals("lastusedpath"))
                 LastUsedPath = parts[1].trim();
+            else if(parts[0].equals("keyboardcode"))
+                KeyBoardCode = parts[1].trim();
 
         }
     }
@@ -81,16 +85,16 @@ public class NewPreferences implements Serializable {
                      "###         If it contains errors, D-Box wil overwrite it!           ###\n" +
                      "### If you want to reset settings, simply delete the file or a line. ###\n" +
                      "########################################################################\n\n" +
-                     "DosBoxPath:= " + DosBoxPath + "\n" +
-                     "KeepOpen:= " + KeepOpen + "\n" +
-                     "FullScreen:= " + FullScreen + "\n" +
-                     "ShowIcons:= " + ShowIcons + "\n" +
-                     "IconWidth:= " + IconWidth + "\n" +
-                     "IconHeight:= " + IconHeight + "\n" +
-                     "IconResize:= " + IconResize + "\n" +
-                     "LastUsedPath:= " + LastUsedPath + "\n" +
-                     "# TypeOfFileDialog attribute: 0=auto, 1=Swing, 2=AWT\n" +
-                     "TypeOfFileDialog:= " + TypeOfFileDialog;
+                     "DosBoxPath       := " + DosBoxPath + "\n" +
+                     "KeepOpen         := " + KeepOpen + "\n" +
+                     "FullScreen       := " + FullScreen + "\n" +
+                     "ShowIcons        := " + ShowIcons + "\n" +
+                     "IconWidth        := " + IconWidth + "\n" +
+                     "IconHeight       := " + IconHeight + "\n" +
+                     "IconResize       := " + IconResize + "\n" +
+                     "LastUsedPath     := " + LastUsedPath + "\n" +
+                     "KeyBoardCode     := " + KeyBoardCode + "\n" +
+                     "TypeOfFileDialog := " + TypeOfFileDialog;
     }
 
     public boolean isFullScreen() {
@@ -211,6 +215,50 @@ public class NewPreferences implements Serializable {
      */
     public void setLastUsedPath(String LastUsedPath) {
         this.LastUsedPath = LastUsedPath;
+    }
+
+    public void setKeyboardCountry(String country) {
+        this.KeyBoardCode = translateLanguage(country, true);
+    }
+    public void setKeyboardCode(String country) {
+        this.KeyBoardCode = country;
+    }
+    public int getKeyboardIndex() {
+        String[] code    = new String[] {"be","br","cf","cz","dk","su","fr","gr","hu","it","la","nl","no","pl","po","sl","sp","sv","sf","sg","uk","us","yu"};
+        for(int i = 0; i < code.length; i++)
+            if(code[i].toLowerCase().equals(KeyBoardCode.toLowerCase()))
+                return i;
+        return 0;
+    }
+    public String getKeyboardCountry() {
+        return translateLanguage(KeyBoardCode, false);
+    }
+    public String getKeyboardCode() {
+        return KeyBoardCode;
+    }
+
+    /**
+     * @param name The name of language or country
+     * @param type true for from country to code, or false code to country
+     * @return the right country or abbr
+     */
+    private String translateLanguage(String name, boolean type) {
+        String[] country = new String[] { "Belgium", "Brazil", "Canadian-French", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Hungary", "Italy", "Latin America", "Netherlands", "Norway", "Poland", "Portugal", "Slovak Republic", "Spain", "Sweden", "Switzerland (French)", "Switzerland (German)", "United Kingdom", "United States", "Yugoslavia (Serbo-Croatian)" };
+        String[] code    = new String[] { "be"     , "br"    , "cf"             , "cz"            , "dk"     , "su"     , "fr"    , "gr"     , "hu"     , "it"   , "la"           , "nl"         , "no"    , "pl"    , "po"      , "sl"             , "sp"   , "sv"    , "sf"                  , "sg"                  , "uk"            , "us"           , "yu"                          };
+        if(type) {
+            for(int i = 0; i < country.length; i++) {
+                if(name.toLowerCase().equals(country[i].toLowerCase()))
+                    return code[i];
+            }
+        }
+        else {
+            for(int i = 0; i < code.length; i++) {
+                if(name.toLowerCase().equals(code[i].toLowerCase()))
+                    return country[i];
+            }
+        }
+        return name;
+
     }
     
 }

@@ -27,7 +27,6 @@ public class ItemGUI extends javax.swing.JDialog {
         setModal(true);
         initComponents();
         centerScreen();
-        setIconImage(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/ikon.gif")).getImage());
     }
     
     public ItemGUI(DosItem di, MainWindow parent) {

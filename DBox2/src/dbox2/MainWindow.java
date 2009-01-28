@@ -164,13 +164,18 @@ public class MainWindow extends javax.swing.JFrame {
         if(fullscreen)
             ut += "[SDL]\n" +
                   "fullscreen=true\n\n";
+
+        // Keyboard layout
+        ut += "[DOS]\n";
+        ut += "keyboardlayout=" + pref.getKeyboardCode() + "\n";
         
         // Mounting
         ut += "[autoexec]\n" +
                 "mount c \"" + dir + "\"\n";
         if(extra != null || extra.equals(""))
             ut += "mount d \"" + extra + "\" -t cdrom\n";
-        
+
+
         ut+="\n";
         
         try {

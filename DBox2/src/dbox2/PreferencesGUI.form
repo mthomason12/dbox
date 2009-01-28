@@ -29,7 +29,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="txtDosBoxPath" pref="384" max="32767" attributes="0"/>
+                      <Component id="txtDosBoxPath" pref="476" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="cmdBrowse" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -38,16 +38,30 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="chkFullscreen" pref="463" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace pref="3" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="cmbKeyboard" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace pref="21" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace pref="345" max="32767" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="chkKeepOpen" pref="468" max="32767" attributes="0"/>
-              <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+              <Component id="chkKeepOpen" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="231" max="-2" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="chkFullscreen" pref="577" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace pref="420" max="32767" attributes="0"/>
+              <EmptySpace pref="514" max="32767" attributes="0"/>
               <Component id="cmdConfirm" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -65,12 +79,16 @@
                   <Component id="cmdBrowse" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="cmbKeyboard" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="chkKeepOpen" min="-2" pref="18" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="chkFullscreen" min="-2" pref="18" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Component id="cmdConfirm" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -91,7 +109,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="cmdConfirm">
       <Properties>
-        <Property name="text" type="java.lang.String" value="OK"/>
+        <Property name="text" type="java.lang.String" value="Close"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmdConfirmActionPerformed"/>
@@ -117,7 +135,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="372" max="32767" attributes="0"/>
+                  <EmptySpace pref="490" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -170,6 +188,45 @@
           <Insets value="[0, 0, 0, 0]"/>
         </Property>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Keyboard layout (Country or language):"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JComboBox" name="cmbKeyboard">
+      <Properties>
+        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+          <StringArray count="23">
+            <StringItem index="0" value="Belgium"/>
+            <StringItem index="1" value="Brazil"/>
+            <StringItem index="2" value="Canadian-French"/>
+            <StringItem index="3" value="Czech Republic"/>
+            <StringItem index="4" value="Denmark"/>
+            <StringItem index="5" value="Finland"/>
+            <StringItem index="6" value="France"/>
+            <StringItem index="7" value="Germany"/>
+            <StringItem index="8" value="Hungary"/>
+            <StringItem index="9" value="Italy"/>
+            <StringItem index="10" value="Latin America"/>
+            <StringItem index="11" value="Netherlands"/>
+            <StringItem index="12" value="Norway"/>
+            <StringItem index="13" value="Poland"/>
+            <StringItem index="14" value="Portugal"/>
+            <StringItem index="15" value="Slovak Republic"/>
+            <StringItem index="16" value="Spain"/>
+            <StringItem index="17" value="Sweden"/>
+            <StringItem index="18" value="Switzerland (French)"/>
+            <StringItem index="19" value="Switzerland (German)"/>
+            <StringItem index="20" value="United Kingdom"/>
+            <StringItem index="21" value="United States"/>
+            <StringItem index="22" value="Yugoslavia (Serbo-Croatian)"/>
+          </StringArray>
+        </Property>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cmbKeyboardActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
