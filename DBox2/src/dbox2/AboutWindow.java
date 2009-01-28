@@ -89,9 +89,9 @@ public class AboutWindow extends javax.swing.JDialog {
                         .add(jLabel5)))
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(259, Short.MAX_VALUE)
+                .addContainerGap(257, Short.MAX_VALUE)
                 .add(jButton1)
-                .add(252, 252, 252))
+                .add(254, 254, 254))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
