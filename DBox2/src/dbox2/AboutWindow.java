@@ -39,12 +39,13 @@ public class AboutWindow extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About");
+        setResizable(false);
 
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, 24));
         jLabel1.setText("D-Box " + Main.MAJORVERSION + "." + Main.MINORVERSION + "");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        jLabel2.setText("Code and design by Peder Skeidsvoll (truben.no)");
+        jLabel2.setText("Code and design by Peder Skeidsvoll (www.truben.no)");
 
         jLabel3.setText("Uses ICOReader lib by J.B. van der Burgh (http://www.vdburgh.net/2/f/files/ICOReader)");
 
@@ -82,14 +83,15 @@ public class AboutWindow extends javax.swing.JDialog {
                         .add(jLabel4))
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
-                        .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 431, Short.MAX_VALUE))
+                        .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 550, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
-                        .add(193, 193, 193)
-                        .add(jButton1))
-                    .add(layout.createSequentialGroup()
-                        .add(172, 172, 172)
+                        .add(220, 220, 220)
                         .add(jLabel5)))
                 .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(259, Short.MAX_VALUE)
+                .add(jButton1)
+                .add(252, 252, 252))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

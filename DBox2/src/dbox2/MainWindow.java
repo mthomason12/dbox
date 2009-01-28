@@ -170,7 +170,7 @@ public class MainWindow extends javax.swing.JFrame {
         ut += "keyboardlayout=" + pref.getKeyboardCode() + "\n";
         
         // Mounting
-        ut += "[autoexec]\n" +
+        ut += "[AUTOEXEC]\n" +
                 "mount c \"" + dir + "\"\n";
         if(extra != null || extra.equals(""))
             ut += "mount d \"" + extra + "\" -t cdrom\n";
@@ -570,19 +570,60 @@ private void mnuPrefsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_mnuPrefsActionPerformed
 
 private void mnuSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSetupActionPerformed
-    
+    if(gameList.getSelectedIndex() == -1)
+        return;
+    if(pref.getDosBoxPath().equals("")) {
+        String[] choices = {
+            "Let me show you where DOSBox is!",
+            "Please take me to DOSBox' homepage so I can download!",
+            "Get me out of here!"
+        };
+        String input = (String) JOptionPane.showInputDialog(
+                null, "D-Box needs DOSBox to work, but currently the path to DOSBox is set to nothing.\nIf you have DOSBox installed, please locate it for me. If not, please download and\ninstall DOSBox before continuing.\n\nPlease select your next step:",
+                "Can't find DOSBox!",
+                JOptionPane.QUESTION_MESSAGE,
+                null,choices,choices[0]);
+        if(input.equals(choices[0]))
+            mnuPrefsActionPerformed(null);
+        else if(input.equals(choices[1])) {
+            BrowserControl.openUrl("http://www.dosbox.com/download.php?main=1");
+            return;
+        }
+        else
+            return;
+
+    }
+
     DosItem di = bl.getGame((String)gameList.getSelectedValue());
-    System.out.println("jo!"+di.getPath());
-    
-        String[] par = new String[7];
+        writeConfig(
+                    getCurrentDir() + File.separator + "dosbox.conf",
+                    di.getCycles(),
+                    pref.isFullScreen(),
+                    di.getPath(),
+                    di.getCdrom(),
+                    di.getFrameskip()
+                   );
+        String[] par = new String[11];
         par[0] = pref.getDosBoxPath();
         par[1] = "-c";
-        par[2] = "mount c \"" + di.getPath()+"\"";
+        par[2] = "@echo Go go go!";
         par[3] = "-c";
         par[4] = "c:";
         par[5] = "-c";
         par[6] = di.getInstaller();
-        
+
+        if(!pref.isKeepOpen()){
+            par[7] = "-c";
+            par[8] = "exit";
+        }
+        else {
+            par[7] = "-c";
+            par[8] = "@echo Keep on rockin'!";
+        }
+
+        par[9] = "-conf";
+        par[10] = getCurrentDir() + File.separator + "dosbox.conf";
+
         try {
             Runtime.getRuntime().exec(par);
         } catch (IOException ex) {
@@ -859,28 +900,6 @@ private void txtSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
-    public ImageIcon loadImage(String file) {
-        ImageIcon thumbnail  = new ImageIcon();
-
-        if (file == null) {
-            thumbnail = null;
-            return thumbnail;
-        }
-        //Don't use createImageIcon (which is a wrapper for getResource)
-        //because the image we're trying to load is probably not one
-        //of this program's own resources.
-        ImageIcon tmpIcon = new ImageIcon(file);
-        if (tmpIcon != null) {
-            if (tmpIcon.getIconWidth() > 22) {
-                thumbnail = new ImageIcon(tmpIcon.getImage().
-                                          getScaledInstance(22, -1,
-                                                      Image.SCALE_DEFAULT));
-            } else { //no need to miniaturize
-                thumbnail = tmpIcon;
-            }
-        }
-        return thumbnail;
-    }
 
     /**
      * Exports the game list so we can get ready for our next release!
