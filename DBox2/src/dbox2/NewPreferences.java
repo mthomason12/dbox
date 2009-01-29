@@ -79,6 +79,7 @@ public class NewPreferences implements Serializable {
         }
     }
 
+    @Override
     public String toString() {
         return       "########################################################################\n" +
                      "###                        D-Box' config file                        ###\n" +
@@ -224,7 +225,10 @@ public class NewPreferences implements Serializable {
         this.KeyBoardCode = country;
     }
     public int getKeyboardIndex() {
-        String[] code    = new String[] {"be","br","cf","cz","dk","su","fr","gr","hu","it","la","nl","no","pl","po","sl","sp","sv","sf","sg","uk","us","yu"};
+        String[] code    = new String[] {"be","br","cf","cz","dk","su","fr",
+                                         "gr","hu","it","la","nl","no","pl",
+                                         "po","sl","sp","sv","sf","sg","uk",
+                                         "us","yu"};
         for(int i = 0; i < code.length; i++)
             if(code[i].toLowerCase().equals(KeyBoardCode.toLowerCase()))
                 return i;
