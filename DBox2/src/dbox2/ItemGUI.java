@@ -367,10 +367,10 @@ public class ItemGUI extends javax.swing.JDialog {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 339, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(cmdWizard)
                     .add(cmdConfirm))
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();

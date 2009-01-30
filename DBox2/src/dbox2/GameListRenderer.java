@@ -6,6 +6,9 @@
 package dbox2;
 
 import java.awt.Component;
+import java.awt.FlowLayout;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -32,7 +35,7 @@ import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
        boolean cellHasFocus)    // the list and the cell have the focus
      {
          String s = value.toString();
-         setText(s);
+         setText(" "+s);
          if(MainWindow.pref.isShowIcons()) {
              setSize(this.getWidth(), MainWindow.pref.getIconHeight());
              String ikon = "";
@@ -68,15 +71,17 @@ import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
          if (isSelected) {
              setBackground(list.getSelectionBackground());
                setForeground(list.getSelectionForeground());
+               setOpaque(true);
            }
          else {
                setBackground(list.getBackground());
                setForeground(list.getForeground());
+               setOpaque(false);
            }
            setEnabled(list.isEnabled());
-           setSize(this.getWidth(), MainWindow.pref.getIconHeight());
+           setSize(this.getWidth(), MainWindow.pref.getIconHeight()+100);
            setFont(list.getFont());
-         setOpaque(true);
+         
          return this;
      }
 
@@ -99,4 +104,5 @@ import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
          else
              return icon;
      }
+
  }

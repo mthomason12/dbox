@@ -103,7 +103,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel5)
-                .addContainerGap(486, Short.MAX_VALUE))
+                .addContainerGap(477, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -141,7 +141,6 @@ public class PreferencesGUI extends javax.swing.JDialog {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .add(37, 37, 37)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -152,7 +151,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
                         .add(layout.createSequentialGroup()
                             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                 .add(layout.createSequentialGroup()
-                                    .add(chkKeepOpen, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 385, Short.MAX_VALUE)
+                                    .add(chkKeepOpen, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 363, Short.MAX_VALUE)
                                     .add(184, 184, 184))
                                 .add(layout.createSequentialGroup()
                                     .add(jLabel2)
@@ -169,6 +168,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
                                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                         .add(cmdBrowse))))
                             .add(26, 26, 26)))))
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
