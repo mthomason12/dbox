@@ -48,6 +48,7 @@ public class ItemGUI extends javax.swing.JDialog {
         appIcon.setText(dos.getIcon());
         appCD.setText(dos.getCdrom());
         sldCycles.setValue(dos.getCycles());
+        appFrameSkip.setValue(dos.getFrameskip());
     }
     
     /**
@@ -105,6 +106,8 @@ public class ItemGUI extends javax.swing.JDialog {
         jLabel7 = new javax.swing.JLabel();
         appCD = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        appFrameSkip = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -139,7 +142,7 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel5)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 334, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 363, Short.MAX_VALUE)
                 .add(Icon)
                 .addContainerGap())
         );
@@ -186,10 +189,10 @@ public class ItemGUI extends javax.swing.JDialog {
             }
         });
         appIcon.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 appIconCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         appIcon.addCaretListener(new javax.swing.event.CaretListener() {
@@ -231,19 +234,19 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(appName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                    .add(appName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel1)
-                            .add(appExec, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
-                            .add(appIcon, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE))
+                            .add(appExec, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                            .add(appIcon, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jButton1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .add(jButton4)))
                     .add(jLabel3)
                     .add(jLabel8)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, sldCycles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, sldCycles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
                     .add(jLabel6))
                 .addContainerGap())
         );
@@ -299,6 +302,11 @@ public class ItemGUI extends javax.swing.JDialog {
             }
         });
 
+        jLabel9.setText("How many frames DOSBox skips before drawing one: ");
+        jLabel9.setToolTipText("Frameskip");
+
+        appFrameSkip.setModel(new javax.swing.SpinnerNumberModel(0, 0, 9, 1));
+
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -306,18 +314,22 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(appPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 427, Short.MAX_VALUE)
+                    .add(appPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
                     .add(jLabel2)
                     .add(jLabel7)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel4)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, appSetup, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, appCD, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE))
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, appSetup, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, appCD, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(jButton2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(jButton3))))
+                            .add(jButton3)))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jLabel9)
+                        .add(18, 18, 18)
+                        .add(appFrameSkip, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -339,7 +351,11 @@ public class ItemGUI extends javax.swing.JDialog {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(appCD, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jButton3))
-                .addContainerGap(163, Short.MAX_VALUE))
+                .add(21, 21, 21)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel9)
+                    .add(appFrameSkip, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Advanced", jPanel3);
@@ -357,7 +373,7 @@ public class ItemGUI extends javax.swing.JDialog {
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 498, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -387,18 +403,7 @@ private void sldCyclesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-
 
 private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConfirmActionPerformed
     DosItem d = new DosItem(appName.getText(),appPath.getText(), appExec.getText(),appSetup.getText(), sldCycles.getValue(), appCD.getText());
-    int s = sldCycles.getValue();
-    int a = 0;
-    if(s > 12000)
-        a = 1;
-    if(s > 13000)
-        a = 2;
-    if(s > 14000)
-        a = 3;
-    if(s >= 15000)
-        a = 4;
-    
-    d.setFrameskip(a);
+    d.setFrameskip(Integer.parseInt(appFrameSkip.getValue().toString()));
     d.setIcon(appIcon.getText());
     MainWindow.bl.addGame(d);
     this.setVisible(false);
@@ -482,19 +487,10 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    String s = helperClass.getFileAWT(this);
+    String s = helperClass.getDirAWT(this);
     if (s != null) {
-        int last = 0;
-        for (int i = s.length() - 1; i >= 0; i--) {
-            if (s.charAt(i) == File.separatorChar) {
-                last = i;
-                break;
-            }
-        }
-
-        appCD.setText(s.substring(0, last));
+        appCD.setText(s);
     }
-
 }//GEN-LAST:event_jButton3ActionPerformed
 
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -562,6 +558,7 @@ private void appIconCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:e
     private javax.swing.JLabel Icon;
     private javax.swing.JTextField appCD;
     private javax.swing.JTextField appExec;
+    private javax.swing.JSpinner appFrameSkip;
     private javax.swing.JTextField appIcon;
     private javax.swing.JTextField appName;
     private javax.swing.JTextField appPath;
@@ -580,6 +577,7 @@ private void appIconCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:e
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

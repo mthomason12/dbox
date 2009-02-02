@@ -27,6 +27,42 @@ public class helperClass {
         return false;
     }
 
+    public static String getDirAWT(java.awt.Component c) {
+        if(isMac()) {
+            FileDialog fd = new FileDialog((Frame)c.getParent(), "Select Directory", FileDialog.LOAD);
+
+            if(!MainWindow.pref.getLastUsedPath().equals(""))
+                fd.setDirectory(MainWindow.pref.getLastUsedPath()); // back to where we were
+            fd.pack();
+            fd.setVisible(true);
+
+            //lastdir = fd.getDirectory();
+            if (fd.getFile() != null) {
+                MainWindow.pref.setLastUsedPath(fd.getDirectory());
+                return fd.getDirectory();
+
+                }
+            else
+                return null;
+        }
+        else {
+            final JFileChooser fc = new JFileChooser();
+            fc.setFileSelectionMode(fc.DIRECTORIES_ONLY);
+            if(!MainWindow.pref.getLastUsedPath().equals(""))
+                fc.setCurrentDirectory(new File(MainWindow.pref.getLastUsedPath())); // back to where we were
+            fc.addChoosableFileFilter(new DirFilteret());
+            int returnVal = fc.showOpenDialog(c);
+
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                MainWindow.pref.setLastUsedPath(file.getAbsolutePath());
+                return file.getAbsolutePath();
+            }
+            else
+                return null;
+        }
+    }
+
     public static String getFileAWT(java.awt.Component c) {
         if(isMac()) {
             FileDialog fd = new FileDialog((Frame)c.getParent(), "Select File", FileDialog.LOAD);
@@ -180,5 +216,17 @@ class DosBoxFilteret extends javax.swing.filechooser.FileFilter {
         }
         public String getDescription() {
             return "DosBox Executable";
+        }
+    }
+
+class DirFilteret extends javax.swing.filechooser.FileFilter {
+        public boolean accept(File file) {
+            if(file.isDirectory())
+                return true;
+            else
+                return false;
+        }
+        public String getDescription() {
+            return "Directories";
         }
     }
