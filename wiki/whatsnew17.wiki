@@ -9,6 +9,7 @@ _D-Box 1.7 has not been released yet_
   * New about page
   * New edit game icon
   * Redesigned edit game dialog
+  * Possible to edit frame skip parameter
   * Possible to change keyboard layout
   * Keyboard shortcut and confirm dialog for removal of game from list
   * Remembers last used directory
