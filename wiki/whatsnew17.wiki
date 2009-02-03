@@ -4,7 +4,7 @@
 
 _D-Box 1.7 has not been released yet_
 
-  * You can now have icons in the game list
+  * Icons in the game list
   * New human readable preferences and gamelist file formats (the gamelist format is write only until next version)
   * New about page
   * New edit game icon
@@ -17,3 +17,4 @@ _D-Box 1.7 has not been released yet_
   * Fixed some bugs when running on Linux
   * Added application icon
   * Lots of bug fixes
+  * Lots of small tweaks
