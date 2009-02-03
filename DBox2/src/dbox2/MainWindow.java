@@ -594,7 +594,14 @@ private void mnuSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
     }
 
+
     DosItem di = bl.getGame((String)gameList.getSelectedValue());
+
+    if(di.getInstaller().equals("")) {
+        JOptionPane.showMessageDialog(null, "You haven't configured the setup program for " + di.getName() + ".\nIf " + di.getName() + " has a setup program, add using Edit Game>Advanced>Setup.");
+        return;
+    }
+
         writeConfig(
                     getCurrentDir() + File.separator + "dosbox.conf",
                     di.getCycles(),
