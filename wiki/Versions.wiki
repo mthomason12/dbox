@@ -17,6 +17,7 @@ http://dbox.googlecode.com/svn/wiki/img/screenshots/1.0/main.png
 
 http://dbox.googlecode.com/svn/wiki/img/screenshots/1.5/main.png
 
+ * New interface
  * _Download: http://dbox.googlecode.com/files/dbox15.zip _
 
 == D-Box 1.6 ==
@@ -24,3 +25,10 @@ http://dbox.googlecode.com/svn/wiki/img/screenshots/1.5/main.png
 http://dbox.googlecode.com/svn/wiki/img/screenshots/1.6/main.png
 
  * _Download: http://dbox.googlecode.com/files/dbox16.zip _
+
+== D-Box 1.7 ==
+
+http://dbox.googlecode.com/svn/wiki/img/screenshots/1.7/main.png
+
+ * 
+ * _Download: http://dbox.googlecode.com/files/dbox17.zip _
