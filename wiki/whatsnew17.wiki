@@ -2,8 +2,6 @@
 
 = What's new in D-Box 1.7 =
 
-_D-Box 1.7 has not been released yet_
-
   * Icons in the game list
   * New human readable preferences and gamelist file formats (the gamelist format is write only until next version)
   * New about page
