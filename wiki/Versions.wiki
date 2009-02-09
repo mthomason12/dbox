@@ -30,5 +30,5 @@ http://dbox.googlecode.com/svn/wiki/img/screenshots/1.6/main.png
 
 http://dbox.googlecode.com/svn/wiki/img/screenshots/1.7/main.png
 
- * 
+ * [http://code.google.com/p/dbox/wiki/whatsnew17 What's new?]
  * _Download: http://dbox.googlecode.com/files/dbox17.zip _
