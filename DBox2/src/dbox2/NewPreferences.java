@@ -87,7 +87,7 @@ public class NewPreferences implements Serializable {
     public String toString() {
         return       "########################################################################\n" +
                      "###                        D-Box' config file                        ###\n" +
-                     "###         If it contains errors, D-Box wil overwrite it!           ###\n" +
+                     "###         If it contains errors, D-Box will overwrite it!           ###\n" +
                      "### If you want to reset settings, simply delete the file or a line. ###\n" +
                      "########################################################################\n\n" +
                      "DosBoxPath       := " + DosBoxPath + "\n" +

@@ -28,12 +28,25 @@ public class Main {
                     configFile = args[++i];
                     System.out.println("Use config file " + configFile);
                 }
+                if(args[i].toLowerCase().equals("-gamefile")) {
+                    gameFile = args[++i];
+                    System.out.println("Use gamefile file " + gameFile);
+                }
+                if(args[i].toLowerCase().startsWith("-ver")) {
+                    System.out.println("D-Box " + MAJORVERSION + "." + MINORVERSION);
+                    return;
+                }
+                
             }
+
+
 
             System.setProperty("apple.laf.useScreenMenuBar","true");
             java.lang.System.setProperty("com.apple.mrj.application.apple.menu.about.name", "D-Box");
             javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
+            
             MainWindow n = new MainWindow();
+
             n.setVisible(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
