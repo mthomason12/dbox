@@ -27,6 +27,7 @@ import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
      ImageIcon defaultIcon = new ImageIcon(getClass().getResource("/dbox2/gameIcons/application-x-executable.png"));
 
 
+
      public Component getListCellRendererComponent(
        JList list,
        Object value,            // value to display
@@ -36,6 +37,7 @@ import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
      {
          String s = value.toString();
          setText(" "+s);
+         this.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
          if(MainWindow.pref.isShowIcons()) {
              setSize(this.getWidth(), MainWindow.pref.getIconHeight());
              String ikon = "";

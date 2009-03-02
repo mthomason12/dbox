@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 public class NewPreferences implements Serializable {
     
     private String DosBoxPath = "";
+    private String ConfigPath = "";
     private String LastUsedPath = "";
     private String KeyBoardCode = "us";
     private boolean KeepOpen = false;
@@ -75,6 +76,9 @@ public class NewPreferences implements Serializable {
                 LastUsedPath = parts[1].trim();
             else if(parts[0].equals("keyboardcode"))
                 KeyBoardCode = parts[1].trim();
+            else if(parts[0].equals("keyboardcode"))
+                KeyBoardCode = parts[1].trim();
+
 
         }
     }

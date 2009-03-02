@@ -2,6 +2,9 @@ package dbox2;
 
 import java.lang.reflect.Method;
 
+/**
+ * This is not written by me. Will add credits as soon as I find it:)
+ */
 public class BrowserControl {
     /**
      * Method to Open the Broser with Given URL
