@@ -267,6 +267,7 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        lblExplain = new javax.swing.JLabel();
 
         mnuRun2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
         mnuRun2.setFont(mnuRun2.getFont().deriveFont(mnuRun2.getFont().getStyle() | java.awt.Font.BOLD));
@@ -430,7 +431,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start-disabled.png"))); // NOI18N
-        jLabel4.setToolTipText("Run Application");
+        jLabel4.setToolTipText("Run Application (right-click for more options)");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel4MousePressed(evt);
@@ -450,7 +451,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/emblem-system-disabled.png"))); // NOI18N
-        jLabel5.setToolTipText("Preferences");
+        jLabel5.setToolTipText("Preferences (right-click for more options)");
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, prefMenu, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel5, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
         bindingGroup.addBinding(binding);
@@ -473,6 +474,8 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        lblExplain.setForeground(java.awt.SystemColor.controlShadow);
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -483,7 +486,9 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(jLabel2)
                 .add(18, 18, 18)
                 .add(jLabel5)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 302, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(lblExplain)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 288, Short.MAX_VALUE)
                 .add(lblSearch)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtSearch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -495,7 +500,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(lblSearch)
                 .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(jLabel2)
-                .add(jLabel5))
+                .add(jLabel5)
+                .add(lblExplain))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -833,26 +839,32 @@ private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 
 private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
     jLabel4.setIcon(runEnabled);
+    lblExplain.setText("Run Game");
 }//GEN-LAST:event_jLabel4MouseEntered
 
 private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
     jLabel2.setIcon(fileEnabled);
+    lblExplain.setText("Edit Game Preferences");
 }//GEN-LAST:event_jLabel2MouseEntered
 
 private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
     jLabel4.setIcon(runDisabled);
+    lblExplain.setText("");
 }//GEN-LAST:event_jLabel4MouseExited
 
 private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
     jLabel2.setIcon(fileDisabled);
+    lblExplain.setText("");
 }//GEN-LAST:event_jLabel2MouseExited
 
 private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
     jLabel5.setIcon(prefEnabled);
+    lblExplain.setText("Edit D-Box Preferences");
 }//GEN-LAST:event_jLabel5MouseEntered
 
 private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
     jLabel5.setIcon(prefDisabled);
+    lblExplain.setText("");
 }//GEN-LAST:event_jLabel5MouseExited
 
 private void mnuPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPreferencesActionPerformed
@@ -890,6 +902,7 @@ private void txtSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblExplain;
     private javax.swing.JLabel lblSearch;
     private javax.swing.JMenuItem mnuAbout;
     private javax.swing.JMenuItem mnuDelete2;
