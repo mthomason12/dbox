@@ -4,4 +4,4 @@
 
 _This is about a future version of D-Box. The current version is 1.7_
 
-- Added a small empty border around the objects in the game list
+  * Added a small empty border around the objects in the game list
