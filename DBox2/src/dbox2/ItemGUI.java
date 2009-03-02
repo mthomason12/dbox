@@ -464,7 +464,6 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 break;
             }
 
-        System.out.println(s);
         appPath.setText(s.substring(0,last));
         appExec.setText(s.substring(last+1));
     }

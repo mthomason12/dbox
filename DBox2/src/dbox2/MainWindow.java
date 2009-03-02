@@ -78,6 +78,69 @@ public class MainWindow extends javax.swing.JFrame {
         }
         centerScreen();
         updateList();
+        new  FileDrop( gameList, new FileDrop.Listener()
+      {   public void  filesDropped( java.io.File[] files )
+          {
+              createNewMagicProfile(files[0].getAbsoluteFile());
+          }
+
+
+      });
+
+    }
+
+    /**
+     * A method that tries to fix everything :)
+     *
+     * @param absoluteFile the main executable
+     */
+    private void createNewMagicProfile(File file) {
+        if(file.isDirectory()) {
+            JOptionPane.showMessageDialog(this, "You must drag the main executable, not the directory!", "You're almost there...", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        try {
+            DosItem d = new DosItem();
+            d.setGame(file.getName());
+            d.setPath(file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf(File.separatorChar)));
+
+            File[] files = file.getParentFile().listFiles();
+            for (File f : files) {
+                String s = f.getName().toLowerCase();
+                if(s.endsWith("ico")) {
+                    d.setIcon(f.getAbsolutePath());
+                }
+                else if(s.endsWith("exe") || s.endsWith("bat") || s.endsWith("com")) {
+                    if(s.indexOf("setup") != -1 || s.indexOf("install") != -1) {
+                        d.setInstaller(f.getAbsolutePath());
+                    }
+
+                }
+            }
+            String[] choice = new String[3];
+
+            choice[0] = file.getParentFile().getAbsolutePath().substring(file.getParentFile().getAbsolutePath().lastIndexOf(File.separator)+1);
+            choice[1] = file.getName().substring(0,1).toUpperCase() + file.getName().substring(1, file.getName().lastIndexOf('.')).toLowerCase();
+            choice[2] = "Something else...";
+
+            String input = (String) JOptionPane.showInputDialog(
+                    null, "What is the title of the application? Select one of the proposals,\n" +
+                    "or select \"Something else...\" to type your own.",
+                    "What's the name of the game?",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,choice,choice[0]);
+
+            if(input.equals(choice[2]))
+                d.setName(JOptionPane.showInputDialog(this, "Type the name of the application", choice[1], JOptionPane.QUESTION_MESSAGE));
+            else
+                d.setName(input);
+
+            bl.addGame(d);
+            updateList();
+            }catch(Exception e) {
+                JOptionPane.showMessageDialog(this, "Something wrong happened. You have to add the application the hard way.", "Sorry...", JOptionPane.INFORMATION_MESSAGE);
+            }
     }
     
     private BoxListe deSerialize(String name) {
@@ -355,17 +418,17 @@ public class MainWindow extends javax.swing.JFrame {
         gameList.setComponentPopupMenu(runMenu);
         gameList.setFocusCycleRoot(true);
         gameList.setNextFocusableComponent(txtSearch);
-        gameList.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Double(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                gameListMouseReleased(evt);
-            }
-        });
         gameList.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 gameListKeyPressed(evt);
+            }
+        });
+        gameList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                gameListMouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Double(evt);
             }
         });
         jScrollPane1.setViewportView(gameList);
@@ -475,6 +538,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         lblExplain.setForeground(java.awt.SystemColor.controlShadow);
+        lblExplain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -487,8 +551,8 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(jLabel5)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(lblExplain)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 288, Short.MAX_VALUE)
+                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(lblSearch)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(txtSearch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 109, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
@@ -501,7 +565,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(jLabel2)
                 .add(jLabel5)
-                .add(lblExplain))
+                .add(lblExplain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -512,11 +576,11 @@ public class MainWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
                 .addContainerGap())
+            .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 638, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 638, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -545,8 +609,6 @@ private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void Double(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Double
     if(evt.getClickCount() == 2 && !evt.isAltDown())
         mnuRunActionPerformed(null);
-    else if(evt.getClickCount() == 15 && evt.isAltDown())
-        JOptionPane.showMessageDialog(this, "Saying that Java is good because it works on all platforms\n is like saying anal sex is good because it works on all genders.");
 }//GEN-LAST:event_Double
 
 private void mnuRunDosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRunDosBoxActionPerformed
