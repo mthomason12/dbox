@@ -1,4 +1,6 @@
-#summary What's new in D-Box 1.8
+#summary Check out what's new in D-Box 1.8
+
+= What's new in D-Box 1.8 =
 
 _This is about a future version of D-Box. The current version is 1.7_
 
