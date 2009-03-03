@@ -49,6 +49,7 @@ public class ItemGUI extends javax.swing.JDialog {
         appCD.setText(dos.getCdrom());
         sldCycles.setValue(dos.getCycles());
         appFrameSkip.setValue(dos.getFrameskip());
+        chkFavorite.setSelected(dos.isStar());
     }
     
     /**
@@ -108,6 +109,13 @@ public class ItemGUI extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         appFrameSkip = new javax.swing.JSpinner();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel10 = new javax.swing.JLabel();
+        cmbGenre = new javax.swing.JComboBox();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        txtKeywords = new javax.swing.JTextArea();
+        chkFavorite = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setResizable(false);
@@ -361,6 +369,53 @@ public class ItemGUI extends javax.swing.JDialog {
 
         jTabbedPane1.addTab("Advanced", jPanel3);
 
+        jPanel4.setOpaque(false);
+
+        jLabel10.setText("Genre");
+
+        cmbGenre.setEditable(true);
+        cmbGenre.setModel(new javax.swing.DefaultComboBoxModel(new String[] { " ", "Action", "Adventure", "Arcade", "Board", "Puzzle", "Racing", "RPG", "Simulation", "Sports", "Strategy", "Text Based", "Unsorted" }));
+
+        jLabel11.setText("Keywords");
+
+        txtKeywords.setColumns(20);
+        txtKeywords.setRows(5);
+        jScrollPane1.setViewportView(txtKeywords);
+
+        chkFavorite.setText("Mark as favorite");
+
+        org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                    .add(jLabel10)
+                    .add(cmbGenre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 165, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel11)
+                    .add(chkFavorite))
+                .addContainerGap())
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel10)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(cmbGenre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jLabel11)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 126, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(chkFavorite)
+                .addContainerGap(28, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Meta Information", jPanel4);
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -405,6 +460,7 @@ private void sldCyclesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-
 private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConfirmActionPerformed
     DosItem d = new DosItem(appName.getText(),appPath.getText(), appExec.getText(),appSetup.getText(), sldCycles.getValue(), appCD.getText());
     d.setFrameskip(Integer.parseInt(appFrameSkip.getValue().toString()));
+    d.setStar(chkFavorite.isSelected());
     d.setIcon(appIcon.getText());
     MainWindow.bl.addGame(d);
     this.setVisible(false);
@@ -563,6 +619,8 @@ private void appIconCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:e
     private javax.swing.JTextField appName;
     private javax.swing.JTextField appPath;
     private javax.swing.JTextField appSetup;
+    private javax.swing.JCheckBox chkFavorite;
+    private javax.swing.JComboBox cmbGenre;
     private javax.swing.JButton cmdConfirm;
     private javax.swing.JButton cmdWizard;
     private javax.swing.JButton jButton1;
@@ -570,6 +628,8 @@ private void appIconCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:e
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -581,8 +641,11 @@ private void appIconCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:e
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JSlider sldCycles;
+    private javax.swing.JTextArea txtKeywords;
     // End of variables declaration//GEN-END:variables
     
 }

@@ -25,6 +25,16 @@ public class DosItem implements Serializable {
     private String cdrom="";
     private String floppy="";
     private String extra="";
+    private boolean star=false;
+
+    public boolean isStar() {
+        return star;
+    }
+
+    public void setStar(boolean star) {
+        this.star = star;
+    }
+
 
     public int getFrameskip() {
         return frameskip;
