@@ -102,13 +102,43 @@ public class BoxListe implements Serializable {
         searchstr=searchstr.toLowerCase();
         
         for(DosItem item : gamelist)
-            if(item.getName().toLowerCase().indexOf(searchstr) != -1)
+            if(item.getName().toLowerCase().indexOf(searchstr) != -1 || item.getKeywords().toLowerCase().indexOf(searchstr) != -1 || item.getGenre().toLowerCase().indexOf(searchstr) != -1)
                 count++;
         
         String[] temp = new String[count];
             
         for(DosItem item : gamelist) {
-            if(item.getName().toLowerCase().indexOf(searchstr) != -1) {
+            if(item.getName().toLowerCase().indexOf(searchstr) != -1 || item.getKeywords().toLowerCase().indexOf(searchstr) != -1 || item.getGenre().toLowerCase().indexOf(searchstr) != -1) {
+                temp[counter++] = item.getName();
+            }
+        }
+        Arrays.sort(temp);
+        return temp;
+    }
+
+    /**
+     * Get a list of game titles.
+     * @param searchstr the genre
+     * @return List of game titles in the db
+     **/
+    public String[] getGameListGenre(String searchstr) {
+
+        if(searchstr.equals("")) {
+            return getGameList();
+        }
+
+        int count=0;
+        int counter=0;
+        searchstr=searchstr.toLowerCase();
+
+        for(DosItem item : gamelist)
+            if(item.getGenre().toLowerCase().equals(searchstr.toLowerCase()))
+                count++;
+
+        String[] temp = new String[count];
+
+        for(DosItem item : gamelist) {
+            if(item.getGenre().toLowerCase().equals(searchstr.toLowerCase())) {
                 temp[counter++] = item.getName();
             }
         }

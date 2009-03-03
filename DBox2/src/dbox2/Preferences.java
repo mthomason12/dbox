@@ -17,6 +17,7 @@ public class Preferences implements Serializable {
     private String DosBoxPath;
     private boolean KeepOpen = false;
     private boolean FullScreen = false;
+    private String[] Genres;
 
     public boolean isFullScreen() {
         return FullScreen;
@@ -37,7 +38,7 @@ public class Preferences implements Serializable {
     /** Creates a new instance of Preferences */
     public Preferences() {
         DosBoxPath = "";
-        
+        Genres = new String[] { "Action", "Adventure", "Arcade", "Board", "Puzzle", "Racing", "RPG", "Simulation", "Sports", "Strategy", "Text Based", "Unsorted" };
     }
 
     public String getDosBoxPath() {

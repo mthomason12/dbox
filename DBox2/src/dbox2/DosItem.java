@@ -25,6 +25,8 @@ public class DosItem implements Serializable {
     private String cdrom="";
     private String floppy="";
     private String extra="";
+    private String genre="Unsorted";
+    private String keywords="";
     private boolean star=false;
 
     public boolean isStar() {
@@ -134,7 +136,23 @@ public class DosItem implements Serializable {
 	public void setPath(String path) {
 		this.path = path;
 	}
-        
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(String keywords) {
+        this.keywords = keywords;
+    }
+
         public boolean equals(DosItem d) {
             if(d.getCycles() != cycles)
                 return false;
@@ -150,7 +168,9 @@ public class DosItem implements Serializable {
                 return false;
             if(!d.getExtra().equals(extra))
                 return false;
-            if(d.getFrameskip() != frameskip)
+            if(!d.getGenre().equals(genre))
+                return false;
+            if(!d.getKeywords().equals(keywords))
                 return false;
             return true;
         }

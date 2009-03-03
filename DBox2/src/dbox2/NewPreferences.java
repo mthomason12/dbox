@@ -3,10 +3,6 @@ package dbox2;
  * Preferences.java
  *
  * Created on 8. juni 2007, 16:39
- */
-
-/**
- *
  * @author Truben
  */
 
@@ -23,7 +19,7 @@ import java.util.logging.Logger;
 public class NewPreferences implements Serializable {
     
     private String DosBoxPath = "";
-    private String ConfigPath = "";
+    private String[] Genres;
     private String LastUsedPath = "";
     private String KeyBoardCode = "us";
     private boolean KeepOpen = false;
@@ -40,6 +36,14 @@ public class NewPreferences implements Serializable {
         out.write(this.toString());
         //Close the output stream
         out.close();
+    }
+
+    public String[] getGenres() {
+        return Genres;
+    }
+
+    public void setGenres(String[] Genres) {
+        this.Genres = Genres;
     }
 
     public void readConfig(String filename) {
@@ -74,8 +78,6 @@ public class NewPreferences implements Serializable {
                 TypeOfFileDialog = Integer.parseInt(parts[1].trim());
             else if(parts[0].equals("lastusedpath"))
                 LastUsedPath = parts[1].trim();
-            else if(parts[0].equals("keyboardcode"))
-                KeyBoardCode = parts[1].trim();
             else if(parts[0].equals("keyboardcode"))
                 KeyBoardCode = parts[1].trim();
 
@@ -127,6 +129,7 @@ public class NewPreferences implements Serializable {
     /** Creates a new instance of Preferences */
     public NewPreferences() {
         DosBoxPath = "";
+         Genres = new String[] { "Action", "Adventure", "Arcade", "Board", "Platform", "Puzzle", "Racing", "RPG", "Simulation", "Sports", "Strategy", "Text Based", "Unsorted" };
         
     }
 
