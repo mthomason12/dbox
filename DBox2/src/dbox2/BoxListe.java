@@ -9,6 +9,7 @@ package dbox2;
 import dbox2.DosItem;
 import java.util.*;
 import java.io.*;
+import javax.swing.JOptionPane;
 
 /**
  * @author Truben
@@ -153,6 +154,92 @@ public class BoxListe implements Serializable {
      **/
     public int getNrGames() {
         return gamelist.size();
+    }
+
+    public String toConfigString() {
+        String out = "## D-Box Game file. Do not edit if you don't know what you're doing! ##\n\n";
+        for (DosItem dosItem : gamelist) {
+            out += dosItem.toConfigString();
+        }
+        return out;
+    }
+
+    public void readConfig(String config) {
+        Scanner s = new Scanner(config);
+        DosItem d = null;
+        int counter = 0;
+        boolean isInGame = false;
+        while(s.hasNextLine()) {
+            counter++;
+            String linje = s.nextLine().trim();
+            if(linje.startsWith("#") || linje.equals(""))
+                continue;
+
+            if(linje.toLowerCase().equals("start game")) {
+                d = new DosItem();
+                isInGame = true;
+                continue;
+            }
+            else if(linje.toLowerCase().equals("end game")) {
+                if(d == null) {
+                    System.out.println("Error in gamefile! No 'start game' before 'end game': " + counter);
+                    continue;
+                }
+                gamelist.add(d);
+                isInGame = false;
+                continue;
+            }
+            else if(isInGame) {
+                try {
+                    System.out.println(linje);
+
+                    String[] splitt = linje.split(":=");
+
+                    if(splitt.length != 2)
+                        continue;
+
+                    String keyword = splitt[0].toLowerCase().trim();
+                    String value = splitt[1].trim();
+
+                    if(keyword.equals("genre"))
+                        d.setGenre(value);
+                    else if(keyword.equals("name"))
+                        d.setName(value);
+                    else if(keyword.equals("path"))
+                        d.setPath(value);
+                    else if(keyword.equals("game"))
+                        d.setGame(value);
+                    else if(keyword.equals("keywords"))
+                        d.setKeywords(value);
+                    else if(keyword.equals("installer"))
+                        d.setInstaller(value);
+                    else if(keyword.equals("floppy"))
+                        d.setFloppy(value);
+                    else if(keyword.equals("cdrom"))
+                        d.setCdrom(value);
+                    else if(keyword.equals("icon"))
+                        d.setIcon(value);
+                    else if(keyword.equals("extra"))
+                        d.setExtra(value);
+                    else if(keyword.equals("cycles"))
+                        d.setCycles(Integer.parseInt(value));
+                    else if(keyword.equals("frameskip"))
+                        d.setFrameskip(Integer.parseInt(value));
+                    else if(keyword.equals("favorite"))
+                        d.setStar(Boolean.parseBoolean(value));
+                }
+                catch(Exception e) {
+                    int answer = JOptionPane.showConfirmDialog(null, "Something is wrong with the game list! Have you edited it?\n\nLine " +
+                         counter + ": \n" + linje + "\n\nI can continue, but beware that I will overwrite the value with something " +
+                         "legal. I can also quit so you can edit the file back to correct condition.\n\nDo you want me to quit?","Error" +
+                         " in game file",JOptionPane.YES_NO_OPTION);
+                    if(answer == JOptionPane.YES_OPTION)
+                        System.exit(0);
+                }
+
+            }
+
+        }
     }
     
     

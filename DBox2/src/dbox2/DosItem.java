@@ -149,6 +149,24 @@ public class DosItem implements Serializable {
         return keywords;
     }
 
+    public String toConfigString()  {
+        return        "start game" + "\n" +
+                      "  name := " + getName() + "\n" +
+                      "  path := " + getPath() + "\n" +
+                      "  game := " + getGame() + "\n" +
+                      "  genre := " + getGenre() + "\n" +
+                      "  keywords := " + getKeywords() + "\n" +
+                      "  installer := " + getInstaller() + "\n" +
+                      "  floppy := " + getFloppy() + "\n" +
+                      "  cdrom := " + getCdrom() + "\n" +
+                      "  extra :=" + getExtra() + "\n" +
+                      "  icon := " + getIcon() + "\n" +
+                      "  cycles := " + getCycles() + "\n" +
+                      "  frameskip := " + getFrameskip() + "\n" +
+                      "  favorite := " + isStar() + "\n" +
+                      "end game\n\n";
+    }
+
     public void setKeywords(String keywords) {
         this.keywords = keywords;
     }

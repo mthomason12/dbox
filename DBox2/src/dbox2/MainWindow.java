@@ -6,9 +6,7 @@
 
 package dbox2;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.MenuItem;
 import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
@@ -60,22 +59,13 @@ public class MainWindow extends javax.swing.JFrame {
         }
 
         // Genre filter menu
-        /*if(true) { // A little neat hack to reduce scope
-            JMenuItem m = new JMenuItem();
-            m.setText("Show All");
-            m.addActionListener(new Filter(this));
-            searchMenu.add(m);
-            searchMenu.addSeparator();
-        }*/
+
         for(String s : pref.getGenres()) {
             JMenuItem m = new JMenuItem();
             m.setText(s);
             m.addActionListener(new Filter(this));
             searchMenu.add(m);
         }
-
-
-        // Images in the list!
 
         // Set up images
         runEnabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start.png"));
@@ -87,27 +77,25 @@ public class MainWindow extends javax.swing.JFrame {
         searchArrow = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow.png"));
         searchArrowDisabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow-disabled.png"));
 
+        bl = deSerialize(Main.gameFile);
 
-
-
-        bl = deSerialize("database.dat");
-        //Preferences oldpref = deSerializePref("preferences.dat");
         pref.readConfig(Main.configFile);
+
         try {
             pref.writeConfig(Main.configFile);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         centerScreen();
         updateList();
-        new  FileDrop( gameList, new FileDrop.Listener()
-      {   public void  filesDropped( java.io.File[] files )
-          {
+
+        // drag & drop
+        new  FileDrop( gameList, new FileDrop.Listener() {
+            public void  filesDropped( java.io.File[] files ) {
               createNewMagicProfile(files[0].getAbsoluteFile());
-          }
-
-
-      });
+            }
+        });
 
     }
 
@@ -174,65 +162,43 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     private BoxListe deSerialize(String name) {
-        BoxListe s = new BoxListe();
-        try {
-            FileInputStream fis = new FileInputStream(name);
-            ObjectInputStream ois;
-            ois = new ObjectInputStream(fis);
-            try {
-                s = (BoxListe)ois.readObject();
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-            }
-            ois.close();
-        } catch (IOException ex) {
-            return s;
-        }
+        String config = "";
+        Scanner s = null;
         
-        return s;
-    }
-    
-    private Preferences deSerializePref(String name) {
-        Preferences s = new Preferences();
         try {
-            FileInputStream fis = new FileInputStream(name);
-            ObjectInputStream ois;
-            ois = new ObjectInputStream(fis);
-            try {
-                s = (Preferences)ois.readObject();
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-            }
-            ois.close();
-        } catch (IOException ex) {
-            JOptionPane.showMessageDialog(this, "Hey! Welcome to D-Box. Please check your preferences before you start! Just click on the cogwheel in the main window.", "Welcome!", JOptionPane.INFORMATION_MESSAGE);
-            return s;
-        }
-        
-        return s;
-    }
-    
-    
-    public void skrivObjekt(String navn, Object o) {
-		try {
-			ObjectOutputStream output =
-				new ObjectOutputStream(new FileOutputStream( navn ) );
-			
-			output.writeObject(o);
-			output.flush();
-			output.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		exportGameList();
-        try {
-            pref.writeConfig(Main.configFile);
-        } catch (IOException ex) {
+            s = new Scanner(new File(name));
+        } catch (FileNotFoundException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
-	}
+
+        while(s.hasNext())
+            config += s.nextLine() + "\n";
+
+        BoxListe b = new BoxListe();
+        b.readConfig(config);
+        return b;
+    }
+    
+    
+    public void skrivObjekt(String navn) {
+	FileWriter fstream = null;
+        try {
+            fstream = new FileWriter(navn);
+            BufferedWriter writer = new BufferedWriter(fstream);
+            writer.write(bl.toConfigString());
+            //Close the output stream
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fstream.close();
+            } catch (IOException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
     
     /**
      * Putter boksen midt paa skjermen
@@ -315,7 +281,7 @@ public class MainWindow extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { if(strings[i].equals("")) return "(untitled)"; else return strings[i]; }
         });
-        skrivObjekt("database.dat", bl);
+        skrivObjekt(Main.gameFile);
     }
     
     private void updateList(String search) {
@@ -1059,35 +1025,6 @@ private void lblSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
-
-    /**
-     * Exports the game list so we can get ready for our next release!
-     */
-    private void exportGameList() {
-        FileWriter fstream = null;
-        try {
-            String[] games = bl.getGameList();
-            String out = "## D-Box game list. Not in use yet, but next version will use it! ##\n\n";
-            for (String g : games) {
-                DosItem d = bl.getGame(g);
-                out += "start game" + "\n" + "  name := " + d.getName() + "\n" + "  path := " + d.getPath() + "\n" + "  game := " + d.getGame() + "\n" + "  installer := " + d.getInstaller() + "\n" + "  floppy := " + d.getFloppy() + "\n" + "  cdrom := " + d.getCdrom() + "\n" + "  extra :=" + d.getExtra() + "\n" + "  icon := " + d.getIcon() + "\n" + "end game\n\n";
-            }
-            fstream = new FileWriter(Main.gameFile);
-            BufferedWriter writer = new BufferedWriter(fstream);
-            writer.write(out);
-            //Close the output stream
-            writer.close();
-        } catch (IOException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                fstream.close();
-            } catch (IOException ex) {
-                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-
-    }
 }
 
 class Filter implements ActionListener {
