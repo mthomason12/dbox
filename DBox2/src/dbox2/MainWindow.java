@@ -535,6 +535,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        lblExplain.setFont(lblExplain.getFont().deriveFont(lblExplain.getFont().getSize()-2f));
         lblExplain.setForeground(java.awt.SystemColor.controlShadow);
         lblExplain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -549,7 +550,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(18, 18, 18)
                 .add(jLabel5)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(lblSearch)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
