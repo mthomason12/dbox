@@ -121,6 +121,11 @@ public class MainWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "You must drag the main executable, not the directory!", "You're almost there...", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
+        if(!file.getAbsolutePath().endsWith("exe") && !file.getAbsolutePath().endsWith("com") && !file.getAbsolutePath().endsWith("bat")) {
+            int s = JOptionPane.showConfirmDialog(this, "This doesn't look like an executable file. Executable files normally ends with .bat, .exe or .com.\n\nDo you still want to continue?", "You're almost there...", JOptionPane.YES_NO_OPTION);
+            if(s != JOptionPane.YES_OPTION)
+                return;
+        }
 
         try {
             DosItem d = new DosItem();
@@ -153,8 +158,11 @@ public class MainWindow extends javax.swing.JFrame {
                     JOptionPane.QUESTION_MESSAGE,
                     null,choice,choice[0]);
 
+            if(input==null)
+                return;
+
             if(input.equals(choice[2]))
-                d.setName(JOptionPane.showInputDialog(this, "Type the name of the application", choice[1], JOptionPane.QUESTION_MESSAGE));
+                d.setName(JOptionPane.showInputDialog("Type the name of the application", choice[1]));
             else
                 d.setName(input);
 
