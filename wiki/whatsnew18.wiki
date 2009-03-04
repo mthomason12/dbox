@@ -9,7 +9,7 @@ _This is about a future version of D-Box. The current version is 1.7_
   * Folder icon instead of "Browse..." text in dialogs
   * Better size on Preferences dialog
   * Possible to mark a game as a favorite
-  * Human readable gamelist (note: you need to migrate from D-Box 1.7 to 1.8, if not you will have to add all your games once more)
+  * Human readable gamelist (note: You can't upgrade from D-Box older than 1.7 to 1.8, if you do this, your gamelist database will cleared. I recommend all upgrading users to go through 1.7) 
   * Filter games by genre (you can edit available genres in the config file)
   * New meta information tab in "edit game" dialog: Add searchable keywords and genres
   * New switches:
