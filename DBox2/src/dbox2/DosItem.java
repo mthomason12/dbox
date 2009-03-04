@@ -25,7 +25,7 @@ public class DosItem implements Serializable {
     private String cdrom="";
     private String floppy="";
     private String extra="";
-    private String genre="Unsorted";
+    private String genre=MainWindow.pref.getGenres()[MainWindow.pref.getGenres().length-1];
     private String keywords="";
     private boolean star=false;
 

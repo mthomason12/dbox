@@ -48,6 +48,10 @@ public class MainWindow extends javax.swing.JFrame {
     /** Creates new form MainWindow */
     public MainWindow() {
 
+        bl = deSerialize(Main.gameFile);
+
+        pref.readConfig(Main.configFile);
+
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/ikon.gif")).getImage());
 
         try {
@@ -77,9 +81,7 @@ public class MainWindow extends javax.swing.JFrame {
         searchArrow = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow.png"));
         searchArrowDisabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow-disabled.png"));
 
-        bl = deSerialize(Main.gameFile);
 
-        pref.readConfig(Main.configFile);
 
         try {
             pref.writeConfig(Main.configFile);
@@ -109,7 +111,8 @@ public class MainWindow extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "You must drag the main executable, not the directory!", "You're almost there...", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
-        if(!file.getAbsolutePath().endsWith("exe") && !file.getAbsolutePath().endsWith("com") && !file.getAbsolutePath().endsWith("bat")) {
+        System.out.println(file.getName());
+        if(!file.getName().toLowerCase().endsWith("exe") && !file.getName().toLowerCase().endsWith("com") && !file.getName().toLowerCase().endsWith("bat") && !file.getName().toLowerCase().endsWith("pif")) {
             int s = JOptionPane.showConfirmDialog(this, "This doesn't look like an executable file. Executable files normally ends with .bat, .exe or .com.\n\nDo you still want to continue?", "You're almost there...", JOptionPane.YES_NO_OPTION);
             if(s != JOptionPane.YES_OPTION)
                 return;
@@ -168,7 +171,7 @@ public class MainWindow extends javax.swing.JFrame {
         try {
             s = new Scanner(new File(name));
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            return new BoxListe();
         }
 
         while(s.hasNext())
@@ -453,12 +456,17 @@ public class MainWindow extends javax.swing.JFrame {
 
         txtSearch.setToolTipText("Search the gamelist");
         txtSearch.setNextFocusableComponent(gameList);
-        txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                txtSearchMouseEntered(evt);
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
             }
+        });
+        txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 txtSearchMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtSearchMouseEntered(evt);
             }
         });
         txtSearch.addCaretListener(new javax.swing.event.CaretListener() {
@@ -466,28 +474,24 @@ public class MainWindow extends javax.swing.JFrame {
                 txtSearchCaretUpdate(evt);
             }
         });
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSearchKeyReleased(evt);
-            }
-        });
 
+        lblSearch.setFont(lblSearch.getFont());
         lblSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.disabledText"));
         lblSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow-disabled.png"))); // NOI18N
         lblSearch.setLabelFor(txtSearch);
         lblSearch.setText("Search:");
         lblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblSearchMousePressed(evt);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblSearchMouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblSearchMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lblSearchMouseExited(evt);
             }
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblSearchMousePressed(evt);
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblSearchMouseEntered(evt);
             }
         });
 
@@ -575,20 +579,20 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(jLabel5)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(18, 18, 18)
                 .add(lblSearch)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(8, 8, 8)
                 .add(txtSearch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
         panelControlsLayout.setVerticalGroup(
             panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                 .add(txtSearch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(lblSearch)
                 .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .add(jLabel2)
                 .add(jLabel5)
-                .add(lblExplain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(lblExplain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(lblSearch))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -597,9 +601,9 @@ public class MainWindow extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 618, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
                 .addContainerGap())
-            .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 638, Short.MAX_VALUE)
+            .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 674, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(panelControls, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -610,7 +614,7 @@ public class MainWindow extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
                 .add(18, 18, 18)
                 .add(panelControls, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())

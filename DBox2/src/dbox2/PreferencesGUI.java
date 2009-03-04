@@ -17,6 +17,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
     
     /** Creates new form PreferencesGUI */
     public PreferencesGUI() {
+        
 
         initComponents();
         txtDosBoxPath.setText(MainWindow.pref.getDosBoxPath());

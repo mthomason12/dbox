@@ -51,15 +51,15 @@ public class NewPreferences implements Serializable {
         try {
             s = new Scanner(new File(filename));
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(NewPreferences.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
         while(s.hasNextLine()) {
             String io = s.nextLine();
             if(io.trim().startsWith("#") || io.trim().equals(""))
                 continue; // Comment or blank line
 
-            String parts[] = io.toLowerCase().split(":=");
-            parts[0] = parts[0].trim();
+            String parts[] = io.split(":=");
+            parts[0] = parts[0].toLowerCase().trim();
             if(parts[0].equals("dosboxpath"))
                 DosBoxPath = parts[1].trim();
             else if(parts[0].equals("iconwidth"))
@@ -72,6 +72,8 @@ public class NewPreferences implements Serializable {
                 ShowIcons = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("fullscreen"))
                 FullScreen = Boolean.parseBoolean(parts[1].trim());
+            else if(parts[0].equals("genres"))
+                stringToGenres(parts[1].trim());
             else if(parts[0].equals("keepopen"))
                 KeepOpen = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("typeoffiledialog"))
@@ -99,19 +101,32 @@ public class NewPreferences implements Serializable {
                      "IconWidth        := " + IconWidth + "\n" +
                      "IconHeight       := " + IconHeight + "\n" +
                      "IconResize       := " + IconResize + "\n" +
+                     "Genres           := " + genresToString() + "\n" +
                      "LastUsedPath     := " + LastUsedPath + "\n" +
                      "KeyBoardCode     := " + KeyBoardCode + "\n" +
                      "TypeOfFileDialog := " + TypeOfFileDialog;
     }
 
-    public boolean isFullScreen() {
-        return FullScreen;
+    private String genresToString() {
+        String out = "";
+        for (String string : Genres)
+            out += string + ", ";
+        return out.substring(0, out.length()-2);
     }
 
-    public void readOldPref(Preferences p) {
-        this.FullScreen = p.isFullScreen();
-        this.KeepOpen = p.isKeepOpen();
-        this.DosBoxPath = p.getDosBoxPath();
+    private void stringToGenres(String s) {
+        if(s.equals(""))
+            return;
+        else {
+            String[] splitt = s.split(",");
+            for (int i =0;i<splitt.length;i++)
+                splitt[i] = splitt[i].trim();
+            setGenres(splitt);
+        }
+    }
+
+    public boolean isFullScreen() {
+        return FullScreen;
     }
 
     public void setFullScreen(boolean FullScreen) {
@@ -129,7 +144,7 @@ public class NewPreferences implements Serializable {
     /** Creates a new instance of Preferences */
     public NewPreferences() {
         DosBoxPath = "";
-         Genres = new String[] { "Action", "Adventure", "Arcade", "Board", "Platform", "Puzzle", "Racing", "RPG", "Simulation", "Sports", "Strategy", "Text Based", "Unsorted" };
+         Genres = new String[] { "Action", "Adventure", "Arcade", "Board", "Platform", "Puzzle", "Racing", "RPG", "Simulation", "Sports", "Strategy", "Text Based", "Utility", "Unsorted" };
         
     }
 
