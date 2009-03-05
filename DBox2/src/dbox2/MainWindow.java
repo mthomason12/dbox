@@ -348,6 +348,7 @@ public class MainWindow extends javax.swing.JFrame {
         prefMenu = new javax.swing.JPopupMenu();
         mnuPreferences = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
+        mnuGettingStarted = new javax.swing.JMenuItem();
         mnuAbout = new javax.swing.JMenuItem();
         mnuWeb = new javax.swing.JMenu();
         mnuHome = new javax.swing.JMenuItem();
@@ -429,6 +430,14 @@ public class MainWindow extends javax.swing.JFrame {
         });
         prefMenu.add(mnuPreferences);
         prefMenu.add(jSeparator1);
+
+        mnuGettingStarted.setText("Getting Started...");
+        mnuGettingStarted.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuGettingStartedActionPerformed(evt);
+            }
+        });
+        prefMenu.add(mnuGettingStarted);
 
         mnuAbout.setText("D-Box version " + Main.MAJORVERSION + "." + Main.MINORVERSION + "");
         mnuAbout.addActionListener(new java.awt.event.ActionListener() {
@@ -643,7 +652,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel5)
                 .add(18, 18, 18)
-                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
+                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
                 .add(18, 18, 18)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -669,10 +678,10 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(panelControls, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(panelControls, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .add(10, 10, 10)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
                 .add(10, 10, 10))
         );
         layout.setVerticalGroup(
@@ -680,7 +689,7 @@ public class MainWindow extends javax.swing.JFrame {
             .add(layout.createSequentialGroup()
                 .add(panelControls, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -1077,6 +1086,11 @@ private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
 private void gameListMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gameListMouseEntered
 
 }//GEN-LAST:event_gameListMouseEntered
+
+private void mnuGettingStartedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuGettingStartedActionPerformed
+    Help h = new Help(this, true);
+    h.setVisible(true);
+}//GEN-LAST:event_mnuGettingStartedActionPerformed
  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1095,6 +1109,7 @@ private void gameListMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     private javax.swing.JMenuItem mnuDelete2;
     private javax.swing.JMenuItem mnuDosbox;
     private javax.swing.JMenuItem mnuEdit2;
+    private javax.swing.JMenuItem mnuGettingStarted;
     private javax.swing.JMenuItem mnuHome;
     private javax.swing.JMenuItem mnuNew2;
     private javax.swing.JMenuItem mnuPreferences;

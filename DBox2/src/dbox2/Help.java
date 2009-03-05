@@ -137,6 +137,7 @@ public class Help extends javax.swing.JDialog {
         jLabel8.setText("The gamelist");
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/gamelist.png"))); // NOI18N
+        jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jLabel10.setText("- Drop a game into the game list to add it quickly. D-Box will try to find the");
 

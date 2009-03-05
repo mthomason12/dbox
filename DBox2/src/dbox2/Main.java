@@ -2,6 +2,7 @@
 
 package dbox2;
 
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
@@ -49,6 +50,8 @@ public class Main {
 
             n.setVisible(true);
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger("global").log(Level.SEVERE, null, ex);
+         } catch (IOException ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
