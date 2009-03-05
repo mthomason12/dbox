@@ -6,15 +6,11 @@
 
 package dbox2;
 
-import java.awt.Dimension;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 
-import java.io.*;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -103,6 +99,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         centerScreen();
         updateList();
+        gameList.requestFocus();
         jPanel1.setBorder(jTextField1.getBorder());
 
         // drag & drop
@@ -611,7 +608,7 @@ public class MainWindow extends javax.swing.JFrame {
             .add(jPanel1Layout.createSequentialGroup()
                 .add(lblSearch)
                 .add(2, 2, 2)
-                .add(txtSearch, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+                .add(txtSearch, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -636,22 +633,25 @@ public class MainWindow extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel5)
                 .add(18, 18, 18)
-                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
                 .add(18, 18, 18)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         panelControlsLayout.setVerticalGroup(
             panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .add(org.jdesktop.layout.GroupLayout.LEADING, panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                    .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(lblExplain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
             .add(panelControlsLayout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(org.jdesktop.layout.GroupLayout.LEADING, panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                            .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(lblExplain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(panelControlsLayout.createSequentialGroup()
+                        .add(20, 20, 20)
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -921,8 +921,7 @@ private void gameListKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_
 }//GEN-LAST:event_gameListKeyPressed
 
 private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
-editMenu.show(evt.getComponent(),
-                       evt.getX(), evt.getY());
+editMenu.show(jLabel2, 0, jLabel2.getHeight()-10);
 
 }//GEN-LAST:event_jLabel2MousePressed
 
@@ -935,11 +934,7 @@ private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_jLabel2MouseClicked
 
 private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
-
-    if(evt.getButton() == MouseEvent.BUTTON3) {
-    runMenu.show(evt.getComponent(),
-                       evt.getX(), evt.getY());
-    }
+    runMenu.show(jLabel4, 0, jLabel4.getHeight()-10);
 }//GEN-LAST:event_jLabel4MousePressed
 
 private void jLabel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseReleased
@@ -952,7 +947,7 @@ if(evt.getButton() == MouseEvent.BUTTON1)
 }//GEN-LAST:event_jLabel4MouseClicked
 
 private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-    // TODO add your handling code here:
+    prefMenu.show(jLabel5, 0, jLabel5.getHeight()-10);
 }//GEN-LAST:event_jLabel5MousePressed
 
 private void jLabel5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseReleased
@@ -976,12 +971,16 @@ private void gameListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 
 private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
     jLabel4.setIcon(runEnabled);
+    if(prefMenu.isVisible() || editMenu.isVisible())
+        jLabel4MousePressed(null);
     lblExplain.setText("Run Game");
 }//GEN-LAST:event_jLabel4MouseEntered
 
 private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
     jLabel2.setIcon(fileEnabled);
     lblExplain.setText("Edit Game Preferences");
+    if(prefMenu.isVisible() || runMenu.isVisible())
+        jLabel2MousePressed(null);
 }//GEN-LAST:event_jLabel2MouseEntered
 
 private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
@@ -997,6 +996,8 @@ private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
     jLabel5.setIcon(prefEnabled);
     lblExplain.setText("Edit D-Box Preferences");
+    if(runMenu.isVisible() || editMenu.isVisible())
+        jLabel5MousePressed(null);
 }//GEN-LAST:event_jLabel5MouseEntered
 
 private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
@@ -1061,7 +1062,7 @@ private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu editMenu;
-    private javax.swing.JList gameList;
+    protected javax.swing.JList gameList;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1106,6 +1107,8 @@ class Filter implements ActionListener {
             mw.updateListFavorite();
         else
             mw.updateListGenre(s);
+
+        mw.gameList.requestFocus();
 
     }
 
