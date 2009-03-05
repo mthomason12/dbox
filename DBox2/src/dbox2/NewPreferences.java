@@ -23,10 +23,20 @@ public class NewPreferences implements Serializable {
     private boolean KeepOpen = false;
     private boolean FullScreen = false;
     private boolean ShowIcons = true;
+    private boolean FirstStart = true;
     private int IconWidth = 22;
     private int IconHeight = 22;
     private boolean IconResize = true;
     private int TypeOfFileDialog = 0;
+
+    public boolean isFirstStart() {
+        return FirstStart;
+    }
+
+    public void setFirstStart(boolean FirstStart) {
+        this.FirstStart = FirstStart;
+        System.out.println("lol");
+    }
 
     public void writeConfig(String filename) throws IOException {
         FileWriter fstream = new FileWriter(filename);
@@ -80,6 +90,9 @@ public class NewPreferences implements Serializable {
                 LastUsedPath = parts[1].trim();
             else if(parts[0].equals("keyboardcode"))
                 KeyBoardCode = parts[1].trim();
+            else if(parts[0].equals("firststart")) {
+                FirstStart = Boolean.parseBoolean(parts[1].trim());
+            }
 
 
         }
@@ -102,6 +115,7 @@ public class NewPreferences implements Serializable {
                      "Genres           := " + genresToString() + "\n" +
                      "LastUsedPath     := " + LastUsedPath + "\n" +
                      "KeyBoardCode     := " + KeyBoardCode + "\n" +
+                     "FirstStart       := " + FirstStart + "\n" +
                      "TypeOfFileDialog := " + TypeOfFileDialog;
     }
 

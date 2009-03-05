@@ -47,7 +47,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     
     /** Creates new form MainWindow */
-    public MainWindow() {
+    public MainWindow() throws IOException {
 
         bl = deSerialize(Main.gameFile);
 
@@ -109,6 +109,12 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        if(pref.isFirstStart()) {
+            Help h = new Help(this, true);
+            h.setVisible(true);
+            pref.setFirstStart(false);
+            pref.writeConfig(Main.configFile);
+        }
     }
 
     /**
@@ -457,21 +463,25 @@ public class MainWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("D-Box");
 
+        gameList.setToolTipText("");
         gameList.setComponentPopupMenu(runMenu);
         gameList.setFocusCycleRoot(true);
         gameList.setFocusTraversalPolicyProvider(true);
         gameList.setNextFocusableComponent(txtSearch);
-        gameList.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                gameListKeyPressed(evt);
-            }
-        });
         gameList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                Double(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                gameListMouseEntered(evt);
+            }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 gameListMouseReleased(evt);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                Double(evt);
+        });
+        gameList.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                gameListKeyPressed(evt);
             }
         });
         jScrollPane1.setViewportView(gameList);
@@ -486,64 +496,64 @@ public class MainWindow extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2MouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel2MousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jLabel2MouseReleased(evt);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel2MouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel2MouseEntered(evt);
-            }
         });
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start-disabled.png"))); // NOI18N
-        jLabel4.setToolTipText("Run Application (right-click for more options)");
+        jLabel4.setToolTipText("Run Application");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel4MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel4MouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel4MousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jLabel4MouseReleased(evt);
             }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel4MouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel4MouseEntered(evt);
-            }
         });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/emblem-system-disabled.png"))); // NOI18N
-        jLabel5.setToolTipText("Preferences (right-click for more options)");
+        jLabel5.setToolTipText("Preferences");
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, prefMenu, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel5, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
         bindingGroup.addBinding(binding);
 
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel5MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel5MouseExited(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel5MousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jLabel5MouseReleased(evt);
-            }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel5MouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel5MouseEntered(evt);
             }
         });
 
@@ -555,17 +565,17 @@ public class MainWindow extends javax.swing.JFrame {
         lblSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow-disabled.png"))); // NOI18N
         lblSearch.setLabelFor(txtSearch);
         lblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblSearchMousePressed(evt);
-            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblSearchMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblSearchMouseEntered(evt);
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 lblSearchMouseExited(evt);
             }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblSearchMouseEntered(evt);
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblSearchMousePressed(evt);
             }
         });
 
@@ -633,7 +643,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel5)
                 .add(18, 18, 18)
-                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 352, Short.MAX_VALUE)
+                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
                 .add(18, 18, 18)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -646,11 +656,12 @@ public class MainWindow extends javax.swing.JFrame {
                         .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(org.jdesktop.layout.GroupLayout.LEADING, panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
-                            .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(lblExplain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(panelControlsLayout.createSequentialGroup()
-                        .add(20, 20, 20)
-                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(16, 16, 16)
+                        .add(panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(lblExplain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -660,16 +671,16 @@ public class MainWindow extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(panelControls, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
-                .add(20, 20, 20)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
-                .add(20, 20, 20))
+                .add(10, 10, 10)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                .add(10, 10, 10))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(panelControls, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(18, 18, 18)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -892,7 +903,10 @@ private void mnuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_mnuNewActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-    updateList(txtSearch.getText());
+    if(txtSearch.getText().equals("Search"))
+        updateList();
+    else
+        updateList(txtSearch.getText());
 }//GEN-LAST:event_txtSearchKeyReleased
 
 private void mnuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDeleteActionPerformed
@@ -1032,7 +1046,8 @@ private void txtSearchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST
 
 private void lblSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMousePressed
     searchMenu.show(lblSearch, 0, lblSearch.getHeight());
-    txtSearch.setText("");
+    gameList.requestFocus();
+    txtSearch.setText("Search");
     txtSearchKeyReleased(null);
 
 }//GEN-LAST:event_lblSearchMousePressed
@@ -1058,6 +1073,10 @@ private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
         txtSearch.setText("Search");
     txtSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.disabledText"));
 }//GEN-LAST:event_txtSearchFocusLost
+
+private void gameListMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gameListMouseEntered
+
+}//GEN-LAST:event_gameListMouseEntered
  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
