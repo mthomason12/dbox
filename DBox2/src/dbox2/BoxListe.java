@@ -117,6 +117,24 @@ public class BoxListe implements Serializable {
         return temp;
     }
 
+    public String[] getFavoriteGameList() {
+        int count=0;
+        int counter=0;
+
+        for(DosItem item : gamelist)
+            if(item.isStar())
+                count++;
+
+        String[] temp = new String[count];
+
+        for(DosItem item : gamelist) {
+            if(item.isStar())
+                temp[counter++] = item.getName();
+        }
+        Arrays.sort(temp);
+        return temp;
+    }
+
     /**
      * Get a list of game titles.
      * @param searchstr the genre

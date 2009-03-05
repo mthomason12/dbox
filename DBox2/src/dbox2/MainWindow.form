@@ -128,6 +128,17 @@
         <Property name="useNullLayout" type="boolean" value="true"/>
       </Layout>
     </Container>
+    <Component class="javax.swing.JTextField" name="jTextField1">
+      <Properties>
+        <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+          <SerializedValue value="-84,-19,0,5,115,114,0,78,111,114,103,46,110,101,116,98,101,97,110,115,46,109,111,100,117,108,101,115,46,102,111,114,109,46,82,65,68,67,111,110,110,101,99,116,105,111,110,80,114,111,112,101,114,116,121,69,100,105,116,111,114,36,82,65,68,67,111,110,110,101,99,116,105,111,110,68,101,115,105,103,110,86,97,108,117,101,2,10,-70,90,-35,-97,-57,100,2,0,7,73,0,4,116,121,112,101,76,0,10,109,101,116,104,111,100,78,97,109,101,116,0,18,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,76,0,12,112,114,111,112,101,114,116,121,78,97,109,101,113,0,126,0,1,76,0,16,114,97,100,67,111,109,112,111,110,101,110,116,78,97,109,101,113,0,126,0,1,76,0,16,114,101,113,117,105,114,101,100,84,121,112,101,78,97,109,101,113,0,126,0,1,76,0,8,117,115,101,114,67,111,100,101,113,0,126,0,1,76,0,5,118,97,108,117,101,113,0,126,0,1,120,112,0,0,0,2,112,112,112,112,116,0,0,112"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JTextField()"/>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jTextField1.setVisible(false);"/>
+      </AuxValues>
+    </Component>
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
@@ -151,28 +162,21 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jLabel3" alignment="0" pref="674" max="32767" attributes="0"/>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="634" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="panelControls" max="32767" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
+          <Component id="panelControls" alignment="0" max="32767" attributes="0"/>
+          <Group type="102" attributes="0">
+              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
+              <Component id="jScrollPane1" pref="644" max="32767" attributes="0"/>
+              <EmptySpace min="20" pref="20" max="20" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <Component id="jLabel3" min="-2" pref="45" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-              <Component id="jScrollPane1" pref="319" max="32767" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="panelControls" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+              <Component id="panelControls" min="-2" pref="58" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" pref="371" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -194,6 +198,7 @@
               <ComponentRef name="runMenu"/>
             </Property>
             <Property name="focusCycleRoot" type="boolean" value="true"/>
+            <Property name="focusTraversalPolicyProvider" type="boolean" value="true"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
               <ComponentRef name="txtSearch"/>
             </Property>
@@ -210,93 +215,53 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel3">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/dbox2/img/title.jpg"/>
-        </Property>
-        <Property name="toolTipText" type="java.lang.String" value=""/>
-      </Properties>
-      <BindingProperties>
-        <BindingProperty name="componentPopupMenu" source="mnuWeb" target="jLabel3" targetPath="componentPopupMenu" updateStrategy="0" immediately="false"/>
-      </BindingProperties>
-      <Events>
-        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel3MouseClicked"/>
-      </Events>
-    </Component>
     <Container class="javax.swing.JPanel" name="panelControls">
+      <Properties>
+        <Property name="opaque" type="boolean" value="false"/>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[684, 50]"/>
+        </Property>
+      </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel()&#xa;{&#xa;            ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource(&quot;/dbox2/img/bg.jpg&quot;));&#xa;            Image image = backImage.getImage();&#xa;            int w = backImage.getIconWidth();&#xa;&#xa;            public void paintComponent (Graphics g) {&#xa;                for(int i=0;i&lt;100;i++)&#xa;                g.drawImage(image, w*i, 0, this);&#xa;                super.paintComponent(g);&#xa;            }&#xa;        }&#xa;"/>
+      </AuxValues>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="1" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="lblExplain" pref="296" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="lblSearch" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-                  <Component id="txtSearch" min="-2" pref="103" max="-2" attributes="0"/>
+                  <Component id="lblExplain" pref="338" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="txtSearch" alignment="3" min="-2" max="-2" attributes="1"/>
-                  <Component id="jLabel4" alignment="3" min="-2" pref="32" max="-2" attributes="0"/>
-                  <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lblExplain" alignment="3" min="-2" pref="12" max="-2" attributes="0"/>
-                  <Component id="lblSearch" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                  <Component id="jLabel4" alignment="0" max="32767" attributes="1"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="jLabel2" alignment="3" pref="56" max="32767" attributes="1"/>
+                      <Component id="jLabel5" alignment="3" min="-2" pref="58" max="-2" attributes="0"/>
+                      <Component id="lblExplain" alignment="3" min="-2" pref="24" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JTextField" name="txtSearch">
-          <Properties>
-            <Property name="toolTipText" type="java.lang.String" value="Search the gamelist"/>
-            <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="gameList"/>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyReleased"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtSearchMouseExited"/>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtSearchMouseEntered"/>
-            <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtSearchCaretUpdate"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblSearch">
-          <Properties>
-            <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
-              <FontInfo relative="true">
-                <Font component="lblSearch" property="font" relativeSize="true" size="0"/>
-              </FontInfo>
-            </Property>
-            <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="80" green="80" id="Button.disabledText" palette="3" red="80" type="palette"/>
-            </Property>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/dbox2/img/down-arrow-disabled.png"/>
-            </Property>
-            <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-              <ComponentRef name="txtSearch"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Search:"/>
-          </Properties>
-          <Events>
-            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSearchMousePressed"/>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSearchMouseClicked"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSearchMouseExited"/>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSearchMouseEntered"/>
-          </Events>
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -341,13 +306,97 @@
             <BindingProperty name="componentPopupMenu" source="prefMenu" target="jLabel5" targetPath="componentPopupMenu" updateStrategy="0" immediately="false"/>
           </BindingProperties>
           <Events>
-            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseClicked"/>
-            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseEntered"/>
-            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseExited"/>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MousePressed"/>
             <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseReleased"/>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseClicked"/>
+            <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseExited"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MouseEntered"/>
           </Events>
         </Component>
+        <Container class="javax.swing.JPanel" name="jPanel1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="ff" green="ff" id="EditorPane.background" palette="3" red="ff" type="palette"/>
+            </Property>
+            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+              <Border info="org.netbeans.modules.form.compat2.border.BevelBorderInfo">
+                <BevelBorder bevelType="1"/>
+              </Border>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblSearch" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
+                      <Component id="txtSearch" pref="136" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="lblSearch" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSearch" alignment="3" min="-2" pref="16" max="-2" attributes="1"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Component class="javax.swing.JLabel" name="lblSearch">
+              <Properties>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
+                  <FontInfo relative="true">
+                    <Font component="lblSearch" property="font" relativeSize="true" size="0"/>
+                  </FontInfo>
+                </Property>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="80" green="80" id="Button.disabledText" palette="3" red="80" type="palette"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/dbox2/img/down-arrow-disabled.png"/>
+                </Property>
+                <Property name="labelFor" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="txtSearch"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSearchMousePressed"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSearchMouseClicked"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSearchMouseExited"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="lblSearchMouseEntered"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JTextField" name="txtSearch">
+              <Properties>
+                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="80" green="80" id="Button.disabledText" palette="3" red="80" type="palette"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Search"/>
+                <Property name="toolTipText" type="java.lang.String" value="Search the gamelist"/>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+                <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
+                  <ComponentRef name="gameList"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSearchFocusGained"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSearchFocusLost"/>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyReleased"/>
+                <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtSearchMouseExited"/>
+                <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtSearchMouseEntered"/>
+                <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtSearchCaretUpdate"/>
+              </Events>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="4"/>
+              </AuxValues>
+            </Component>
+          </SubComponents>
+        </Container>
         <Component class="javax.swing.JLabel" name="lblExplain">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.modules.form.editors2.FontEditor">
@@ -356,7 +405,7 @@
               </FontInfo>
             </Property>
             <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-              <Color blue="93" green="93" id="Control Shadow" palette="2" red="93" type="palette"/>
+              <Color blue="ff" green="ff" red="ff" type="rgb"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>

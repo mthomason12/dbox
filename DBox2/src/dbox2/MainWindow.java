@@ -13,14 +13,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+
 import java.io.*;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
 
 /**
  *
@@ -63,6 +68,13 @@ public class MainWindow extends javax.swing.JFrame {
         }
 
         // Genre filter menu
+        if(true) {
+            JMenuItem m = new JMenuItem();
+            m.setText("Favorites");
+            m.addActionListener(new Filter(this));
+            searchMenu.add(m);
+            searchMenu.addSeparator();
+        }
 
         for(String s : pref.getGenres()) {
             JMenuItem m = new JMenuItem();
@@ -91,6 +103,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         centerScreen();
         updateList();
+        jPanel1.setBorder(jTextField1.getBorder());
 
         // drag & drop
         new  FileDrop( gameList, new FileDrop.Listener() {
@@ -304,6 +317,14 @@ public class MainWindow extends javax.swing.JFrame {
             public Object getElementAt(int i) { return strings[i]; }
         });
     }
+
+    public void updateListFavorite() {
+        gameList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = bl.getFavoriteGameList();
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+    }
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -329,16 +350,29 @@ public class MainWindow extends javax.swing.JFrame {
         mnuHome = new javax.swing.JMenuItem();
         mnuDosbox = new javax.swing.JMenuItem();
         searchMenu = new javax.swing.JPopupMenu();
+        jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         gameList = new javax.swing.JList();
         gameList.setCellRenderer(new GameListRenderer());
-        jLabel3 = new javax.swing.JLabel();
-        panelControls = new javax.swing.JPanel();
-        txtSearch = new javax.swing.JTextField();
-        lblSearch = new javax.swing.JLabel();
+        panelControls = new javax.swing.JPanel()
+        {
+            ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/bg.jpg"));
+            Image image = backImage.getImage();
+            int w = backImage.getIconWidth();
+
+            public void paintComponent (Graphics g) {
+                for(int i=0;i<100;i++)
+                g.drawImage(image, w*i, 0, this);
+                super.paintComponent(g);
+            }
+        }
+        ;
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblSearch = new javax.swing.JLabel();
+        txtSearch = new javax.swing.JTextField();
         lblExplain = new javax.swing.JLabel();
 
         mnuRun2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
@@ -421,11 +455,14 @@ public class MainWindow extends javax.swing.JFrame {
 
         prefMenu.add(mnuWeb);
 
+        jTextField1.setVisible(false);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("D-Box");
 
         gameList.setComponentPopupMenu(runMenu);
         gameList.setFocusCycleRoot(true);
+        gameList.setFocusTraversalPolicyProvider(true);
         gameList.setNextFocusableComponent(txtSearch);
         gameList.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
@@ -442,63 +479,13 @@ public class MainWindow extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(gameList);
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/title.jpg"))); // NOI18N
-        jLabel3.setToolTipText("");
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, mnuWeb, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel3, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
-        bindingGroup.addBinding(binding);
-
-        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel3MouseClicked(evt);
-            }
-        });
-
-        txtSearch.setToolTipText("Search the gamelist");
-        txtSearch.setNextFocusableComponent(gameList);
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSearchKeyReleased(evt);
-            }
-        });
-        txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                txtSearchMouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                txtSearchMouseEntered(evt);
-            }
-        });
-        txtSearch.addCaretListener(new javax.swing.event.CaretListener() {
-            public void caretUpdate(javax.swing.event.CaretEvent evt) {
-                txtSearchCaretUpdate(evt);
-            }
-        });
-
-        lblSearch.setFont(lblSearch.getFont());
-        lblSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.disabledText"));
-        lblSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow-disabled.png"))); // NOI18N
-        lblSearch.setLabelFor(txtSearch);
-        lblSearch.setText("Search:");
-        lblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                lblSearchMousePressed(evt);
-            }
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                lblSearchMouseClicked(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                lblSearchMouseExited(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                lblSearchMouseEntered(evt);
-            }
-        });
+        panelControls.setOpaque(false);
+        panelControls.setPreferredSize(new java.awt.Dimension(684, 50));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/utilities-terminal-disabled.png"))); // NOI18N
         jLabel2.setToolTipText("Game information");
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, editMenu, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel2, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, editMenu, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel2, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
         bindingGroup.addBinding(binding);
 
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -546,78 +533,144 @@ public class MainWindow extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel5MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel5MouseExited(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel5MousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jLabel5MouseReleased(evt);
             }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel5MouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel5MouseEntered(evt);
+            }
         });
 
+        jPanel1.setBackground(javax.swing.UIManager.getDefaults().getColor("EditorPane.background"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+
+        lblSearch.setFont(lblSearch.getFont());
+        lblSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.disabledText"));
+        lblSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow-disabled.png"))); // NOI18N
+        lblSearch.setLabelFor(txtSearch);
+        lblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                lblSearchMousePressed(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblSearchMouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lblSearchMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lblSearchMouseEntered(evt);
+            }
+        });
+
+        txtSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.disabledText"));
+        txtSearch.setText("Search");
+        txtSearch.setToolTipText("Search the gamelist");
+        txtSearch.setBorder(null);
+        txtSearch.setNextFocusableComponent(gameList);
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSearchFocusLost(evt);
+            }
+        });
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
+            }
+        });
+        txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txtSearchMouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txtSearchMouseEntered(evt);
+            }
+        });
+        txtSearch.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                txtSearchCaretUpdate(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createSequentialGroup()
+                .add(lblSearch)
+                .add(2, 2, 2)
+                .add(txtSearch, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                .add(lblSearch)
+                .add(txtSearch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+        );
+
         lblExplain.setFont(lblExplain.getFont().deriveFont(lblExplain.getFont().getSize()-2f));
-        lblExplain.setForeground(java.awt.SystemColor.controlShadow);
+        lblExplain.setForeground(new java.awt.Color(255, 255, 255));
         lblExplain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         org.jdesktop.layout.GroupLayout panelControlsLayout = new org.jdesktop.layout.GroupLayout(panelControls);
         panelControls.setLayout(panelControlsLayout);
         panelControlsLayout.setHorizontalGroup(
             panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, panelControlsLayout.createSequentialGroup()
+            .add(panelControlsLayout.createSequentialGroup()
+                .addContainerGap()
                 .add(jLabel4)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel2)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel5)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE)
                 .add(18, 18, 18)
-                .add(lblSearch)
-                .add(8, 8, 8)
-                .add(txtSearch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 103, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 338, Short.MAX_VALUE)
+                .add(18, 18, 18)
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         panelControlsLayout.setVerticalGroup(
             panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                .add(txtSearch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(jLabel2)
-                .add(jLabel5)
-                .add(lblExplain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(lblSearch))
+            .add(panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(org.jdesktop.layout.GroupLayout.LEADING, panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+                    .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(lblExplain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+            .add(panelControlsLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 674, Short.MAX_VALUE)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
-                .addContainerGap())
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .add(panelControls, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+            .add(panelControls, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .add(20, 20, 20)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE)
+                .add(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(24, 24, 24)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 319, Short.MAX_VALUE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(panelControls, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(20, 20, 20))
+                .add(panelControls, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(18, 18, 18)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 371, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         bindingGroup.bind();
@@ -630,7 +683,7 @@ public class MainWindow extends javax.swing.JFrame {
 }//GEN-LAST:event_lblSearchMouseClicked
 
 private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutActionPerformed
-    jLabel3MouseClicked(null);
+
 }//GEN-LAST:event_mnuAboutActionPerformed
 
 private void Double(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Double
@@ -921,11 +974,6 @@ private void gameListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
     }
 }//GEN-LAST:event_gameListMouseReleased
 
-private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
-    AboutWindow aw = new AboutWindow(this,true);
-    aw.setVisible(true);
-}//GEN-LAST:event_jLabel3MouseClicked
-
 private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
     jLabel4.setIcon(runEnabled);
     lblExplain.setText("Run Game");
@@ -954,6 +1002,7 @@ private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
     jLabel5.setIcon(prefDisabled);
     lblExplain.setText("");
+    
 }//GEN-LAST:event_jLabel5MouseExited
 
 private void mnuPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPreferencesActionPerformed
@@ -969,13 +1018,11 @@ private void mnuDosboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_mnuDosboxActionPerformed
 
 private void txtSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseEntered
-    lblSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.foreground"));
-    txtSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.foreground"));
+    
 }//GEN-LAST:event_txtSearchMouseEntered
 
 private void txtSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseExited
-    lblSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.disabledText"));
-    txtSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.disabledText"));
+    
 }//GEN-LAST:event_txtSearchMouseExited
 
 private void txtSearchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtSearchCaretUpdate
@@ -998,17 +1045,30 @@ private void lblSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     lblSearch.setIcon(searchArrowDisabled);
     lblExplain.setText("");
 }//GEN-LAST:event_lblSearchMouseExited
+
+private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
+    txtSearch.setText("");
+    txtSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.foreground"));
+    updateList();
+}//GEN-LAST:event_txtSearchFocusGained
+
+private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
+    if(txtSearch.getText().equals(""))
+        txtSearch.setText("Search");
+    txtSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.disabledText"));
+}//GEN-LAST:event_txtSearchFocusLost
  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu editMenu;
     private javax.swing.JList gameList;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblExplain;
     private javax.swing.JLabel lblSearch;
     private javax.swing.JMenuItem mnuAbout;
@@ -1025,7 +1085,7 @@ private void lblSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
     private javax.swing.JPopupMenu prefMenu;
     private javax.swing.JPopupMenu runMenu;
     private javax.swing.JPopupMenu searchMenu;
-    private javax.swing.JTextField txtSearch;
+    protected javax.swing.JTextField txtSearch;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
@@ -1040,10 +1100,13 @@ class Filter implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
+        mw.txtSearch.setText(((JMenuItem)e.getSource()).getText());
         String s = ((JMenuItem)e.getSource()).getText();
-        if(s.equals("Show All")) s = "";
-        
-        mw.updateListGenre(s);
+        if(s.equals("Favorites"))
+            mw.updateListFavorite();
+        else
+            mw.updateListGenre(s);
+
     }
 
 }
