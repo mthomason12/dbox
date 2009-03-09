@@ -110,7 +110,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
 
         if(pref.isFirstStart()) {
-            Help h = new Help(this, true);
+            GettingStarted h = new GettingStarted(this, true);
             h.setVisible(true);
             pref.setFirstStart(false);
             pref.writeConfig(Main.configFile);
@@ -1088,7 +1088,7 @@ private void gameListMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 }//GEN-LAST:event_gameListMouseEntered
 
 private void mnuGettingStartedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuGettingStartedActionPerformed
-    Help h = new Help(this, true);
+    GettingStarted h = new GettingStarted(this, true);
     h.setVisible(true);
 }//GEN-LAST:event_mnuGettingStartedActionPerformed
  
