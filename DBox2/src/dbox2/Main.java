@@ -13,8 +13,8 @@ import javax.swing.*;
  */
 public class Main {
 
-    public static final int MAJORVERSION = 1;
-    public static final int MINORVERSION = 8;
+    public static final int MAJORVERSION = 2;
+    public static final int MINORVERSION = 0;
     public static String configFile = "dbox.config";
     public static String gameFile = "gamelist.dat";
 
