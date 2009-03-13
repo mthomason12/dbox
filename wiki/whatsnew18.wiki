@@ -6,6 +6,7 @@ _This is about a future version of D-Box. The current version is 1.7_
 
   * *Drag & drop support!* Simply drag the main file into the gamelist, and D-Box will set up the rest (i.e. find setup files and icons)
   * *New slick user interface*
+  * Add games from another game list to your library. Simply drop the .dat file in the game list
   * Added a small empty border around the objects in the game list
   * Folder icon instead of "Browse..." text in dialogs
   * Better size on Preferences dialog
