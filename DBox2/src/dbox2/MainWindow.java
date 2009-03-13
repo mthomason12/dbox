@@ -128,7 +128,17 @@ public class MainWindow extends javax.swing.JFrame {
             return;
         }
         System.out.println(file.getName());
-        if(!file.getName().toLowerCase().endsWith("exe") && !file.getName().toLowerCase().endsWith("com") && !file.getName().toLowerCase().endsWith("bat") && !file.getName().toLowerCase().endsWith("pif")) {
+        if(file.getName().toLowerCase().endsWith("dat")) {
+            int s = JOptionPane.showConfirmDialog(this, "You are about to add the games from the game list '" + file.getName() + "' to your library. Continue?" , "Merge gamelist", JOptionPane.YES_NO_OPTION);
+            if(s != JOptionPane.YES_OPTION)
+                return;
+
+            deSerialize(file.getAbsolutePath());
+            updateList();
+
+            return;
+        }
+        else if(!file.getName().toLowerCase().endsWith("exe") && !file.getName().toLowerCase().endsWith("com") && !file.getName().toLowerCase().endsWith("bat") && !file.getName().toLowerCase().endsWith("pif")) {
             int s = JOptionPane.showConfirmDialog(this, "This doesn't look like an executable file. Executable files normally ends with .bat, .exe or .com.\n\nDo you still want to continue?", "You're almost there...", JOptionPane.YES_NO_OPTION);
             if(s != JOptionPane.YES_OPTION)
                 return;
@@ -193,9 +203,9 @@ public class MainWindow extends javax.swing.JFrame {
         while(s.hasNext())
             config += s.nextLine() + "\n";
 
-        BoxListe b = new BoxListe();
-        b.readConfig(config);
-        return b;
+        //BoxListe b = new BoxListe();
+        bl.readConfig(config);
+        return bl;
     }
     
     

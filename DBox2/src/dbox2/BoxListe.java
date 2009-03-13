@@ -209,7 +209,6 @@ public class BoxListe implements Serializable {
             }
             else if(isInGame) {
                 try {
-
                     String[] splitt = linje.split(":=");
 
                     if(splitt.length != 2)

@@ -22,12 +22,22 @@ public class NewPreferences implements Serializable {
     private String KeyBoardCode = "us";
     private boolean KeepOpen = false;
     private boolean FullScreen = false;
+    private boolean BuiltInDosBox = false;
     private boolean ShowIcons = true;
     private boolean FirstStart = true;
     private int IconWidth = 22;
     private int IconHeight = 22;
     private boolean IconResize = true;
     private int TypeOfFileDialog = 0;
+
+
+    public boolean isBuiltInDosBox() {
+        return BuiltInDosBox;
+    }
+
+    public void setBuiltInDosBox(boolean BuiltInDosBox) {
+        this.BuiltInDosBox = BuiltInDosBox;
+    }
 
     public boolean isFirstStart() {
         return FirstStart;
@@ -90,9 +100,10 @@ public class NewPreferences implements Serializable {
                 LastUsedPath = parts[1].trim();
             else if(parts[0].equals("keyboardcode"))
                 KeyBoardCode = parts[1].trim();
-            else if(parts[0].equals("firststart")) {
+            else if(parts[0].equals("firststart"))
                 FirstStart = Boolean.parseBoolean(parts[1].trim());
-            }
+            else if(parts[0].equals("usebuiltindosbox"))
+                BuiltInDosBox = Boolean.parseBoolean(parts[1].trim());
 
 
         }
@@ -106,6 +117,7 @@ public class NewPreferences implements Serializable {
                      "### If you want to reset settings, simply delete the file or a line. ###\n" +
                      "########################################################################\n\n" +
                      "DosBoxPath       := " + DosBoxPath + "\n" +
+                     "UseBuiltInDosBox := " + BuiltInDosBox + "\n" +
                      "KeepOpen         := " + KeepOpen + "\n" +
                      "FullScreen       := " + FullScreen + "\n" +
                      "ShowIcons        := " + ShowIcons + "\n" +
