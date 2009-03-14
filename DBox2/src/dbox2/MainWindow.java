@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import javax.swing.JFileChooser;
 
 /**
  *
@@ -357,6 +358,11 @@ public class MainWindow extends javax.swing.JFrame {
         mnuDelete2 = new javax.swing.JMenuItem();
         prefMenu = new javax.swing.JPopupMenu();
         mnuPreferences = new javax.swing.JMenuItem();
+        mnuTools = new javax.swing.JMenu();
+        mnuImport = new javax.swing.JMenuItem();
+        mnuExport = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JSeparator();
+        mnuClear = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
         mnuGettingStarted = new javax.swing.JMenuItem();
         mnuAbout = new javax.swing.JMenuItem();
@@ -439,6 +445,35 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         prefMenu.add(mnuPreferences);
+
+        mnuTools.setText("Advanced Options");
+
+        mnuImport.setText("Import Game List");
+        mnuImport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuImportActionPerformed(evt);
+            }
+        });
+        mnuTools.add(mnuImport);
+
+        mnuExport.setText("Export Game List");
+        mnuExport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuExportActionPerformed(evt);
+            }
+        });
+        mnuTools.add(mnuExport);
+        mnuTools.add(jSeparator2);
+
+        mnuClear.setText("Clear Game List");
+        mnuClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuClearActionPerformed(evt);
+            }
+        });
+        mnuTools.add(mnuClear);
+
+        prefMenu.add(mnuTools);
         prefMenu.add(jSeparator1);
 
         mnuGettingStarted.setText("Getting Started...");
@@ -662,7 +697,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel5)
                 .add(18, 18, 18)
-                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
                 .add(18, 18, 18)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -1101,6 +1136,28 @@ private void mnuGettingStartedActionPerformed(java.awt.event.ActionEvent evt) {/
     GettingStarted h = new GettingStarted(this, true);
     h.setVisible(true);
 }//GEN-LAST:event_mnuGettingStartedActionPerformed
+
+private void mnuImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportActionPerformed
+    String file = helperClass.getFileAWTDat(this, FileDialog.LOAD);
+    if(file != null) {
+        deSerialize(file);
+        updateList();
+    }
+}//GEN-LAST:event_mnuImportActionPerformed
+
+private void mnuExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportActionPerformed
+    String file = helperClass.getFileAWTDat(this, FileDialog.SAVE);
+    if(file != null) {
+        skrivObjekt(file);
+    }
+}//GEN-LAST:event_mnuExportActionPerformed
+
+private void mnuClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClearActionPerformed
+    int s = JOptionPane.showConfirmDialog(this, "You are you sure you want to remove all games from the game list?" , "Clear game list", JOptionPane.YES_NO_OPTION);
+    if(s != JOptionPane.YES_OPTION) return;
+    bl = new BoxListe();
+    updateList();
+}//GEN-LAST:event_mnuClearActionPerformed
  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1112,19 +1169,24 @@ private void mnuGettingStartedActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JSeparator jSeparator2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblExplain;
     private javax.swing.JLabel lblSearch;
     private javax.swing.JMenuItem mnuAbout;
+    private javax.swing.JMenuItem mnuClear;
     private javax.swing.JMenuItem mnuDelete2;
     private javax.swing.JMenuItem mnuDosbox;
     private javax.swing.JMenuItem mnuEdit2;
+    private javax.swing.JMenuItem mnuExport;
     private javax.swing.JMenuItem mnuGettingStarted;
     private javax.swing.JMenuItem mnuHome;
+    private javax.swing.JMenuItem mnuImport;
     private javax.swing.JMenuItem mnuNew2;
     private javax.swing.JMenuItem mnuPreferences;
     private javax.swing.JMenuItem mnuRun2;
     private javax.swing.JMenuItem mnuSetup2;
+    private javax.swing.JMenu mnuTools;
     private javax.swing.JMenu mnuWeb;
     private javax.swing.JPanel panelControls;
     private javax.swing.JPopupMenu prefMenu;

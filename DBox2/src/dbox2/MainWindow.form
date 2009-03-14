@@ -85,6 +85,39 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuPreferencesActionPerformed"/>
           </Events>
         </MenuItem>
+        <Menu class="javax.swing.JMenu" name="mnuTools">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Advanced Options"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuImport">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Import Game List"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuImportActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuExport">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Export Game List"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuExportActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JSeparator" name="jSeparator2">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuClear">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Clear Game List"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuClearActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>
         <MenuItem class="javax.swing.JMenuItem" name="mnuGettingStarted">

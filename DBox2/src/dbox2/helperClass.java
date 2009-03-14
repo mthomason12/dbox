@@ -160,6 +160,38 @@ public class helperClass {
         }
     }
 
+        public static String getFileAWTDat(java.awt.Component c, int saveload) {
+        if(isMac()) {
+            FileDialog fd = new FileDialog((Frame)c, "Select File", saveload);
+            if(!MainWindow.pref.getLastUsedPath().equals(""))
+                fd.setDirectory(MainWindow.pref.getLastUsedPath()); // back to where we were
+            fd.pack();
+            fd.setVisible(true);
+
+            //lastdir = fd.getDirectory();
+            if (fd.getFile() != null){
+                MainWindow.pref.setLastUsedPath(fd.getDirectory());
+                return fd.getDirectory() + fd.getFile();}
+            else
+                return null;
+        }
+        else {
+            final JFileChooser fc = new JFileChooser();
+            if(!MainWindow.pref.getLastUsedPath().equals(""))
+                fc.setCurrentDirectory(new File(MainWindow.pref.getLastUsedPath())); // back to where we were
+            fc.addChoosableFileFilter(new IconFilteret());
+            int returnVal = fc.showOpenDialog(c);
+
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+                MainWindow.pref.setLastUsedPath(file.getAbsolutePath());
+                return file.getAbsolutePath();
+            }
+            else
+                return null;
+        }
+    }
+
 
 }
 
@@ -228,5 +260,17 @@ class DirFilteret extends javax.swing.filechooser.FileFilter {
         }
         public String getDescription() {
             return "Directories";
+        }
+    }
+
+class DatFilteret extends javax.swing.filechooser.FileFilter {
+        public boolean accept(File file) {
+            if(file.getName().toLowerCase().endsWith("dat"))
+                return true;
+            else
+                return false;
+        }
+        public String getDescription() {
+            return "D-Box Game Libraries";
         }
     }
