@@ -1148,6 +1148,8 @@ private void mnuImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 private void mnuExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportActionPerformed
     String file = helperClass.getFileAWTDat(this, FileDialog.SAVE);
     if(file != null) {
+        if(file.indexOf(".") == -1)
+            file = file + ".dat";
         skrivObjekt(file);
     }
 }//GEN-LAST:event_mnuExportActionPerformed
