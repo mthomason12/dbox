@@ -22,7 +22,6 @@ import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import javax.swing.JFileChooser;
 
 /**
  *
@@ -90,8 +89,6 @@ public class MainWindow extends javax.swing.JFrame {
         searchArrow = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow.png"));
         searchArrowDisabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow-disabled.png"));
 
-
-
         try {
             pref.writeConfig(Main.configFile);
         } catch (IOException ex) {
@@ -110,12 +107,63 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
+        // Show the getting started screen
         if(pref.isFirstStart()) {
             GettingStarted h = new GettingStarted(this, true);
             h.setVisible(true);
             pref.setFirstStart(false);
             pref.writeConfig(Main.configFile);
         }
+
+        // if the dosbox path is undefined, we try to find a built in
+        if(pref.getDosBoxPath().equals("")) {
+            try {
+                File dosbox = new File ("." + File.separatorChar + "Dosbox");
+
+                String pathen = "";
+
+                File[] files = dosbox.listFiles();
+                for (File f : files) {
+                    String s = f.getName().toLowerCase();
+                    if(s.equals("dosbox.exe")) { // win32
+                        pathen = f.getAbsolutePath();
+                        break;
+                    }
+                    else if(s.equals("dosbox.app")) { // mac
+                        pathen = f.getAbsolutePath()+"/Contents/MacOS/DOSBox";
+                        break;
+                    }
+                }
+                pref.setDosBoxPath(pathen);
+           }
+            catch(Exception e) {
+                
+            }
+        }
+
+        // If we're on mac
+        if(pref.getDosBoxPath().equals("")) {
+            try {
+                File dosbox = new File ("./D-Box.app/Contents/Resources/Java");
+
+                String pathen = "";
+
+                File[] files = dosbox.listFiles();
+                for (File f : files) {
+                    String s = f.getName().toLowerCase();
+                    if(s.equals("dosbox.app")) { // mac
+                        pathen = f.getAbsolutePath()+"/Contents/MacOS/DOSBox";
+                        break;
+                    }
+                }
+                pref.setDosBoxPath(pathen);
+           }
+            catch(Exception e) {
+
+            }
+        }
+
+
     }
 
     /**
@@ -484,7 +532,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         prefMenu.add(mnuGettingStarted);
 
-        mnuAbout.setText("D-Box version " + Main.MAJORVERSION + "." + Main.MINORVERSION + "");
+        mnuAbout.setText("About D-Box version " + Main.MAJORVERSION + "." + Main.MINORVERSION + "");
         mnuAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuAboutActionPerformed(evt);
@@ -522,20 +570,20 @@ public class MainWindow extends javax.swing.JFrame {
         gameList.setFocusCycleRoot(true);
         gameList.setFocusTraversalPolicyProvider(true);
         gameList.setNextFocusableComponent(txtSearch);
+        gameList.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                gameListKeyPressed(evt);
+            }
+        });
         gameList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                gameListMouseReleased(evt);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Double(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 gameListMouseEntered(evt);
-            }
-            public void mouseReleased(java.awt.event.MouseEvent evt) {
-                gameListMouseReleased(evt);
-            }
-        });
-        gameList.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                gameListKeyPressed(evt);
             }
         });
         jScrollPane1.setViewportView(gameList);
@@ -748,7 +796,9 @@ public class MainWindow extends javax.swing.JFrame {
 }//GEN-LAST:event_lblSearchMouseClicked
 
 private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutActionPerformed
-
+    AboutWindow a = new AboutWindow(this, true);
+    a.setVisible(true);
+    a = null;
 }//GEN-LAST:event_mnuAboutActionPerformed
 
 private void Double(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Double

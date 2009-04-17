@@ -33,10 +33,10 @@ public class AboutWindow extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("About");
@@ -49,8 +49,6 @@ public class AboutWindow extends javax.swing.JDialog {
         jLabel2.setText("Code and design by Peder Skeidsvoll");
 
         jLabel3.setText("Uses ICOReader lib by J.B. van der Burgh");
-
-        jLabel4.setText("Licenced under Mozilla Public Licence 1.1");
 
         jLabel5.setFont(jLabel5.getFont());
         jLabel5.setForeground(new java.awt.Color(75, 109, 129));
@@ -77,6 +75,8 @@ public class AboutWindow extends javax.swing.JDialog {
             }
         });
 
+        jLabel4.setText("Drag and drop support by Robert Harder");
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,20 +87,20 @@ public class AboutWindow extends javax.swing.JDialog {
             .add(layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel2))
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel4))
             .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                 .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
                     .addContainerGap()
-                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                            .add(jLabel7)
-                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 191, Short.MAX_VALUE)
-                            .add(jLabel5))
-                        .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 340, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jLabel7)
+                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 191, Short.MAX_VALUE)
+                    .add(jLabel5)
                     .addContainerGap())
                 .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel6))
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 340, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 340, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
