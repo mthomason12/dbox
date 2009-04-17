@@ -10,6 +10,8 @@ _This is about a future version of D-Box. The current version is 1.7_
   * Import/Export/Clear game list menus
   * Added a small empty border around the objects in the game list
   * Folder icon instead of "Browse..." text in dialogs
+  * .app for MacOS X
+  * Windows and Mac builds includes DOSBox 0.72
   * Better size on Preferences dialog
   * Possible to mark a game as a favorite
   * New human readable gamelist file format. Note: D-Box 1.7 automatically exports to the new 2.0 file format, but uses the old one, it is therefore almost trivial to upgrade from 1.7 to 2.0 (CPU Cycles and frameskip settings will be discarded). If you upgrade from an older version (1.6, 1.5, 1.0), D-Box 2.0 won't recognize your old database. I therefore recommend every user of D-Box older than 1.7 to use 1.7 before they upgrade to 2.0 
