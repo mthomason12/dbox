@@ -30,19 +30,19 @@ import java.io.*;
 public class MainWindow extends javax.swing.JFrame {
     
     public static BoxListe bl = new BoxListe();
-    public static NewPreferences pref = new NewPreferences();
+    public final static NewPreferences pref = new NewPreferences();
     BufferedImage[] images;
 
 
     //images
-    Icon fileEnabled;
-    Icon fileDisabled;
-    Icon runEnabled;
-    Icon runDisabled;
-    Icon prefEnabled;
-    Icon prefDisabled;
-    Icon searchArrow;
-    Icon searchArrowDisabled;
+    final Icon fileEnabled;
+    final Icon fileDisabled;
+    final Icon runEnabled;
+    final Icon runDisabled;
+    final Icon prefEnabled;
+    final Icon prefDisabled;
+    final Icon searchArrow;
+    final Icon searchArrowDisabled;
 
 
     

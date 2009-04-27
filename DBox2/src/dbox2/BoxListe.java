@@ -16,7 +16,7 @@ import javax.swing.JOptionPane;
  */
 public class BoxListe implements Serializable {
     
-    private List<DosItem> gamelist;
+    private final List<DosItem> gamelist;
     
     /** Creates a new instance of BoxListe */
     public BoxListe() {
@@ -183,6 +183,7 @@ public class BoxListe implements Serializable {
     }
 
     public void readConfig(String config) {
+        long times = System.currentTimeMillis();
         Scanner s = new Scanner(config);
         DosItem d = null;
         int counter = 0;
@@ -209,13 +210,24 @@ public class BoxListe implements Serializable {
             }
             else if(isInGame) {
                 try {
-                    String[] splitt = linje.split(":=");
 
-                    if(splitt.length != 2)
+                    int start = linje.indexOf("#");
+
+                    if(start != -1)
+                        linje = linje.substring(0, start);
+
+                    start = linje.indexOf(":=");
+
+                    final String keyword;
+                    final String value;
+
+                    if(start != -1) {
+                        keyword = linje.substring(0, start).toLowerCase().trim();
+                        value = linje.substring(start + 2).trim();
+                    }
+                    else
                         continue;
 
-                    String keyword = splitt[0].toLowerCase().trim();
-                    String value = splitt[1].trim();
 
                     if(keyword.equals("genre"))
                         d.setGenre(value);
@@ -252,10 +264,9 @@ public class BoxListe implements Serializable {
                     if(answer == JOptionPane.YES_OPTION)
                         System.exit(0);
                 }
-
             }
-
         }
+        System.out.println("Gamelist read in " + (System.currentTimeMillis() - times) + " milliseconds.");
     }
     
     
