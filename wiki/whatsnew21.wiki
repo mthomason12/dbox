@@ -1,15 +1,9 @@
-#summary What's new in D-Box 2.1
+#summary Check out what's new in D-Box 2.1
 
-_D-Box 2.1 has not been released yet. The current version is 2.0_
+_This is about a future version of D-Box. The current version is 2.0_
 
-= Introduction =
+= What's new in D-Box 2.1 =
 
-Add your content here.
-
-
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+  * D-Box caches icons for increased speed
+  * Double speed on game list reading
+  * Lot of refactoring and rewriting of rotten code
