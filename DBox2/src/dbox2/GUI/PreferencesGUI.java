@@ -7,6 +7,7 @@
 package dbox2.GUI;
 
 import dbox2.*;
+import dbox2.util.FileChooserFilter;
 import dbox2.util.helperClass;
 import java.awt.*;
 import javax.swing.*;
@@ -200,7 +201,10 @@ public class PreferencesGUI extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
 private void cmdBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBrowseActionPerformed
-    String file = helperClass.getFileAWTDosBox(this);
+    String file = helperClass.showFileChooser(this, "Select DosBox executable",
+            new FileChooserFilter(FileChooserFilter.STARTS_WITH, new String[]{"dosbox"}, "DOSBox"), false);
+
+
     if(file != null) {
             if(file.endsWith("app"))
                     file+="/Contents/MacOS/DOSBox";

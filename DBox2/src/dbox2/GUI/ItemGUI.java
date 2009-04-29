@@ -7,6 +7,7 @@
 package dbox2.GUI;
 
 import dbox2.*;
+import dbox2.util.FileChooserFilter;
 import dbox2.util.helperClass;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -125,6 +126,7 @@ public class ItemGUI extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         appFrameSkip = new javax.swing.JSpinner();
+        jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         cmbGenre = new javax.swing.JComboBox();
@@ -167,7 +169,7 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel5)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 332, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 425, Short.MAX_VALUE)
                 .add(Icon)
                 .addContainerGap())
         );
@@ -259,19 +261,19 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, appName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, appName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel1)
-                            .add(appIcon, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE))
+                            .add(appIcon, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton4))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel3)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel8)
-                    .add(sldCycles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                    .add(sldCycles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel6)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(appExec, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                        .add(appExec, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton1)))
                 .addContainerGap())
@@ -340,7 +342,7 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(appPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                    .add(appPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                     .add(jLabel2)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -349,14 +351,15 @@ public class ItemGUI extends javax.swing.JDialog {
                                 .add(116, 116, 116))
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, appSetup, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, appSetup, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
                                     .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel4)
-                                    .add(appCD, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE))
+                                    .add(appCD, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jButton2)
-                            .add(appFrameSkip, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE)
-                            .add(jButton3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .add(appFrameSkip)
+                            .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, jButton3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .add(org.jdesktop.layout.GroupLayout.LEADING, jButton2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .add(jLabel7))
                 .addContainerGap())
         );
@@ -383,10 +386,25 @@ public class ItemGUI extends javax.swing.JDialog {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel9)
                     .add(appFrameSkip, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(118, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Advanced", jPanel3);
+
+        jPanel5.setOpaque(false);
+
+        org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 535, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(0, 293, Short.MAX_VALUE)
+        );
+
+        jTabbedPane1.addTab("Expert", jPanel5);
 
         jPanel4.setOpaque(false);
 
@@ -407,7 +425,7 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtKeywords, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtKeywords, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
                     .add(jLabel10)
                     .add(cmbGenre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 165, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel11)
@@ -432,7 +450,7 @@ public class ItemGUI extends javax.swing.JDialog {
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(chkFavorite)
                     .add(jLabel12))
-                .addContainerGap(169, Short.MAX_VALUE))
+                .addContainerGap(119, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Meta Information", jPanel4);
@@ -442,15 +460,13 @@ public class ItemGUI extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
+                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(338, Short.MAX_VALUE)
                         .add(cmdWizard)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(cmdConfirm))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE))
                 .addContainerGap())
             .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -482,6 +498,7 @@ private void sldCyclesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-
 private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConfirmActionPerformed
     DosItem d = new DosItem();
 
+
     // Set prefrences
     d.setName(appName.getText());
     d.setPath(appPath.getText());
@@ -504,7 +521,9 @@ private void cmdWizardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     if(name == null)
         return;
     appName.setText(name);
-    String s = helperClass.getFileAWT(this);
+    String s = helperClass.showFileChooser(this, "Select file",
+            new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".exe",".com",".bat"},
+            "Executable DOS files (*.exe, *.com, *.bat)"), false);;
     if (s != null) {
         int last = 0;
         for(int i = s.length()-1; i >= 0; i--)
@@ -544,7 +563,10 @@ private void appNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_appNameActionPerformed
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    String s = helperClass.getFileAWT(this);
+    String s = helperClass.showFileChooser(this, "Select file",
+            new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".exe",".com",".bat"},
+            "Executable DOS files (*.exe, *.com, *.bat)"), false);
+    
     if (s != null) {
         int last = 0;
         for(int i = s.length()-1; i >= 0; i--)
@@ -559,7 +581,9 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jButton1ActionPerformed
 
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    String s = helperClass.getFileAWT(this);
+    String s = helperClass.showFileChooser(this, "Select file",
+            new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".exe",".com",".bat"},
+            "Executable DOS files (*.exe, *.com, *.bat)"), false);
     if (s != null) {
         int last = 0;
         for(int i = s.length()-1; i >= 0; i--)
@@ -576,14 +600,19 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    String s = helperClass.getDirAWT(this);
+    String s = helperClass.showFileChooser(this, "Select directory",
+            new FileChooserFilter(FileChooserFilter.DIRECTORIES, null,
+            "Directories"), true);
     if (s != null) {
         appCD.setText(s);
     }
 }//GEN-LAST:event_jButton3ActionPerformed
 
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-    String s = helperClass.getFileAWTIcon(this);
+    String s = helperClass.showFileChooser(this, "Select file",
+            new FileChooserFilter(FileChooserFilter.EXTENSIONS,
+            new String[]{".gif",".ico",".png",".jpg"},
+            "Icon files (*.ico, *.gif, *.png, *.jpg)"), false);
     if (s != null) {
         appIcon.setText(s);
     }
@@ -676,6 +705,7 @@ private void appIconCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:e
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JSlider sldCycles;
     private javax.swing.JTextField txtKeywords;

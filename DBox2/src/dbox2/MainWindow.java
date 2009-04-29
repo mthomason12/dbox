@@ -8,6 +8,7 @@ package dbox2;
 
 import dbox2.GUI.ItemGUI;
 import dbox2.GUI.PreferencesGUI;
+import dbox2.util.FileChooserFilter;
 import dbox2.util.helperClass;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,7 +18,6 @@ import java.awt.event.MouseEvent;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
@@ -1167,7 +1167,9 @@ private void mnuGettingStartedActionPerformed(java.awt.event.ActionEvent evt) {/
 }//GEN-LAST:event_mnuGettingStartedActionPerformed
 
 private void mnuImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportActionPerformed
-    String file = helperClass.getFileAWTDat(this, FileDialog.LOAD);
+    String file = helperClass.showFileChooser(this,"Select file", new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".dat"},
+            "D-Box Game Libraries (*.dat)"), false);
+
     if(file != null) {
         deSerialize(file);
         updateList();
@@ -1175,7 +1177,8 @@ private void mnuImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_mnuImportActionPerformed
 
 private void mnuExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportActionPerformed
-    String file = helperClass.getFileAWTDat(this, FileDialog.SAVE);
+    String file = helperClass.showFileChooser(this,"Select file", new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".dat"},
+            "D-Box Game Libraries (*.dat)"), false);
     if(file != null) {
         if(file.indexOf(".") == -1)
             file = file + ".dat";
