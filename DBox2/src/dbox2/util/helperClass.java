@@ -3,8 +3,9 @@
  * and open the template in the editor.
  */
 
-package dbox2;
+package dbox2.util;
 
+import dbox2.*;
 import java.awt.FileDialog;
 import java.awt.Frame;
 import java.io.File;

@@ -6,7 +6,6 @@
 
 package dbox2;
 
-import dbox2.DosItem;
 import java.util.*;
 import java.io.*;
 import javax.swing.JOptionPane;
@@ -210,7 +209,7 @@ public class BoxListe implements Serializable {
             }
             else if(isInGame) {
                 try {
-
+                    // remove comments
                     int start = linje.indexOf("#");
 
                     if(start != -1)
@@ -227,7 +226,6 @@ public class BoxListe implements Serializable {
                     }
                     else
                         continue;
-
 
                     if(keyword.equals("genre"))
                         d.setGenre(value);

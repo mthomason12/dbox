@@ -6,6 +6,7 @@
 
 package dbox2;
 
+import dbox2.util.helperClass;
 import java.awt.*;
 import javax.swing.*;
 

@@ -1,0 +1,84 @@
+package dbox2.util;
+
+import dbox2.Main;
+import dbox2.MainWindow;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.imageio.stream.ImageInputStream;
+import javax.swing.ImageIcon;
+import nl.ikarus.nxt.priv.imageio.icoreader.obj.ICOFile;
+import nl.ikarus.nxt.priv.imageio.icoreader.obj.IconEntry;
+
+/**
+ * Class that includes methods that manipulate images
+ * 
+ * @author pederskeidsvoll
+ */
+public class ImageHandlerer {
+    
+    private static ImageIcon defaultIcon;
+
+    /**
+     * Loads a icon from the file system
+     * @param ikon the path to the icon
+     * @return the icon
+     */
+    public static ImageIcon getImageIcon(String ikon) {
+        if (ikon.equals("")) {
+                return getDefaultIcon();
+        } else {
+            //try {
+            ImageIcon ii = getDefaultIcon();
+            if (ikon.toLowerCase().endsWith("ico")) { // If the file is a ICO file
+                try {
+                    ImageInputStream in = ImageIO.createImageInputStream(new FileInputStream(new File(ikon)));
+                    ICOFile f;
+                    f = new ICOFile(in);
+                    IconEntry ie = f.getEntry(0);
+                    ii = new ImageIcon(ie.getBitmap().getImage());
+                } catch (IOException ex) {
+                    System.out.println("Error reading icon " + ikon);
+                    return getDefaultIcon();
+                }
+            } else {
+                ii = new ImageIcon(ikon);
+            }
+
+            return(resizeIcon(ii));
+        }
+    }
+
+    /**
+     * Resizes a icon according to preferences
+     * @param icon icon that should be resized
+     * @return a resized icon
+     */
+    public static ImageIcon resizeIcon(ImageIcon icon) {
+        if (MainWindow.pref.isIconResize()) {
+            int width = MainWindow.pref.getIconWidth();
+            int height = MainWindow.pref.getIconHeight();
+
+            BufferedImage bi = new BufferedImage(width, height,
+                    BufferedImage.TYPE_INT_ARGB);
+            bi.getGraphics().drawImage(icon.getImage(), 0, 0, width, height, null);
+
+            return new ImageIcon(bi);
+        } else {
+            return icon;
+        }
+    }
+
+    public static ImageIcon getDefaultIcon() {
+        // Loads default icon if it isn't set allready
+        if(defaultIcon == null) {
+            defaultIcon = resizeIcon(new ImageIcon(Main.class.getResource("/dbox2/gameIcons/application-x-executable.png")));
+            System.out.println("leser ikon..");
+        }
+        
+        return defaultIcon;
+    }
+
+}

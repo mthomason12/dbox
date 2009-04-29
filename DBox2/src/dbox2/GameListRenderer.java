@@ -4,6 +4,7 @@
  */
 package dbox2;
 
+import dbox2.util.ImageHandlerer;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.event.MouseEvent;
@@ -23,9 +24,8 @@ import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
  */
 class GameListRenderer extends JLabel implements ListCellRenderer {
 
-    ImageIcon defaultIcon = resizeIcon(new ImageIcon(getClass().getResource("/dbox2/gameIcons/application-x-executable.png")));
-    ImageIcon favorite = resizeIcon(new ImageIcon(getClass().getResource("/dbox2/img/emblem-favorite.png")));
-    ImageIcon notfavorite = resizeIcon(new ImageIcon(getClass().getResource("/dbox2/img/emblem-notfavorite.png")));
+    ImageIcon favorite = ImageHandlerer.resizeIcon(new ImageIcon(getClass().getResource("/dbox2/img/emblem-favorite.png")));
+    ImageIcon notfavorite = ImageHandlerer.resizeIcon(new ImageIcon(getClass().getResource("/dbox2/img/emblem-notfavorite.png")));
     JLabel l = new JLabel();
 
     public Component getListCellRendererComponent(
@@ -42,7 +42,12 @@ class GameListRenderer extends JLabel implements ListCellRenderer {
 
         if (MainWindow.pref.isShowIcons()) {
             setSize(this.getWidth(), MainWindow.pref.getIconHeight());
+            
+
+            setIcon(MainWindow.bl.getGame(s).getImageIcon());
+            /*
             String ikon = "";
+
             if (MainWindow.bl.getGame(s) != null) {
                 ikon = MainWindow.bl.getGame(s).getIcon();
             }
@@ -66,7 +71,9 @@ class GameListRenderer extends JLabel implements ListCellRenderer {
                 }
 
                 setIcon(resizeIcon(ii));
+                
             }
+             * */
         } else {
             setIcon(null);
         }
@@ -95,23 +102,5 @@ class GameListRenderer extends JLabel implements ListCellRenderer {
         return this;
     }
 
-    /**
-     * Resizes a icon according to preferences
-     * @param icon icon that should be resized
-     * @return a resized icon
-     */
-    private ImageIcon resizeIcon(ImageIcon icon) {
-        if (MainWindow.pref.isIconResize()) {
-            int width = MainWindow.pref.getIconWidth();
-            int height = MainWindow.pref.getIconHeight();
 
-            BufferedImage bi = new BufferedImage(width, height,
-                    BufferedImage.TYPE_INT_ARGB);
-            bi.getGraphics().drawImage(icon.getImage(), 0, 0, width, height, null);
-
-            return new ImageIcon(bi);
-        } else {
-            return icon;
-        }
-    }
 }

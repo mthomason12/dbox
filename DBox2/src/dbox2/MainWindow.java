@@ -6,6 +6,7 @@
 
 package dbox2;
 
+import dbox2.util.helperClass;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -325,30 +326,6 @@ public class MainWindow extends javax.swing.JFrame {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
         }
         
-    }
-
-    private void createIconList() {
-        String[] strings = bl.getGameList();
-        images = new BufferedImage[bl.getNrGames()];
-        for(int i = 0; i < images.length;i++) {
-
-            if(bl.getGame(strings[i]).getIcon().equals(""))
-                try {
-                    images[i] = ImageIO.read(getClass().getResource("/dbox2/img/application-x-executable.png"));
-                } catch (IOException ex) {
-                    System.out.println("Føkk!!!");
-            }
-            else
-                try {
-                    images[i] = ImageIO.read(getClass().getResource(bl.getGame(strings[i]).getIcon()));
-                } catch (IOException ex) {
-                try {
-                    images[i] = ImageIO.read(getClass().getResource("/dbox2/img/application-x-executable.png"));
-                } catch (IOException ex1) {
-                    System.out.println("Icon file not found");
-                }
-            }
-        }
     }
     
     private void updateList()  {
