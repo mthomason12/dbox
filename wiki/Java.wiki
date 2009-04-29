@@ -4,6 +4,6 @@ A platform and programming language. Makes it quite easy to create multiplatform
 
 To check which version of Java you have, type {{{java -version}}} in your favorite terminal.
 
-* More info: http://en.wikipedia.org/wiki/Java_%28programming_language%29
+* More info: [http://en.wikipedia.org/wiki/Java_%28programming_language%29 Wikipedia]
 
 * Official home: http://java.sun.com
