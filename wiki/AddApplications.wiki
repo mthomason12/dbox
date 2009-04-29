@@ -8,7 +8,7 @@ D-Box makes it easy to launch application through DOSBox, but before you can pla
 _Make sure you have the newest version of D-Box!_
 
 
-= The easiest way: Drag and drop =
+== The easiest way: Drag and drop ==
 
 This is by far the best way to add applications to D-Box:
 
@@ -18,7 +18,7 @@ This is by far the best way to add applications to D-Box:
   * Choose the correct application name from the drop down menu, or select "Something else.." if none of the choices apply.
   * D-Box will automatically search through the directory for useful files (setup files and icons) and use these
 
-= A more advanced way =
+== A more advanced way ==
 
 If your game needs more tweaking, like adding a CD-ROM, you may want to add it using a more advanced method. _Note: You may edit any application using the Edit Game menu. It doesn't matter how you added it._
 
