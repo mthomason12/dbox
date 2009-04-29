@@ -4,8 +4,9 @@
  * Created on July 29, 2007, 5:43 PM
  */
 
-package dbox2;
+package dbox2.GUI;
 
+import dbox2.*;
 import dbox2.util.helperClass;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -213,10 +214,10 @@ public class ItemGUI extends javax.swing.JDialog {
             }
         });
         appIcon.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
                 appIconCaretPositionChanged(evt);
-            }
-            public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         appIcon.addCaretListener(new javax.swing.event.CaretListener() {
@@ -479,7 +480,15 @@ private void sldCyclesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-
 }//GEN-LAST:event_sldCyclesPropertyChange
 
 private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConfirmActionPerformed
-    DosItem d = new DosItem(appName.getText(),appPath.getText(), appExec.getText(),appSetup.getText(), sldCycles.getValue(), appCD.getText());
+    DosItem d = new DosItem();
+
+    // Set prefrences
+    d.setName(appName.getText());
+    d.setPath(appPath.getText());
+    d.setInstaller(appSetup.getText());
+    d.setCycles(sldCycles.getValue());
+    d.setCdrom(appCD.getText());
+    d.setGame(appExec.getText());
     d.setFrameskip(Integer.parseInt(appFrameSkip.getValue().toString()));
     d.setStar(chkFavorite.isSelected());
     d.setIcon(appIcon.getText());

@@ -6,6 +6,8 @@
 
 package dbox2;
 
+import dbox2.GUI.ItemGUI;
+import dbox2.GUI.PreferencesGUI;
 import dbox2.util.helperClass;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

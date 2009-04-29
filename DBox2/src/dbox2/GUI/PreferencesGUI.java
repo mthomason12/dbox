@@ -4,8 +4,9 @@
  * Created on July 29, 2007, 6:28 PM
  */
 
-package dbox2;
+package dbox2.GUI;
 
+import dbox2.*;
 import dbox2.util.helperClass;
 import java.awt.*;
 import javax.swing.*;

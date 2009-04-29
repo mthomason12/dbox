@@ -71,6 +71,9 @@ public class ImageHandlerer {
         }
     }
 
+    /**
+     * @return Returns the default application icon
+     */
     public static ImageIcon getDefaultIcon() {
         // Loads default icon if it isn't set allready
         if(defaultIcon == null) {

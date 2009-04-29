@@ -7,16 +7,7 @@ package dbox2;
 import dbox2.util.ImageHandlerer;
 import java.awt.BorderLayout;
 import java.awt.Component;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
-import nl.ikarus.nxt.priv.imageio.icoreader.obj.*;
 
 /**
  *
@@ -45,35 +36,6 @@ class GameListRenderer extends JLabel implements ListCellRenderer {
             
 
             setIcon(MainWindow.bl.getGame(s).getImageIcon());
-            /*
-            String ikon = "";
-
-            if (MainWindow.bl.getGame(s) != null) {
-                ikon = MainWindow.bl.getGame(s).getIcon();
-            }
-            if (ikon.equals("")) {
-                setIcon(defaultIcon);
-            } else {
-                //try {
-                ImageIcon ii = defaultIcon;
-                if (ikon.toLowerCase().endsWith("ico")) { // If the file is a ICO file
-                    try {
-                        ImageInputStream in = ImageIO.createImageInputStream(new FileInputStream(new File(ikon)));
-                        ICOFile f;
-                        f = new ICOFile(in);
-                        IconEntry ie = f.getEntry(0);
-                        ii = new ImageIcon(ie.getBitmap().getImage());
-                    } catch (IOException ex) {
-                        System.out.println("Error reading icon " + ikon);
-                    }
-                } else {
-                    ii = new ImageIcon(ikon);
-                }
-
-                setIcon(resizeIcon(ii));
-                
-            }
-             * */
         } else {
             setIcon(null);
         }
