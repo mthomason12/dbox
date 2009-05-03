@@ -4,6 +4,8 @@ _This is about a future version of D-Box. The current version is 2.0_
 
 = What's new in D-Box 2.1 =
 
+  * *New much improved popup menu*
+  * Only writes the gamelist to disk when you quit the program -> Increased performance
   * D-Box caches icons for increased speed
   * Double speed on game list reading
   * Lot of refactoring and rewriting of rotten code
