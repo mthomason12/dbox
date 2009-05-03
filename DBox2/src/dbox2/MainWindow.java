@@ -6,6 +6,7 @@
 
 package dbox2;
 
+import dbox2.GUI.CoverFlow.*;
 import dbox2.GUI.ItemGUI;
 import dbox2.GUI.PreferencesGUI;
 import dbox2.util.FileChooserFilter;
@@ -25,7 +26,9 @@ import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import javax.swing.BoxLayout;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JPanel;
 
 /**
  *
@@ -47,6 +50,8 @@ public class MainWindow extends javax.swing.JFrame {
     final Icon prefDisabled;
     final Icon searchArrow;
     final Icon searchArrowDisabled;
+
+    private JPanel coverflow;
 
 
     
@@ -172,6 +177,24 @@ public class MainWindow extends javax.swing.JFrame {
 
             }
         }
+        if(true) {
+
+        coverflow = new JPanel();
+        coverflow.setLayout(new StackLayout());
+        coverflow.add(new GradientPanel(), StackLayout.BOTTOM);
+        coverflow.add(new CDShelf(this), StackLayout.TOP);
+        coverflow.setPreferredSize(new Dimension(200,200));
+        coverflow.setVisible(false);
+        //coverflow.setVisible(true);
+
+
+        //JOptionPane.showMessageDialog(this, coverflow, "lul", 1);
+        //gameList.setVisible(false);
+        //jScrollPane1.setViewportView(coverflow);
+        //jScrollPane1.setEnabled(false);
+
+        }
+
 
 
     }
@@ -293,6 +316,22 @@ public class MainWindow extends javax.swing.JFrame {
             }
         }
 
+    }
+
+    private void toggleView() {
+        if(coverflow.isVisible()) {
+            coverflow.setVisible(false);
+            gameList.setVisible(true);
+            jScrollPane1.setViewportView(gameList);
+            gameList.requestFocus();
+        }
+        else {
+            coverflow.setVisible(true);
+            gameList.setVisible(false);
+            jScrollPane1.setViewportView(coverflow);
+            coverflow.requestFocus();
+        }
+        this.repaint();
     }
     
     /**
@@ -626,6 +665,11 @@ public class MainWindow extends javax.swing.JFrame {
 
         panelControls.setOpaque(false);
         panelControls.setPreferredSize(new java.awt.Dimension(684, 50));
+        panelControls.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                panelControlsMouseClicked(evt);
+            }
+        });
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/utilities-terminal-disabled.png"))); // NOI18N
         jLabel2.setToolTipText("Game information");
@@ -947,6 +991,10 @@ private String getCurrentDir() {
        }
 
     return null;
+}
+
+public void run() {
+    mnuRunActionPerformed(null);
 }
 // @todo generalize this method!
 private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRunActionPerformed
@@ -1288,6 +1336,11 @@ private void mnuListSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 private void mnuListEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListEditActionPerformed
     mnuEditActionPerformed(evt);
 }//GEN-LAST:event_mnuListEditActionPerformed
+
+private void panelControlsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseClicked
+    toggleView();
+
+}//GEN-LAST:event_panelControlsMouseClicked
  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1321,7 +1374,7 @@ private void mnuListEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JMenuItem mnuListSetup;
     private javax.swing.JMenuItem mnuNew2;
     private javax.swing.JMenuItem mnuPreferences;
-    private javax.swing.JMenuItem mnuRun2;
+    javax.swing.JMenuItem mnuRun2;
     private javax.swing.JMenuItem mnuSetup2;
     private javax.swing.JMenu mnuTools;
     private javax.swing.JMenu mnuWeb;

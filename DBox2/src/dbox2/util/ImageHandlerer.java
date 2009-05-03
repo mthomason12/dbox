@@ -52,6 +52,40 @@ public class ImageHandlerer {
     }
 
     /**
+     * Loads a icon from the file system
+     * @param ikon the path to the icon
+     * @return the icon
+     */
+    public static ImageIcon getImageIconNoResize(String ikon) {
+        if (ikon.equals("")) {
+                return getDefaultIcon();
+        } else {
+            //try {
+            ImageIcon ii = getDefaultIcon();
+            if (ikon.toLowerCase().endsWith("ico")) { // If the file is a ICO file
+                try {
+                    ImageInputStream in = ImageIO.createImageInputStream(new FileInputStream(new File(ikon)));
+                    ICOFile f;
+                    f = new ICOFile(in);
+                    IconEntry ie = f.getEntry(0);
+                    ii = new ImageIcon(ie.getBitmap().getImage());
+                } catch (IOException ex) {
+                    System.out.println("Error reading icon " + ikon);
+                    return getDefaultIcon();
+                }
+            } else {
+                ii = new ImageIcon(ikon);
+            }
+
+            return ii ;
+        }
+    }
+
+
+
+
+
+    /**
      * Resizes a icon according to preferences
      * @param icon icon that should be resized
      * @return a resized icon
@@ -70,6 +104,22 @@ public class ImageHandlerer {
             return icon;
         }
     }
+
+
+
+    /**
+     * Resizes a icon according to preferences
+     * @param icon icon that should be resized
+     * @return a resized icon
+     */
+    public static BufferedImage resizeIcon(ImageIcon icon, int width, int height) {
+            BufferedImage bi = new BufferedImage(width, height,
+                    BufferedImage.TYPE_INT_ARGB);
+            bi.getGraphics().drawImage(icon.getImage(), 0, 0, width, height, null);
+
+            return bi;
+    }
+
 
     /**
      * @return Returns the default application icon

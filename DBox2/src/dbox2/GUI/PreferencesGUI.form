@@ -176,7 +176,7 @@
     <Component class="javax.swing.JCheckBox" name="chkKeepOpen">
       <Properties>
         <Property name="text" type="java.lang.String" value="Keep the DosBox window open (doesn&apos;t always work)"/>
-        <Property name="toolTipText" type="java.lang.String" value="Determines if the DosBox window will be closed after the application you currently are running has halted. This option will only have effect on applications that you&apos;re opening after you have altered this preference."/>
+        <Property name="toolTipText" type="java.lang.String" value="Determines if the DosBox window will be closed after the application&#xa;you currently are running has halted. This option will only have effect&#xa;on applications that you&apos;re opening after you have altered this preference."/>
         <Property name="margin" type="java.awt.Insets" editor="org.netbeans.beaninfo.editors.InsetsEditor">
           <Insets value="[0, 0, 0, 0]"/>
         </Property>

@@ -23,6 +23,9 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuRunActionPerformed"/>
           </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="0"/>
+          </AuxValues>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="mnuSetup2">
           <Properties>
@@ -311,6 +314,9 @@
           <Dimension value="[684, 50]"/>
         </Property>
       </Properties>
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="panelControlsMouseClicked"/>
+      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel()&#xa;{&#xa;            ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource(&quot;/dbox2/img/bg.jpg&quot;));&#xa;            Image image = backImage.getImage();&#xa;            int w = backImage.getIconWidth();&#xa;&#xa;            public void paintComponent (Graphics g) {&#xa;                for(int i=0;i&lt;100;i++)&#xa;                g.drawImage(image, w*i, 0, this);&#xa;                super.paintComponent(g);&#xa;            }&#xa;        }&#xa;"/>
       </AuxValues>

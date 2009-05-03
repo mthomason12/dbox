@@ -160,7 +160,7 @@ public class ItemGUI extends javax.swing.JDialog {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Edit Game");
 
-        Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/gameIcons/application-x-executable-32.png"))); // NOI18N
+        Icon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/gameIcons/application-x-executable.png"))); // NOI18N
 
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -169,7 +169,7 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel5)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 425, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 435, Short.MAX_VALUE)
                 .add(Icon)
                 .addContainerGap())
         );
@@ -621,7 +621,7 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void appIconPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_appIconPropertyChange
     String ikon = appIcon.getText();
     File fil = new File(ikon);
-    ImageIcon ii = new ImageIcon(getClass().getResource("/dbox2/gameIcons/application-x-executable-32.png"));
+    ImageIcon ii = new ImageIcon(getClass().getResource("/dbox2/gameIcons/application-x-executable.png"));
     if(fil.exists()) {
         if(ikon.toLowerCase().endsWith("ico")) { // If the file is a ICO file
             try {

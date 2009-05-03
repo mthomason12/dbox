@@ -89,7 +89,7 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="425" max="32767" attributes="0"/>
+                  <EmptySpace pref="435" max="32767" attributes="0"/>
                   <Component id="Icon" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -123,7 +123,7 @@
         <Component class="javax.swing.JLabel" name="Icon">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/dbox2/gameIcons/application-x-executable-32.png"/>
+              <Image iconType="3" name="/dbox2/gameIcons/application-x-executable.png"/>
             </Property>
           </Properties>
         </Component>

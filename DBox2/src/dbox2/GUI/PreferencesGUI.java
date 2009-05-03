@@ -126,7 +126,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
         });
 
         chkKeepOpen.setText("Keep the DosBox window open (doesn't always work)");
-        chkKeepOpen.setToolTipText("Determines if the DosBox window will be closed after the application you currently are running has halted. This option will only have effect on applications that you're opening after you have altered this preference.");
+        chkKeepOpen.setToolTipText("Determines if the DosBox window will be closed after the application\nyou currently are running has halted. This option will only have effect\non applications that you're opening after you have altered this preference.");
         chkKeepOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         chkFullscreen.setText("Play games in full screen (Press Alt+Enter in game to toggle)");
