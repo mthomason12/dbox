@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import javax.swing.JCheckBoxMenuItem;
 
 /**
  *
@@ -80,6 +81,12 @@ public class MainWindow extends javax.swing.JFrame {
             m.setText(s);
             m.addActionListener(new Filter(this));
             searchMenu.add(m);
+
+            JCheckBoxMenuItem menu = new JCheckBoxMenuItem();
+            menu.setText(s);
+            menu.addActionListener(new SetGenre(this,s));
+            menu.setVisible(true);
+            mnuListSetGenre.add(menu);
         }
 
         // Set up images
@@ -241,6 +248,13 @@ public class MainWindow extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Something wrong happened. You have to add the application the hard way.", "Sorry...", JOptionPane.INFORMATION_MESSAGE);
             }
     }
+
+    @Override
+    public void dispose() {
+        skrivObjekt(Main.gameFile);
+        System.exit(0);
+
+    }
     
     private BoxListe deSerialize(String name) {
         String config = "";
@@ -338,7 +352,7 @@ public class MainWindow extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { if(strings[i].equals("")) return "(untitled)"; else return strings[i]; }
         });
-        skrivObjekt(Main.gameFile);
+        
     }
     
     private void updateList(String search) {
@@ -398,6 +412,13 @@ public class MainWindow extends javax.swing.JFrame {
         mnuDosbox = new javax.swing.JMenuItem();
         searchMenu = new javax.swing.JPopupMenu();
         jTextField1 = new javax.swing.JTextField();
+        listMenu = new javax.swing.JPopupMenu();
+        mnuListRun = new javax.swing.JMenuItem();
+        mnuListSetup = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JSeparator();
+        mnuListEdit = new javax.swing.JMenuItem();
+        mnuListSetGenre = new javax.swing.JMenu();
+        mnuListFavorite = new javax.swing.JCheckBoxMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         gameList = new javax.swing.JList();
         gameList.setCellRenderer(new GameListRenderer());
@@ -541,11 +562,47 @@ public class MainWindow extends javax.swing.JFrame {
 
         jTextField1.setVisible(false);
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        mnuListRun.setText("Run");
+        mnuListRun.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuListRunActionPerformed(evt);
+            }
+        });
+        listMenu.add(mnuListRun);
+
+        mnuListSetup.setText("Setup");
+        mnuListSetup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuListSetupActionPerformed(evt);
+            }
+        });
+        listMenu.add(mnuListSetup);
+        listMenu.add(jSeparator3);
+
+        mnuListEdit.setText("Edit...");
+        mnuListEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuListEditActionPerformed(evt);
+            }
+        });
+        listMenu.add(mnuListEdit);
+
+        mnuListSetGenre.setText("Set Genre");
+        listMenu.add(mnuListSetGenre);
+
+        mnuListFavorite.setSelected(true);
+        mnuListFavorite.setText("Favorite");
+        mnuListFavorite.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuListFavoriteActionPerformed(evt);
+            }
+        });
+        listMenu.add(mnuListFavorite);
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("D-Box");
 
         gameList.setToolTipText("");
-        gameList.setComponentPopupMenu(runMenu);
         gameList.setFocusCycleRoot(true);
         gameList.setFocusTraversalPolicyProvider(true);
         gameList.setNextFocusableComponent(txtSearch);
@@ -840,7 +897,7 @@ private void mnuSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     DosItem di = bl.getGame((String)gameList.getSelectedValue());
 
     if(di.getInstaller().equals("")) {
-        JOptionPane.showMessageDialog(null, "You haven't configured the setup program for " + di.getName() + ".\nIf " + di.getName() + " has a setup program, add using Edit Game>Advanced>Setup.");
+        JOptionPane.showMessageDialog(null, "You haven't configured the setup program for " + di.getName() + ".\nIf " + di.getName() + " has a setup program, add it using 'Edit Game'>'Advanced'>'Setup'.");
         return;
     }
 
@@ -891,7 +948,7 @@ private String getCurrentDir() {
 
     return null;
 }
-
+// @todo generalize this method!
 private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRunActionPerformed
     if(gameList.getSelectedIndex() == -1)
         return;
@@ -995,7 +1052,9 @@ private void mnuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 private void mnuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDeleteActionPerformed
     if(gameList.getSelectedIndex() == -1)
         return;
-    int a = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove " + gameList.getSelectedValue() + " from the list?", "Please Confirm", JOptionPane.YES_NO_OPTION);
+    int a = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove " +
+            gameList.getSelectedValue() + " from the list?", "Please Confirm",
+            JOptionPane.YES_NO_OPTION);
     if(a == JOptionPane.NO_OPTION)
         return;
     String gm = "";
@@ -1060,9 +1119,27 @@ private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_jLabel5MouseClicked
 
 private void gameListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gameListMouseReleased
-    if(evt.getButton() == 9){//MouseEvent.BUTTON3) {
-    runMenu.show(evt.getComponent(),
-                       evt.getX(), evt.getY());
+    if(evt.getButton() == MouseEvent.BUTTON3){//MouseEvent.BUTTON3) {
+        if(gameList.getSelectedIndex() != -1) {
+            final String gamename = gameList.getSelectedValue().toString();
+
+            // Set correct name
+            mnuListRun.setText("Run '" + gamename + "'");
+
+            //is it marked as a favorite
+            mnuListFavorite.setSelected(bl.getGame(gamename).isStar());
+
+            //get the genre
+            final String genre = bl.getGame(gamename).getGenre();
+
+            for(Component c : mnuListSetGenre.getMenuComponents()) {
+                JCheckBoxMenuItem jc = (JCheckBoxMenuItem) c;
+                jc.setSelected(jc.getText().equals(genre));
+            }
+
+            listMenu.show(evt.getComponent(),
+                           evt.getX(), evt.getY());
+        }
     }
 }//GEN-LAST:event_gameListMouseReleased
 
@@ -1167,7 +1244,8 @@ private void mnuGettingStartedActionPerformed(java.awt.event.ActionEvent evt) {/
 }//GEN-LAST:event_mnuGettingStartedActionPerformed
 
 private void mnuImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportActionPerformed
-    String file = helperClass.showFileChooser(this,"Select file", new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".dat"},
+    String file = helperClass.showFileChooser(this,"Select file",
+            new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".dat"},
             "D-Box Game Libraries (*.dat)"), false);
 
     if(file != null) {
@@ -1177,7 +1255,8 @@ private void mnuImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_mnuImportActionPerformed
 
 private void mnuExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportActionPerformed
-    String file = helperClass.showFileChooser(this,"Select file", new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".dat"},
+    String file = helperClass.showFileChooser(this,"Select file",
+            new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".dat"},
             "D-Box Game Libraries (*.dat)"), false);
     if(file != null) {
         if(file.indexOf(".") == -1)
@@ -1187,16 +1266,33 @@ private void mnuExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_mnuExportActionPerformed
 
 private void mnuClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClearActionPerformed
-    int s = JOptionPane.showConfirmDialog(this, "You are you sure you want to remove all games from the game list?" , "Clear game list", JOptionPane.YES_NO_OPTION);
+    int s = JOptionPane.showConfirmDialog(this, "You are you sure you want to remove all games from the game list?" ,
+            "Clear game list", JOptionPane.YES_NO_OPTION);
     if(s != JOptionPane.YES_OPTION) return;
     bl = new BoxListe();
     updateList();
 }//GEN-LAST:event_mnuClearActionPerformed
+
+private void mnuListFavoriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListFavoriteActionPerformed
+    bl.getGame(gameList.getSelectedValue().toString()).setStar(!bl.getGame(gameList.getSelectedValue().toString()).isStar());
+}//GEN-LAST:event_mnuListFavoriteActionPerformed
+
+private void mnuListRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListRunActionPerformed
+    mnuRunActionPerformed(evt);
+}//GEN-LAST:event_mnuListRunActionPerformed
+
+private void mnuListSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListSetupActionPerformed
+    mnuSetupActionPerformed(evt);
+}//GEN-LAST:event_mnuListSetupActionPerformed
+
+private void mnuListEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListEditActionPerformed
+    mnuEditActionPerformed(evt);
+}//GEN-LAST:event_mnuListEditActionPerformed
  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu editMenu;
-    protected javax.swing.JList gameList;
+    public javax.swing.JList gameList;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1204,9 +1300,11 @@ private void mnuClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblExplain;
     private javax.swing.JLabel lblSearch;
+    private javax.swing.JPopupMenu listMenu;
     private javax.swing.JMenuItem mnuAbout;
     private javax.swing.JMenuItem mnuClear;
     private javax.swing.JMenuItem mnuDelete2;
@@ -1216,6 +1314,11 @@ private void mnuClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JMenuItem mnuGettingStarted;
     private javax.swing.JMenuItem mnuHome;
     private javax.swing.JMenuItem mnuImport;
+    private javax.swing.JMenuItem mnuListEdit;
+    private javax.swing.JCheckBoxMenuItem mnuListFavorite;
+    private javax.swing.JMenuItem mnuListRun;
+    private javax.swing.JMenu mnuListSetGenre;
+    private javax.swing.JMenuItem mnuListSetup;
     private javax.swing.JMenuItem mnuNew2;
     private javax.swing.JMenuItem mnuPreferences;
     private javax.swing.JMenuItem mnuRun2;
@@ -1226,7 +1329,7 @@ private void mnuClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JPopupMenu prefMenu;
     private javax.swing.JPopupMenu runMenu;
     private javax.swing.JPopupMenu searchMenu;
-    protected javax.swing.JTextField txtSearch;
+    public javax.swing.JTextField txtSearch;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
@@ -1249,7 +1352,26 @@ class Filter implements ActionListener {
             mw.updateListGenre(s);
 
         mw.gameList.requestFocus();
-
     }
 
 }
+
+class SetGenre implements ActionListener {
+
+    MainWindow mw;
+    String genre;
+
+    SetGenre(MainWindow mw, String genre) {
+        this.mw = mw;
+        this.genre = genre;
+    }
+
+    public void actionPerformed(ActionEvent e) {
+        DosItem di = MainWindow.bl.getGame(mw.gameList.getSelectedValue().toString());
+        di.setGenre(genre);
+
+        mw.gameList.requestFocus();
+    }
+
+}
+

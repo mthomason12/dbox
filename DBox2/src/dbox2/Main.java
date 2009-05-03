@@ -14,7 +14,7 @@ import javax.swing.*;
 public class Main {
 
     public static final int MAJORVERSION = 2;
-    public static final int MINORVERSION = 0;
+    public static final int MINORVERSION = 1;
     public static String configFile = "dbox.config";
     public static String gameFile = "gamelist.dat";
 
@@ -39,8 +39,6 @@ public class Main {
                 }
                 
             }
-
-
 
             System.setProperty("apple.laf.useScreenMenuBar","true");
             java.lang.System.setProperty("com.apple.mrj.application.apple.menu.about.name", "D-Box");
