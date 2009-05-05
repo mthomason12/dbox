@@ -51,7 +51,7 @@ public class MainWindow extends javax.swing.JFrame {
     final Icon searchArrow;
     final Icon searchArrowDisabled;
 
-    private JPanel coverflow;
+    protected JPanel coverflow;
 
 
     
@@ -115,12 +115,8 @@ public class MainWindow extends javax.swing.JFrame {
         gameList.requestFocus();
         jPanel1.setBorder(jTextField1.getBorder());
 
-        // drag & drop
-        new  FileDrop( gameList, new FileDrop.Listener() {
-            public void  filesDropped( java.io.File[] files ) {
-              createNewMagicProfile(files[0].getAbsoluteFile());
-            }
-        });
+        
+
 
         // Show the getting started screen
         if(pref.isFirstStart()) {
@@ -194,6 +190,19 @@ public class MainWindow extends javax.swing.JFrame {
         //jScrollPane1.setEnabled(false);
 
         }
+
+        // drag & drop
+        new  FileDrop( gameList, new FileDrop.Listener() {
+            public void  filesDropped( java.io.File[] files ) {
+              createNewMagicProfile(files[0].getAbsoluteFile());
+            }
+        });
+
+        new  FileDrop( coverflow, new FileDrop.Listener() {
+            public void  filesDropped( java.io.File[] files ) {
+              createNewMagicProfile(files[0].getAbsoluteFile());
+            }
+        });
 
 
 
@@ -438,6 +447,7 @@ public class MainWindow extends javax.swing.JFrame {
         mnuDelete2 = new javax.swing.JMenuItem();
         prefMenu = new javax.swing.JPopupMenu();
         mnuPreferences = new javax.swing.JMenuItem();
+        mnuView = new javax.swing.JMenuItem();
         mnuTools = new javax.swing.JMenu();
         mnuImport = new javax.swing.JMenuItem();
         mnuExport = new javax.swing.JMenuItem();
@@ -456,6 +466,7 @@ public class MainWindow extends javax.swing.JFrame {
         mnuListSetup = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JSeparator();
         mnuListEdit = new javax.swing.JMenuItem();
+        mnuListRemove = new javax.swing.JMenuItem();
         mnuListSetGenre = new javax.swing.JMenu();
         mnuListFavorite = new javax.swing.JCheckBoxMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -516,7 +527,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         editMenu.add(mnuEdit2);
 
-        mnuDelete2.setText("Delete Game");
+        mnuDelete2.setText("Remove Game");
         mnuDelete2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuDeleteActionPerformed(evt);
@@ -532,6 +543,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         prefMenu.add(mnuPreferences);
+
+        mnuView.setText("Flow View");
+        mnuView.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuViewActionPerformed(evt);
+            }
+        });
+        prefMenu.add(mnuView);
 
         mnuTools.setText("Advanced Options");
 
@@ -625,6 +644,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         listMenu.add(mnuListEdit);
+
+        mnuListRemove.setText("Remove...");
+        mnuListRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuListRemoveActionPerformed(evt);
+            }
+        });
+        listMenu.add(mnuListRemove);
 
         mnuListSetGenre.setText("Set Genre");
         listMenu.add(mnuListSetGenre);
@@ -722,20 +749,20 @@ public class MainWindow extends javax.swing.JFrame {
         bindingGroup.addBinding(binding);
 
         jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel5MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel5MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel5MouseExited(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel5MousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jLabel5MouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel5MouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel5MouseEntered(evt);
             }
         });
 
@@ -852,18 +879,18 @@ public class MainWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(panelControls, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
-            .add(layout.createSequentialGroup()
-                .add(10, 10, 10)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(11, 11, 11)
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
-                .add(10, 10, 10))
+                .add(9, 9, 9))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(panelControls, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(panelControls, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 57, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 359, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
+                .add(20, 20, 20))
         );
 
         bindingGroup.bind();
@@ -1151,6 +1178,11 @@ if(evt.getButton() == MouseEvent.BUTTON1)
 }//GEN-LAST:event_jLabel4MouseClicked
 
 private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
+    if(gameList.isVisible())
+        mnuView.setText("Flow View (Experimental)");
+    else
+        mnuView.setText("List View (Classic)");
+
     prefMenu.show(jLabel5, 0, jLabel5.getHeight()-10);
 }//GEN-LAST:event_jLabel5MousePressed
 
@@ -1338,9 +1370,17 @@ private void mnuListEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 }//GEN-LAST:event_mnuListEditActionPerformed
 
 private void panelControlsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseClicked
-    toggleView();
+    
 
 }//GEN-LAST:event_panelControlsMouseClicked
+
+private void mnuListRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListRemoveActionPerformed
+    mnuDeleteActionPerformed(evt);
+}//GEN-LAST:event_mnuListRemoveActionPerformed
+
+private void mnuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuViewActionPerformed
+    toggleView();
+}//GEN-LAST:event_mnuViewActionPerformed
  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1369,6 +1409,7 @@ private void panelControlsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
     private javax.swing.JMenuItem mnuImport;
     private javax.swing.JMenuItem mnuListEdit;
     private javax.swing.JCheckBoxMenuItem mnuListFavorite;
+    private javax.swing.JMenuItem mnuListRemove;
     private javax.swing.JMenuItem mnuListRun;
     private javax.swing.JMenu mnuListSetGenre;
     private javax.swing.JMenuItem mnuListSetup;
@@ -1377,6 +1418,7 @@ private void panelControlsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIR
     javax.swing.JMenuItem mnuRun2;
     private javax.swing.JMenuItem mnuSetup2;
     private javax.swing.JMenu mnuTools;
+    private javax.swing.JMenuItem mnuView;
     private javax.swing.JMenu mnuWeb;
     private javax.swing.JPanel panelControls;
     private javax.swing.JPopupMenu prefMenu;

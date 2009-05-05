@@ -451,8 +451,10 @@ public class CDShelf extends JPanel {
                 avatarsText.add(s);
                 DosItem di = MainWindow.bl.getGame(s);
                 String ikon = di.getIcon();
-                if(ikon.equals(""))
+                if(ikon.equals("")) {
                     artworks.add(MainWindow.class.getResource("/dbox2/img/coverflow/no-cover.png"));
+                    System.out.println("Intet kover!");
+                    }
                 else
                     try {
                         artworks.add(new URL("file://" + ikon));
