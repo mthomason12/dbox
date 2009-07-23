@@ -199,7 +199,7 @@
     <Component class="javax.swing.JComboBox" name="cmbKeyboard">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="23">
+          <StringArray count="24">
             <StringItem index="0" value="Belgium"/>
             <StringItem index="1" value="Brazil"/>
             <StringItem index="2" value="Canadian-French"/>
@@ -222,7 +222,8 @@
             <StringItem index="19" value="Switzerland (German)"/>
             <StringItem index="20" value="United Kingdom"/>
             <StringItem index="21" value="United States"/>
-            <StringItem index="22" value="Yugoslavia (Serbo-Croatian)"/>
+            <StringItem index="22" value="United States (Dvorak)"/>
+            <StringItem index="23" value="Yugoslavia (Serbo-Croatian)"/>
           </StringArray>
         </Property>
         <Property name="toolTipText" type="java.lang.String" value="Select your keyboard layout.&#xa;&#xa;Note that some games needs a specific&#xa;keyboard layout (often english)."/>

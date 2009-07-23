@@ -274,7 +274,7 @@ public class NewPreferences implements Serializable {
         String[] code    = new String[] {"be","br","cf","cz","dk","su","fr",
                                          "gr","hu","it","la","nl","no","pl",
                                          "po","sl","sp","sv","sf","sg","uk",
-                                         "us","yu"};
+                                         "us","dv103","yu"};
         for(int i = 0; i < code.length; i++)
             if(code[i].toLowerCase().equals(KeyBoardCode.toLowerCase()))
                 return i;
@@ -293,8 +293,8 @@ public class NewPreferences implements Serializable {
      * @return the right country or abbr
      */
     private String translateLanguage(String name, boolean type) {
-        String[] country = new String[] { "Belgium", "Brazil", "Canadian-French", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Hungary", "Italy", "Latin America", "Netherlands", "Norway", "Poland", "Portugal", "Slovak Republic", "Spain", "Sweden", "Switzerland (French)", "Switzerland (German)", "United Kingdom", "United States", "Yugoslavia (Serbo-Croatian)" };
-        String[] code    = new String[] { "be"     , "br"    , "cf"             , "cz"            , "dk"     , "su"     , "fr"    , "gr"     , "hu"     , "it"   , "la"           , "nl"         , "no"    , "pl"    , "po"      , "sl"             , "sp"   , "sv"    , "sf"                  , "sg"                  , "uk"            , "us"           , "yu"                          };
+        String[] country = new String[] { "Belgium", "Brazil", "Canadian-French", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Hungary", "Italy", "Latin America", "Netherlands", "Norway", "Poland", "Portugal", "Slovak Republic", "Spain", "Sweden", "Switzerland (French)", "Switzerland (German)", "United Kingdom", "United States", "United States (Dvorak)", "Yugoslavia (Serbo-Croatian)" };
+        String[] code    = new String[] { "be"     , "br"    , "cf"             , "cz"            , "dk"     , "su"     , "fr"    , "gr"     , "hu"     , "it"   , "la"           , "nl"         , "no"    , "pl"    , "po"      , "sl"             , "sp"   , "sv"    , "sf"                  , "sg"                  , "uk"            , "us"           , "dv103"                 , "yu"                          };
         if(type) {
             for(int i = 0; i < country.length; i++) {
                 if(name.toLowerCase().equals(country[i].toLowerCase()))

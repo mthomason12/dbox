@@ -38,9 +38,6 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
@@ -377,6 +374,8 @@ public class CDShelf extends JPanel {
     }
 
     private void setAvatarIndex(int index) {
+        if(index <= 0)
+            index = 0;
         avatarIndex = index;
         avatarText = avatarsText.get(index);
     }
@@ -408,6 +407,7 @@ public class CDShelf extends JPanel {
                 for (DrawableAvatar avatar: drawableAvatars) {
                     if (avatar.index == index) {
                         drawable = avatar;
+                        System.out.println("lotus " + index);
                         break;
                     }
                 }
@@ -453,13 +453,12 @@ public class CDShelf extends JPanel {
                 String ikon = di.getIcon();
                 if(ikon.equals("")) {
                     artworks.add(MainWindow.class.getResource("/dbox2/img/coverflow/no-cover.png"));
-                    System.out.println("Intet kover!");
-                    }
+                }
                 else
                     try {
                         artworks.add(new URL("file://" + ikon));
                     } catch (MalformedURLException ex) {
-                    }
+                }
             }
         }
         
@@ -475,12 +474,20 @@ public class CDShelf extends JPanel {
                 }
                 
                 if (i++ == avatarAmount) {
-                    setAvatarIndex(avatarAmount / 2);
-                    startFader();
+                    setAvatarIndex(0);
+                    
                 }
             }
 
             loadingDone = true;
+            
+            if(mw.gameList.getSelectedValue() != null)
+                        scrollBy(mw.gameList.getSelectedIndex());
+            else if(mw.gameList.getSelectedValue() == null && mw.bl.getNrGames() >= 3)
+                scrollBy((mw.bl.getNrGames()/2)+1);
+            else
+                setAvatarIndex(0);
+            startFader();
         }
     }
     

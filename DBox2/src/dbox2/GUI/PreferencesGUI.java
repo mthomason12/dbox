@@ -135,7 +135,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
 
         jLabel2.setText("Keyboard layout (Country or language):");
 
-        cmbKeyboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Belgium", "Brazil", "Canadian-French", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Hungary", "Italy", "Latin America", "Netherlands", "Norway", "Poland", "Portugal", "Slovak Republic", "Spain", "Sweden", "Switzerland (French)", "Switzerland (German)", "United Kingdom", "United States", "Yugoslavia (Serbo-Croatian)" }));
+        cmbKeyboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Belgium", "Brazil", "Canadian-French", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Hungary", "Italy", "Latin America", "Netherlands", "Norway", "Poland", "Portugal", "Slovak Republic", "Spain", "Sweden", "Switzerland (French)", "Switzerland (German)", "United Kingdom", "United States", "United States (Dvorak)", "Yugoslavia (Serbo-Croatian)" }));
         cmbKeyboard.setToolTipText("Select your keyboard layout.\n\nNote that some games needs a specific\nkeyboard layout (often english).");
         cmbKeyboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

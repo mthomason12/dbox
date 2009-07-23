@@ -26,9 +26,9 @@ import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import javax.swing.BoxLayout;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JPanel;
+
 
 /**
  *
@@ -52,6 +52,7 @@ public class MainWindow extends javax.swing.JFrame {
     final Icon searchArrowDisabled;
 
     protected JPanel coverflow;
+    private CDShelf cdshelf;
 
 
     
@@ -173,23 +174,6 @@ public class MainWindow extends javax.swing.JFrame {
 
             }
         }
-        if(true) {
-
-        coverflow = new JPanel();
-        coverflow.setLayout(new StackLayout());
-        coverflow.add(new GradientPanel(), StackLayout.BOTTOM);
-        coverflow.add(new CDShelf(this), StackLayout.TOP);
-        coverflow.setPreferredSize(new Dimension(200,200));
-        coverflow.setVisible(false);
-        //coverflow.setVisible(true);
-
-
-        //JOptionPane.showMessageDialog(this, coverflow, "lul", 1);
-        //gameList.setVisible(false);
-        //jScrollPane1.setViewportView(coverflow);
-        //jScrollPane1.setEnabled(false);
-
-        }
 
         // drag & drop
         new  FileDrop( gameList, new FileDrop.Listener() {
@@ -197,15 +181,25 @@ public class MainWindow extends javax.swing.JFrame {
               createNewMagicProfile(files[0].getAbsoluteFile());
             }
         });
+    }
+
+    private void createCoverFlow() {
+        if(cdshelf != null) {
+            coverflow.remove(cdshelf);
+            cdshelf = null;
+        }
+        coverflow = new JPanel();
+        coverflow.setLayout(new StackLayout());
+        cdshelf = new CDShelf(this);
+        coverflow.add(new GradientPanel(), StackLayout.BOTTOM);
+        coverflow.add(cdshelf, StackLayout.TOP);
+        coverflow.setPreferredSize(new Dimension(200,200));
 
         new  FileDrop( coverflow, new FileDrop.Listener() {
             public void  filesDropped( java.io.File[] files ) {
               createNewMagicProfile(files[0].getAbsoluteFile());
             }
         });
-
-
-
     }
 
     /**
@@ -328,17 +322,20 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     private void toggleView() {
-        if(coverflow.isVisible()) {
+        if(coverflow != null && coverflow.isVisible()) {
             coverflow.setVisible(false);
             gameList.setVisible(true);
             jScrollPane1.setViewportView(gameList);
             gameList.requestFocus();
         }
         else {
+            coverflow = new JPanel();
             coverflow.setVisible(true);
             gameList.setVisible(false);
+            updateList();
             jScrollPane1.setViewportView(coverflow);
             coverflow.requestFocus();
+
         }
         this.repaint();
     }
@@ -353,7 +350,7 @@ public class MainWindow extends javax.swing.JFrame {
     	      (dim.height - abounds.height) / 2);
     }
     
-    private void writeConfig(String filename, int cpucycles, boolean fullscreen, String dir, String extra, int skip){
+        private void writeConfig(String filename, int cpucycles, boolean fullscreen, String dir, String extra, int skip){
         String ut;
         // CPU
         ut = "[CPU]\n" +
@@ -369,7 +366,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         // Keyboard layout
         ut += "[DOS]\n";
-        ut += "keyboardlayout=" + pref.getKeyboardCode() + "\n";
+        ut += "keyboardlayout=" + pref.getKeyboardCode() + "\n\n";
         
         // Mounting
         ut += "[AUTOEXEC]\n" +
@@ -389,18 +386,23 @@ public class MainWindow extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
         }
-        
     }
     
     private void updateList()  {
-        
-        
+        int s = gameList.getSelectedIndex();
         gameList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = bl.getGameList();
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { if(strings[i].equals("")) return "(untitled)"; else return strings[i]; }
         });
-        
+
+        gameList.setSelectedIndex(s);
+
+        if(coverflow != null && coverflow.isVisible()) {
+            System.out.println("hytte!!!");
+            createCoverFlow();
+            coverflow.updateUI();
+        }
     }
     
     private void updateList(String search) {
@@ -410,6 +412,8 @@ public class MainWindow extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+
+
     }
 
     public void updateListGenre(String search) {
@@ -725,20 +729,20 @@ public class MainWindow extends javax.swing.JFrame {
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start-disabled.png"))); // NOI18N
         jLabel4.setToolTipText("Run Application");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel4MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel4MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel4MouseExited(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel4MousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jLabel4MouseReleased(evt);
+            }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel4MouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel4MouseEntered(evt);
             }
         });
 
@@ -1173,8 +1177,7 @@ private void jLabel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:ev
 }//GEN-LAST:event_jLabel4MouseReleased
 
 private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-if(evt.getButton() == MouseEvent.BUTTON1)
-    mnuRunActionPerformed(null);
+
 }//GEN-LAST:event_jLabel4MouseClicked
 
 private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
@@ -1187,15 +1190,11 @@ private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_jLabel5MousePressed
 
 private void jLabel5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseReleased
-    // TODO add your handling code here:
+    // TODO add your handlin g code here:
 }//GEN-LAST:event_jLabel5MouseReleased
 
 private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-    if(evt.getButton() == MouseEvent.BUTTON1)
-        mnuPrefsActionPerformed(null);
-    else
-        prefMenu.show(evt.getComponent(),
-                       evt.getX(), evt.getY());
+
 }//GEN-LAST:event_jLabel5MouseClicked
 
 private void gameListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gameListMouseReleased
@@ -1429,7 +1428,6 @@ private void mnuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     // End of variables declaration//GEN-END:variables
 
 }
-
 class Filter implements ActionListener {
 
     MainWindow mw;
