@@ -2,6 +2,7 @@
  * DosItem.java
  *
  * Created on 7. juni 2007, 15:47
+ * @author Truben
  *
  */
 package dbox2;
@@ -10,10 +11,6 @@ import dbox2.util.ImageHandlerer;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
 
-/**
- *
- * @author Truben
- */
 public class DosItem implements Serializable {
 
     private String name = "";
@@ -26,7 +23,7 @@ public class DosItem implements Serializable {
     private String cdrom = "";
     private String floppy = "";
     private String extra = "";
-    private String genre = MainWindow.pref.getGenres()[MainWindow.pref.getGenres().length - 1];
+    private String genre = Main.pref.getGenres()[Main.pref.getGenres().length - 1];
     private String keywords = "";
     private boolean star = false;
     private ImageIcon imageIcon = ImageHandlerer.getDefaultIcon();

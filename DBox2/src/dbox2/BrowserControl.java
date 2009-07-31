@@ -3,7 +3,7 @@ package dbox2;
 import java.lang.reflect.Method;
 
 /**
- * This is not written by me. Will add credits as soon as I find it:)
+ * @author This is not written by me (Truben). Will add credits as soon as I find it:)
  */
 public class BrowserControl {
     /**
@@ -14,7 +14,7 @@ public class BrowserControl {
         String os = System.getProperty("os.name");
         Runtime runtime = Runtime.getRuntime();
         try {
-// Block for Windows Platform
+            // Block for Windows Platform
             if (os.startsWith("Windows")) {
                 String cmd = "rundll32 url.dll,FileProtocolHandler " + url;
                 Process p = runtime.exec(cmd);

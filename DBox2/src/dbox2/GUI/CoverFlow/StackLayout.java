@@ -1,3 +1,7 @@
+/**
+ * @author Truben
+ */
+
 package dbox2.GUI.CoverFlow;
 
 import java.awt.Component;

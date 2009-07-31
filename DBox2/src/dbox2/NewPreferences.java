@@ -1,10 +1,10 @@
 package dbox2;
-/*
+/**
  * Preferences.java
  *
  * Created on 8. juni 2007, 16:39
  * @author Truben
- */
+ **/
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -104,8 +104,6 @@ public class NewPreferences implements Serializable {
                 FirstStart = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("usebuiltindosbox"))
                 BuiltInDosBox = Boolean.parseBoolean(parts[1].trim());
-
-
         }
     }
 
@@ -168,8 +166,9 @@ public class NewPreferences implements Serializable {
     /** Creates a new instance of Preferences */
     public NewPreferences() {
         DosBoxPath = "";
-         Genres = new String[] { "Action", "Adventure", "Arcade", "Board", "Platform", "Puzzle", "Racing", "RPG", "Simulation", "Sports", "Strategy", "Text Based", "Utility", "Unsorted" };
-        
+        Genres = new String[] { "Action", "Adventure", "Arcade", "Board", "Platform", "Puzzle",
+                                "Racing", "RPG", "Simulation", "Sports", "Strategy", "Text Based",
+                                "Utility", "Unsorted" };
     }
 
     public String getDosBoxPath() {
@@ -286,6 +285,30 @@ public class NewPreferences implements Serializable {
     public String getKeyboardCode() {
         return KeyBoardCode;
     }
+
+    public void setIconSize(String s) {
+        final int[]    size = {16,22,32,48};
+        final String[] name = {"Small","Medium","Large", "X-Large"};
+
+        for(int i = 0; i < size.length; i++) {
+            if(name[i].equals(s)) {
+                setIconHeight(size[i]);
+                setIconWidth(size[i]);
+                return;
+            }
+        }
+    }
+    
+    public int getIconSizeIndex() {
+        final int[]    size = {16,22,32,48};
+
+        for(int i = 0; i < size.length; i++)
+            if(Main.pref.getIconWidth() == size[i])
+                return i;
+        
+        return -1;
+    }
+
 
     /**
      * @param name The name of language or country

@@ -1,5 +1,3 @@
-
-
 package dbox2;
 
 import java.io.IOException;
@@ -8,15 +6,17 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
- *
  * @author Truben
  */
+
 public class Main {
 
     public static final int MAJORVERSION = 2;
     public static final int MINORVERSION = 1;
     public static String configFile = "dbox.config";
     public static String gameFile = "gamelist.dat";
+    public final static NewPreferences pref = new NewPreferences();
+    public static MainWindow n;
 
     /**
      * @param args the command line arguments
@@ -37,16 +37,17 @@ public class Main {
                     System.out.println("D-Box " + MAJORVERSION + "." + MINORVERSION);
                     return;
                 }
-                
             }
 
             System.setProperty("apple.laf.useScreenMenuBar","true");
             java.lang.System.setProperty("com.apple.mrj.application.apple.menu.about.name", "D-Box");
             javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
-            
-            MainWindow n = new MainWindow();
 
+            pref.readConfig(configFile);
+            
+            n = new MainWindow();
             n.setVisible(true);
+            
         } catch (ClassNotFoundException ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
          } catch (IOException ex) {
@@ -60,6 +61,12 @@ public class Main {
         }
     }
 
-    
-
+    static void requestClose() {
+        if(n.isVisible()) {
+            // Restart Process!
+            System.gc();
+        }
+        else
+            System.exit(0);
+    }
 }

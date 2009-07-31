@@ -2,6 +2,8 @@
  * BoxListe.java
  *
  * Created on 8. juni 2007, 01:18
+ *
+ * @author Truben
  */
 
 package dbox2;
@@ -10,9 +12,6 @@ import java.util.*;
 import java.io.*;
 import javax.swing.JOptionPane;
 
-/**
- * @author Truben
- */
 public class BoxListe implements Serializable {
     
     private final List<DosItem> gamelist;

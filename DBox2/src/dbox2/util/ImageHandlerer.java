@@ -1,7 +1,6 @@
 package dbox2.util;
 
 import dbox2.Main;
-import dbox2.MainWindow;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,7 +45,6 @@ public class ImageHandlerer {
             } else {
                 ii = new ImageIcon(ikon);
             }
-
             return(resizeIcon(ii));
         }
     }
@@ -76,14 +74,9 @@ public class ImageHandlerer {
             } else {
                 ii = new ImageIcon(ikon);
             }
-
             return ii ;
         }
     }
-
-
-
-
 
     /**
      * Resizes a icon according to preferences
@@ -91,21 +84,18 @@ public class ImageHandlerer {
      * @return a resized icon
      */
     public static ImageIcon resizeIcon(ImageIcon icon) {
-        if (MainWindow.pref.isIconResize()) {
-            int width = MainWindow.pref.getIconWidth();
-            int height = MainWindow.pref.getIconHeight();
+        if (Main.pref.isIconResize()) {
+            int width = Main.pref.getIconWidth();
+            int height = Main.pref.getIconHeight();
 
             BufferedImage bi = new BufferedImage(width, height,
                     BufferedImage.TYPE_INT_ARGB);
             bi.getGraphics().drawImage(icon.getImage(), 0, 0, width, height, null);
 
             return new ImageIcon(bi);
-        } else {
+        } else
             return icon;
-        }
     }
-
-
 
     /**
      * Resizes a icon according to preferences
@@ -120,7 +110,6 @@ public class ImageHandlerer {
             return bi;
     }
 
-
     /**
      * @return Returns the default application icon
      */
@@ -133,5 +122,4 @@ public class ImageHandlerer {
         
         return defaultIcon;
     }
-
 }

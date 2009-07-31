@@ -2,6 +2,7 @@
  * MainWindow.java
  *
  * Created on July 26, 2007, 8:54 PM
+ * @author Truben
  */
 
 package dbox2;
@@ -26,20 +27,15 @@ import javax.swing.JOptionPane;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JPanel;
 
-
-/**
- *
- * @author  Truben
- */
 public class MainWindow extends javax.swing.JFrame {
     
     public static BoxListe bl = new BoxListe();
-    public final static NewPreferences pref = new NewPreferences();
     BufferedImage[] images;
-
 
     //images
     final Icon fileEnabled;
@@ -54,14 +50,12 @@ public class MainWindow extends javax.swing.JFrame {
     protected JPanel coverflow;
     private CDShelf cdshelf;
 
-
-    
     /** Creates new form MainWindow */
     public MainWindow() throws IOException {
 
         bl = deSerialize(Main.gameFile);
 
-        pref.readConfig(Main.configFile);
+        //pref.readConfig(Main.configFile);
 
         setIconImage(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/ikon.gif")).getImage());
 
@@ -82,7 +76,7 @@ public class MainWindow extends javax.swing.JFrame {
             searchMenu.addSeparator();
         }
 
-        for(String s : pref.getGenres()) {
+        for(String s : Main.pref.getGenres()) {
             JMenuItem m = new JMenuItem();
             m.setText(s);
             m.addActionListener(new Filter(this));
@@ -106,29 +100,26 @@ public class MainWindow extends javax.swing.JFrame {
         searchArrowDisabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow-disabled.png"));
 
         try {
-            pref.writeConfig(Main.configFile);
+            Main.pref.writeConfig(Main.configFile);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         centerScreen();
         updateList();
-        gameList.requestFocus();
+        applicationList.requestFocus();
         jPanel1.setBorder(jTextField1.getBorder());
 
-        
-
-
         // Show the getting started screen
-        if(pref.isFirstStart()) {
+        if(Main.pref.isFirstStart()) {
             GettingStarted h = new GettingStarted(this, true);
             h.setVisible(true);
-            pref.setFirstStart(false);
-            pref.writeConfig(Main.configFile);
+            Main.pref.setFirstStart(false);
+            Main.pref.writeConfig(Main.configFile);
         }
 
         // if the dosbox path is undefined, we try to find a built in
-        if(pref.getDosBoxPath().equals("")) {
+        if(Main.pref.getDosBoxPath().equals("")) {
             try {
                 File dosbox = new File ("." + File.separatorChar + "Dosbox");
 
@@ -146,7 +137,7 @@ public class MainWindow extends javax.swing.JFrame {
                         break;
                     }
                 }
-                pref.setDosBoxPath(pathen);
+                Main.pref.setDosBoxPath(pathen);
            }
             catch(Exception e) {
                 
@@ -154,7 +145,7 @@ public class MainWindow extends javax.swing.JFrame {
         }
 
         // If we're on mac
-        if(pref.getDosBoxPath().equals("")) {
+        if(Main.pref.getDosBoxPath().equals("")) {
             try {
                 File dosbox = new File ("./D-Box.app/Contents/Resources/Java");
 
@@ -168,7 +159,7 @@ public class MainWindow extends javax.swing.JFrame {
                         break;
                     }
                 }
-                pref.setDosBoxPath(pathen);
+                Main.pref.setDosBoxPath(pathen);
            }
             catch(Exception e) {
 
@@ -176,13 +167,12 @@ public class MainWindow extends javax.swing.JFrame {
         }
 
         // drag & drop
-        new  FileDrop( gameList, new FileDrop.Listener() {
-            public void  filesDropped( java.io.File[] files ) {
-              createNewMagicProfile(files[0].getAbsoluteFile());
-            }
-        });
+        createDropTarget(applicationList);
     }
 
+    /**
+     * Dynammicaly creates a floppyflow
+     */
     private void createCoverFlow() {
         if(cdshelf != null) {
             coverflow.remove(cdshelf);
@@ -195,22 +185,85 @@ public class MainWindow extends javax.swing.JFrame {
         coverflow.add(cdshelf, StackLayout.TOP);
         coverflow.setPreferredSize(new Dimension(200,200));
 
-        new  FileDrop( coverflow, new FileDrop.Listener() {
+        createDropTarget(coverflow);
+    }
+
+    /**
+     * Makes a component ready to get files dropped from the OS
+     * @param c the component that we want to be droppable
+     */
+    private void createDropTarget(Component c) {
+        new  FileDrop( c, new FileDrop.Listener() {
             public void  filesDropped( java.io.File[] files ) {
-              createNewMagicProfile(files[0].getAbsoluteFile());
+                if(files.length != 1) {
+                    int s = JOptionPane.showConfirmDialog(null, "You have dropped " + files.length + " files. Are you sure you want to continue?" , "Add multiple applications", JOptionPane.YES_NO_OPTION);
+                    if(s != JOptionPane.YES_OPTION)
+                        return;
+                }
+                for(File f: files) {
+                    createNewMagicProfile(f.getAbsoluteFile());
+                }
             }
         });
     }
 
     /**
-     * A method that tries to fix everything :)
+     * A metod that tries to insert an application into
+     * dbox' database using a file or directory
      *
-     * @param absoluteFile the main executable
+     * @param file the main executable
      */
     private void createNewMagicProfile(File file) {
         if(file.isDirectory()) {
-            JOptionPane.showMessageDialog(this, "You must drag the main executable, not the directory!", "You're almost there...", JOptionPane.INFORMATION_MESSAGE);
-            return;
+            File dirfiles[] = file.listFiles(new FileFilter() {
+
+                public boolean accept(File pathname) {
+                    return !pathname.isHidden();
+                }
+            });
+
+            System.out.println(dirfiles.length);
+            System.out.println(dirfiles[0].isDirectory());
+
+
+            while(true)
+                if(dirfiles.length == 1 && dirfiles[0].isDirectory())
+                    dirfiles = dirfiles[0].listFiles();
+                else
+                    break;
+            
+            int count = 0;
+            for(File f : dirfiles)
+                if(f.toString().toLowerCase().indexOf("setup") == -1 && f.toString().toLowerCase().indexOf("install") == -1 && (f.toString().toLowerCase().endsWith("pif") || f.toString().toLowerCase().endsWith("exe") || f.toString().toLowerCase().endsWith("com") || f.toString().toLowerCase().endsWith("bat")))
+                    count++;
+
+            if(count == 0) {
+                JOptionPane.showMessageDialog(this, "Can't find any suitable executable files.", "Select another directory.", JOptionPane.INFORMATION_MESSAGE);
+                return;
+            }
+
+            String[] possible = new String[count];
+
+            count = 0;
+            for(File f : dirfiles)
+                if(f.toString().toLowerCase().indexOf("setup") == -1 && f.toString().toLowerCase().indexOf("install") == -1 && (f.toString().toLowerCase().endsWith("pif") || f.toString().toLowerCase().endsWith("exe") || f.toString().toLowerCase().endsWith("com") || f.toString().toLowerCase().endsWith("bat")))
+                    possible[count++] = f.toString().substring(f.toString().lastIndexOf(File.separator)+1);
+
+            String chosen;
+            if(count == 1)
+                chosen = possible[0];
+            else {
+                chosen = (String) JOptionPane.showInputDialog(
+                        null, "You have dropped a directory. What is the main executable?",
+                        "What's the name of the game?",
+                        JOptionPane.QUESTION_MESSAGE,
+                        null,possible,possible[0]);
+            }
+
+            for(File f:dirfiles)
+                if(f.toString().endsWith(chosen))
+                    file = f;
+
         }
         System.out.println(file.getName());
         if(file.getName().toLowerCase().endsWith("dat")) {
@@ -242,7 +295,7 @@ public class MainWindow extends javax.swing.JFrame {
                 }
                 else if(s.endsWith("exe") || s.endsWith("bat") || s.endsWith("com")) {
                     if(s.indexOf("setup") != -1 || s.indexOf("install") != -1) {
-                        d.setInstaller(f.getAbsolutePath());
+                        d.setInstaller(f.toString().substring(f.toString().lastIndexOf(File.separator)+File.separator.length()));
                     }
 
                 }
@@ -277,11 +330,15 @@ public class MainWindow extends javax.swing.JFrame {
 
     @Override
     public void dispose() {
-        skrivObjekt(Main.gameFile);
-        System.exit(0);
-
+        writeApplicationDatabase(Main.gameFile);
+        Main.requestClose();
     }
-    
+
+    /**
+     * Loads a application database
+     * @param name The name of the database
+     * @return the database
+     */
     private BoxListe deSerialize(String name) {
         String config = "";
         Scanner s = null;
@@ -295,16 +352,18 @@ public class MainWindow extends javax.swing.JFrame {
         while(s.hasNext())
             config += s.nextLine() + "\n";
 
-        //BoxListe b = new BoxListe();
         bl.readConfig(config);
         return bl;
     }
     
-    
-    public void skrivObjekt(String navn) {
+    /**
+     * Writes the application database to a file
+     * @param fileName The filename that we write to
+     */
+    public void writeApplicationDatabase(String fileName) {
 	FileWriter fstream = null;
         try {
-            fstream = new FileWriter(navn);
+            fstream = new FileWriter(fileName);
             BufferedWriter writer = new BufferedWriter(fstream);
             writer.write(bl.toConfigString());
             //Close the output stream
@@ -321,17 +380,20 @@ public class MainWindow extends javax.swing.JFrame {
 
     }
 
+    /**
+     * Toggles between standard view and "floppy view"
+     */
     private void toggleView() {
         if(coverflow != null && coverflow.isVisible()) {
             coverflow.setVisible(false);
-            gameList.setVisible(true);
-            jScrollPane1.setViewportView(gameList);
-            gameList.requestFocus();
+            applicationList.setVisible(true);
+            jScrollPane1.setViewportView(applicationList);
+            applicationList.requestFocus();
         }
         else {
             coverflow = new JPanel();
             coverflow.setVisible(true);
-            gameList.setVisible(false);
+            applicationList.setVisible(false);
             updateList();
             jScrollPane1.setViewportView(coverflow);
             coverflow.requestFocus();
@@ -349,34 +411,33 @@ public class MainWindow extends javax.swing.JFrame {
     	  setLocation((dim.width - abounds.width) / 2,
     	      (dim.height - abounds.height) / 2);
     }
-    
-        private void writeConfig(String filename, int cpucycles, boolean fullscreen, String dir, String extra, int skip){
-        String ut;
-        // CPU
-        ut = "[CPU]\n" +
-             "cycles="+cpucycles+"\n\n";
-        
-        ut += "[RENDER]\n" +
-                "frameskip=" + skip + "\n\n";
-        
-        // Screen
-        if(fullscreen)
-            ut += "[SDL]\n" +
-                  "fullscreen=true\n\n";
 
-        // Keyboard layout
-        ut += "[DOS]\n";
-        ut += "keyboardlayout=" + pref.getKeyboardCode() + "\n\n";
-        
-        // Mounting
-        ut += "[AUTOEXEC]\n" +
-                "mount c \"" + dir + "\"\n";
-        if(extra != null || extra.equals(""))
-            ut += "mount d \"" + extra + "\" -t cdrom\n";
+    /**
+     * Writes a DosBOX configuration file to a specific file
+     * @param filename The name of the config file
+     * @param cpuPref Preferences that belongs to the CPU section
+     * @param renderPref Preferences that belongs to the RENDER section
+     * @param sdlPref Preferences that belongs to the SDI section
+     * @param dosPref Preferences that belongs to the DOS section
+     * @param autoexecPref Preferences that belongs to the AUTOEXEC section
+     */
+    private void writeConfig(String filename, HashMap<String, HashMap<String,String>> pref, ArrayList<String> autoexec) {
 
+        String ut="";
 
-        ut+="\n";
-        
+        for(String s : pref.keySet()) {
+            ut += "[" + s + "]\n";
+            HashMap<String,String> properties = pref.get(s);
+            for(String p : properties.keySet())
+                ut+= p + " = " + properties.get(p) + "\n";
+
+            ut+="\n";
+        }
+
+        ut+="[AUTOEXEC]\n";
+        for(String s : autoexec)
+            ut+=s+"\n";
+
         try {
             java.io.FileWriter fw = new java.io.FileWriter(filename);
             java.io.BufferedWriter bw = new java.io.BufferedWriter(fw);
@@ -389,17 +450,16 @@ public class MainWindow extends javax.swing.JFrame {
     }
     
     private void updateList()  {
-        int s = gameList.getSelectedIndex();
-        gameList.setModel(new javax.swing.AbstractListModel() {
+        int s = applicationList.getSelectedIndex();
+        applicationList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = bl.getGameList();
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { if(strings[i].equals("")) return "(untitled)"; else return strings[i]; }
         });
 
-        gameList.setSelectedIndex(s);
+        applicationList.setSelectedIndex(s);
 
         if(coverflow != null && coverflow.isVisible()) {
-            System.out.println("hytte!!!");
             createCoverFlow();
             coverflow.updateUI();
         }
@@ -407,18 +467,16 @@ public class MainWindow extends javax.swing.JFrame {
     
     private void updateList(String search) {
         final String s = search;
-        gameList.setModel(new javax.swing.AbstractListModel() {
+        applicationList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = bl.getGameList(s);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-
-
     }
 
     public void updateListGenre(String search) {
         final String s = search;
-        gameList.setModel(new javax.swing.AbstractListModel() {
+        applicationList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = bl.getGameListGenre(s);
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -426,7 +484,7 @@ public class MainWindow extends javax.swing.JFrame {
     }
 
     public void updateListFavorite() {
-        gameList.setModel(new javax.swing.AbstractListModel() {
+        applicationList.setModel(new javax.swing.AbstractListModel() {
             String[] strings = bl.getFavoriteGameList();
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
@@ -474,8 +532,8 @@ public class MainWindow extends javax.swing.JFrame {
         mnuListSetGenre = new javax.swing.JMenu();
         mnuListFavorite = new javax.swing.JCheckBoxMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
-        gameList = new javax.swing.JList();
-        gameList.setCellRenderer(new GameListRenderer());
+        applicationList = new javax.swing.JList();
+        applicationList.setCellRenderer(new GameListRenderer());
         panelControls = new javax.swing.JPanel()
         {
             ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/bg.jpg"));
@@ -497,7 +555,7 @@ public class MainWindow extends javax.swing.JFrame {
         txtSearch = new javax.swing.JTextField();
         lblExplain = new javax.swing.JLabel();
 
-        mnuRun2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F5, 0));
+        mnuRun2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
         mnuRun2.setFont(mnuRun2.getFont().deriveFont(mnuRun2.getFont().getStyle() | java.awt.Font.BOLD));
         mnuRun2.setText("Run");
         mnuRun2.addActionListener(new java.awt.event.ActionListener() {
@@ -672,27 +730,28 @@ public class MainWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("D-Box");
 
-        gameList.setToolTipText("");
-        gameList.setFocusCycleRoot(true);
-        gameList.setFocusTraversalPolicyProvider(true);
-        gameList.setNextFocusableComponent(txtSearch);
-        gameList.addKeyListener(new java.awt.event.KeyAdapter() {
+        applicationList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        applicationList.setToolTipText("");
+        applicationList.setFocusCycleRoot(true);
+        applicationList.setFocusTraversalPolicyProvider(true);
+        applicationList.setNextFocusableComponent(txtSearch);
+        applicationList.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                gameListKeyPressed(evt);
+                applicationListKeyPressed(evt);
             }
         });
-        gameList.addMouseListener(new java.awt.event.MouseAdapter() {
+        applicationList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
-                gameListMouseReleased(evt);
+                applicationListMouseReleased(evt);
             }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 Double(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                gameListMouseEntered(evt);
+                applicationListMouseEntered(evt);
             }
         });
-        jScrollPane1.setViewportView(gameList);
+        jScrollPane1.setViewportView(applicationList);
 
         panelControls.setOpaque(false);
         panelControls.setPreferredSize(new java.awt.Dimension(684, 50));
@@ -796,7 +855,7 @@ public class MainWindow extends javax.swing.JFrame {
         txtSearch.setText("Search");
         txtSearch.setToolTipText("Search the gamelist");
         txtSearch.setBorder(null);
-        txtSearch.setNextFocusableComponent(gameList);
+        txtSearch.setNextFocusableComponent(applicationList);
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtSearchFocusGained(evt);
@@ -915,11 +974,14 @@ private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void Double(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Double
     if(evt.getClickCount() == 2 && !evt.isAltDown())
         mnuRunActionPerformed(null);
+    else {
+
+    }
 }//GEN-LAST:event_Double
 
 private void mnuRunDosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRunDosBoxActionPerformed
     String[] par = new String[3];
-        par[0] = pref.getDosBoxPath();
+        par[0] = Main.pref.getDosBoxPath();
         par[1] = "-c";
         par[2] = "@echo Have fun! Best wishes from D-Box :)";
         
@@ -936,80 +998,16 @@ private void mnuPrefsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     prf.setVisible(true);
     prf = null;
         try {
-            pref.writeConfig(Main.configFile);
+            Main.pref.writeConfig(Main.configFile);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
-    gameList.repaint();
+    applicationList.repaint();
 }//GEN-LAST:event_mnuPrefsActionPerformed
 
 private void mnuSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSetupActionPerformed
-    if(gameList.getSelectedIndex() == -1)
-        return;
-    if(pref.getDosBoxPath().equals("")) {
-        String[] choices = {
-            "Let me show you where DOSBox is!",
-            "Please take me to DOSBox' homepage so I can download!",
-            "Get me out of here!"
-        };
-        String input = (String) JOptionPane.showInputDialog(
-                null, "D-Box needs DOSBox to work, but currently the path to DOSBox is set to nothing.\nIf you have DOSBox installed, please locate it for me. If not, please download and\ninstall DOSBox before continuing.\n\nPlease select your next step:",
-                "Can't find DOSBox!",
-                JOptionPane.QUESTION_MESSAGE,
-                null,choices,choices[0]);
-        if(input.equals(choices[0]))
-            mnuPrefsActionPerformed(null);
-        else if(input.equals(choices[1])) {
-            BrowserControl.openUrl("http://www.dosbox.com/download.php?main=1");
-            return;
-        }
-        else
-            return;
-
-    }
-
-
-    DosItem di = bl.getGame((String)gameList.getSelectedValue());
-
-    if(di.getInstaller().equals("")) {
-        JOptionPane.showMessageDialog(null, "You haven't configured the setup program for " + di.getName() + ".\nIf " + di.getName() + " has a setup program, add it using 'Edit Game'>'Advanced'>'Setup'.");
-        return;
-    }
-
-        writeConfig(
-                    getCurrentDir() + File.separator + "dosbox.conf",
-                    di.getCycles(),
-                    pref.isFullScreen(),
-                    di.getPath(),
-                    di.getCdrom(),
-                    di.getFrameskip()
-                   );
-        String[] par = new String[11];
-        par[0] = pref.getDosBoxPath();
-        par[1] = "-c";
-        par[2] = "@echo Go go go!";
-        par[3] = "-c";
-        par[4] = "c:";
-        par[5] = "-c";
-        par[6] = di.getInstaller();
-
-        if(!pref.isKeepOpen()){
-            par[7] = "-c";
-            par[8] = "exit";
-        }
-        else {
-            par[7] = "-c";
-            par[8] = "@echo Keep on rockin'!";
-        }
-
-        par[9] = "-conf";
-        par[10] = getCurrentDir() + File.separator + "dosbox.conf";
-
-        try {
-            Runtime.getRuntime().exec(par);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    DosItem di = bl.getGame((String) applicationList.getSelectedValue());
+    runApplication(di.getInstaller());
 }//GEN-LAST:event_mnuSetupActionPerformed
 
 private String getCurrentDir() {
@@ -1020,18 +1018,26 @@ private String getCurrentDir() {
      catch(Exception e) {
        e.printStackTrace();
        }
-
     return null;
 }
 
 public void run() {
     mnuRunActionPerformed(null);
 }
-// @todo generalize this method!
+
 private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRunActionPerformed
-    if(gameList.getSelectedIndex() == -1)
+    DosItem di = bl.getGame((String) applicationList.getSelectedValue());
+    runApplication(di.getGame());
+}//GEN-LAST:event_mnuRunActionPerformed
+
+private void runApplication(String program) {
+
+    // Do nothing if no applications are selected
+    if (applicationList.getSelectedIndex() == -1)
         return;
-    if(pref.getDosBoxPath().equals("")) {
+
+    // What to do if no dosbox path is available
+    if (Main.pref.getDosBoxPath().equals("")) {
         String[] choices = {
             "Let me show you where DOSBox is!",
             "Please take me to DOSBox' homepage so I can download!",
@@ -1041,72 +1047,151 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                 null, "D-Box needs DOSBox to work, but currently the path to DOSBox is set to nothing.\nIf you have DOSBox installed, please locate it for me. If not, please download and\ninstall DOSBox before continuing.\n\nPlease select your next step:",
                 "Can't find DOSBox!",
                 JOptionPane.QUESTION_MESSAGE,
-                null,choices,choices[0]);
-        if(input.equals(choices[0]))
+                null, choices, choices[0]);
+        if (input.equals(choices[0]))
             mnuPrefsActionPerformed(null);
-        else if(input.equals(choices[1])) {
+        else if (input.equals(choices[1])) {
             BrowserControl.openUrl("http://www.dosbox.com/download.php?main=1");
             return;
-        }
-        else
+        } else
             return;
-
+        
     }
 
-    if(bl.getNrGames() == 0) {
+    // If there are no applications in the application list
+    if (bl.getNrGames() == 0) {
         int answ = JOptionPane.showConfirmDialog(this,
-                   "To make D-Box useful, you got to add a game or two. Do you want to add one now?",
-                   null, JOptionPane.YES_NO_OPTION);
-        if(answ == JOptionPane.YES_OPTION) {
+                "To make D-Box useful, you got to add a game or two. Do you want to add one now?",
+                null, JOptionPane.YES_NO_OPTION);
+        if (answ == JOptionPane.YES_OPTION) {
             mnuNewActionPerformed(null);
         }
         return;
-
     }
-    DosItem di = bl.getGame((String)gameList.getSelectedValue());
-        writeConfig(
-                    getCurrentDir() + File.separator + "dosbox.conf",
-                    di.getCycles(),
-                    pref.isFullScreen(),
-                    di.getPath(),
-                    di.getCdrom(),
-                    di.getFrameskip()
-                   );
-        String[] par = new String[11];
-        par[0] = pref.getDosBoxPath();
+
+    DosItem di = bl.getGame((String) applicationList.getSelectedValue());
+
+    //Create HashMaps for preferences
+    HashMap<String,HashMap<String,String>>  allProps = new HashMap<String,HashMap<String,String>>();
+    HashMap<String,String>                  cpu      = new HashMap<String,String>();
+    HashMap<String,String>                  renderer = new HashMap<String,String>();
+    HashMap<String,String>                  sdl      = new HashMap<String,String>();
+    HashMap<String,String>                  dos      = new HashMap<String,String>();
+    HashMap<String,String>                  serial   = new HashMap<String,String>();
+    HashMap<String,String>                  ipx      = new HashMap<String,String>();
+    HashMap<String,String>                  dosbox   = new HashMap<String,String>();
+    HashMap<String,String>                  midi     = new HashMap<String,String>();
+    HashMap<String,String>                  gus      = new HashMap<String,String>();
+    HashMap<String,String>                  mixer    = new HashMap<String,String>();
+    
+
+
+    ArrayList<String>                       autoexec = new ArrayList<String>();
+
+    // Split the extras string
+    String[] properties = new String[0];
+    String[][] finito = new String[0][0];
+    if(!di.getExtra().equals("")) {
+        //   Parse
+        properties = di.getExtra().substring(0, di.getExtra().length()-1).split(";");
+        finito = new String[properties.length][3];
+        if(!di.getExtra().equals("")) {
+            for(int i = 0; i < properties.length; i++) {
+                int first  = properties[i].indexOf(" => ");
+                int second = properties[i].indexOf(" = ");
+                if(first <= 0)
+                    continue;
+                
+                finito[i][0] = properties[i].substring(0, first);
+                if(finito[i][0].toLowerCase().equals("autoexec"))
+                    finito[i][1] = properties[i].substring(first+4);
+                else {
+                    finito[i][1] = properties[i].substring(first+4,second);
+                    finito[i][2] = properties[i].substring(second+3);
+                }
+            }
+        }
+    }
+    
+    
+    // Add settings to the configuration file
+    cpu.put("cycles", di.getCycles()+"");
+    addOtherSettings(finito, "cpu", cpu);
+    allProps.put("CPU", cpu);
+
+    renderer.put("frameskip", di.getFrameskip()+"");
+    addOtherSettings(finito, "renderer", renderer);
+    allProps.put("RENDERER", renderer);
+
+    sdl.put("fullscreen", Main.pref.isFullScreen()+"");
+    addOtherSettings(finito, "sdl", sdl);
+    allProps.put("SDL", sdl);
+
+    dos.put("keyboardlayout", Main.pref.getKeyboardCode());
+    addOtherSettings(finito, "dos", dos);
+    allProps.put("DOS", dos);
+
+    addOtherSettings(finito, "serial", serial);
+    allProps.put("SERIAL", serial);
+
+    addOtherSettings(finito, "ipx", ipx);
+    allProps.put("IPX", serial);
+
+    addOtherSettings(finito, "dosbox", dosbox);
+    allProps.put("DOSBOX", dosbox);
+
+
+    autoexec.add(0,"mount c \""+di.getPath()+"\"");
+    if(!di.getCdrom().equals("")) // If we should mount a CD ROM
+        autoexec.add("mount d \"" + di.getCdrom() + "\" -t cdrom\n");
+    autoexec.add(1,"C:");
+    autoexec.add(2,program);
+    for(int i = 0; i < finito.length;i++)
+        if(finito[i][0].toLowerCase().equals("autoexec"))
+            autoexec.add(finito[i][1]);
+
+    // Write configfile
+    writeConfig(getCurrentDir() + File.separator + "dosbox.conf",
+                allProps,autoexec);
+
+    // Build execute command
+    String[] par = new String[5];
+    par[0] = Main.pref.getDosBoxPath();
+
+    // If we should try to close the dosbox window or keep it open
+    if (!Main.pref.isKeepOpen()) {
         par[1] = "-c";
-        par[2] = "@echo Go go go!";
-        par[3] = "-c";
-        par[4] = "c:";
-        par[5] = "-c";
-        par[6] = di.getGame();
-      
-        if(!pref.isKeepOpen()){
-            par[7] = "-c";
-            par[8] = "exit";
-        }
-        else {
-            par[7] = "-c";
-            par[8] = "@echo Keep on rockin'!";
-        }
-        
-        par[9] = "-conf";
-        par[10] = getCurrentDir() + File.separator + "dosbox.conf";
-        
-        try {
-            Runtime.getRuntime().exec(par);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
-}//GEN-LAST:event_mnuRunActionPerformed
+        par[2] = "exit";
+    } else {
+        par[1] = "-c";
+        par[2] = "@echo Keep on rockin' in the free world!";
+    }
+
+    par[3] = "-conf";
+    par[4] = getCurrentDir() + File.separator + "dosbox.conf";
+
+    // Try to execute
+    try {
+        Runtime.getRuntime().exec(par);
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
+}
+
+private void addOtherSettings(String[][] finito, String section, HashMap<String,String> props) {
+    for(int i = 0; i < finito.length;i++)
+        if(finito[i][0].toLowerCase().equals(section.toLowerCase()))
+            props.put(finito[i][1], finito[i][2]);
+}
+
 
 private void mnuEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuEditActionPerformed
     String gm = "";
-    if(gameList.getSelectedIndex() == -1)
+    if(applicationList.getSelectedIndex() == -1)
         return;
     
-    if(!((String)gameList.getSelectedValue()).equals("(untitled)"))
-        gm = (String)gameList.getSelectedValue();
+    if(!((String)applicationList.getSelectedValue()).equals("(untitled)"))
+        gm = (String)applicationList.getSelectedValue();
 
     ItemGUI ui = new ItemGUI(bl.removeGame(gm), this);
     ui.setVisible(true);
@@ -1129,16 +1214,16 @@ private void mnuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_txtSearchKeyReleased
 
 private void mnuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDeleteActionPerformed
-    if(gameList.getSelectedIndex() == -1)
+    if(applicationList.getSelectedIndex() == -1)
         return;
     int a = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove " +
-            gameList.getSelectedValue() + " from the list?", "Please Confirm",
+            applicationList.getSelectedValue() + " from the list?", "Please Confirm",
             JOptionPane.YES_NO_OPTION);
     if(a == JOptionPane.NO_OPTION)
         return;
     String gm = "";
-    if(!((String)gameList.getSelectedValue()).equals("(untitled)"))
-        gm = (String)gameList.getSelectedValue();
+    if(!((String)applicationList.getSelectedValue()).equals("(untitled)"))
+        gm = (String)applicationList.getSelectedValue();
 
     bl.removeGame(gm);
     updateList();
@@ -1148,12 +1233,12 @@ private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     System.exit(0);
 }//GEN-LAST:event_mnuExitActionPerformed
 
-private void gameListKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_gameListKeyPressed
+private void applicationListKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_applicationListKeyPressed
     if(evt.getKeyCode() == KeyEvent.VK_ENTER)
         mnuRunActionPerformed(null);
     if(evt.getKeyCode() == KeyEvent.VK_DELETE || evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)
         mnuDeleteActionPerformed(null);
-}//GEN-LAST:event_gameListKeyPressed
+}//GEN-LAST:event_applicationListKeyPressed
 
 private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
 editMenu.show(jLabel2, 0, jLabel2.getHeight()-10);
@@ -1173,7 +1258,7 @@ private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_jLabel4MousePressed
 
 private void jLabel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseReleased
-    // TODO add your handling code here:
+
 }//GEN-LAST:event_jLabel4MouseReleased
 
 private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
@@ -1181,7 +1266,7 @@ private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_jLabel4MouseClicked
 
 private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-    if(gameList.isVisible())
+    if(applicationList.isVisible())
         mnuView.setText("Flow View (Experimental)");
     else
         mnuView.setText("List View (Classic)");
@@ -1190,17 +1275,17 @@ private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_jLabel5MousePressed
 
 private void jLabel5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseReleased
-    // TODO add your handlin g code here:
+ 
 }//GEN-LAST:event_jLabel5MouseReleased
 
 private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
 
 }//GEN-LAST:event_jLabel5MouseClicked
 
-private void gameListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gameListMouseReleased
+private void applicationListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationListMouseReleased
     if(evt.getButton() == MouseEvent.BUTTON3){//MouseEvent.BUTTON3) {
-        if(gameList.getSelectedIndex() != -1) {
-            final String gamename = gameList.getSelectedValue().toString();
+        if(applicationList.getSelectedIndex() != -1) {
+            final String gamename = applicationList.getSelectedValue().toString();
 
             // Set correct name
             mnuListRun.setText("Run '" + gamename + "'");
@@ -1215,12 +1300,10 @@ private void gameListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
                 JCheckBoxMenuItem jc = (JCheckBoxMenuItem) c;
                 jc.setSelected(jc.getText().equals(genre));
             }
-
-            listMenu.show(evt.getComponent(),
-                           evt.getX(), evt.getY());
+            listMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }
-}//GEN-LAST:event_gameListMouseReleased
+}//GEN-LAST:event_applicationListMouseReleased
 
 private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
     jLabel4.setIcon(runEnabled);
@@ -1256,7 +1339,6 @@ private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
     jLabel5.setIcon(prefDisabled);
     lblExplain.setText("");
-    
 }//GEN-LAST:event_jLabel5MouseExited
 
 private void mnuPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPreferencesActionPerformed
@@ -1285,7 +1367,7 @@ private void txtSearchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST
 
 private void lblSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMousePressed
     searchMenu.show(lblSearch, 0, lblSearch.getHeight());
-    gameList.requestFocus();
+    applicationList.requestFocus();
     txtSearch.setText("Search");
     txtSearchKeyReleased(null);
 
@@ -1313,9 +1395,9 @@ private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:even
     txtSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.disabledText"));
 }//GEN-LAST:event_txtSearchFocusLost
 
-private void gameListMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_gameListMouseEntered
+private void applicationListMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationListMouseEntered
 
-}//GEN-LAST:event_gameListMouseEntered
+}//GEN-LAST:event_applicationListMouseEntered
 
 private void mnuGettingStartedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuGettingStartedActionPerformed
     GettingStarted h = new GettingStarted(this, true);
@@ -1340,7 +1422,7 @@ private void mnuExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     if(file != null) {
         if(file.indexOf(".") == -1)
             file = file + ".dat";
-        skrivObjekt(file);
+        writeApplicationDatabase(file);
     }
 }//GEN-LAST:event_mnuExportActionPerformed
 
@@ -1353,7 +1435,7 @@ private void mnuClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_mnuClearActionPerformed
 
 private void mnuListFavoriteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListFavoriteActionPerformed
-    bl.getGame(gameList.getSelectedValue().toString()).setStar(!bl.getGame(gameList.getSelectedValue().toString()).isStar());
+    bl.getGame(applicationList.getSelectedValue().toString()).setStar(!bl.getGame(applicationList.getSelectedValue().toString()).isStar());
 }//GEN-LAST:event_mnuListFavoriteActionPerformed
 
 private void mnuListRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListRunActionPerformed
@@ -1370,7 +1452,6 @@ private void mnuListEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 
 private void panelControlsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseClicked
     
-
 }//GEN-LAST:event_panelControlsMouseClicked
 
 private void mnuListRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListRemoveActionPerformed
@@ -1383,8 +1464,8 @@ private void mnuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JList applicationList;
     private javax.swing.JPopupMenu editMenu;
-    public javax.swing.JList gameList;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -1444,7 +1525,7 @@ class Filter implements ActionListener {
         else
             mw.updateListGenre(s);
 
-        mw.gameList.requestFocus();
+        mw.applicationList.requestFocus();
     }
 
 }
@@ -1460,10 +1541,10 @@ class SetGenre implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        DosItem di = MainWindow.bl.getGame(mw.gameList.getSelectedValue().toString());
+        DosItem di = MainWindow.bl.getGame(mw.applicationList.getSelectedValue().toString());
         di.setGenre(genre);
 
-        mw.gameList.requestFocus();
+        mw.applicationList.requestFocus();
     }
 
 }

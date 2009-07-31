@@ -2,6 +2,8 @@
  * ItemGUI2.java
  *
  * Created on July 29, 2007, 5:43 PM
+ *
+ * @author  Truben
  */
 
 package dbox2.GUI;
@@ -12,48 +14,38 @@ import dbox2.util.helperClass;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Arrays;
+import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 import nl.ikarus.nxt.priv.imageio.icoreader.obj.ICOFile;
 import nl.ikarus.nxt.priv.imageio.icoreader.obj.IconEntry;
 
-/**
- *
- * @author  Truben
- */
 public class ItemGUI extends javax.swing.JDialog {
     
-    private boolean edit = false;
     private DosItem dos;
     private MainWindow g;
     
     public ItemGUI(MainWindow parent) {
-        
         dos = new DosItem();
         g = parent;
         setModal(true);
         initComponents();
-        cmbGenre.setModel(new javax.swing.DefaultComboBoxModel(MainWindow.pref.getGenres()));
+        cmbGenre.setModel(new javax.swing.DefaultComboBoxModel(Main.pref.getGenres()));
         cmbGenre.setSelectedItem(dos.getGenre());
         centerScreen();
     }
     
     public ItemGUI(DosItem di, MainWindow parent) {
-
-        
-
         dos = di;
         initComponents();
-        cmbGenre.setModel(new javax.swing.DefaultComboBoxModel(MainWindow.pref.getGenres()));
+        cmbGenre.setModel(new javax.swing.DefaultComboBoxModel(Main.pref.getGenres()));
         centerScreen();
         
         setModal(true);
 
-        
-
         g = parent;
-        edit = true;
         appName.setText(dos.getName());
         appExec.setText(dos.getGame());
         appPath.setText(dos.getPath());
@@ -66,7 +58,11 @@ public class ItemGUI extends javax.swing.JDialog {
         cmbGenre.setSelectedItem(dos.getGenre());
         txtKeywords.setText(dos.getKeywords());
 
-
+        if(!dos.getExtra().equals("")) {
+            String[] s = dos.getExtra().substring(0, dos.getExtra().length()-1).split(";");
+            JList lm = new JList(s);
+            listProperties.setModel(lm.getModel());
+        }
     }
     
     /**
@@ -126,7 +122,6 @@ public class ItemGUI extends javax.swing.JDialog {
         jButton3 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         appFrameSkip = new javax.swing.JSpinner();
-        jPanel5 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel10 = new javax.swing.JLabel();
         cmbGenre = new javax.swing.JComboBox();
@@ -134,6 +129,12 @@ public class ItemGUI extends javax.swing.JDialog {
         chkFavorite = new javax.swing.JCheckBox();
         txtKeywords = new javax.swing.JTextField();
         jLabel12 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        listProperties = new javax.swing.JList();
+        cmdAdd = new javax.swing.JButton();
+        cmdRemove = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setModal(true);
@@ -391,21 +392,6 @@ public class ItemGUI extends javax.swing.JDialog {
 
         jTabbedPane1.addTab("Advanced", jPanel3);
 
-        jPanel5.setOpaque(false);
-
-        org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 535, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 293, Short.MAX_VALUE)
-        );
-
-        jTabbedPane1.addTab("Expert", jPanel5);
-
         jPanel4.setOpaque(false);
 
         jLabel10.setLabelFor(cmbGenre);
@@ -455,6 +441,61 @@ public class ItemGUI extends javax.swing.JDialog {
 
         jTabbedPane1.addTab("Meta Information", jPanel4);
 
+        jPanel5.setOpaque(false);
+
+        listProperties.setFont(new java.awt.Font("Courier", 0, 12));
+        jScrollPane1.setViewportView(listProperties);
+
+        cmdAdd.setText("Add");
+        cmdAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdAddActionPerformed(evt);
+            }
+        });
+
+        cmdRemove.setText("Remove");
+        cmdRemove.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRemoveActionPerformed(evt);
+            }
+        });
+
+        jLabel13.setText("DosBox properties");
+
+        org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                    .add(jPanel5Layout.createSequentialGroup()
+                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jPanel5Layout.createSequentialGroup()
+                                .add(jLabel13)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 286, Short.MAX_VALUE))
+                            .add(jPanel5Layout.createSequentialGroup()
+                                .add(cmdAdd)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)))
+                        .add(cmdRemove)))
+                .addContainerGap())
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel5Layout.createSequentialGroup()
+                .add(jLabel13)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 226, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(cmdRemove)
+                    .add(cmdAdd))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Expert", jPanel5);
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -498,7 +539,6 @@ private void sldCyclesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-
 private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConfirmActionPerformed
     DosItem d = new DosItem();
 
-
     // Set prefrences
     d.setName(appName.getText());
     d.setPath(appPath.getText());
@@ -511,10 +551,19 @@ private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     d.setIcon(appIcon.getText());
     d.setKeywords(txtKeywords.getText());
     d.setGenre(cmbGenre.getSelectedItem().toString());
+    d.setExtra(stringifyModel(listProperties.getModel()));
 
     MainWindow.bl.addGame(d);
     this.setVisible(false);
 }//GEN-LAST:event_cmdConfirmActionPerformed
+
+private String stringifyModel(ListModel lm){
+    String output = "";
+    for(int i = 0; i < lm.getSize(); i++) {
+        output += lm.getElementAt(i) + ";";
+    }
+    return output;
+}
 
 private void cmdWizardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdWizardActionPerformed
     String name = JOptionPane.showInputDialog(this, "Please enter the name of the application", appName.getText());
@@ -553,8 +602,6 @@ private void cmdWizardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
         f = new File(appPath.getText() + File.separatorChar + appName.getText() + ".ico");
         if(f.exists())
             appIcon.setText(appName.getText() + ".ico");
-
-
     }
 }//GEN-LAST:event_cmdWizardActionPerformed
 
@@ -574,7 +621,6 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 last = i;
                 break;
             }
-
         appPath.setText(s.substring(0,last));
         appExec.setText(s.substring(last+1));
     }
@@ -591,7 +637,6 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
                 last = i;
                 break;
             }
-
         System.out.println(s);
         appSetup.setText(s.substring(last+1));
     }
@@ -638,10 +683,7 @@ private void appIconPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FI
             ii = new ImageIcon(ikon);
         
         Icon.setIcon(resizeIcon(ii));
-
     }
-
-
 }//GEN-LAST:event_appIconPropertyChange
 
 private void appIconCaretPositionChanged(java.awt.event.InputMethodEvent evt) {//GEN-FIRST:event_appIconCaretPositionChanged
@@ -656,8 +698,144 @@ private void appIconCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:e
     appIconPropertyChange(null);
 }//GEN-LAST:event_appIconCaretUpdate
 
+private void cmdAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdAddActionPerformed
+    HashMap<String,HashMap<String,String>> values = new HashMap<String,HashMap<String,String>>();
+    HashMap<String,String> cpu = new HashMap<String,String>();
+    HashMap<String,String> dos = new HashMap<String,String>();
+    HashMap<String,String> dosbox = new HashMap<String,String>();
+    HashMap<String,String> renderer = new HashMap<String,String>();
+    HashMap<String,String> sdl = new HashMap<String,String>();
+    HashMap<String,String> ipx = new HashMap<String,String>();
+    HashMap<String,String> serial = new HashMap<String,String>();
+    
+    cpu.put("core", "simple | normal| full | dynamic | auto");
+    cpu.put("cputype", "auto | 386 | 386_slow | 486_slow | pentium_slow | 386_prefetch");
+    cpu.put("cycles", "[number] | max | auto");
+    cpu.put("cycleup", "[number]");
+    cpu.put("cycledown", "[number]");
+    
+    serial.put("serial1", "device [parameter:value]");
+    serial.put("serial2", "device [parameter:value]");
+    serial.put("serial3", "device [parameter:value]");
+    serial.put("serial4", "device [parameter:value]");
+    serial.put("serial5", "device [parameter:value]");
+    serial.put("serial6", "device [parameter:value]");
+    serial.put("serial7", "device [parameter:value]");
+    serial.put("serial8", "device [parameter:value]");
+    serial.put("serial9", "device [parameter:value]");
+    
+    ipx.put("ipx", "true | false");
+    
+    dos.put("xms", "true | false");
+    dos.put("ems", "true | false");
+    dos.put("umb", "true | false");
+    dos.put("keyboardlayout", "auto | none | XY");
+    
+    renderer.put("frameskip", "[number]");
+    renderer.put("aspect", "true | false");
+    renderer.put("scaler", "normal2x | normal3x | advmame2x | advmame3x | advinterp2x | advinterp3x | tv2x | tv3x | rgb2x | rgb3x | scan2x | scan3x");
+    
+    dosbox.put("language", "path-to-language-file");
+    dosbox.put("memsize", "[number]");
+    dosbox.put("machine", "hercules | cga | tandy | cga | tandy | pcjr | ega | vgaonly | svga_s3 | svga_et3000 | svga_et4000 | svga_paradise | vesa_nolfb | vesa_oldvbe");
+    dosbox.put("captures", "path-to-capture-directory");
+    
+    sdl.put("fullscreen", "true | false");
+    sdl.put("fulldouble", "true | false ");
+    sdl.put("fullresolution", "width x height | original");
+    sdl.put("windowresolution", "width x height | original");
+    sdl.put("output", "surface | overlay | opengl | openglnb | ddraw");
+    sdl.put("autolock", "true | false");
+    sdl.put("sensitivity", "A number from 1 to 1000");
+    sdl.put("waitonerror", "true | false");
+    sdl.put("priority", "when-focused,when-minimzed");
+    sdl.put("mapperfile", "path-to-mapper-file");
+    sdl.put("usescancodes", "true | false");
+
+    values.put("AUTOEXEC", null);
+    values.put("SDL", sdl);
+    values.put("DOSBOX", dosbox);
+    values.put("RENDERER", renderer);
+    values.put("DOS", dos);
+    values.put("IPX", ipx);
+    values.put("SERIAL", serial);
+    values.put("CPU", cpu);
+    values.put("MIXER", new HashMap<String,String>());
+    values.put("MIDI", new HashMap<String,String>());
+    values.put("SBLASTER", new HashMap<String,String>());
+    values.put("GUS", new HashMap<String,String>());
+    values.put("SPEAKER", new HashMap<String,String>());
+    values.put("JOYSTICK", new HashMap<String,String>());
+
+    int i = 0;
+    String[] sections = new String[values.size()];
+    for(String s : values.keySet())
+        sections[i++] = s;
+
+    Arrays.sort(sections);
+
+    String section = (String) JOptionPane.showInputDialog(this, "Please choose a section: ", "Choose section", JOptionPane.QUESTION_MESSAGE, null, sections, sections[0]);
+
+    if(values.get(section) == null)
+        addProperties(section, getString("Enter command"), null);
+    else {
+        HashMap<String,String> properties = values.get(section);
+        if(properties.size() == 0) {
+            String name  = getString("Enter attribute name: ");
+            String value = getString("Enter attribute value: ");
+            addProperties(section, name, value);
+        }
+        else {
+            i = 0;
+            String[] propertyArray = new String[properties.size()];
+            for(String s : properties.keySet())
+                propertyArray[i++] = s;
+            Arrays.sort(propertyArray);
+            String name = (String) JOptionPane.showInputDialog(this, "Please choose a property: ", "Choose property", JOptionPane.QUESTION_MESSAGE, null, propertyArray, propertyArray[0]);
+            String value;
+            if(properties.get(name).equals("true | false"))
+                value = (String) JOptionPane.showInputDialog(this, "Please choose value for " + name + ": ", "Choose property", JOptionPane.QUESTION_MESSAGE, null, new String[]{"true","false"}, "true");
+            else
+                value = getString("<b>Enter property value for " + name + ":\n\nAllowed values:\n" + properties.get(name));
+
+            addProperties(section, name, value);
+        }
+    }
+}//GEN-LAST:event_cmdAddActionPerformed
+
+private void cmdRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRemoveActionPerformed
+    ListModel currentModel = listProperties.getModel();
+    String[] data = new String[currentModel.getSize()-1];
+    for(int i = 0; i < currentModel.getSize(); i++)
+        if(!((String)currentModel.getElementAt(i)).equals(listProperties.getSelectedValue().toString()))
+            data[i] = (String) currentModel.getElementAt(i);
+            
+    JList newModel = new JList(data);
+    listProperties.setModel(newModel.getModel());
+}//GEN-LAST:event_cmdRemoveActionPerformed
+
+    private void addProperties(String section, String property, String value) {
+        ListModel currentModel = listProperties.getModel();
+        String[] data = new String[currentModel.getSize()+1];
+        for(int i = 0; i < currentModel.getSize(); i++)
+            data[i] = (String) currentModel.getElementAt(i);
+        
+        if(value == null)
+            data[data.length-1] = section + " => " + property;
+        else
+            data[data.length-1] = section + " => " + property + " = " + value;
+
+        Arrays.sort(data);
+        JList newModel = new JList(data);
+        listProperties.setModel(newModel.getModel());
+    }
+
+    private String getString(String msg) {
+        return JOptionPane.showInputDialog(msg, "");
+    }
+
      private ImageIcon resizeIcon(ImageIcon icon) {
-         if(MainWindow.pref.isIconResize()) {
+         if(Main.pref.isIconResize()) {
              int width = 32;
              int height = 32;
 
@@ -683,7 +861,9 @@ private void appIconCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:e
     private javax.swing.JTextField appSetup;
     private javax.swing.JCheckBox chkFavorite;
     private javax.swing.JComboBox cmbGenre;
+    private javax.swing.JButton cmdAdd;
     private javax.swing.JButton cmdConfirm;
+    private javax.swing.JButton cmdRemove;
     private javax.swing.JButton cmdWizard;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
@@ -693,6 +873,7 @@ private void appIconCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:e
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -706,7 +887,9 @@ private void appIconCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:e
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JList listProperties;
     private javax.swing.JSlider sldCycles;
     private javax.swing.JTextField txtKeywords;
     // End of variables declaration//GEN-END:variables

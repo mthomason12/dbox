@@ -481,9 +481,9 @@ public class CDShelf extends JPanel {
 
             loadingDone = true;
             
-            if(mw.gameList.getSelectedValue() != null)
-                        scrollBy(mw.gameList.getSelectedIndex());
-            else if(mw.gameList.getSelectedValue() == null && mw.bl.getNrGames() >= 3)
+            if(mw.applicationList.getSelectedValue() != null)
+                        scrollBy(mw.applicationList.getSelectedIndex());
+            else if(mw.applicationList.getSelectedValue() == null && mw.bl.getNrGames() >= 3)
                 scrollBy((mw.bl.getNrGames()/2)+1);
             else
                 setAvatarIndex(0);
@@ -730,9 +730,9 @@ public class CDShelf extends JPanel {
     }
 
     private void setGamelist() {
-        for(int i = 0; i < mw.gameList.getModel().getSize();i++) {
-            if(mw.gameList.getModel().getElementAt(i).equals(avatarText)) {
-                mw.gameList.setSelectedIndex(i);
+        for(int i = 0; i < mw.applicationList.getModel().getSize();i++) {
+            if(mw.applicationList.getModel().getElementAt(i).equals(avatarText)) {
+                mw.applicationList.setSelectedIndex(i);
             }
         }
     }
