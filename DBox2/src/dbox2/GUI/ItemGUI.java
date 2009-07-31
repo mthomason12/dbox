@@ -136,7 +136,7 @@ public class ItemGUI extends javax.swing.JDialog {
         cmdRemove = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
         setResizable(false);
 
@@ -536,6 +536,7 @@ private void sldCyclesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-
     
 }//GEN-LAST:event_sldCyclesPropertyChange
 
+
 private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConfirmActionPerformed
     DosItem d = new DosItem();
 
@@ -708,7 +709,7 @@ private void cmdAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     HashMap<String,String> ipx = new HashMap<String,String>();
     HashMap<String,String> serial = new HashMap<String,String>();
     
-    cpu.put("core", "simple | normal| full | dynamic | auto");
+    cpu.put("core", "simple | normal | full | dynamic | auto");
     cpu.put("cputype", "auto | 386 | 386_slow | 486_slow | pentium_slow | 386_prefetch");
     cpu.put("cycles", "[number] | max | auto");
     cpu.put("cycleup", "[number]");
@@ -775,6 +776,8 @@ private void cmdAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     Arrays.sort(sections);
 
     String section = (String) JOptionPane.showInputDialog(this, "Please choose a section: ", "Choose section", JOptionPane.QUESTION_MESSAGE, null, sections, sections[0]);
+    if(section == null)
+                return;
 
     if(values.get(section) == null)
         addProperties(section, getString("Enter command"), null);
@@ -782,7 +785,11 @@ private void cmdAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         HashMap<String,String> properties = values.get(section);
         if(properties.size() == 0) {
             String name  = getString("Enter attribute name: ");
+            if(name == null)
+                return;
             String value = getString("Enter attribute value: ");
+            if(name == null)
+                return;
             addProperties(section, name, value);
         }
         else {
@@ -793,17 +800,27 @@ private void cmdAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
             Arrays.sort(propertyArray);
             String name = (String) JOptionPane.showInputDialog(this, "Please choose a property: ", "Choose property", JOptionPane.QUESTION_MESSAGE, null, propertyArray, propertyArray[0]);
             String value;
-            if(properties.get(name).equals("true | false"))
+            if(name == null)
+                    return;
+            if(properties.get(name).equals("true | false")) {
                 value = (String) JOptionPane.showInputDialog(this, "Please choose value for " + name + ": ", "Choose property", JOptionPane.QUESTION_MESSAGE, null, new String[]{"true","false"}, "true");
-            else
-                value = getString("<b>Enter property value for " + name + ":\n\nAllowed values:\n" + properties.get(name));
-
+                if(value == null)
+                    return;
+            }
+            else {
+                value = getString("Enter property value for " + name + ":\n\nAllowed values:\n" + properties.get(name));
+                if(value == null)
+                    return;
+            }
             addProperties(section, name, value);
         }
     }
 }//GEN-LAST:event_cmdAddActionPerformed
 
 private void cmdRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRemoveActionPerformed
+    if(listProperties.getSelectedIndex() == -1)
+        return;
+    
     ListModel currentModel = listProperties.getModel();
     String[] data = new String[currentModel.getSize()-1];
     for(int i = 0; i < currentModel.getSize(); i++)
@@ -893,5 +910,11 @@ private void cmdRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JSlider sldCycles;
     private javax.swing.JTextField txtKeywords;
     // End of variables declaration//GEN-END:variables
-    
+
+    @Override
+    public void dispose() {
+        cmdConfirmActionPerformed(null);
+    }
+
+
 }

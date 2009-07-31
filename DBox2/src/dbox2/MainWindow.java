@@ -258,6 +258,8 @@ public class MainWindow extends javax.swing.JFrame {
                         "What's the name of the game?",
                         JOptionPane.QUESTION_MESSAGE,
                         null,possible,possible[0]);
+                if(chosen == null)
+                    return;
             }
 
             for(File f:dirfiles)
@@ -1139,6 +1141,16 @@ private void runApplication(String program) {
 
     addOtherSettings(finito, "dosbox", dosbox);
     allProps.put("DOSBOX", dosbox);
+
+    addOtherSettings(finito, "mixer", mixer);
+    allProps.put("MIXER", mixer);
+
+    addOtherSettings(finito, "gus", gus);
+    allProps.put("GUS", gus);
+
+    addOtherSettings(finito, "midi", midi);
+    allProps.put("MIDI", midi);
+
 
 
     autoexec.add(0,"mount c \""+di.getPath()+"\"");
