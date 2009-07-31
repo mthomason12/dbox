@@ -170,7 +170,7 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel5)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 435, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 445, Short.MAX_VALUE)
                 .add(Icon)
                 .addContainerGap())
         );
@@ -262,19 +262,19 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, appName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.LEADING, appName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .add(jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel1)
-                            .add(appIcon, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE))
+                            .add(appIcon, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton4))
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel3)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel8)
-                    .add(sldCycles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                    .add(sldCycles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel6)
                     .add(jPanel2Layout.createSequentialGroup()
-                        .add(appExec, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 456, Short.MAX_VALUE)
+                        .add(appExec, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton1)))
                 .addContainerGap())
@@ -343,7 +343,7 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(appPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                    .add(appPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .add(jLabel2)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -352,12 +352,12 @@ public class ItemGUI extends javax.swing.JDialog {
                                 .add(116, 116, 116))
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(org.jdesktop.layout.GroupLayout.LEADING, appSetup, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE)
+                                    .add(org.jdesktop.layout.GroupLayout.LEADING, appSetup, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
                                     .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel4)
-                                    .add(appCD, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 444, Short.MAX_VALUE))
+                                    .add(appCD, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
                                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
                         .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(appFrameSkip)
+                            .add(appFrameSkip, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
                             .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, jButton3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .add(org.jdesktop.layout.GroupLayout.LEADING, jButton2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
@@ -387,7 +387,7 @@ public class ItemGUI extends javax.swing.JDialog {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel9)
                     .add(appFrameSkip, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(90, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Advanced", jPanel3);
@@ -411,7 +411,7 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtKeywords, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, txtKeywords, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .add(jLabel10)
                     .add(cmbGenre, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 165, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel11)
@@ -436,14 +436,15 @@ public class ItemGUI extends javax.swing.JDialog {
                 .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(chkFavorite)
                     .add(jLabel12))
-                .addContainerGap(119, Short.MAX_VALUE))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Meta Information", jPanel4);
 
         jPanel5.setOpaque(false);
 
-        listProperties.setFont(new java.awt.Font("Courier", 0, 12));
+        listProperties.setFont(new java.awt.Font("Courier", 0, 12)); // NOI18N
+        listProperties.setCellRenderer(new ExpertListRenderer());
         jScrollPane1.setViewportView(listProperties);
 
         cmdAdd.setText("Add");
@@ -469,15 +470,15 @@ public class ItemGUI extends javax.swing.JDialog {
             .add(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 495, Short.MAX_VALUE)
+                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .add(jPanel5Layout.createSequentialGroup()
                         .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                             .add(jPanel5Layout.createSequentialGroup()
                                 .add(jLabel13)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 286, Short.MAX_VALUE))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 314, Short.MAX_VALUE))
                             .add(jPanel5Layout.createSequentialGroup()
                                 .add(cmdAdd)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
                         .add(cmdRemove)))
                 .addContainerGap())
         );
@@ -491,7 +492,7 @@ public class ItemGUI extends javax.swing.JDialog {
                 .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(cmdRemove)
                     .add(cmdAdd))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(10, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Expert", jPanel5);
@@ -813,6 +814,7 @@ private void cmdAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                     return;
             }
             addProperties(section, name, value);
+            System.out.println(section + " " + " name " + " " + value);
         }
     }
 }//GEN-LAST:event_cmdAddActionPerformed
@@ -823,9 +825,13 @@ private void cmdRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     
     ListModel currentModel = listProperties.getModel();
     String[] data = new String[currentModel.getSize()-1];
-    for(int i = 0; i < currentModel.getSize(); i++)
+    int minus = 0;
+    for(int i = 0; i < currentModel.getSize(); i++) {
         if(!((String)currentModel.getElementAt(i)).equals(listProperties.getSelectedValue().toString()))
-            data[i] = (String) currentModel.getElementAt(i);
+            data[i-minus] = (String) currentModel.getElementAt(i);
+        else
+            minus = 1;
+     }
             
     JList newModel = new JList(data);
     listProperties.setModel(newModel.getModel());

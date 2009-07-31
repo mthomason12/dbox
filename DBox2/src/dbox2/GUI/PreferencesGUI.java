@@ -246,6 +246,7 @@ private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     this.setVisible(false);
 
     if(cmbIconSize.getSelectedIndex() != iconindex) {
+        Main.n.setVisible(false);
         Main.n.dispose();
     }
 }//GEN-LAST:event_cmdConfirmActionPerformed

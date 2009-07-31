@@ -9,6 +9,8 @@
 <!-- in the project's Project Properties dialog box.-->
 <project name="DBox2" default="default" basedir=".">
     <description>Builds, tests, and runs the project DBox2.</description>
+
+
     <import file="nbproject/build-impl.xml"/>
     <!--
 
@@ -71,4 +73,35 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <target name="complex" depends="jar" description="Build an example application">
+
+  <taskdef name="release/jarbundler" classpath="lib/jarbundler-2.1.0"
+             classname="net.sourceforge.jarbundler.JarBundler"/>
+
+  <jarbundler dir="release"
+              name="Hello World"
+              shortname="Hello"
+              signature="Helo"
+              mainclass="dbox2.Main"
+              jar="build/Hello World.jar"
+              icon="dbox2/img/ikon.gif"
+              jvmversion="1.4+"
+              version="1.2"
+              infostring="Hello World, copyright 2006"
+              build="213"
+              bundleid="net.sourceforge.jarbundler.example.HelloWorld"
+              helpbookfolder="HelpBook"
+              helpbookname="Hello World Help" >
+
+    <!-- Adjust the look, feel and behavior -->
+
+      <javaproperty name="apple.laf.useScreenMenuBar" value="true"/>
+      <javaproperty name="apple.awt.brushMetal" value="true"/>
+      <javaproperty name="apple.awt.showGrowBox" value="false"/>
+
+
+  </jarbundler>
+
+</target>
+
 </project>

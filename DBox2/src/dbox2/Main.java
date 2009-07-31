@@ -62,9 +62,23 @@ public class Main {
     }
 
     static void requestClose() {
-        if(n.isVisible()) {
+        if(!n.isVisible()) {
             // Restart Process!
             System.gc();
+            try {
+                StackTraceElement[] stack = Thread.currentThread ().getStackTrace ();
+                StackTraceElement main = stack[1];
+                String mainClass = main.getClassName();
+                mainClass = mainClass.substring(0,mainClass.indexOf("."));
+
+                Runtime.getRuntime().exec("java -jar dbox2.jar");
+                System.out.println(mainClass);
+            }
+            catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            System.exit(0);
         }
         else
             System.exit(0);
