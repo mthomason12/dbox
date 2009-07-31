@@ -13,6 +13,7 @@ _This is about a future version of D-Box. The current version is 2.0_
   * Possible to drop folders. D-Box will search for correct files
   * Possible to drop multiple files or directories
   * Support for DVORAK keyboard layout (US only)
+  * Upgraded internal DOSBox to 0.73 
   * Double speed on game list reading
   * Changed keyboard acceleration key to run a game to Enter
   * Lot of refactoring and rewriting of rotten code
