@@ -135,6 +135,7 @@ public class ItemGUI extends javax.swing.JDialog {
         cmdAdd = new javax.swing.JButton();
         cmdRemove = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
@@ -444,6 +445,7 @@ public class ItemGUI extends javax.swing.JDialog {
         jPanel5.setOpaque(false);
 
         listProperties.setFont(new java.awt.Font("Courier", 0, 12)); // NOI18N
+        listProperties.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         listProperties.setCellRenderer(new ExpertListRenderer());
         jScrollPane1.setViewportView(listProperties);
 
@@ -463,6 +465,14 @@ public class ItemGUI extends javax.swing.JDialog {
 
         jLabel13.setText("DosBox properties");
 
+        jLabel14.setForeground(new java.awt.Color(51, 51, 255));
+        jLabel14.setText("Learn more...");
+        jLabel14.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel14MouseClicked(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -473,12 +483,13 @@ public class ItemGUI extends javax.swing.JDialog {
                     .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
                     .add(jPanel5Layout.createSequentialGroup()
                         .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel13)
                             .add(jPanel5Layout.createSequentialGroup()
-                                .add(jLabel13)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 314, Short.MAX_VALUE))
-                            .add(jPanel5Layout.createSequentialGroup()
-                                .add(cmdAdd)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)))
+                                .add(6, 6, 6)
+                                .add(jLabel14)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 261, Short.MAX_VALUE)
+                                .add(cmdAdd)))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(cmdRemove)))
                 .addContainerGap())
         );
@@ -491,7 +502,8 @@ public class ItemGUI extends javax.swing.JDialog {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(cmdRemove)
-                    .add(cmdAdd))
+                    .add(cmdAdd)
+                    .add(jLabel14))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
 
@@ -837,6 +849,10 @@ private void cmdRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     listProperties.setModel(newModel.getModel());
 }//GEN-LAST:event_cmdRemoveActionPerformed
 
+private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
+    BrowserControl.openUrl("http://www.dosbox.com/wiki/Dosbox.conf");
+}//GEN-LAST:event_jLabel14MouseClicked
+
     private void addProperties(String section, String property, String value) {
         ListModel currentModel = listProperties.getModel();
         String[] data = new String[currentModel.getSize()+1];
@@ -897,6 +913,7 @@ private void cmdRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
