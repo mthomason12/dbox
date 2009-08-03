@@ -1038,28 +1038,6 @@ private void runApplication(String program) {
     if (applicationList.getSelectedIndex() == -1)
         return;
 
-    // What to do if no dosbox path is available
-    if (Main.pref.getDosBoxPath().equals("")) {
-        String[] choices = {
-            "Let me show you where DOSBox is!",
-            "Please take me to DOSBox' homepage so I can download!",
-            "Get me out of here!"
-        };
-        String input = (String) JOptionPane.showInputDialog(
-                null, "D-Box needs DOSBox to work, but currently the path to DOSBox is set to nothing.\nIf you have DOSBox installed, please locate it for me. If not, please download and\ninstall DOSBox before continuing.\n\nPlease select your next step:",
-                "Can't find DOSBox!",
-                JOptionPane.QUESTION_MESSAGE,
-                null, choices, choices[0]);
-        if (input.equals(choices[0]))
-            mnuPrefsActionPerformed(null);
-        else if (input.equals(choices[1])) {
-            BrowserControl.openUrl("http://www.dosbox.com/download.php?main=1");
-            return;
-        } else
-            return;
-        
-    }
-
     // If there are no applications in the application list
     if (bl.getNrGames() == 0) {
         int answ = JOptionPane.showConfirmDialog(this,
@@ -1151,8 +1129,6 @@ private void runApplication(String program) {
     addOtherSettings(finito, "midi", midi);
     allProps.put("MIDI", midi);
 
-
-
     autoexec.add(0,"mount c \""+di.getPath()+"\"");
     if(!di.getCdrom().equals("")) // If we should mount a CD ROM
         autoexec.add("mount d \"" + di.getCdrom() + "\" -t cdrom\n");
@@ -1182,11 +1158,37 @@ private void runApplication(String program) {
     par[3] = "-conf";
     par[4] = getCurrentDir() + File.separator + "dosbox.conf";
 
+    // try to execute from the path if no dosbox path is present
+    if (Main.pref.getDosBoxPath().equals("")) {
+        par[0] = "dosbox";
+    }
+
     // Try to execute
     try {
         Runtime.getRuntime().exec(par);
     } catch (IOException ex) {
-        ex.printStackTrace();
+        // What to do if no dosbox path is available
+        if (Main.pref.getDosBoxPath().equals("")) {
+            String[] choices = {
+                "Let me show you where DOSBox is!",
+                "Please take me to DOSBox' homepage so I can download!",
+                "Get me out of here!"
+            };
+            String input = (String) JOptionPane.showInputDialog(
+                    null, "D-Box needs DOSBox to work, but currently the path to DOSBox is set to nothing.\nIf you have DOSBox installed, please locate it for me. If not, please download and\ninstall DOSBox before continuing.\n\nPlease select your next step:",
+                    "Can't find DOSBox!",
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, choices, choices[0]);
+            if (input.equals(choices[0]))
+                mnuPrefsActionPerformed(null);
+            else if (input.equals(choices[1])) {
+                BrowserControl.openUrl("http://www.dosbox.com/download.php?main=1");
+                return;
+            } else
+                return;
+        }
+        else
+            ex.printStackTrace();
     }
 }
 
