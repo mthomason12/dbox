@@ -11,19 +11,25 @@ I thought it might be funny to see how D-Box evolves, so this page will include 
 http://dbox.googlecode.com/svn/wiki/img/screenshots/1.0/main.png
 
   * First iteration
+  * Created on the sole purpose to make it easier for me to run DosBox on my Mac
+  * Easter egg: Click on the Welcome header :)
   * _Download: http://dbox.googlecode.com/files/dbox.zip _
 
 == D-Box 1.5 ==
 
 http://dbox.googlecode.com/svn/wiki/img/screenshots/1.5/main.png
 
- * New interface
+ * Without any advertising approximately 100 persons downloaded version 1. Because of this, I created a new version with a new interface
+ * Approximately 5 downloads :)
  * _Download: http://dbox.googlecode.com/files/dbox15.zip _
 
 == D-Box 1.6 ==
 
 http://dbox.googlecode.com/svn/wiki/img/screenshots/1.6/main.png
 
+ * Because of some big showstoppers in version 1.5, 1.6 was released two days later.
+ * First version that shipped as a windows installer
+ * Approximately 745 downloads
  * _Download: http://dbox.googlecode.com/files/dbox16.zip _
 
 == D-Box 1.7 ==
@@ -31,6 +37,7 @@ http://dbox.googlecode.com/svn/wiki/img/screenshots/1.6/main.png
 http://dbox.googlecode.com/svn/wiki/img/screenshots/1.7/main.png
 
  * [http://code.google.com/p/dbox/wiki/whatsnew17 What's new?]
+ * Over 2000 downloads
  * _Download: http://dbox.googlecode.com/files/dbox17.zip _
 
 
@@ -39,4 +46,5 @@ http://dbox.googlecode.com/svn/wiki/img/screenshots/1.7/main.png
 http://dbox.googlecode.com/svn/wiki/img/screenshots/2.0/main.png
 
  * [http://code.google.com/p/dbox/wiki/whatsnew20 What's new?]
+ * 3500 downloads and counting...
  * _Download: http://dbox.googlecode.com/files/dbox20.zip _
