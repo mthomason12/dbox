@@ -13,6 +13,7 @@ http://dbox.googlecode.com/svn/wiki/img/screenshots/1.0/main.png
   * First iteration
   * Created on the sole purpose to make it easier for me to run DosBox on my Mac
   * Easter egg: Click on the Welcome header :)
+  * 117 downloads in one year.
   * _Download: http://dbox.googlecode.com/files/dbox.zip _
 
 == D-Box 1.5 ==
@@ -28,7 +29,7 @@ http://dbox.googlecode.com/svn/wiki/img/screenshots/1.5/main.png
 http://dbox.googlecode.com/svn/wiki/img/screenshots/1.6/main.png
 
  * Because of some big showstoppers in version 1.5, 1.6 was released two days later.
- * First version that shipped as a windows installer
+ * First version which shipped as a windows installer
  * Approximately 745 downloads
  * _Download: http://dbox.googlecode.com/files/dbox16.zip _
 
