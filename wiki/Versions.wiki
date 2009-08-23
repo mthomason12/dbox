@@ -47,5 +47,5 @@ http://dbox.googlecode.com/svn/wiki/img/screenshots/1.7/main.png
 http://dbox.googlecode.com/svn/wiki/img/screenshots/2.0/main.png
 
  * [http://code.google.com/p/dbox/wiki/whatsnew20 What's new?]
- * 3500 downloads and counting...
+ * 3900 downloads and counting...
  * _Download: http://dbox.googlecode.com/files/dbox20.zip _
