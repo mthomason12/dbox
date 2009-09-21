@@ -1129,11 +1129,12 @@ private void runApplication(String program) {
     addOtherSettings(finito, "midi", midi);
     allProps.put("MIDI", midi);
 
-    autoexec.add(0,"mount c \""+di.getPath()+"\"");
+    int number = 0;
     if(!di.getCdrom().equals("")) // If we should mount a CD ROM
-        autoexec.add("mount d \"" + di.getCdrom() + "\" -t cdrom\n");
-    autoexec.add(1,"C:");
-    autoexec.add(2,program);
+        autoexec.add(number++,"mount d \"" + di.getCdrom() + "\" -t cdrom");
+    autoexec.add(number++,"mount c \""+di.getPath()+"\"");
+    autoexec.add(number++,"C:");
+    autoexec.add(number++,program);
     for(int i = 0; i < finito.length;i++)
         if(finito[i][0].toLowerCase().equals("autoexec"))
             autoexec.add(finito[i][1]);
@@ -1562,4 +1563,3 @@ class SetGenre implements ActionListener {
     }
 
 }
-
