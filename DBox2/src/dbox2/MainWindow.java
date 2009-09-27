@@ -1130,8 +1130,12 @@ private void runApplication(String program) {
     allProps.put("MIDI", midi);
 
     int number = 0;
-    if(!di.getCdrom().equals("")) // If we should mount a CD ROM
-        autoexec.add(number++,"mount d \"" + di.getCdrom() + "\" -t cdrom");
+    if(!di.getCdrom().equals("")) { // If we should mount a CD ROM
+        String cd = "mount d \"" + di.getCdrom() + "\" -t cdrom ";
+        if(!di.getCdromLabel().equals(""))
+            cd+="-label " + di.getCdromLabel();
+        autoexec.add(number++, cd);
+    }
     autoexec.add(number++,"mount c \""+di.getPath()+"\"");
     autoexec.add(number++,"C:");
     autoexec.add(number++,program);

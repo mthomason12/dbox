@@ -219,7 +219,7 @@ public class BoxListe implements Serializable {
                     final String keyword;
                     final String value;
 
-                    if(start != -1) {
+                    if(start != -1) { 
                         keyword = linje.substring(0, start).toLowerCase().trim();
                         value = linje.substring(start + 2).trim();
                     }
@@ -242,6 +242,8 @@ public class BoxListe implements Serializable {
                         d.setFloppy(value);
                     else if(keyword.equals("cdrom"))
                         d.setCdrom(value);
+                    else if(keyword.equals("cdromlabel"))
+                        d.setCdromLabel(value);
                     else if(keyword.equals("icon"))
                         d.setIcon(value);
                     else if(keyword.equals("extra"))
