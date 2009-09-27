@@ -21,12 +21,21 @@ public class DosItem implements Serializable {
     private int cycles = 6000;
     private int frameskip = 0;
     private String cdrom = "";
+    private String cdromLabel = "";
     private String floppy = "";
     private String extra = "";
     private String genre = Main.pref.getGenres()[Main.pref.getGenres().length - 1];
     private String keywords = "";
     private boolean star = false;
     private ImageIcon imageIcon = ImageHandlerer.getDefaultIcon();
+
+    public String getCdromLabel() {
+        return cdromLabel;
+    }
+
+    public void setCdromLabel(String cdromLabel) {
+        this.cdromLabel = cdromLabel;
+    }
 
     public ImageIcon getImageIcon() {
         return imageIcon;
@@ -155,6 +164,7 @@ public class DosItem implements Serializable {
                 "  installer := " + getInstaller() + "\n" +
                 "  floppy := " + getFloppy() + "\n" +
                 "  cdrom := " + getCdrom() + "\n" +
+                "  cdromlabel := " + getCdromLabel() + "\n" +
                 "  extra :=" + getExtra() + "\n" +
                 "  icon := " + getIcon() + "\n" +
                 "  cycles := " + getCycles() + "\n" +
