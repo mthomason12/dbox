@@ -6,6 +6,7 @@ _This is about a future version of D-Box. The current version is 2.0_
 
   * *New improved popup menu*
   * *New experimental Floppy Flow user interface*
+  * *Upgraded internal DOSBox to 0.73* 
   * You can change the application-list's icon size in the preferences dialog 
   * New expert mode: You can now change every single configuration that DOSBox provides using a new expert mode.
   * Only writes the application-list to disk when you quit the program -> Increased performance
@@ -13,7 +14,6 @@ _This is about a future version of D-Box. The current version is 2.0_
   * Possible to drop folders. D-Box will search for correct files
   * Possible to drop multiple files or directories
   * Support for DVORAK keyboard layout (US only)
-  * Upgraded internal DOSBox to 0.73 
   * Possible to add a label to a CD-ROM drive (issue 20) 
   * Double speed on game list reading
   * Changed keyboard acceleration key to run a game to Enter
