@@ -1,6 +1,5 @@
 #summary Check out what's new in D-Box 2.1
-
-_This is about a future version of D-Box. The current version is 2.0_
+#labels Featured
 
 = What's new in D-Box 2.1 =
 
