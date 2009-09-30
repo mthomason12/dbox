@@ -13,7 +13,7 @@
   * Possible to drop folders. D-Box will search for correct files
   * Possible to drop multiple files or directories
   * Support for DVORAK keyboard layout (US only)
-  * Possible to add a label to a CD-ROM drive (issue 20) 
+  * Possible to add a label to a mounted CD-ROM(issue 20) 
   * Double speed on game list reading
   * Changed keyboard acceleration key to run a game to Enter
   * Lot of refactoring and rewriting of rotten code
