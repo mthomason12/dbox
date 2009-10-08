@@ -1,0 +1,3 @@
+=What's new in D-Box 2.2=
+
+- D-Box now saves it's preferences in the system's "Application Data" folder
