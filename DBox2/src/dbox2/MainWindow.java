@@ -1144,7 +1144,7 @@ private void runApplication(String program) {
             autoexec.add(finito[i][1]);
 
     // Write configfile
-    writeConfig(getCurrentDir() + File.separator + "dosbox.conf",
+    writeConfig(Main.appFolder + "dosbox.conf",
                 allProps,autoexec);
 
     // Build execute command
@@ -1161,7 +1161,7 @@ private void runApplication(String program) {
     }
 
     par[3] = "-conf";
-    par[4] = getCurrentDir() + File.separator + "dosbox.conf";
+    par[4] = Main.appFolder + "dosbox.conf";
 
     // try to execute from the path if no dosbox path is present
     if (Main.pref.getDosBoxPath().equals("")) {
@@ -1365,7 +1365,7 @@ private void mnuPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_mnuPreferencesActionPerformed
 
 private void mnuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuHomeActionPerformed
-   BrowserControl.openUrl("http://code.google.com/p/dbox/");
+   BrowserControl.openUrl("http://dbox.truben.no");
 }//GEN-LAST:event_mnuHomeActionPerformed
 
 private void mnuDosboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDosboxActionPerformed
