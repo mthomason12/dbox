@@ -1,5 +1,6 @@
 package dbox2;
 
+import dbox2.util.OSXAdapter;
 import dbox2.util.helperClass;
 import java.io.File;
 import java.io.IOException;
