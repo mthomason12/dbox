@@ -11,6 +11,7 @@ import dbox2.GUI.CoverFlow.*;
 import dbox2.GUI.ItemGUI;
 import dbox2.GUI.PreferencesGUI;
 import dbox2.util.FileChooserFilter;
+import dbox2.util.OSXAdapter;
 import dbox2.util.helperClass;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -50,8 +51,28 @@ public class MainWindow extends javax.swing.JFrame {
     protected JPanel coverflow;
     private CDShelf cdshelf;
 
+    public void about() {
+        mnuAboutActionPerformed(null);
+    }
+    public void preferences() {
+        mnuPreferencesActionPerformed(null);
+    }
+
     /** Creates new form MainWindow */
     public MainWindow() throws IOException {
+
+        // OSX stuff
+        if(helperClass.getOS() == helperClass.MACOS) {
+            try {
+                OSXAdapter.setQuitHandler(this, getClass().getDeclaredMethod("dispose", (Class[]) null));
+                OSXAdapter.setAboutHandler(this, getClass().getDeclaredMethod("about", (Class[]) null));
+                OSXAdapter.setPreferencesHandler(this, getClass().getDeclaredMethod("preferences", (Class[])null));
+            } catch (NoSuchMethodException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 
         bl = deSerialize(Main.gameFile);
 

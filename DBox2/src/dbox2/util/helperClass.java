@@ -13,16 +13,16 @@ import javax.swing.JFileChooser;
 
 public class helperClass {
 
-    private static final int LINUX   = 0;
-    private static final int SOLARIS = 1;
-    private static final int WINDOWS = 2;
-    private static final int MACOS   = 3;
+    public static final int LINUX   = 0;
+    public static final int SOLARIS = 1;
+    public static final int WINDOWS = 2;
+    public static final int MACOS   = 3;
 
     /**
      * Determines the system's OS
      * @return the code for the current OS
      */
-    private static int getOS() {
+    public static int getOS() {
         String sysName = System.getProperty("os.name").toLowerCase();
         if(sysName.contains("linux"))
             return LINUX;
