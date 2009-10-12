@@ -1,4 +1,4 @@
 =What's new in D-Box 2.2=
 
-- D-Box now saves it's preferences in the system's "Application Data" folder
-- D-Box now use the game's path as its default path instead of the last used (Issue 14)
+* D-Box now saves it's preferences in the system's "Application Data" folder
+* D-Box now use the game's path as its default path instead of the last used (Issue 14)
