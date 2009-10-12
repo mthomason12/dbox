@@ -159,7 +159,7 @@ public class ItemGUI extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
 
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18));
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Edit Game");
 
@@ -261,24 +261,24 @@ public class ItemGUI extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+            .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, appName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-                    .add(jPanel2Layout.createSequentialGroup()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(appName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel1)
                             .add(appIcon, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jButton4))
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel3)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel8)
-                    .add(sldCycles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jLabel6)
-                    .add(jPanel2Layout.createSequentialGroup()
+                    .add(jLabel3)
+                    .add(jLabel8)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
                         .add(appExec, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 485, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton1)))
+                        .add(jButton1))
+                    .add(jLabel6)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, sldCycles, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 523, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -297,14 +297,15 @@ public class ItemGUI extends javax.swing.JDialog {
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel8)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jButton4)
-                    .add(appIcon, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jLabel6)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel2Layout.createSequentialGroup()
+                        .add(appIcon, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jLabel6))
+                    .add(jButton4))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(sldCycles, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .add(207, 207, 207))
+                .add(125, 125, 125))
         );
 
         jTabbedPane1.addTab("General", jPanel2);
@@ -525,15 +526,16 @@ public class ItemGUI extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(cmdWizard)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(cmdConfirm))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE))
+                .addContainerGap(395, Short.MAX_VALUE)
+                .add(cmdWizard)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(cmdConfirm)
                 .addContainerGap())
             .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 556, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -636,9 +638,15 @@ private void appNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_appNameActionPerformed
 
 private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    String s = helperClass.showFileChooser(this, "Select file",
+    String s;
+    if(!appPath.getText().equals(""))
+        s = helperClass.showFileChooser(this, "Select file",
             new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".exe",".com",".bat"},
-            "Executable DOS files (*.exe, *.com, *.bat)"), false);
+            "Executable DOS files (*.exe, *.com, *.bat)"), false, appPath.getText());
+    else
+        s = helperClass.showFileChooser(this, "Select file",
+                new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".exe",".com",".bat"},
+                "Executable DOS files (*.exe, *.com, *.bat)"), false);
     
     if (s != null) {
         int last = 0;
@@ -653,9 +661,16 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_jButton1ActionPerformed
 
 private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-    String s = helperClass.showFileChooser(this, "Select file",
+    String s;
+    if(!appPath.getText().equals(""))
+        s = helperClass.showFileChooser(this, "Select file",
             new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".exe",".com",".bat"},
-            "Executable DOS files (*.exe, *.com, *.bat)"), false);
+            "Executable DOS files (*.exe, *.com, *.bat)"), false, appPath.getText());
+    else
+        s = helperClass.showFileChooser(this, "Select file",
+                new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".exe",".com",".bat"},
+                "Executable DOS files (*.exe, *.com, *.bat)"), false);
+    
     if (s != null) {
         int last = 0;
         for(int i = s.length()-1; i >= 0; i--)
@@ -671,19 +686,34 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 
 
 private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-    String s = helperClass.showFileChooser(this, "Select directory",
+    String s;
+    if(appPath.getText().equals(""))
+        s = helperClass.showFileChooser(this, "Select directory",
             new FileChooserFilter(FileChooserFilter.DIRECTORIES, null,
             "Directories"), true);
+    else
+        s = helperClass.showFileChooser(this, "Select directory",
+            new FileChooserFilter(FileChooserFilter.DIRECTORIES, null,
+            "Directories"), true,appPath.getText());
+
     if (s != null) {
         appCD.setText(s);
     }
 }//GEN-LAST:event_jButton3ActionPerformed
 
 private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-    String s = helperClass.showFileChooser(this, "Select file",
+    String s;
+    if(appPath.getText().equals(""))
+        s = helperClass.showFileChooser(this, "Select file",
             new FileChooserFilter(FileChooserFilter.EXTENSIONS,
             new String[]{".gif",".ico",".png",".jpg"},
             "Icon files (*.ico, *.gif, *.png, *.jpg)"), false);
+    else
+        s = helperClass.showFileChooser(this, "Select file",
+            new FileChooserFilter(FileChooserFilter.EXTENSIONS,
+            new String[]{".gif",".ico",".png",".jpg"},
+            "Icon files (*.ico, *.gif, *.png, *.jpg)"), false, appPath.getText());
+    
     if (s != null) {
         appIcon.setText(s);
     }
