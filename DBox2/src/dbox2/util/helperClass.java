@@ -78,12 +78,40 @@ public class helperClass {
         return false;
     }
 
-    public static String showFileChooser(java.awt.Component c, String header, FileChooserFilter filter, boolean directories) {
+    /**
+     *
+     * Method that shows a file chooser to the user and use the last used path as
+     * its starting point
+     *
+     * @param c the parent component
+     * @param header The dialog's header
+     * @param filter What should be shown
+     * @param directories should we show directories
+     * @return
+     */
+    public static String showFileChooser(java.awt.Component c, String header,
+            FileChooserFilter filter, boolean directories) {
+
+        return showFileChooser(c,header,filter,directories,Main.pref.getLastUsedPath());
+    }
+
+    /**
+     * Method that shows a file chooser to the user
+     *
+     * @param c the parent component
+     * @param header The dialog's header
+     * @param filter What should be shown
+     * @param directories should we show directories
+     * @param startDir the starting path
+     * @return
+     */
+    public static String showFileChooser(java.awt.Component c, String header,
+            FileChooserFilter filter, boolean directories,String startDir) {
         if(isMac()) { // AWT
             FileDialog fd = new FileDialog((Frame)c.getParent(), header, FileDialog.LOAD);
 
-            if(!Main.pref.getLastUsedPath().equals(""))
-                fd.setDirectory(Main.pref.getLastUsedPath()); // back to where we were
+            if(!startDir.equals(""))
+                fd.setDirectory(startDir); // back to where we were
 
             fd.pack();
             fd.setVisible(true);
@@ -102,8 +130,8 @@ public class helperClass {
             final JFileChooser fc = new JFileChooser();
             if(directories) fc.setFileSelectionMode(fc.DIRECTORIES_ONLY);
 
-            if(!Main.pref.getLastUsedPath().equals(""))
-                fc.setCurrentDirectory(new File(Main.pref.getLastUsedPath())); // back to where we were
+            if(!startDir.equals(""))
+                fc.setCurrentDirectory(new File(startDir)); // back to where we were
 
             fc.addChoosableFileFilter(filter);
             int returnVal = fc.showOpenDialog(c);
