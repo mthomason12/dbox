@@ -3,3 +3,4 @@
   * D-Box now saves it's preferences in the system's "Application Data" folder
   * Fixed a nasty bug when your browsing your disk (issue 22)
   * D-Box now use the game's path as its default path instead of the last used (Issue 14)
+  * More work on the "floppy flow"
