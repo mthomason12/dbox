@@ -29,8 +29,11 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -91,7 +94,7 @@ public class CDShelf extends JPanel {
     private CrystalCaseFactory fx;
 
     public CDShelf(MainWindow mw) {
-        avatarFont = new Font("Dialog", Font.PLAIN, 24);
+        avatarFont = new Font("Arial", Font.PLAIN, 24);
         fx = CrystalCaseFactory.getInstance();
         
         loadAvatars();
@@ -212,15 +215,31 @@ public class CDShelf extends JPanel {
         
         g2.setComposite(oldComposite);
     }
+    private BufferedImage getSkewedImage(BufferedImage source, double skewX, double skewY) {
+        // Correct for negative skewX:
+        double x = (skewX < 0) ? -skewX*source.getHeight() : 0;
+        AffineTransform at = AffineTransform.getTranslateInstance(x, 0);
+        at.shear(skewX, skewY);
+        
+        BufferedImageOp op = new AffineTransformOp(at,
+                new RenderingHints(RenderingHints.KEY_INTERPOLATION,
+                                   RenderingHints.VALUE_INTERPOLATION_BICUBIC));
+        //apply filter to image
+        return op.filter(source, null);
+    }
 
     private void drawAvatars(Graphics2D g2, DrawableAvatar[] drawableAvatars) {
         for (DrawableAvatar avatar: drawableAvatars) {
             AlphaComposite composite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 
                                                                   (float) avatar.getAlpha());
             g2.setComposite(composite);
-            g2.drawImage(avatars.get(avatar.getIndex()),
+            BufferedImage bi = (BufferedImage)avatars.get(avatar.getIndex());
+            bi =getSkewedImage(bi, 0, 0.2);
+            Image s = bi.getScaledInstance(bi.getHeight(), bi.getWidth(), 0);
+            g2.drawImage(s,
                          (int) avatar.getX(), (int) avatar.getY(),
                          avatar.getWidth(), avatar.getHeight(), null);
+            
         }
     }
 
@@ -306,11 +325,14 @@ public class CDShelf extends JPanel {
         if (avatar_x >= width || avatar_x < -newWidth) {
             return;
         }
-        
-        drawables.add(new DrawableAvatar(avatarIndex + offset,
+
+        DrawableAvatar da = new DrawableAvatar(avatarIndex + offset,
                                          avatar_x, avatar_y,
                                          newWidth, newHeight,
-                                         avatarPosition, result));
+                                         avatarPosition, result);
+        da.setSkew(0.5);
+        
+        drawables.add(da);
     }
     
     private void computeEquationParts() {
@@ -407,7 +429,6 @@ public class CDShelf extends JPanel {
                 for (DrawableAvatar avatar: drawableAvatars) {
                     if (avatar.index == index) {
                         drawable = avatar;
-                        System.out.println("lotus " + index);
                         break;
                     }
                 }
@@ -462,13 +483,17 @@ public class CDShelf extends JPanel {
             }
         }
         
+
+
         public void run() {
             int i = 0;
             for (URL url: artworks) {
                 try {
                     BufferedImage image = ImageHandlerer.resizeIcon(ImageHandlerer.getImageIconNoResize(url.toString().substring(5)),300,300);
                     //BufferedImage image = ImageIO.read(url);
+                    
                     avatars.add(fx.createReflectedPicture(fx.createCrystalCase(image)));
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -504,7 +529,7 @@ public class CDShelf extends JPanel {
                 start = System.currentTimeMillis();
             }
 
-            alphaLevel = (System.currentTimeMillis() - start) / 500.0f;
+            alphaLevel = (System.currentTimeMillis() - start) / 250.0f;
             textAlphaLevel = alphaLevel;
             if (alphaLevel > 1.0f) {
                 alphaLevel = 1.0f;
@@ -520,6 +545,7 @@ public class CDShelf extends JPanel {
         private int index;
         private double x;
         private double y;
+        private double skew;
         private int width;
         private int height;
         private double zOrder;
@@ -557,6 +583,14 @@ public class CDShelf extends JPanel {
 
         public int getHeight() {
             return height;
+        }
+
+        public double getSkew() {
+            return skew;
+        }
+
+        public void setSkew(double skew) {
+            this.skew = skew;
         }
 
         public int getIndex() {

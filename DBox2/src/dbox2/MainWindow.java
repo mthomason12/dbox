@@ -31,7 +31,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 
 public class MainWindow extends javax.swing.JFrame {
     
@@ -61,18 +64,7 @@ public class MainWindow extends javax.swing.JFrame {
     /** Creates new form MainWindow */
     public MainWindow() throws IOException {
 
-        // OSX stuff
-        if(helperClass.getOS() == helperClass.MACOS) {
-            try {
-                OSXAdapter.setQuitHandler(this, getClass().getDeclaredMethod("dispose", (Class[]) null));
-                OSXAdapter.setAboutHandler(this, getClass().getDeclaredMethod("about", (Class[]) null));
-                OSXAdapter.setPreferencesHandler(this, getClass().getDeclaredMethod("preferences", (Class[])null));
-            } catch (NoSuchMethodException ex) {
-                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SecurityException ex) {
-                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        
 
         bl = deSerialize(Main.gameFile);
 
@@ -189,6 +181,20 @@ public class MainWindow extends javax.swing.JFrame {
 
         // drag & drop
         createDropTarget(applicationList);
+
+        // OSX stuff
+        if(helperClass.getOS() == helperClass.MACOS) {
+            //buildOSXMenues();
+            try {
+                OSXAdapter.setQuitHandler(this, getClass().getDeclaredMethod("dispose", (Class[]) null));
+                OSXAdapter.setAboutHandler(this, getClass().getDeclaredMethod("about", (Class[]) null));
+                OSXAdapter.setPreferencesHandler(this, getClass().getDeclaredMethod("preferences", (Class[])null));
+            } catch (NoSuchMethodException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SecurityException ex) {
+                Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     /**
@@ -1050,8 +1056,54 @@ public void run() {
 
 private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRunActionPerformed
     DosItem di = bl.getGame((String) applicationList.getSelectedValue());
+    if(di==null)
+        return;
     runApplication(di.getGame());
 }//GEN-LAST:event_mnuRunActionPerformed
+
+private JMenuItem cloneJMenu(JMenuItem original) {
+    JMenuItem clone = new JMenuItem();
+    clone.setText(original.getText());
+    if(original.getActionListeners().length > 0)
+        clone.addActionListener(original.getActionListeners()[0]);
+    return clone;
+}
+
+private void buildOSXMenues() {
+
+    JMenu file = new JMenu("File");
+    JMenu edit = new JMenu("Edit");
+    JMenu tools = new JMenu("Tools");
+
+    for(Component c :runMenu.getComponents()) {
+        if(c instanceof JSeparator)
+            file.add((JSeparator)c);
+        else
+            file.add(cloneJMenu((JMenuItem)c));
+    }
+
+    for(Component c :editMenu.getComponents())
+        if(c instanceof JSeparator)
+            edit.add((JSeparator)c);
+        else
+            edit.add(cloneJMenu((JMenuItem)c));
+
+    for(Component c :prefMenu.getComponents())
+        if(c instanceof JSeparator)
+            tools.add((JSeparator)c);
+        else
+            tools.add(cloneJMenu((JMenuItem)c));
+
+    
+    JMenuBar bar = new JMenuBar();
+
+    bar.add(file);
+    bar.add(edit);
+    bar.add(tools);
+
+    this.setJMenuBar(bar);
+
+}
 
 private void runApplication(String program) {
 
