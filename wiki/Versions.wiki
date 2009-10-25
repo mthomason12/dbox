@@ -55,4 +55,5 @@ http://dbox.googlecode.com/svn/wiki/img/screenshots/2.0/main.png
 http://dbox.googlecode.com/svn/wiki/img/screenshots/2.1/main.png
 
  * [http://code.google.com/p/dbox/wiki/whatsnew21 What's new?]
+ * 650 downloads and counting
  * _Download: http://dbox.googlecode.com/files/dbox21.zip _
