@@ -26,8 +26,6 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        System.out.println(appFolder);
-        System.out.println(configFile);
 
         try {
             // Read command line config
@@ -77,8 +75,8 @@ public class Main {
                 StackTraceElement main = stack[1];
                 String mainClass = main.getClassName();
                 mainClass = mainClass.substring(0,mainClass.indexOf("."));
-
-                Runtime.getRuntime().exec("java -jar dbox2.jar");
+                // Try to restart
+                Runtime.getRuntime().exec("java", new String[]{"-jar", "dbox2.jar"});
                 System.out.println(mainClass);
             }
             catch (IOException ex) {
@@ -89,5 +87,29 @@ public class Main {
         }
         else
             System.exit(0);
+    }
+
+    static void fixOldVersion() {
+        File configNew = new File(configFile);
+        // Check if the new file exists, and if it does, get out of here
+        if(!configNew.exists()) {
+            File configOld = new File("dbox.config");
+            if(configOld.exists()) {
+                try {
+                    helperClass.copyFile(configOld, configNew);
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            File gameOld = new File("gamelist.dat");
+            File gameNew = new File(gameFile);
+            if(gameOld.exists() && !gameNew.exists()) {
+                try {
+                    helperClass.copyFile(gameOld, gameNew);
+                } catch (IOException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
     }
 }

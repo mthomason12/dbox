@@ -29,6 +29,9 @@ public class BoxListe implements Serializable {
      * @return The name of the game, null if no game is found
      **/
     public DosItem getGame(String name) {
+        if(name == null)
+            return null;
+        
         name = name.toLowerCase();
         for(DosItem item : gamelist) {
             if(item.getName().toLowerCase().equals(name)) {
