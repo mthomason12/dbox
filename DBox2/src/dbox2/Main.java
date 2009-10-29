@@ -1,6 +1,7 @@
 package dbox2;
 
 import dbox2.util.OSXAdapter;
+import dbox2.util.ThemeSupport;
 import dbox2.util.helperClass;
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,7 @@ public class Main {
     public static String gameFile = appFolder + "gamelist.dat";
     public final static NewPreferences pref = new NewPreferences();
     public static MainWindow n;
+    public static ThemeSupport theme;
 
     /**
      * @param args the command line arguments
@@ -49,7 +51,8 @@ public class Main {
             javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
 
             pref.readConfig(configFile);
-            
+
+            theme = new ThemeSupport(new File("/test"));
             n = new MainWindow();
             n.setVisible(true);
             

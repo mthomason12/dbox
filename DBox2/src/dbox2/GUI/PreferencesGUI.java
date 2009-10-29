@@ -56,12 +56,12 @@ public class PreferencesGUI extends javax.swing.JDialog {
         cmdConfirm = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel()
         {
-            ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/bg.jpg"));
+            ImageIcon backImage = new javax.swing.ImageIcon(Main.theme.getBackgroundImage());
             Image image = backImage.getImage();
             int w = backImage.getIconWidth();
 
             public void paintComponent (Graphics g) {
-                for(int i=0;i<50;i++)
+                for(int i=0;i<Main.theme.getBackgroundRepeat();i++)
                 g.drawImage(image, w*i, 0, this);
                 super.paintComponent(g);
             }
@@ -101,7 +101,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
 
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18));
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Preferences");
 

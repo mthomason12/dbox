@@ -86,12 +86,12 @@ public class ItemGUI extends javax.swing.JDialog {
         cmdWizard = new javax.swing.JButton();
         cmdConfirm = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel(){
-            ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/bg.jpg"));
+            ImageIcon backImage = new javax.swing.ImageIcon(Main.theme.getBackgroundImage());
             Image image = backImage.getImage();
             int w = backImage.getIconWidth();
 
             public void paintComponent (Graphics g) {
-                for(int i=0;i<50;i++)
+                for(int i=0;i<Main.theme.getBackgroundRepeat();i++)
                 g.drawImage(image, w*i, 0, this);
                 super.paintComponent(g);
             }
