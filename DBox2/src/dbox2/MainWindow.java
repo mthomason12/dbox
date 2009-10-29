@@ -54,6 +54,8 @@ public class MainWindow extends javax.swing.JFrame {
     protected JPanel coverflow;
     private CDShelf cdshelf;
 
+    Point point = new Point();
+
     public void about() {
         mnuAboutActionPerformed(null);
     }
@@ -63,8 +65,8 @@ public class MainWindow extends javax.swing.JFrame {
 
     /** Creates new form MainWindow */
     public MainWindow() throws IOException {
-
         
+        setUndecorated(!Main.theme.isShowWindowDecoration());
 
         bl = deSerialize(Main.gameFile);
 
@@ -103,14 +105,14 @@ public class MainWindow extends javax.swing.JFrame {
         }
 
         // Set up images
-        runEnabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start.png"));
-        runDisabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start-disabled.png"));
-        fileEnabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/utilities-terminal.png"));
-        fileDisabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/utilities-terminal-disabled.png"));
-        prefEnabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/emblem-system.png"));
-        prefDisabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/emblem-system-disabled.png"));
-        searchArrow = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow.png"));
-        searchArrowDisabled = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow-disabled.png"));
+        runEnabled = new javax.swing.ImageIcon(Main.theme.getPlayActiveImage());
+        runDisabled = new javax.swing.ImageIcon(Main.theme.getPlayInactiveImage());
+        fileEnabled = new javax.swing.ImageIcon(Main.theme.getEditActiveImage());
+        fileDisabled = new javax.swing.ImageIcon(Main.theme.getEditInactiveImage());
+        prefEnabled = new javax.swing.ImageIcon(Main.theme.getToolsActiveImage());
+        prefDisabled = new javax.swing.ImageIcon(Main.theme.getToolsInactiveImage());
+        searchArrow = new javax.swing.ImageIcon(Main.theme.getSearchActiveImage());
+        searchArrowDisabled = new javax.swing.ImageIcon(Main.theme.getSearchInactiveImage());
 
         try {
             Main.pref.writeConfig(Main.configFile);
@@ -195,6 +197,17 @@ public class MainWindow extends javax.swing.JFrame {
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+
+        // Theme
+        
+        setBackground(Main.theme.getBackgroundColor());
+        
+        if(!Main.theme.isShowBorders()) {
+            applicationList.setBorder(null);
+            jScrollPane1.setBorder(null);
+            jPanel1.setBorder(null);
+        }
+
     }
 
     /**
@@ -550,6 +563,8 @@ public class MainWindow extends javax.swing.JFrame {
         mnuWeb = new javax.swing.JMenu();
         mnuHome = new javax.swing.JMenuItem();
         mnuDosbox = new javax.swing.JMenuItem();
+        jSeparator4 = new javax.swing.JSeparator();
+        mnuQuit = new javax.swing.JMenuItem();
         searchMenu = new javax.swing.JPopupMenu();
         jTextField1 = new javax.swing.JTextField();
         listMenu = new javax.swing.JPopupMenu();
@@ -563,14 +578,15 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         applicationList = new javax.swing.JList();
         applicationList.setCellRenderer(new GameListRenderer());
+        applicationList.setBackground(Main.theme.getGameBackgroundColor());
         panelControls = new javax.swing.JPanel()
         {
-            ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/bg.jpg"));
+            ImageIcon backImage = new javax.swing.ImageIcon(Main.theme.getBackgroundImage());
             Image image = backImage.getImage();
             int w = backImage.getIconWidth();
 
             public void paintComponent (Graphics g) {
-                for(int i=0;i<100;i++)
+                for(int i=0;i<Main.theme.getBackgroundRepeat();i++)
                 g.drawImage(image, w*i, 0, this);
                 super.paintComponent(g);
             }
@@ -582,7 +598,6 @@ public class MainWindow extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         lblSearch = new javax.swing.JLabel();
         txtSearch = new javax.swing.JTextField();
-        lblExplain = new javax.swing.JLabel();
 
         mnuRun2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, 0));
         mnuRun2.setFont(mnuRun2.getFont().deriveFont(mnuRun2.getFont().getStyle() | java.awt.Font.BOLD));
@@ -708,6 +723,15 @@ public class MainWindow extends javax.swing.JFrame {
         mnuWeb.add(mnuDosbox);
 
         prefMenu.add(mnuWeb);
+        prefMenu.add(jSeparator4);
+
+        mnuQuit.setText("Quit D-Box");
+        mnuQuit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuQuitActionPerformed(evt);
+            }
+        });
+        prefMenu.add(mnuQuit);
 
         jTextField1.setVisible(false);
 
@@ -764,11 +788,6 @@ public class MainWindow extends javax.swing.JFrame {
         applicationList.setFocusCycleRoot(true);
         applicationList.setFocusTraversalPolicyProvider(true);
         applicationList.setNextFocusableComponent(txtSearch);
-        applicationList.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                applicationListKeyPressed(evt);
-            }
-        });
         applicationList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 applicationListMouseReleased(evt);
@@ -780,41 +799,57 @@ public class MainWindow extends javax.swing.JFrame {
                 applicationListMouseEntered(evt);
             }
         });
+        applicationList.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                applicationListKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(applicationList);
 
         panelControls.setOpaque(false);
         panelControls.setPreferredSize(new java.awt.Dimension(684, 50));
         panelControls.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                panelControlsMousePressed(evt);
+            }
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 panelControlsMouseClicked(evt);
             }
         });
+        panelControls.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
+            public void mouseMoved(java.awt.event.MouseEvent evt) {
+                panelControlsMouseMoved(evt);
+            }
+            public void mouseDragged(java.awt.event.MouseEvent evt) {
+                panelControlsMouseDragged(evt);
+            }
+        });
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/utilities-terminal-disabled.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(Main.theme.getEditInactiveImage()));
         jLabel2.setToolTipText("Game information");
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, editMenu, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel2, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
         bindingGroup.addBinding(binding);
 
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel2MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jLabel2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                jLabel2MouseExited(evt);
-            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel2MousePressed(evt);
             }
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 jLabel2MouseReleased(evt);
             }
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel2MouseClicked(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel2MouseExited(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel2MouseEntered(evt);
+            }
         });
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start-disabled.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(Main.theme.getPlayInactiveImage() ));
         jLabel4.setToolTipText("Run Application");
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -834,7 +869,7 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/emblem-system-disabled.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(Main.theme.getToolsInactiveImage()));
         jLabel5.setToolTipText("Preferences");
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, prefMenu, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel5, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
@@ -858,13 +893,14 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.setBackground(javax.swing.UIManager.getDefaults().getColor("EditorPane.background"));
+        jPanel1.setBackground(Main.theme.getSearchBackgroundColor());
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
         lblSearch.setFont(lblSearch.getFont());
         lblSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.disabledText"));
-        lblSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/down-arrow-disabled.png"))); // NOI18N
+        lblSearch.setIcon(new javax.swing.ImageIcon(Main.theme.getSearchInactiveImage()));
         lblSearch.setLabelFor(txtSearch);
+        lblSearch.setToolTipText("Click to filter by genre");
         lblSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 lblSearchMouseClicked(evt);
@@ -880,24 +916,13 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
 
-        txtSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.disabledText"));
+        txtSearch.setBackground(Main.theme.getSearchBackgroundColor() );
+        txtSearch.setForeground(Main.theme.getSearchInactiveColor()
+        );
         txtSearch.setText("Search");
         txtSearch.setToolTipText("Search the gamelist");
         txtSearch.setBorder(null);
         txtSearch.setNextFocusableComponent(applicationList);
-        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                txtSearchFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                txtSearchFocusLost(evt);
-            }
-        });
-        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSearchKeyReleased(evt);
-            }
-        });
         txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 txtSearchMouseExited(evt);
@@ -909,6 +934,19 @@ public class MainWindow extends javax.swing.JFrame {
         txtSearch.addCaretListener(new javax.swing.event.CaretListener() {
             public void caretUpdate(javax.swing.event.CaretEvent evt) {
                 txtSearchCaretUpdate(evt);
+            }
+        });
+        txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txtSearchFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txtSearchFocusLost(evt);
+            }
+        });
+        txtSearch.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtSearchKeyReleased(evt);
             }
         });
 
@@ -928,10 +966,6 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(txtSearch, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
         );
 
-        lblExplain.setFont(lblExplain.getFont().deriveFont(lblExplain.getFont().getSize()-2f));
-        lblExplain.setForeground(new java.awt.Color(255, 255, 255));
-        lblExplain.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-
         org.jdesktop.layout.GroupLayout panelControlsLayout = new org.jdesktop.layout.GroupLayout(panelControls);
         panelControls.setLayout(panelControlsLayout);
         panelControlsLayout.setHorizontalGroup(
@@ -943,9 +977,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(jLabel2)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel5)
-                .add(18, 18, 18)
-                .add(lblExplain, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 266, Short.MAX_VALUE)
-                .add(18, 18, 18)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 441, Short.MAX_VALUE)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -959,10 +991,8 @@ public class MainWindow extends javax.swing.JFrame {
                             .add(jLabel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
                             .add(jLabel5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(panelControlsLayout.createSequentialGroup()
-                        .add(16, 16, 16)
-                        .add(panelControlsLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(lblExplain, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                        .add(20, 20, 20)
+                        .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -970,19 +1000,19 @@ public class MainWindow extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(panelControls, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 598, Short.MAX_VALUE)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(11, 11, 11)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE)
-                .add(9, 9, 9))
+            .add(panelControls, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .add(6, 6, 6)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
+                .add(6, 6, 6))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(panelControls, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 57, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(panelControls, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 355, Short.MAX_VALUE)
-                .add(20, 20, 20))
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         bindingGroup.bind();
@@ -1401,36 +1431,30 @@ private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
     jLabel4.setIcon(runEnabled);
     if(prefMenu.isVisible() || editMenu.isVisible())
         jLabel4MousePressed(null);
-    lblExplain.setText("Run Game");
 }//GEN-LAST:event_jLabel4MouseEntered
 
 private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
     jLabel2.setIcon(fileEnabled);
-    lblExplain.setText("Edit Game Preferences");
     if(prefMenu.isVisible() || runMenu.isVisible())
         jLabel2MousePressed(null);
 }//GEN-LAST:event_jLabel2MouseEntered
 
 private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
     jLabel4.setIcon(runDisabled);
-    lblExplain.setText("");
 }//GEN-LAST:event_jLabel4MouseExited
 
 private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseExited
     jLabel2.setIcon(fileDisabled);
-    lblExplain.setText("");
 }//GEN-LAST:event_jLabel2MouseExited
 
 private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
     jLabel5.setIcon(prefEnabled);
-    lblExplain.setText("Edit D-Box Preferences");
     if(runMenu.isVisible() || editMenu.isVisible())
         jLabel5MousePressed(null);
 }//GEN-LAST:event_jLabel5MouseEntered
 
 private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
     jLabel5.setIcon(prefDisabled);
-    lblExplain.setText("");
 }//GEN-LAST:event_jLabel5MouseExited
 
 private void mnuPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPreferencesActionPerformed
@@ -1467,24 +1491,22 @@ private void lblSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:e
 
 private void lblSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMouseEntered
     lblSearch.setIcon(searchArrow);
-    lblExplain.setText("Click to filter by genre");
 }//GEN-LAST:event_lblSearchMouseEntered
 
 private void lblSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMouseExited
     lblSearch.setIcon(searchArrowDisabled);
-    lblExplain.setText("");
 }//GEN-LAST:event_lblSearchMouseExited
 
 private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusGained
     txtSearch.setText("");
-    txtSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.foreground"));
+    txtSearch.setForeground(Main.theme.getSearchForegroundColor());
     updateList();
 }//GEN-LAST:event_txtSearchFocusGained
 
 private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
     if(txtSearch.getText().equals(""))
         txtSearch.setText("Search");
-    txtSearch.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.disabledText"));
+    txtSearch.setForeground(Main.theme.getSearchInactiveColor());
 }//GEN-LAST:event_txtSearchFocusLost
 
 private void applicationListMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationListMouseEntered
@@ -1553,6 +1575,35 @@ private void mnuListRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN
 private void mnuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuViewActionPerformed
     toggleView();
 }//GEN-LAST:event_mnuViewActionPerformed
+
+private void panelControlsMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseMoved
+    
+    
+}//GEN-LAST:event_panelControlsMouseMoved
+
+private void panelControlsMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseDragged
+    if(evt.getButton() == MouseEvent.BUTTON1) {
+        Point p = getLocation();
+        setLocation(p.x + evt.getX() - point.x, p.y + evt.getY() - point.y);
+    }
+}//GEN-LAST:event_panelControlsMouseDragged
+
+private void panelControlsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMousePressed
+    if(evt.getClickCount() == 2) {
+        if(getExtendedState() != MAXIMIZED_BOTH)
+            this.setExtendedState(this.MAXIMIZED_BOTH);
+        else
+            setExtendedState(NORMAL);
+    }
+
+           point.x = evt.getX();
+           point.y = evt.getY();
+   
+}//GEN-LAST:event_panelControlsMousePressed
+
+private void mnuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuQuitActionPerformed
+    this.dispose();
+}//GEN-LAST:event_mnuQuitActionPerformed
  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1566,8 +1617,8 @@ private void mnuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
+    private javax.swing.JSeparator jSeparator4;
     private javax.swing.JTextField jTextField1;
-    private javax.swing.JLabel lblExplain;
     private javax.swing.JLabel lblSearch;
     private javax.swing.JPopupMenu listMenu;
     private javax.swing.JMenuItem mnuAbout;
@@ -1587,6 +1638,7 @@ private void mnuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JMenuItem mnuListSetup;
     private javax.swing.JMenuItem mnuNew2;
     private javax.swing.JMenuItem mnuPreferences;
+    private javax.swing.JMenuItem mnuQuit;
     javax.swing.JMenuItem mnuRun2;
     private javax.swing.JMenuItem mnuSetup2;
     private javax.swing.JMenu mnuTools;

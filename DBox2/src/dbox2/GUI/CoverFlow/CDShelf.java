@@ -215,18 +215,7 @@ public class CDShelf extends JPanel {
         
         g2.setComposite(oldComposite);
     }
-    private BufferedImage getSkewedImage(BufferedImage source, double skewX, double skewY) {
-        // Correct for negative skewX:
-        double x = (skewX < 0) ? -skewX*source.getHeight() : 0;
-        AffineTransform at = AffineTransform.getTranslateInstance(x, 0);
-        at.shear(skewX, skewY);
-        
-        BufferedImageOp op = new AffineTransformOp(at,
-                new RenderingHints(RenderingHints.KEY_INTERPOLATION,
-                                   RenderingHints.VALUE_INTERPOLATION_BICUBIC));
-        //apply filter to image
-        return op.filter(source, null);
-    }
+
 
     private void drawAvatars(Graphics2D g2, DrawableAvatar[] drawableAvatars) {
         for (DrawableAvatar avatar: drawableAvatars) {
@@ -234,7 +223,6 @@ public class CDShelf extends JPanel {
                                                                   (float) avatar.getAlpha());
             g2.setComposite(composite);
             BufferedImage bi = (BufferedImage)avatars.get(avatar.getIndex());
-            bi =getSkewedImage(bi, 0, 0.2);
             Image s = bi.getScaledInstance(bi.getHeight(), bi.getWidth(), 0);
             g2.drawImage(s,
                          (int) avatar.getX(), (int) avatar.getY(),
@@ -317,6 +305,9 @@ public class CDShelf extends JPanel {
         }
 
         double avatar_x = x + (width - newWidth) / 2.0;
+        //double avatar_y = height/2 - (264-newHeight)/2;
+        //System.out.println(this.CD_SIZE + " - " + height + " - " + newHeight);
+        //System.out.println(height - newHeight);
         double avatar_y = y + (height - newHeight / 2.0) / 2.0;
 
         double semiWidth = width / 2.0;
@@ -330,7 +321,7 @@ public class CDShelf extends JPanel {
                                          avatar_x, avatar_y,
                                          newWidth, newHeight,
                                          avatarPosition, result);
-        da.setSkew(0.5);
+        //da.setSkew(0.5);
         
         drawables.add(da);
     }

@@ -116,7 +116,7 @@ public class ImageHandlerer {
     public static ImageIcon getDefaultIcon() {
         // Loads default icon if it isn't set allready
         if(defaultIcon == null) {
-            defaultIcon = resizeIcon(new ImageIcon(Main.class.getResource("/dbox2/gameIcons/application-x-executable.png")));
+            defaultIcon = resizeIcon(new ImageIcon(Main.theme.getDefaultGame()));
             System.out.println("leser ikon..");
         }
         

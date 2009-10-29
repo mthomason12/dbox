@@ -41,12 +41,11 @@ class GameListRenderer extends JLabel implements ListCellRenderer {
         
 
         if (isSelected) {
-            setBackground(list.getSelectionBackground());
-            setForeground(list.getSelectionForeground());
+            setBackground(Main.theme.getGameSelectedBackgroundColor());
+            setForeground(Main.theme.getGameSelectedForegroundColor());
             setOpaque(true);
         } else {
-            setBackground(list.getBackground());
-            setForeground(list.getForeground());
+            setForeground(Main.theme.getGameForegroundColor());
             setOpaque(false);
         }
 
