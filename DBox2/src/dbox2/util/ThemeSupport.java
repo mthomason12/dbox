@@ -14,7 +14,7 @@ import java.util.Scanner;
 public class ThemeSupport {
 
     private String name   = "Default theme";
-    private String author = "Peder Skeidsvoll";
+    private String author = "Truben";
     private String url    = "http://www.truben.no";
 
     private URL playInactiveImage = getClass().getResource("/dbox2/img/media-playback-start-disabled.png");
@@ -29,6 +29,9 @@ public class ThemeSupport {
     private URL searchInactiveImage = getClass().getResource("/dbox2/img/down-arrow-disabled.png");
     private URL searchActiveImage = getClass().getResource("/dbox2/img/down-arrow.png");
 
+    private URL gameFavoriteImage    = getClass().getResource("/dbox2/img/emblem-favorite.png");
+    private URL gameNotFavoriteImage = getClass().getResource("/dbox2/img/emblem-notfavorite.png");
+
     private boolean showWindowDecoration = true;
     private boolean showBorders = true;
 
@@ -42,19 +45,32 @@ public class ThemeSupport {
     private Color gameSelectedBackgroundColor = java.awt.SystemColor.textHighlight; // TODO: Get the real color
     private Color gameSelectedForegroundColor = java.awt.SystemColor.textHighlightText;
 
-    private URL defaultGame = getClass().getResource("/dbox2/img/down-arrow.png");
+    private URL defaultGame = getClass().getResource("/dbox2/gameIcons/application-x-executable.png");
 
     private Color searchBackgroundColor = java.awt.SystemColor.text;
     private Color searchForegroundColor = java.awt.SystemColor.textText;
     private Color searchInactiveColor = java.awt.SystemColor.textInactiveText;
 
 
+    private int numberOfSettings = 0;
+
+    public boolean success = true;
 
 
 
     private String filePath;
-    
 
+    @Override
+    public String toString() {
+        return "Theme Info\n==========\nName: " + name + "\nAuthor: " + author + "\nWeb: " + url + "\nNumber of settings: " + numberOfSettings;
+    }
+
+
+
+    public ThemeSupport() {
+    }
+    
+    
 
     public ThemeSupport(File f) {
         String lines ="";
@@ -70,11 +86,12 @@ public class ThemeSupport {
                     continue; // empty line
                 else {
                     setSetting(line);
+                    numberOfSettings++;
                 }
 
             }
         } catch (FileNotFoundException ex) {
-            Messages.showErrorMessage("Not able to read file.\n" + f.getAbsolutePath());
+            Messages.showErrorMessage("Not able to read theme file.\n" + f.getAbsolutePath());
         }
         catch (MalformedURLException ex) {
             Messages.showErrorMessage("Bad filepath:\n" + lines);
@@ -84,6 +101,38 @@ public class ThemeSupport {
         }
         catch (Exception ex) {
             Messages.showErrorMessage("Bad line:\n" + lines);
+        }
+
+
+    }
+
+        public ThemeSupport(File f, boolean silent) {
+        String lines ="";
+        success = false;
+        try {
+            Scanner s = new Scanner(f);
+            filePath = f.getAbsolutePath().substring(0, f.getAbsolutePath().lastIndexOf(File.separator)+1);
+            while(s.hasNextLine()) {
+                lines = s.nextLine();
+                String[] line = parseLine(lines);
+                if(line == null)
+                    return; // if there are errors in the file, just quit
+                else if(line.length == 0)
+                    continue; // empty line
+                else {
+                    setSetting(line);
+                    numberOfSettings++;
+                }
+
+            }
+            success = true;
+        } catch (FileNotFoundException ex) {
+        }
+        catch (MalformedURLException ex) {
+        }
+        catch (NumberFormatException ex) {
+        }
+        catch (Exception ex) {
         }
 
 
@@ -141,6 +190,10 @@ public class ThemeSupport {
             gameSelectedForegroundColor = decodeColor(s[1]);
         else if (s[0].equals("gamelist-dafaultgame-image"))
             defaultGame = new File(filePath + s[1]).toURI().toURL();
+        else if (s[0].equals("gamelist-favorite-image"))
+            gameFavoriteImage = new File(filePath + s[1]).toURI().toURL();
+        else if (s[0].equals("gamelist-notfavorite-image"))
+            gameNotFavoriteImage = new File(filePath + s[1]).toURI().toURL();
         else if (s[0].equals("search-background-color"))
             searchBackgroundColor = decodeColor(s[1]);
         else if (s[0].equals("search-foreground-color"))
@@ -271,5 +324,15 @@ public class ThemeSupport {
     public URL getDefaultGame() {
         return defaultGame;
     }
+
+    public URL getGameFavoriteImage() {
+        return gameFavoriteImage;
+    }
+
+    public URL getGameNotFavoriteImage() {
+        return gameNotFavoriteImage;
+    }
+
+
 
 }

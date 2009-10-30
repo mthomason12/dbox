@@ -52,7 +52,12 @@ public class Main {
 
             pref.readConfig(configFile);
 
-            theme = new ThemeSupport(new File("/test"));
+            // Load theme
+            if(!pref.getTheme().equals(""))
+                theme = new ThemeSupport(new File(pref.getTheme()));
+            else
+                theme = new ThemeSupport();
+
             n = new MainWindow();
             n.setVisible(true);
             
@@ -70,25 +75,6 @@ public class Main {
     }
 
     static void requestClose() {
-        if(!n.isVisible()) {
-            // Restart Process!
-            System.gc();
-            try {
-                StackTraceElement[] stack = Thread.currentThread ().getStackTrace ();
-                StackTraceElement main = stack[1];
-                String mainClass = main.getClassName();
-                mainClass = mainClass.substring(0,mainClass.indexOf("."));
-                // Try to restart
-                Runtime.getRuntime().exec("java", new String[]{"-jar", "dbox2.jar"});
-                System.out.println(mainClass);
-            }
-            catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
-            System.exit(0);
-        }
-        else
             System.exit(0);
     }
 
@@ -115,4 +101,5 @@ public class Main {
             }
         }
     }
+    
 }

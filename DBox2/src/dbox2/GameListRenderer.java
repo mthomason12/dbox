@@ -12,8 +12,8 @@ import javax.swing.*;
  */
 class GameListRenderer extends JLabel implements ListCellRenderer {
 
-    ImageIcon favorite = ImageHandlerer.resizeIcon(new ImageIcon(getClass().getResource("/dbox2/img/emblem-favorite.png")));
-    ImageIcon notfavorite = ImageHandlerer.resizeIcon(new ImageIcon(getClass().getResource("/dbox2/img/emblem-notfavorite.png")));
+    ImageIcon favorite = ImageHandlerer.resizeIcon(new ImageIcon(Main.theme.getGameFavoriteImage()));
+    ImageIcon notfavorite = ImageHandlerer.resizeIcon(new ImageIcon(Main.theme.getGameNotFavoriteImage()));
     JLabel l = new JLabel();
 
     public Component getListCellRendererComponent(
