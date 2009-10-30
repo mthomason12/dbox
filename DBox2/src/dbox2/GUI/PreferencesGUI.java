@@ -8,10 +8,15 @@
 
 package dbox2.GUI;
 
-import dbox2.*;
+import dbox2.Main;
 import dbox2.util.FileChooserFilter;
+import dbox2.util.ThemeSupport;
 import dbox2.util.helperClass;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 public class PreferencesGUI extends javax.swing.JDialog {
@@ -29,6 +34,8 @@ public class PreferencesGUI extends javax.swing.JDialog {
         cmbKeyboard.setSelectedIndex(Main.pref.getKeyboardIndex());
         cmbIconSize.setSelectedIndex(Main.pref.getIconSizeIndex());
         iconindex = cmbIconSize.getSelectedIndex();
+
+        themeName.setText(Main.pref.getTheme());
 
         centerScreen();
     }
@@ -51,8 +58,6 @@ public class PreferencesGUI extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        txtDosBoxPath = new javax.swing.JTextField();
         cmdConfirm = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel()
         {
@@ -68,27 +73,28 @@ public class PreferencesGUI extends javax.swing.JDialog {
         }
         ;
         jLabel5 = new javax.swing.JLabel();
-        cmdBrowse = new javax.swing.JButton();
-        chkKeepOpen = new javax.swing.JCheckBox();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jPanel2 = new javax.swing.JPanel();
         chkFullscreen = new javax.swing.JCheckBox();
-        jLabel2 = new javax.swing.JLabel();
+        chkKeepOpen = new javax.swing.JCheckBox();
         cmbKeyboard = new javax.swing.JComboBox();
-        jLabel3 = new javax.swing.JLabel();
+        cmdBrowse = new javax.swing.JButton();
+        txtDosBoxPath = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
         cmbIconSize = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
+        themeName = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        cmdBrowse1 = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Preferences");
         setModal(true);
         setResizable(false);
-
-        jLabel1.setText("Path to DosBox");
-
-        txtDosBoxPath.setToolTipText("The full path to the DosBox executable. On MacOs X this path has to point to the\nexecutable inside the app package. If you chose browse, D-Box will do this by\nitself to please and serve you!");
-        txtDosBoxPath.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDosBoxPathActionPerformed(evt);
-            }
-        });
 
         cmdConfirm.setText("Close");
         cmdConfirm.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +118,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel5)
-                .addContainerGap(416, Short.MAX_VALUE))
+                .addContainerGap(477, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -122,23 +128,15 @@ public class PreferencesGUI extends javax.swing.JDialog {
                 .add(15, 15, 15))
         );
 
-        cmdBrowse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/folder.png"))); // NOI18N
-        cmdBrowse.setToolTipText("Browse...");
-        cmdBrowse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmdBrowseActionPerformed(evt);
-            }
-        });
-
-        chkKeepOpen.setText("Keep the DosBox window open (doesn't always work)");
-        chkKeepOpen.setToolTipText("Determines if the DosBox window will be closed after the application\nyou currently are running has halted. This option will only have effect\non applications that you're opening after you have altered this preference.");
-        chkKeepOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        jPanel2.setOpaque(false);
 
         chkFullscreen.setText("Play games in full screen (Press Alt+Enter in game to toggle)");
         chkFullscreen.setToolTipText("If you check this, your programs will run in full screen.\nYou can toggle by using the key combination Alt + Enter");
         chkFullscreen.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        jLabel2.setText("Keyboard layout (Country or language):");
+        chkKeepOpen.setText("Keep the DosBox window open (doesn't always work)");
+        chkKeepOpen.setToolTipText("Determines if the DosBox window will be closed after the application\nyou currently are running has halted. This option will only have effect\non applications that you're opening after you have altered this preference.");
+        chkKeepOpen.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
         cmbKeyboard.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Belgium", "Brazil", "Canadian-French", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Hungary", "Italy", "Latin America", "Netherlands", "Norway", "Poland", "Portugal", "Slovak Republic", "Spain", "Sweden", "Switzerland (French)", "Switzerland (German)", "United Kingdom", "United States", "United States (Dvorak)", "Yugoslavia (Serbo-Croatian)" }));
         cmbKeyboard.setToolTipText("Select your keyboard layout.\n\nNote that some games needs a specific\nkeyboard layout (often english).");
@@ -148,7 +146,68 @@ public class PreferencesGUI extends javax.swing.JDialog {
             }
         });
 
-        jLabel3.setText("Icon size in application list");
+        cmdBrowse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/folder.png"))); // NOI18N
+        cmdBrowse.setToolTipText("Browse...");
+        cmdBrowse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBrowseActionPerformed(evt);
+            }
+        });
+
+        txtDosBoxPath.setToolTipText("The full path to the DosBox executable. On MacOs X this path has to point to the\nexecutable inside the app package. If you chose browse, D-Box will do this by\nitself to please and serve you!");
+        txtDosBoxPath.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDosBoxPathActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Keyboard Layout (Country or language):");
+
+        jLabel1.setText("Path to DosBox");
+
+        org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(txtDosBoxPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(cmdBrowse))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .add(jLabel2)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 63, Short.MAX_VALUE)
+                        .add(cmbKeyboard, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(jLabel1)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, chkKeepOpen, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE)
+                    .add(chkFullscreen))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(cmdBrowse)
+                    .add(txtDosBoxPath, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(18, 18, 18)
+                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(cmbKeyboard, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel2))
+                .add(51, 51, 51)
+                .add(chkKeepOpen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(chkFullscreen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("General", jPanel2);
+
+        jPanel3.setOpaque(false);
 
         cmbIconSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Small", "Medium", "Large", "X-Large" }));
         cmbIconSize.addActionListener(new java.awt.event.ActionListener() {
@@ -157,70 +216,115 @@ public class PreferencesGUI extends javax.swing.JDialog {
             }
         });
 
+        jLabel3.setText("Icon Size in Application List");
+
+        themeName.addCaretListener(new javax.swing.event.CaretListener() {
+            public void caretUpdate(javax.swing.event.CaretEvent evt) {
+                themeNameCaretUpdate(evt);
+            }
+        });
+        themeName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                themeNameActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Theme path:");
+
+        cmdBrowse1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/folder.png"))); // NOI18N
+        cmdBrowse1.setToolTipText("Browse...");
+        cmdBrowse1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBrowse1ActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Use Default Theme");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Theme Information");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel4)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .add(themeName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(cmdBrowse1))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton1)
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jLabel3)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(cmbIconSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton2))
+                .addContainerGap())
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel4)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                    .add(themeName)
+                    .add(cmdBrowse1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(68, 68, 68)
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel3)
+                            .add(cmbIconSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jButton1)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton2)))
+                .addContainerGap(91, Short.MAX_VALUE))
+        );
+
+        jTabbedPane1.addTab("Appearance", jPanel3);
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .add(layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel1)
-                    .add(layout.createSequentialGroup()
-                        .add(txtDosBoxPath, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 446, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(cmdBrowse))
-                    .add(layout.createSequentialGroup()
-                        .add(jLabel2)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 38, Short.MAX_VALUE)
-                        .add(cmbKeyboard, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 571, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(437, Short.MAX_VALUE)
+                .addContainerGap(498, Short.MAX_VALUE)
                 .add(cmdConfirm)
                 .addContainerGap())
-            .add(layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jLabel3)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 239, Short.MAX_VALUE)
-                .add(cmbIconSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .add(layout.createSequentialGroup()
-                .add(22, 22, 22)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(chkFullscreen)
-                    .add(chkKeepOpen, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE))
-                .addContainerGap())
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(txtDosBoxPath, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(cmdBrowse))
-                .add(18, 18, 18)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel2)
-                    .add(cmbKeyboard, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 294, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel3)
-                    .add(cmbIconSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
-                .add(chkKeepOpen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(chkFullscreen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 33, Short.MAX_VALUE)
                 .add(cmdConfirm)
                 .addContainerGap())
         );
 
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-        setBounds((screenSize.width-522)/2, (screenSize.height-350)/2, 522, 350);
+        setBounds((screenSize.width-583)/2, (screenSize.height-417)/2, 583, 417);
     }// </editor-fold>//GEN-END:initComponents
 
 private void cmdBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBrowseActionPerformed
@@ -236,19 +340,30 @@ private void cmdBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_cmdBrowseActionPerformed
 
 private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConfirmActionPerformed
+
     Main.pref.setDosBoxPath(txtDosBoxPath.getText());
     Main.pref.setKeepOpen(chkKeepOpen.isSelected());
     Main.pref.setFullScreen(chkFullscreen.isSelected());
     Main.pref.setKeyboardCountry(cmbKeyboard.getSelectedItem().toString());
+    
+
     if(cmbIconSize.getSelectedIndex() != -1)
         Main.pref.setIconSize(cmbIconSize.getSelectedItem().toString());
 
+
+    //Restart if nessesary
+    if(!(cmbIconSize.getSelectedIndex() == iconindex && Main.pref.getTheme().equals(themeName.getText()))) {
+        Main.pref.setTheme(themeName.getText());
+        try {
+            Main.pref.writeConfig(Main.configFile);
+            restartApplication(this);
+        } catch (IOException ex) {
+            Logger.getLogger(PreferencesGUI.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    Main.pref.setTheme(themeName.getText());
     this.setVisible(false);
 
-    if(cmbIconSize.getSelectedIndex() != iconindex) {
-        Main.n.setVisible(false);
-        Main.n.dispose();
-    }
 }//GEN-LAST:event_cmdConfirmActionPerformed
 
 private void txtDosBoxPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDosBoxPathActionPerformed
@@ -262,6 +377,38 @@ private void cmbKeyboardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
 private void cmbIconSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbIconSizeActionPerformed
 
 }//GEN-LAST:event_cmbIconSizeActionPerformed
+
+private void themeNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_themeNameActionPerformed
+
+}//GEN-LAST:event_themeNameActionPerformed
+
+private void cmdBrowse1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBrowse1ActionPerformed
+    String file = helperClass.showFileChooser(this, "Select theme",
+            new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".dbt"}, "D-Box Themes"), false);
+
+
+    if(file != null) {
+        themeName.setText(file);
+    }
+}//GEN-LAST:event_cmdBrowse1ActionPerformed
+
+private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    themeName.setText("");
+}//GEN-LAST:event_jButton1ActionPerformed
+
+private void themeNameCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_themeNameCaretUpdate
+    themeNameActionPerformed(null);
+}//GEN-LAST:event_themeNameCaretUpdate
+
+private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    ThemeSupport t;
+    if(themeName.getText().equals(""))
+        t = new ThemeSupport();
+    else
+        t = new ThemeSupport(new File(themeName.getText()));
+
+    JOptionPane.showMessageDialog(this, t.toString(), t.getName(), JOptionPane.INFORMATION_MESSAGE);
+}//GEN-LAST:event_jButton2ActionPerformed
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox chkFullscreen;
@@ -269,18 +416,55 @@ private void cmbIconSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     private javax.swing.JComboBox cmbIconSize;
     private javax.swing.JComboBox cmbKeyboard;
     private javax.swing.JButton cmdBrowse;
+    private javax.swing.JButton cmdBrowse1;
     private javax.swing.JButton cmdConfirm;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTextField themeName;
     private javax.swing.JTextField txtDosBoxPath;
     // End of variables declaration//GEN-END:variables
 
     @Override
     public void dispose() {
         cmdConfirmActionPerformed(null);
+    }
+
+    private boolean restartApplication( Object classInJarFile ) {
+        String javaBin = System.getProperty("java.home") + "/bin/java";
+        File jarFile;
+        try{
+            jarFile = new File
+            (classInJarFile.getClass().getProtectionDomain()
+            .getCodeSource().getLocation().toURI());
+        } catch(Exception e) {
+            
+            return false;
+        }
+
+        /* is it a jar file? */
+        if ( !jarFile.getName().endsWith(".jar") )
+        return false;   //no, it's a .class probably
+
+        String  toExec[] = new String[] { javaBin, "-jar", jarFile.getPath() };
+        try{
+            Process p = Runtime.getRuntime().exec( toExec );
+        } catch(Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        System.exit(0);
+
+        return true;
     }
 
 

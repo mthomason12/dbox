@@ -20,6 +20,7 @@ public class NewPreferences implements Serializable {
     private String[] Genres;
     private String LastUsedPath = "";
     private String KeyBoardCode = "us";
+    private String Theme = "";
     private boolean KeepOpen = false;
     private boolean FullScreen = false;
     private boolean BuiltInDosBox = false;
@@ -29,6 +30,15 @@ public class NewPreferences implements Serializable {
     private int IconHeight = 22;
     private boolean IconResize = true;
     private int TypeOfFileDialog = 0;
+
+    public String getTheme() {
+        return Theme;
+    }
+
+    public void setTheme(String Theme) {
+        this.Theme = Theme;
+    }
+
 
 
     public boolean isBuiltInDosBox() {
@@ -104,6 +114,8 @@ public class NewPreferences implements Serializable {
                 FirstStart = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("usebuiltindosbox"))
                 BuiltInDosBox = Boolean.parseBoolean(parts[1].trim());
+            else if(parts[0].equals("theme"))
+                Theme = parts[1].trim();
         }
     }
 
@@ -126,6 +138,7 @@ public class NewPreferences implements Serializable {
                      "LastUsedPath     := " + LastUsedPath + "\n" +
                      "KeyBoardCode     := " + KeyBoardCode + "\n" +
                      "FirstStart       := " + FirstStart + "\n" +
+                     "Theme            := " + Theme + "\n" +
                      "TypeOfFileDialog := " + TypeOfFileDialog;
     }
 
