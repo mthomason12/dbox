@@ -4,6 +4,7 @@ package dbox2;
 import dbox2.util.ImageHandlerer;
 import java.awt.BorderLayout;
 import java.awt.Component;
+import java.awt.Dimension;
 import javax.swing.*;
 
 /**
@@ -29,7 +30,7 @@ class GameListRenderer extends JLabel implements ListCellRenderer {
         this.setLayout(new BorderLayout());
 
         if (Main.pref.isShowIcons()) {
-            setSize(this.getWidth(), Main.pref.getIconHeight());
+            setSize(this.getWidth()/2, Main.pref.getIconHeight());
             try {
                 setIcon(MainWindow.bl.getGame(s).getImageIcon());
             }
@@ -57,6 +58,11 @@ class GameListRenderer extends JLabel implements ListCellRenderer {
             l.setIcon(notfavorite);
         
         this.add(l, BorderLayout.EAST);
+
+        Dimension d = new Dimension(list.getWidth()/Main.pref.getNumerOfColumnsInGameList(), this.getHeight());
+        setPreferredSize(d);
+        setSize(d);
+
 
         return this;
     }

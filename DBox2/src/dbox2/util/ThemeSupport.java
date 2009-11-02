@@ -35,9 +35,10 @@ public class ThemeSupport {
     private boolean showWindowDecoration = true;
     private boolean showBorders = true;
 
+    private boolean unifiedToolbar = true;
 
     private URL backgroundImage = getClass().getResource("/dbox2/img/bg.jpg");
-    private int backgroundRepeat = 100;
+    private int backgroundRepeat;
     private Color backgroundColor = java.awt.SystemColor.window;
 
     private Color gameBackgroundColor = java.awt.SystemColor.text;
@@ -65,14 +66,23 @@ public class ThemeSupport {
         return "Theme Info\n==========\nName: " + name + "\nAuthor: " + author + "\nWeb: " + url + "\nNumber of settings: " + numberOfSettings;
     }
 
+    private void fixIfMac() {
+        if(helperClass.getOS() == helperClass.MACOS)
+            backgroundRepeat = 0;
+        else
+            backgroundRepeat = 150;
+    }
+
 
 
     public ThemeSupport() {
+        fixIfMac();
     }
     
     
 
     public ThemeSupport(File f) {
+        fixIfMac();
         String lines ="";
         try {
             Scanner s = new Scanner(f);
@@ -106,7 +116,8 @@ public class ThemeSupport {
 
     }
 
-        public ThemeSupport(File f, boolean silent) {
+    public ThemeSupport(File f, boolean silent) {
+        fixIfMac();
         String lines ="";
         success = false;
         try {
@@ -220,6 +231,8 @@ public class ThemeSupport {
             showBorders = Boolean.parseBoolean(s[1]);
         else if (s[0].equals("show-window-border"))
             showWindowDecoration = Boolean.parseBoolean(s[1]);
+        else if (s[0].equals("show-unified-toolbar"))
+            unifiedToolbar = Boolean.parseBoolean(s[1]);
 
     }
 
@@ -332,6 +345,12 @@ public class ThemeSupport {
     public URL getGameNotFavoriteImage() {
         return gameNotFavoriteImage;
     }
+
+    public boolean isUnifiedToolbar() {
+        return unifiedToolbar;
+    }
+
+    
 
 
 
