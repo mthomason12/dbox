@@ -68,6 +68,9 @@ public class MainWindow extends javax.swing.JFrame {
         
         setUndecorated(!Main.theme.isShowWindowDecoration());
 
+        if(Main.theme.isUnifiedToolbar())
+            getRootPane().putClientProperty("apple.awt.brushMetalLook", Boolean.TRUE);
+
         bl = deSerialize(Main.gameFile);
 
         //pref.readConfig(Main.configFile);
@@ -203,8 +206,6 @@ public class MainWindow extends javax.swing.JFrame {
         setBackground(Main.theme.getBackgroundColor());
         
         if(!Main.theme.isShowBorders()) {
-            applicationList.setBorder(null);
-            jScrollPane1.setBorder(null);
             jPanel1.setBorder(null);
         }
 
@@ -783,11 +784,15 @@ public class MainWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("D-Box");
 
+        jScrollPane1.setBorder(null);
+
         applicationList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        applicationList.setToolTipText("");
+        applicationList.setToolTipText(""); // NOI18N
         applicationList.setFocusCycleRoot(true);
         applicationList.setFocusTraversalPolicyProvider(true);
+        applicationList.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
         applicationList.setNextFocusableComponent(txtSearch);
+        applicationList.setVisibleRowCount(-1);
         applicationList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseReleased(java.awt.event.MouseEvent evt) {
                 applicationListMouseReleased(evt);
@@ -1001,18 +1006,14 @@ public class MainWindow extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(panelControls, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
-            .add(layout.createSequentialGroup()
-                .add(6, 6, 6)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 581, Short.MAX_VALUE)
-                .add(6, 6, 6))
+            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 593, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(panelControls, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 60, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE)
-                .addContainerGap())
+                .add(panelControls, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 58, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(0, 0, 0)
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE))
         );
 
         bindingGroup.bind();

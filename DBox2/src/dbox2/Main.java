@@ -48,6 +48,7 @@ public class Main {
 
             System.setProperty("apple.laf.useScreenMenuBar","true");
             java.lang.System.setProperty("com.apple.mrj.application.apple.menu.about.name", "D-Box");
+
             javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager.getSystemLookAndFeelClassName());
 
             pref.readConfig(configFile);
@@ -59,6 +60,7 @@ public class Main {
                 theme = new ThemeSupport();
 
             n = new MainWindow();
+            
             n.setVisible(true);
             
         } catch (ClassNotFoundException ex) {
@@ -75,7 +77,13 @@ public class Main {
     }
 
     static void requestClose() {
-            System.exit(0);
+            if(!n.isVisible()) {
+                n.bl.clearList();
+                n = null;
+                main(new String[]{});
+            }
+            else
+                System.exit(0);
     }
 
     static void fixOldVersion() {

@@ -56,6 +56,10 @@ public class BoxListe implements Serializable {
         }
         return null;
     }
+
+    public  void clearList() {
+        gamelist.clear();
+    }
     
     /**
      * Adds the game to the list

@@ -36,6 +36,10 @@ public class PreferencesGUI extends javax.swing.JDialog {
         iconindex = cmbIconSize.getSelectedIndex();
 
         themeName.setText(Main.pref.getTheme());
+        
+        int columns = Main.pref.getNumerOfColumnsInGameList();
+        if(columns >= 0 && columns <= cmbColumns.getItemCount())
+            cmbColumns.setSelectedIndex(columns-1);
 
         centerScreen();
     }
@@ -66,7 +70,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
             int w = backImage.getIconWidth();
 
             public void paintComponent (Graphics g) {
-                for(int i=0;i<Main.theme.getBackgroundRepeat();i++)
+                for(int i=0;i<100;i++)
                 g.drawImage(image, w*i, 0, this);
                 super.paintComponent(g);
             }
@@ -90,6 +94,8 @@ public class PreferencesGUI extends javax.swing.JDialog {
         cmdBrowse1 = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        cmbColumns = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Preferences");
@@ -229,7 +235,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
             }
         });
 
-        jLabel4.setText("Theme path:");
+        jLabel4.setText("Theme Path:");
 
         cmdBrowse1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/folder.png"))); // NOI18N
         cmdBrowse1.setToolTipText("Browse...");
@@ -253,6 +259,10 @@ public class PreferencesGUI extends javax.swing.JDialog {
             }
         });
 
+        jLabel6.setText("Number of Columns in Application List");
+
+        cmbColumns.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1 Column", "2 Columns", "3 Columns", "4 Columns", "5 Columns" }));
+
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -260,18 +270,29 @@ public class PreferencesGUI extends javax.swing.JDialog {
             .add(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel4)
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .add(themeName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(cmdBrowse1))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton1)
                     .add(jPanel3Layout.createSequentialGroup()
-                        .add(jLabel3)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(cmbIconSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton2))
-                .addContainerGap())
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel4)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .add(themeName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(cmdBrowse1))
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton1))
+                        .addContainerGap())
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .add(jButton2)
+                        .addContainerGap())
+                    .add(jPanel3Layout.createSequentialGroup()
+                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel3Layout.createSequentialGroup()
+                                .add(jLabel6)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 173, Short.MAX_VALUE)
+                                .add(cmbColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jPanel3Layout.createSequentialGroup()
+                                .add(jLabel3)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 262, Short.MAX_VALUE)
+                                .add(cmbIconSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -283,17 +304,18 @@ public class PreferencesGUI extends javax.swing.JDialog {
                     .add(themeName)
                     .add(cmdBrowse1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel3Layout.createSequentialGroup()
-                        .add(68, 68, 68)
-                        .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel3)
-                            .add(cmbIconSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(jPanel3Layout.createSequentialGroup()
-                        .add(jButton1)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jButton2)))
-                .addContainerGap(91, Short.MAX_VALUE))
+                .add(jButton1)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jButton2)
+                .add(26, 26, 26)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel3)
+                    .add(cmbIconSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jLabel6)
+                    .add(cmbColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .add(47, 47, 47))
         );
 
         jTabbedPane1.addTab("Appearance", jPanel3);
@@ -308,9 +330,9 @@ public class PreferencesGUI extends javax.swing.JDialog {
                 .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 571, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(498, Short.MAX_VALUE)
+                .addContainerGap(489, Short.MAX_VALUE)
                 .add(cmdConfirm)
-                .addContainerGap())
+                .add(15, 15, 15))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -341,30 +363,40 @@ private void cmdBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 
 private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConfirmActionPerformed
 
+    // Check if something has changed
+    boolean theme   = !Main.pref.getTheme().equals(themeName.getText());
+    boolean icons   = cmbIconSize.getSelectedIndex() != iconindex;
+    boolean columns = Main.pref.getNumerOfColumnsInGameList() != cmbColumns.getSelectedIndex()+1;
+    
     Main.pref.setDosBoxPath(txtDosBoxPath.getText());
     Main.pref.setKeepOpen(chkKeepOpen.isSelected());
     Main.pref.setFullScreen(chkFullscreen.isSelected());
     Main.pref.setKeyboardCountry(cmbKeyboard.getSelectedItem().toString());
+
+    Main.pref.setNumerOfColumnsInGameList(cmbColumns.getSelectedIndex()+1);
     
 
     if(cmbIconSize.getSelectedIndex() != -1)
         Main.pref.setIconSize(cmbIconSize.getSelectedItem().toString());
 
-
-    //Restart if nessesary
-    if(!(cmbIconSize.getSelectedIndex() == iconindex && Main.pref.getTheme().equals(themeName.getText()))) {
-        Main.pref.setTheme(themeName.getText());
-        try {
-            Main.pref.writeConfig(Main.configFile);
-            restartApplication(this);
-        } catch (IOException ex) {
-            Logger.getLogger(PreferencesGUI.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
+    
     Main.pref.setTheme(themeName.getText());
     this.setVisible(false);
 
+    if(theme || icons || columns)
+        restart();
+
 }//GEN-LAST:event_cmdConfirmActionPerformed
+
+private void restart() {
+    try {
+        Main.pref.writeConfig(Main.configFile);
+        Main.n.setVisible(false);
+        Main.n.dispose();
+    } catch (IOException ex) {
+        Logger.getLogger(PreferencesGUI.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
 
 private void txtDosBoxPathActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDosBoxPathActionPerformed
     
@@ -413,6 +445,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox chkFullscreen;
     private javax.swing.JCheckBox chkKeepOpen;
+    private javax.swing.JComboBox cmbColumns;
     private javax.swing.JComboBox cmbIconSize;
     private javax.swing.JComboBox cmbKeyboard;
     private javax.swing.JButton cmdBrowse;
@@ -425,6 +458,7 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -437,35 +471,5 @@ private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public void dispose() {
         cmdConfirmActionPerformed(null);
     }
-
-    private boolean restartApplication( Object classInJarFile ) {
-        String javaBin = System.getProperty("java.home") + "/bin/java";
-        File jarFile;
-        try{
-            jarFile = new File
-            (classInJarFile.getClass().getProtectionDomain()
-            .getCodeSource().getLocation().toURI());
-        } catch(Exception e) {
-            
-            return false;
-        }
-
-        /* is it a jar file? */
-        if ( !jarFile.getName().endsWith(".jar") )
-        return false;   //no, it's a .class probably
-
-        String  toExec[] = new String[] { javaBin, "-jar", jarFile.getPath() };
-        try{
-            Process p = Runtime.getRuntime().exec( toExec );
-        } catch(Exception e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        System.exit(0);
-
-        return true;
-    }
-
 
 }

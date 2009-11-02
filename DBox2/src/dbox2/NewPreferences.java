@@ -30,6 +30,8 @@ public class NewPreferences implements Serializable {
     private int IconHeight = 22;
     private boolean IconResize = true;
     private int TypeOfFileDialog = 0;
+    private int NumerOfColumnsInGameList = 1;
+
 
     public String getTheme() {
         return Theme;
@@ -55,7 +57,6 @@ public class NewPreferences implements Serializable {
 
     public void setFirstStart(boolean FirstStart) {
         this.FirstStart = FirstStart;
-        System.out.println("lol");
     }
 
     public void writeConfig(String filename) throws IOException {
@@ -106,6 +107,8 @@ public class NewPreferences implements Serializable {
                 KeepOpen = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("typeoffiledialog"))
                 TypeOfFileDialog = Integer.parseInt(parts[1].trim());
+            else if(parts[0].equals("numberofcolumns"))
+                NumerOfColumnsInGameList = Integer.parseInt(parts[1].trim());
             else if(parts[0].equals("lastusedpath"))
                 LastUsedPath = parts[1].trim();
             else if(parts[0].equals("keyboardcode"))
@@ -139,6 +142,7 @@ public class NewPreferences implements Serializable {
                      "KeyBoardCode     := " + KeyBoardCode + "\n" +
                      "FirstStart       := " + FirstStart + "\n" +
                      "Theme            := " + Theme + "\n" +
+                     "NumberOfColumns  := " + NumerOfColumnsInGameList + "\n" +
                      "TypeOfFileDialog := " + TypeOfFileDialog;
     }
 
@@ -323,6 +327,7 @@ public class NewPreferences implements Serializable {
     }
 
 
+
     /**
      * @param name The name of language or country
      * @param type true for from country to code, or false code to country
@@ -346,5 +351,15 @@ public class NewPreferences implements Serializable {
         return name;
 
     }
+
+    public int getNumerOfColumnsInGameList() {
+        return NumerOfColumnsInGameList;
+    }
+
+    public void setNumerOfColumnsInGameList(int NumerOfColumnsInGameList) {
+        this.NumerOfColumnsInGameList = NumerOfColumnsInGameList;
+    }
+
     
+
 }
