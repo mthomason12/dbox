@@ -29,9 +29,17 @@ public class NewPreferences implements Serializable {
     private int IconWidth = 22;
     private int IconHeight = 22;
     private boolean IconResize = true;
+    private boolean NoConcole = true;
     private int TypeOfFileDialog = 0;
     private int NumerOfColumnsInGameList = 1;
 
+    public void setNoConcole(boolean NoConcole) {
+        this.NoConcole = NoConcole;
+    }
+
+    public boolean isNoConcole() {
+        return NoConcole;
+    }
 
     public String getTheme() {
         return Theme;
@@ -117,6 +125,8 @@ public class NewPreferences implements Serializable {
                 FirstStart = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("usebuiltindosbox"))
                 BuiltInDosBox = Boolean.parseBoolean(parts[1].trim());
+            else if(parts[0].equals("noconcole"))
+                NoConcole = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("theme"))
                 Theme = parts[1].trim();
         }
@@ -143,6 +153,7 @@ public class NewPreferences implements Serializable {
                      "FirstStart       := " + FirstStart + "\n" +
                      "Theme            := " + Theme + "\n" +
                      "NumberOfColumns  := " + NumerOfColumnsInGameList + "\n" +
+                     "NoConcole        := " + NoConcole + "\n" +
                      "TypeOfFileDialog := " + TypeOfFileDialog;
     }
 
