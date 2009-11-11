@@ -1252,7 +1252,7 @@ private void runApplication(String program) {
                 allProps,autoexec);
 
     // Build execute command
-    String[] par = new String[5];
+    String[] par = new String[6];
     par[0] = Main.pref.getDosBoxPath();
 
     // If we should try to close the dosbox window or keep it open
@@ -1266,6 +1266,11 @@ private void runApplication(String program) {
 
     par[3] = "-conf";
     par[4] = Main.appFolder + "dosbox.conf";
+
+    if(Main.pref.isNoConcole())
+        par[5] = "-noconsole";
+    else
+        par[5] = "";
 
     // try to execute from the path if no dosbox path is present
     if (Main.pref.getDosBoxPath().equals("")) {
