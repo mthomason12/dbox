@@ -14,3 +14,5 @@
     * Use unified toolbar by default
   * Possible to move the window by dragging in the toolbar.
   * Removed helptext in toolbar.
+  * Possible to run DosBox without debug console (issue 25)
+  * Updated user interface
