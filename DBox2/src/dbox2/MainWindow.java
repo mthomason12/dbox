@@ -651,7 +651,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         prefMenu.add(mnuPreferences);
 
-        mnuView.setText("Flow View");
+        mnuView.setText("Floppy Flow");
         mnuView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuViewActionPerformed(evt);
@@ -1395,7 +1395,7 @@ private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 
 private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
     if(applicationList.isVisible())
-        mnuView.setText("Flow View (Experimental)");
+        mnuView.setText("Floppy Flow (Experimental)");
     else
         mnuView.setText("List View (Classic)");
 
