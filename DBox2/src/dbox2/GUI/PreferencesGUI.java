@@ -67,12 +67,12 @@ public class PreferencesGUI extends javax.swing.JDialog {
         cmdConfirm = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel()
         {
-            ImageIcon backImage = new javax.swing.ImageIcon(Main.theme.getBackgroundImage());
+            ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/bg.jpg"));
             Image image = backImage.getImage();
             int w = backImage.getIconWidth();
 
             public void paintComponent (Graphics g) {
-                for(int i=0;i<100;i++)
+                for(int i=0;i<60;i++)
                 g.drawImage(image, w*i, 0, this);
                 super.paintComponent(g);
             }

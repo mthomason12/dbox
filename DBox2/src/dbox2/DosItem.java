@@ -28,6 +28,7 @@ public class DosItem implements Serializable {
     private String keywords = "";
     private boolean star = false;
     private ImageIcon imageIcon = ImageHandlerer.getDefaultIcon();
+    private int size = Main.pref.getIconHeight();
 
     public String getCdromLabel() {
         return cdromLabel;
@@ -38,6 +39,8 @@ public class DosItem implements Serializable {
     }
 
     public ImageIcon getImageIcon() {
+        if(size != Main.pref.getIconHeight())
+            imageIcon = ImageHandlerer.getDefaultIcon();
         return imageIcon;
     }
 
@@ -108,8 +111,10 @@ public class DosItem implements Serializable {
     }
 
     public void setIcon(String name) {
-        if (!this.icon.equals(name)) {
+        if (!this.icon.equals(name) || size != Main.pref.getIconHeight()) {
             this.icon = name;
+            System.out.println("lol");
+            size = Main.pref.getIconHeight();
             this.imageIcon = ImageHandlerer.getImageIcon(name);
         }
     }

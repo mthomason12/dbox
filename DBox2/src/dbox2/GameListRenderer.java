@@ -26,11 +26,11 @@ class GameListRenderer extends JLabel implements ListCellRenderer {
     {
         String s = value.toString();
         setText(" " + s);
-        this.setBorder(BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        this.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 0));
         this.setLayout(new BorderLayout());
 
         if (Main.pref.isShowIcons()) {
-            setSize(this.getWidth()/2, Main.pref.getIconHeight());
+            setSize(this.getWidth()/2, Main.pref.getIconHeight()+4);
             try {
                 setIcon(MainWindow.bl.getGame(s).getImageIcon());
             }
