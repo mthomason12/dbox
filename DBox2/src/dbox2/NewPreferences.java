@@ -32,6 +32,15 @@ public class NewPreferences implements Serializable {
     private boolean NoConcole = true;
     private int TypeOfFileDialog = 0;
     private int NumerOfColumnsInGameList = 1;
+    private boolean StartWithFloppyFlow = false;
+
+    public void setStartWithFloppyFlow(boolean StartWithFloppyFlow) {
+        this.StartWithFloppyFlow = StartWithFloppyFlow;
+    }
+
+    public boolean isStartWithFloppyFlow() {
+        return StartWithFloppyFlow;
+    }
 
     public void setNoConcole(boolean NoConcole) {
         this.NoConcole = NoConcole;
@@ -127,6 +136,8 @@ public class NewPreferences implements Serializable {
                 BuiltInDosBox = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("noconcole"))
                 NoConcole = Boolean.parseBoolean(parts[1].trim());
+            else if(parts[0].equals("floppyflow"))
+                StartWithFloppyFlow = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("theme"))
                 Theme = parts[1].trim();
         }
@@ -134,27 +145,33 @@ public class NewPreferences implements Serializable {
 
     @Override
     public String toString() {
+        
+        System.out.println("[INFO] Writing preferences.");
+
         return       "########################################################################\n" +
                      "###                        D-Box' config file                        ###\n" +
                      "###         If it contains errors, D-Box will overwrite it!          ###\n" +
                      "### If you want to reset settings, simply delete the file or a line. ###\n" +
                      "########################################################################\n\n" +
                      "DosBoxPath       := " + DosBoxPath + "\n" +
-                     "UseBuiltInDosBox := " + BuiltInDosBox + "\n" +
-                     "KeepOpen         := " + KeepOpen + "\n" +
+                     "FirstStart       := " + FirstStart + "\n" +
+                     "FloppyFlow       := " + StartWithFloppyFlow + "\n" +
                      "FullScreen       := " + FullScreen + "\n" +
-                     "ShowIcons        := " + ShowIcons + "\n" +
-                     "IconWidth        := " + IconWidth + "\n" +
+                     "Genres           := " + genresToString() + "\n" +
                      "IconHeight       := " + IconHeight + "\n" +
                      "IconResize       := " + IconResize + "\n" +
-                     "Genres           := " + genresToString() + "\n" +
-                     "LastUsedPath     := " + LastUsedPath + "\n" +
+                     "IconWidth        := " + IconWidth + "\n" +
+                     "KeepOpen         := " + KeepOpen + "\n" +
                      "KeyBoardCode     := " + KeyBoardCode + "\n" +
-                     "FirstStart       := " + FirstStart + "\n" +
-                     "Theme            := " + Theme + "\n" +
-                     "NumberOfColumns  := " + NumerOfColumnsInGameList + "\n" +
+                     "LastUsedPath     := " + LastUsedPath + "\n" +
                      "NoConcole        := " + NoConcole + "\n" +
-                     "TypeOfFileDialog := " + TypeOfFileDialog;
+                     "NumberOfColumns  := " + NumerOfColumnsInGameList + "\n" +
+                     "ShowIcons        := " + ShowIcons + "\n" +
+                     "Theme            := " + Theme + "\n" +
+                     "TypeOfFileDialog := " + TypeOfFileDialog + "\n" +
+                     "UseBuiltInDosBox := " + BuiltInDosBox;
+
+
     }
 
     private String genresToString() {
