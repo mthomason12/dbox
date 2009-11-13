@@ -86,12 +86,12 @@ public class ItemGUI extends javax.swing.JDialog {
         cmdWizard = new javax.swing.JButton();
         cmdConfirm = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel(){
-            ImageIcon backImage = new javax.swing.ImageIcon(Main.theme.getBackgroundImage());
+            ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/bg.jpg"));
             Image image = backImage.getImage();
             int w = backImage.getIconWidth();
 
             public void paintComponent (Graphics g) {
-                for(int i=0;i<Main.theme.getBackgroundRepeat();i++)
+                for(int i=0;i<60;i++)
                 g.drawImage(image, w*i, 0, this);
                 super.paintComponent(g);
             }
@@ -548,7 +548,7 @@ public class ItemGUI extends javax.swing.JDialog {
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(cmdWizard)
                     .add(cmdConfirm))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         pack();
@@ -723,7 +723,16 @@ private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void appIconPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_appIconPropertyChange
     String ikon = appIcon.getText();
     File fil = new File(ikon);
-    ImageIcon ii = new ImageIcon(getClass().getResource("/dbox2/gameIcons/application-x-executable.png"));
+    int width = Main.pref.getIconWidth();
+    String ext = "";
+    if(width <=16)
+        ext="-16";
+    else if(width >= 17 && width <= 22)
+        ext="-22";
+    else
+        ext="-32";
+
+    ImageIcon ii = new ImageIcon(getClass().getResource("/dbox2/gameIcons/application-x-executable"+ext+".png"));
     if(fil.exists()) {
         if(ikon.toLowerCase().endsWith("ico")) { // If the file is a ICO file
             try {

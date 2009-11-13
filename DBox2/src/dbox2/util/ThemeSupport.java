@@ -1,11 +1,14 @@
 package dbox2.util;
 
+import dbox2.Main;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,7 +49,7 @@ public class ThemeSupport {
     private Color gameSelectedBackgroundColor = java.awt.SystemColor.textHighlight; // TODO: Get the real color
     private Color gameSelectedForegroundColor = java.awt.SystemColor.textHighlightText;
 
-    private URL defaultGame = getClass().getResource("/dbox2/gameIcons/application-x-executable.png");
+    private URL defaultGame = null;
 
     private Color searchBackgroundColor = java.awt.SystemColor.text;
     private Color searchForegroundColor = java.awt.SystemColor.textText;
@@ -335,7 +338,21 @@ public class ThemeSupport {
     }
 
     public URL getDefaultGame() {
-        return defaultGame;
+
+        if(defaultGame == null) {
+            int width = Main.pref.getIconWidth();
+            String ext = "";
+            if(width <=16)
+                ext="-16";
+            else if(width >= 17 && width <= 22)
+                ext="-22";
+            else
+                ext="-32";
+            return getClass().getResource("/dbox2/gameIcons/application-x-executable" + ext + ".png");
+        }
+        else {
+            return defaultGame;
+        }
     }
 
     public URL getGameFavoriteImage() {
