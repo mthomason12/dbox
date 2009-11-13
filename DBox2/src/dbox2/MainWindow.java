@@ -209,6 +209,11 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel1.setBorder(null);
         }
 
+        System.out.println(":" +Main.pref.isStartWithFloppyFlow());
+
+        if(Main.pref.isStartWithFloppyFlow())
+            toggleView();
+
     }
 
     /**
@@ -374,6 +379,12 @@ public class MainWindow extends javax.swing.JFrame {
     @Override
     public void dispose() {
         writeApplicationDatabase(Main.gameFile);
+        try {
+            Main.pref.writeConfig(Main.configFile);
+        } catch (IOException ex) {
+            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         Main.requestClose();
     }
 
@@ -432,6 +443,7 @@ public class MainWindow extends javax.swing.JFrame {
             applicationList.setVisible(true);
             jScrollPane1.setViewportView(applicationList);
             applicationList.requestFocus();
+            Main.pref.setStartWithFloppyFlow(false);
         }
         else {
             coverflow = new JPanel();
@@ -440,9 +452,10 @@ public class MainWindow extends javax.swing.JFrame {
             updateList();
             jScrollPane1.setViewportView(coverflow);
             coverflow.requestFocus();
-
+            Main.pref.setStartWithFloppyFlow(true);
         }
         this.repaint();
+
     }
     
     /**
@@ -1168,8 +1181,6 @@ private void runApplication(String program) {
     HashMap<String,String>                  gus      = new HashMap<String,String>();
     HashMap<String,String>                  mixer    = new HashMap<String,String>();
     
-
-
     ArrayList<String>                       autoexec = new ArrayList<String>();
 
     // Split the extras string
