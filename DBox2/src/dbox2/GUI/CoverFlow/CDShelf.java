@@ -497,9 +497,9 @@ public class CDShelf extends JPanel {
 
             loadingDone = true;
             
-            if(mw.applicationList.getSelectedValue() != null)
+            if(mw != null && mw.applicationList.getSelectedValue() != null)
                         scrollBy(mw.applicationList.getSelectedIndex());
-            else if(mw.applicationList.getSelectedValue() == null && mw.bl.getNrGames() >= 3)
+            else if(mw != null && mw.applicationList.getSelectedValue() == null && mw.bl.getNrGames() >= 3)
                 scrollBy((mw.bl.getNrGames()/2)+1);
             else
                 setAvatarIndex(0);
