@@ -800,7 +800,7 @@ public class MainWindow extends javax.swing.JFrame {
         jScrollPane1.setBorder(null);
 
         applicationList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        applicationList.setToolTipText(""); // NOI18N
+        applicationList.setToolTipText("Drop games here to install. Double click to run."); // NOI18N
         applicationList.setFocusCycleRoot(true);
         applicationList.setFocusTraversalPolicyProvider(true);
         applicationList.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
@@ -995,7 +995,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(jLabel2)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel5)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 441, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 433, Short.MAX_VALUE)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );

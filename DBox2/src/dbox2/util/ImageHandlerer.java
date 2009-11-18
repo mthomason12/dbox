@@ -117,7 +117,6 @@ public class ImageHandlerer {
         // Loads default icon if it isn't set allready
         if(defaultIcon == null) {
             defaultIcon = resizeIcon(new ImageIcon(Main.theme.getDefaultGame()));
-            System.out.println("leser ikon..");
         }
         
         return defaultIcon;
