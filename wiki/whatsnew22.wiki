@@ -2,17 +2,17 @@
 
 =What's new in D-Box 2.2=
 
-  * *Support for themes*
   * *D-Box now saves it's preferences in the system's "Application Data" folder*
+  * *Updated user interface*
+  * Support for themes
+  * Possible to run DosBox without debug console (issue 25)
   * Fixed a nasty bug when your browsing your disk (issue 22)
   * D-Box now use the game's path as its default path instead of the last used (Issue 14)
-  * More work on the "floppy flow"
+  * More work on the "floppy flow"(new background, starts up in floppy flow if you closed D-Box while using floppy flow)
   * Possible to display the application list in columns.
-  * Fixed several MacOS specific bugs:
+  * Removed helptext in toolbar.
+  * MacOS specific issues:
     * No dataloss when you quit using Cmd()+Q
     * Possible to use the global menu's about and prefrences menuitems.
-    * Use unified toolbar by default
-  * Possible to move the window by dragging in the toolbar.
-  * Removed helptext in toolbar.
-  * Possible to run DosBox without debug console (issue 25)
-  * Updated user interface
+    * *Use unified toolbar by default*
+    * Possible to move the window by dragging in the toolbar.
