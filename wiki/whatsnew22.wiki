@@ -5,7 +5,8 @@
   * *D-Box now saves it's preferences in the system's "Application Data" folder*
   * *Updated user interface*
   * Added support for screen captures (screenshots) (issue 29)
-  * Support for themes
+  * Check for updates (issue 23)
+  * Initial support for themes (issue 24)
   * Possible to run DosBox without debug console (issue 25)
   * Fixed a nasty bug when your browsing your disk (issue 22)
   * D-Box now use the game's path as its default path instead of the last used (Issue 14)
