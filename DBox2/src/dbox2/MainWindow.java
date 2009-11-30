@@ -41,7 +41,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
 public class MainWindow extends javax.swing.JFrame implements FocusListener {
-    
+
     public static BoxListe bl = new BoxListe();
     BufferedImage[] images;
 
@@ -83,7 +83,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
 
         try {
             initComponents();
-            
+
         }
         catch(java.lang.ClassCastException e) {
             pack();
@@ -162,7 +162,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                 Main.pref.setDosBoxPath(pathen);
            }
             catch(Exception e) {
-                
+
             }
         }
 
@@ -206,9 +206,9 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         }
 
         // Theme
-        
+
         setBackground(Main.theme.getBackgroundColor());
-        
+
         if(!Main.theme.isShowBorders()) {
             jPanel1.setBorder(null);
         }
@@ -276,7 +276,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                     dirfiles = dirfiles[0].listFiles();
                 else
                     break;
-            
+
             int count = 0;
             for(File f : dirfiles)
                 if(f.toString().toLowerCase().indexOf("setup") == -1 && f.toString().toLowerCase().indexOf("install") == -1 && (f.toString().toLowerCase().endsWith("pif") || f.toString().toLowerCase().endsWith("exe") || f.toString().toLowerCase().endsWith("com") || f.toString().toLowerCase().endsWith("bat")))
@@ -394,7 +394,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
     private BoxListe deSerialize(String name) {
         String config = "";
         Scanner s = null;
-        
+
         try {
             s = new Scanner(new File(name));
         } catch (FileNotFoundException ex) {
@@ -407,7 +407,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         bl.readConfig(config);
         return bl;
     }
-    
+
     /**
      * Writes the application database to a file
      * @param fileName The filename that we write to
@@ -455,7 +455,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         this.repaint();
 
     }
-    
+
     /**
      * Putter boksen midt paa skjermen
      */
@@ -502,7 +502,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void updateList()  {
         int s = applicationList.getSelectedIndex();
         applicationList.setModel(new javax.swing.AbstractListModel() {
@@ -518,7 +518,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             coverflow.updateUI();
         }
     }
-    
+
     private void updateList(String search) {
         final String s = search;
         applicationList.setModel(new javax.swing.AbstractListModel() {
@@ -544,7 +544,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             public Object getElementAt(int i) { return strings[i]; }
         });
     }
-    
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is
@@ -572,6 +572,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         jSeparator2 = new javax.swing.JSeparator();
         mnuClear = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
+        mnuCheckNewest = new javax.swing.JMenuItem();
         mnuGettingStarted = new javax.swing.JMenuItem();
         mnuAbout = new javax.swing.JMenuItem();
         mnuWeb = new javax.swing.JMenu();
@@ -712,6 +713,14 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         prefMenu.add(mnuTools);
         prefMenu.add(jSeparator1);
 
+        mnuCheckNewest.setText("Check for newer version");
+        mnuCheckNewest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCheckNewestActionPerformed(evt);
+            }
+        });
+        prefMenu.add(mnuCheckNewest);
+
         mnuGettingStarted.setText("Getting Started...");
         mnuGettingStarted.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -812,7 +821,6 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
 
         applicationList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         applicationList.setFocusCycleRoot(true);
-        applicationList.setFocusTraversalPolicy(null);
         applicationList.setFocusTraversalPolicyProvider(true);
         applicationList.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
         applicationList.setNextFocusableComponent(txtSearch);
@@ -1076,7 +1084,7 @@ private void mnuRunDosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
         par[0] = Main.pref.getDosBoxPath();
         par[1] = "-c";
         par[2] = "@echo Have fun! Best wishes from D-Box :)";
-        
+
         try {
             Runtime.getRuntime().exec(par);
         } catch (IOException ex) {
@@ -1157,7 +1165,7 @@ private void buildOSXMenues() {
         else
             tools.add(cloneJMenu((JMenuItem)c));
 
-    
+
     JMenuBar bar = new JMenuBar();
 
     bar.add(file);
@@ -1199,12 +1207,12 @@ private void runApplication(String program) {
     HashMap<String,String>                  midi     = new HashMap<String,String>();
     HashMap<String,String>                  gus      = new HashMap<String,String>();
     HashMap<String,String>                  mixer    = new HashMap<String,String>();
-    
+
     ArrayList<String>                       autoexec = new ArrayList<String>();
 
     String capturePath = getCaptureDirectory(di);
     File dir = new File(capturePath);
-    
+
     if(!dir.exists()) {
         if(dir.mkdirs())
             System.out.println("Directory Created: " + capturePath);
@@ -1227,7 +1235,7 @@ private void runApplication(String program) {
                 int second = properties[i].indexOf(" = ");
                 if(first <= 0)
                     continue;
-                
+
                 finito[i][0] = properties[i].substring(0, first);
                 if(finito[i][0].toLowerCase().equals("autoexec"))
                     finito[i][1] = properties[i].substring(first+4);
@@ -1238,8 +1246,8 @@ private void runApplication(String program) {
             }
         }
     }
-    
-    
+
+
     // Add settings to the configuration file
     cpu.put("cycles", di.getCycles()+"");
     addOtherSettings(finito, "cpu", cpu);
@@ -1363,7 +1371,7 @@ private void mnuEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     String gm = "";
     if(applicationList.getSelectedIndex() == -1)
         return;
-    
+
     if(!((String)applicationList.getSelectedValue()).equals("(untitled)"))
         gm = (String)applicationList.getSelectedValue();
 
@@ -1476,7 +1484,7 @@ private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_jLabel5MousePressed
 
 private void jLabel5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseReleased
- 
+
 }//GEN-LAST:event_jLabel5MouseReleased
 
 private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
@@ -1549,11 +1557,11 @@ private void mnuDosboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_mnuDosboxActionPerformed
 
 private void txtSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseEntered
-    
+
 }//GEN-LAST:event_txtSearchMouseEntered
 
 private void txtSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseExited
-    
+
 }//GEN-LAST:event_txtSearchMouseExited
 
 private void txtSearchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtSearchCaretUpdate
@@ -1689,8 +1697,12 @@ private void panelControlsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIR
 private void mnuShowScreenShotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuShowScreenShotActionPerformed
     showScreenCaptures();
 }//GEN-LAST:event_mnuShowScreenShotActionPerformed
- 
-    
+
+private void mnuCheckNewestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCheckNewestActionPerformed
+    Updater.CheckForUpdate(true);
+}//GEN-LAST:event_mnuCheckNewestActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JList applicationList;
     private javax.swing.JPopupMenu editMenu;
@@ -1708,6 +1720,7 @@ private void mnuShowScreenShotActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JLabel lblSearch;
     private javax.swing.JPopupMenu listMenu;
     private javax.swing.JMenuItem mnuAbout;
+    private javax.swing.JMenuItem mnuCheckNewest;
     private javax.swing.JMenuItem mnuClear;
     private javax.swing.JMenuItem mnuDelete2;
     private javax.swing.JMenuItem mnuDosbox;
