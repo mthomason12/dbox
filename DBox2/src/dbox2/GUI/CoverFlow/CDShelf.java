@@ -29,11 +29,8 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageOp;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -94,7 +91,7 @@ public class CDShelf extends JPanel {
     private CrystalCaseFactory fx;
 
     public CDShelf(MainWindow mw) {
-        avatarFont = new Font("Arial", Font.PLAIN, 24);
+        avatarFont = new Font("Arial", Font.PLAIN, 22);
         fx = CrystalCaseFactory.getInstance();
         
         loadAvatars();

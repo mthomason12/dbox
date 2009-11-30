@@ -70,8 +70,24 @@ public class ThemeSupport {
     }
 
     private void fixIfMac() {
-        if(helperClass.getOS() == helperClass.MACOS)
+        if(helperClass.getOS() == helperClass.MACOS) {
             backgroundRepeat = 0;
+            playInactiveImage = getClass().getResource("/dbox2/img/mac/play.png");
+            playActiveImage = getClass().getResource("/dbox2/img/mac/play_select.png");
+
+            editInactiveImage = getClass().getResource("/dbox2/img/mac/edit.png");
+            editActiveImage = getClass().getResource("/dbox2/img/mac/edit_select.png");
+
+            toolsInactiveImage = getClass().getResource("/dbox2/img/mac/system.png");
+            toolsActiveImage = getClass().getResource("/dbox2/img/mac/system_select.png");
+
+            searchInactiveImage = getClass().getResource("/dbox2/img/down-arrow-disabled.png");
+            searchActiveImage = getClass().getResource("/dbox2/img/down-arrow.png");
+
+            gameFavoriteImage    = getClass().getResource("/dbox2/img/mac/favorite.png");
+            gameNotFavoriteImage = getClass().getResource("/dbox2/img/emblem-notfavorite.png");
+
+        }
         else
             backgroundRepeat = 150;
     }

@@ -251,6 +251,8 @@ public class BoxListe implements Serializable {
                         d.setCdrom(value);
                     else if(keyword.equals("cdromlabel"))
                         d.setCdromLabel(value);
+                    else if(keyword.equals("uniqueid"))
+                        d.setUniqueID(value);
                     else if(keyword.equals("icon"))
                         d.setIcon(value);
                     else if(keyword.equals("extra"))

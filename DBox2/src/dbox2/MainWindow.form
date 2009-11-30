@@ -67,6 +67,19 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuDeleteActionPerformed"/>
           </Events>
         </MenuItem>
+        <Component class="javax.swing.JSeparator" name="jSeparator5">
+        </Component>
+        <MenuItem class="javax.swing.JMenuItem" name="mnuShowScreenShot">
+          <Properties>
+            <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+              <KeyStroke key="SPACE"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Show Screenshot"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuShowScreenShotActionPerformed"/>
+          </Events>
+        </MenuItem>
       </SubComponents>
     </Container>
     <Container class="javax.swing.JPopupMenu" name="prefMenu">
@@ -316,8 +329,10 @@
               <StringArray count="0"/>
             </Property>
             <Property name="selectionMode" type="int" value="0"/>
-            <Property name="toolTipText" type="java.lang.String" value="Drop games here to install. Double click to run." noResource="true"/>
             <Property name="focusCycleRoot" type="boolean" value="true"/>
+            <Property name="focusTraversalPolicy" type="java.awt.FocusTraversalPolicy" editor="org.netbeans.modules.form.ComponentChooserEditor">
+              <ComponentRef name="null"/>
+            </Property>
             <Property name="focusTraversalPolicyProvider" type="boolean" value="true"/>
             <Property name="layoutOrientation" type="int" value="2"/>
             <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
@@ -366,7 +381,7 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="433" max="32767" attributes="0"/>
+                  <EmptySpace pref="441" max="32767" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -400,6 +415,7 @@
               <Connection code="new javax.swing.ImageIcon(Main.theme.getEditInactiveImage())" type="code"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Game information"/>
+            <Property name="iconTextGap" type="int" value="0"/>
           </Properties>
           <BindingProperties>
             <BindingProperty name="componentPopupMenu" source="editMenu" target="jLabel2" targetPath="componentPopupMenu" updateStrategy="0" immediately="false"/>
@@ -418,6 +434,7 @@
               <Connection code="new javax.swing.ImageIcon(Main.theme.getPlayInactiveImage() )" type="code"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Run Application"/>
+            <Property name="iconTextGap" type="int" value="0"/>
           </Properties>
           <Events>
             <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel4MousePressed"/>
@@ -433,6 +450,7 @@
               <Connection code="new javax.swing.ImageIcon(Main.theme.getToolsInactiveImage())" type="code"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Preferences"/>
+            <Property name="iconTextGap" type="int" value="0"/>
           </Properties>
           <BindingProperties>
             <BindingProperty name="componentPopupMenu" source="prefMenu" target="jLabel5" targetPath="componentPopupMenu" updateStrategy="0" immediately="false"/>
@@ -523,6 +541,7 @@
                 <EventHandler event="mouseExited" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtSearchMouseExited"/>
                 <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="txtSearchMouseEntered"/>
                 <EventHandler event="caretUpdate" listener="javax.swing.event.CaretListener" parameters="javax.swing.event.CaretEvent" handler="txtSearchCaretUpdate"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSearchActionPerformed"/>
                 <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSearchFocusGained"/>
                 <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="txtSearchFocusLost"/>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtSearchKeyReleased"/>
