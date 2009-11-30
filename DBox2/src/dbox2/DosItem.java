@@ -29,6 +29,15 @@ public class DosItem implements Serializable {
     private boolean star = false;
     private ImageIcon imageIcon = ImageHandlerer.getDefaultIcon();
     private int size = Main.pref.getIconHeight();
+    private String uniqueID;
+
+    public String getUniqueID() {
+        return uniqueID;
+    }
+
+    public void setUniqueID(String uniqueID) {
+        this.uniqueID = uniqueID;
+    }
 
     public String getCdromLabel() {
         return cdromLabel;
@@ -78,8 +87,8 @@ public class DosItem implements Serializable {
 
     /** Creates a new instance of DosItem */
     public DosItem() {
-
-
+        // Generate unique id
+        setUniqueID((int)(Math.random() * 1000000) + "");
     }
 
     public String getCdrom() {
@@ -113,7 +122,6 @@ public class DosItem implements Serializable {
     public void setIcon(String name) {
         if (!this.icon.equals(name) || size != Main.pref.getIconHeight()) {
             this.icon = name;
-            System.out.println("lol");
             size = Main.pref.getIconHeight();
             this.imageIcon = ImageHandlerer.getImageIcon(name);
         }
@@ -161,6 +169,7 @@ public class DosItem implements Serializable {
 
     public String toConfigString() {
         return "start game" + "\n" +
+                "  uniqueid := " + getUniqueID() + "\n" +
                 "  name := " + getName() + "\n" +
                 "  path := " + getPath() + "\n" +
                 "  game := " + getGame() + "\n" +

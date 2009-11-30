@@ -10,14 +10,17 @@ package dbox2;
 import dbox2.GUI.CoverFlow.*;
 import dbox2.GUI.ItemGUI;
 import dbox2.GUI.PreferencesGUI;
+import dbox2.GUI.ScreenShot;
 import dbox2.util.FileChooserFilter;
 import dbox2.util.OSXAdapter;
 import dbox2.util.helperClass;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
+import java.net.MalformedURLException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,6 +29,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import java.awt.*;
+import java.awt.event.FocusListener;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.ArrayList;
@@ -36,7 +40,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-public class MainWindow extends javax.swing.JFrame {
+public class MainWindow extends javax.swing.JFrame implements FocusListener {
     
     public static BoxListe bl = new BoxListe();
     BufferedImage[] images;
@@ -65,7 +69,7 @@ public class MainWindow extends javax.swing.JFrame {
 
     /** Creates new form MainWindow */
     public MainWindow() throws IOException {
-        
+        this.addFocusListener(this);
         setUndecorated(!Main.theme.isShowWindowDecoration());
 
         if(Main.theme.isUnifiedToolbar())
@@ -209,8 +213,6 @@ public class MainWindow extends javax.swing.JFrame {
             jPanel1.setBorder(null);
         }
 
-        System.out.println(":" +Main.pref.isStartWithFloppyFlow());
-
         if(Main.pref.isStartWithFloppyFlow())
             toggleView();
 
@@ -268,9 +270,6 @@ public class MainWindow extends javax.swing.JFrame {
                 }
             });
 
-            System.out.println(dirfiles.length);
-            System.out.println(dirfiles[0].isDirectory());
-
 
             while(true)
                 if(dirfiles.length == 1 && dirfiles[0].isDirectory())
@@ -313,7 +312,6 @@ public class MainWindow extends javax.swing.JFrame {
                     file = f;
 
         }
-        System.out.println(file.getName());
         if(file.getName().toLowerCase().endsWith("dat")) {
             int s = JOptionPane.showConfirmDialog(this, "You are about to add the games from the game list '" + file.getName() + "' to your library. Continue?" , "Merge gamelist", JOptionPane.YES_NO_OPTION);
             if(s != JOptionPane.YES_OPTION)
@@ -563,6 +561,8 @@ public class MainWindow extends javax.swing.JFrame {
         mnuNew2 = new javax.swing.JMenuItem();
         mnuEdit2 = new javax.swing.JMenuItem();
         mnuDelete2 = new javax.swing.JMenuItem();
+        jSeparator5 = new javax.swing.JSeparator();
+        mnuShowScreenShot = new javax.swing.JMenuItem();
         prefMenu = new javax.swing.JPopupMenu();
         mnuPreferences = new javax.swing.JMenuItem();
         mnuView = new javax.swing.JMenuItem();
@@ -654,6 +654,16 @@ public class MainWindow extends javax.swing.JFrame {
             }
         });
         editMenu.add(mnuDelete2);
+        editMenu.add(jSeparator5);
+
+        mnuShowScreenShot.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_SPACE, 0));
+        mnuShowScreenShot.setText("Show Screenshot");
+        mnuShowScreenShot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuShowScreenShotActionPerformed(evt);
+            }
+        });
+        editMenu.add(mnuShowScreenShot);
 
         mnuPreferences.setFont(mnuPreferences.getFont().deriveFont(mnuPreferences.getFont().getStyle() | java.awt.Font.BOLD));
         mnuPreferences.setText("Preferences");
@@ -664,7 +674,7 @@ public class MainWindow extends javax.swing.JFrame {
         });
         prefMenu.add(mnuPreferences);
 
-        mnuView.setText("Floppy Flow");
+        mnuView.setText("Flow View");
         mnuView.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuViewActionPerformed(evt);
@@ -796,12 +806,13 @@ public class MainWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("D-Box");
+        setMinimumSize(new java.awt.Dimension(200, 200));
 
         jScrollPane1.setBorder(null);
 
         applicationList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        applicationList.setToolTipText("Drop games here to install. Double click to run."); // NOI18N
         applicationList.setFocusCycleRoot(true);
+        applicationList.setFocusTraversalPolicy(null);
         applicationList.setFocusTraversalPolicyProvider(true);
         applicationList.setLayoutOrientation(javax.swing.JList.HORIZONTAL_WRAP);
         applicationList.setNextFocusableComponent(txtSearch);
@@ -845,6 +856,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(Main.theme.getEditInactiveImage()));
         jLabel2.setToolTipText("Game information");
+        jLabel2.setIconTextGap(0);
 
         org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, editMenu, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel2, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
         bindingGroup.addBinding(binding);
@@ -869,6 +881,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(Main.theme.getPlayInactiveImage() ));
         jLabel4.setToolTipText("Run Application");
+        jLabel4.setIconTextGap(0);
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jLabel4MousePressed(evt);
@@ -889,6 +902,7 @@ public class MainWindow extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(Main.theme.getToolsInactiveImage()));
         jLabel5.setToolTipText("Preferences");
+        jLabel5.setIconTextGap(0);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, prefMenu, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel5, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
         bindingGroup.addBinding(binding);
@@ -954,6 +968,11 @@ public class MainWindow extends javax.swing.JFrame {
                 txtSearchCaretUpdate(evt);
             }
         });
+        txtSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchActionPerformed(evt);
+            }
+        });
         txtSearch.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 txtSearchFocusGained(evt);
@@ -995,7 +1014,7 @@ public class MainWindow extends javax.swing.JFrame {
                 .add(jLabel2)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel5)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 433, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 441, Short.MAX_VALUE)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1183,6 +1202,18 @@ private void runApplication(String program) {
     
     ArrayList<String>                       autoexec = new ArrayList<String>();
 
+    String capturePath = getCaptureDirectory(di);
+    File dir = new File(capturePath);
+    
+    if(!dir.exists()) {
+        if(dir.mkdirs())
+            System.out.println("Directory Created: " + capturePath);
+        else
+            System.out.println("Directory is not created");
+    }
+
+    dosbox.put("captures", capturePath);
+
     // Split the extras string
     String[] properties = new String[0];
     String[][] finito = new String[0][0];
@@ -1323,6 +1354,10 @@ private void addOtherSettings(String[][] finito, String section, HashMap<String,
             props.put(finito[i][1], finito[i][2]);
 }
 
+private String getCaptureDirectory(DosItem di) {
+    return Main.appFolder + "captures" + File.separator + di.getUniqueID() + File.separator;
+}
+
 
 private void mnuEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuEditActionPerformed
     String gm = "";
@@ -1375,10 +1410,37 @@ private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 private void applicationListKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_applicationListKeyPressed
     if(evt.getKeyCode() == KeyEvent.VK_ENTER)
         mnuRunActionPerformed(null);
+    if(evt.getKeyCode() == KeyEvent.VK_SPACE) {
+        showScreenCaptures();
+    }
     if(evt.getKeyCode() == KeyEvent.VK_DELETE || evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)
         mnuDeleteActionPerformed(null);
 }//GEN-LAST:event_applicationListKeyPressed
 
+private void showScreenCaptures() {
+    File files[] = getCaptureFiles();
+    if(files == null || files.length == 0) {
+        JOptionPane.showMessageDialog(this, "To view screen captures for this game, you got to capture some screenshots first. Press Ctrl + F5 while your playing!");
+    }
+    else
+        try {
+            new ScreenShot(files[0].toURI().toURL(),files);
+        } catch (MalformedURLException ex) {
+            JOptionPane.showMessageDialog(this, "Something's wrong! Sorry!");
+        }
+}
+
+private File[] getCaptureFiles() {
+    DosItem di = bl.getGame((String) applicationList.getSelectedValue());
+    File files[] = new File(getCaptureDirectory(di)).listFiles(new FileFilter() {
+        public boolean accept(File pathname) {
+            return (pathname.getAbsolutePath().toLowerCase().endsWith(".png") ||
+                   pathname.getAbsolutePath().toLowerCase().endsWith(".jpg"));
+        }
+    });
+    return files;
+
+}
 private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
 editMenu.show(jLabel2, 0, jLabel2.getHeight()-10);
 
@@ -1581,10 +1643,6 @@ private void mnuListEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-F
     mnuEditActionPerformed(evt);
 }//GEN-LAST:event_mnuListEditActionPerformed
 
-private void panelControlsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseClicked
-    
-}//GEN-LAST:event_panelControlsMouseClicked
-
 private void mnuListRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuListRemoveActionPerformed
     mnuDeleteActionPerformed(evt);
 }//GEN-LAST:event_mnuListRemoveActionPerformed
@@ -1593,10 +1651,13 @@ private void mnuViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     toggleView();
 }//GEN-LAST:event_mnuViewActionPerformed
 
-private void panelControlsMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseMoved
-    
-    
-}//GEN-LAST:event_panelControlsMouseMoved
+private void mnuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuQuitActionPerformed
+    this.dispose();
+}//GEN-LAST:event_mnuQuitActionPerformed
+
+private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
+    // TODO add your handling code here:
+}//GEN-LAST:event_txtSearchActionPerformed
 
 private void panelControlsMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseDragged
     if(evt.getButton() == MouseEvent.BUTTON1) {
@@ -1604,6 +1665,14 @@ private void panelControlsMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIR
         setLocation(p.x + evt.getX() - point.x, p.y + evt.getY() - point.y);
     }
 }//GEN-LAST:event_panelControlsMouseDragged
+
+private void panelControlsMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseMoved
+
+}//GEN-LAST:event_panelControlsMouseMoved
+
+private void panelControlsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseClicked
+
+}//GEN-LAST:event_panelControlsMouseClicked
 
 private void panelControlsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMousePressed
     if(evt.getClickCount() == 2) {
@@ -1613,14 +1682,13 @@ private void panelControlsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIR
             setExtendedState(NORMAL);
     }
 
-           point.x = evt.getX();
-           point.y = evt.getY();
-   
+    point.x = evt.getX();
+    point.y = evt.getY();
 }//GEN-LAST:event_panelControlsMousePressed
 
-private void mnuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuQuitActionPerformed
-    this.dispose();
-}//GEN-LAST:event_mnuQuitActionPerformed
+private void mnuShowScreenShotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuShowScreenShotActionPerformed
+    showScreenCaptures();
+}//GEN-LAST:event_mnuShowScreenShotActionPerformed
  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1635,6 +1703,7 @@ private void mnuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblSearch;
     private javax.swing.JPopupMenu listMenu;
@@ -1658,6 +1727,7 @@ private void mnuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     private javax.swing.JMenuItem mnuQuit;
     javax.swing.JMenuItem mnuRun2;
     private javax.swing.JMenuItem mnuSetup2;
+    private javax.swing.JMenuItem mnuShowScreenShot;
     private javax.swing.JMenu mnuTools;
     private javax.swing.JMenuItem mnuView;
     private javax.swing.JMenu mnuWeb;
@@ -1668,6 +1738,15 @@ private void mnuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     public javax.swing.JTextField txtSearch;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
+
+    public void focusGained(FocusEvent e) {
+        if(this.getFocusOwner() == this)
+            applicationList.requestFocus();
+    }
+
+    public void focusLost(FocusEvent e) {
+
+    }
 
 }
 class Filter implements ActionListener {

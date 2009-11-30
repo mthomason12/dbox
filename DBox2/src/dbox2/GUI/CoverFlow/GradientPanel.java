@@ -18,7 +18,7 @@ import javax.swing.JPanel;
 
 public class GradientPanel extends JPanel {
     protected BufferedImage gradientImage;
-    protected Color gradientStart = new Color(40, 40, 40);
+    protected Color gradientStart = new Color(00, 00, 00);
     protected Color gradientEnd = new Color(0, 0, 0);
 
     public GradientPanel() {
