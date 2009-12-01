@@ -144,20 +144,20 @@
         </Menu>
         <Component class="javax.swing.JSeparator" name="jSeparator1">
         </Component>
-        <MenuItem class="javax.swing.JMenuItem" name="mnuCheckNewest">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Check for newer version"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuCheckNewestActionPerformed"/>
-          </Events>
-        </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="mnuGettingStarted">
           <Properties>
             <Property name="text" type="java.lang.String" value="Getting Started..."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuGettingStartedActionPerformed"/>
+          </Events>
+        </MenuItem>
+        <MenuItem class="javax.swing.JMenuItem" name="mnuCheckNewest">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Check for updates"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuCheckNewestActionPerformed"/>
           </Events>
         </MenuItem>
         <MenuItem class="javax.swing.JMenuItem" name="mnuAbout">

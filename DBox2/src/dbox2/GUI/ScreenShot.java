@@ -12,19 +12,23 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseWheelEvent;
+import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.border.BevelBorder;
 
 /**
  *
  * @author truben
  */
-public class ScreenShot extends JDialog implements MouseListener, KeyListener, FocusListener {
+public class ScreenShot extends JDialog implements MouseListener, KeyListener, FocusListener, MouseWheelListener {
 
     PanelImage panelImage;
     File[] files;
@@ -129,7 +133,9 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
         this.setBackground(Color.BLACK);
         this.setUndecorated(true);
         this.addMouseListener(this);
+        panelImage.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED,Color.WHITE,Color.WHITE));
         this.addKeyListener(this);
+        this.addMouseWheelListener(this);
         this.addFocusListener(this);
         Point p = Main.n.getLocation();
         Dimension d = Main.n.getSize();
@@ -154,6 +160,13 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
             dispose();
         }
         this.addFocusListener(this);
+    }
+
+    public void mouseWheelMoved(MouseWheelEvent e) {
+        if(e.getUnitsToScroll() > 3)
+            nextImage();
+        else if(e.getUnitsToScroll() < -3)
+            prevImage();
     }
 
     
