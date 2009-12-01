@@ -4,7 +4,6 @@
  * Created on July 26, 2007, 8:54 PM
  * @author Truben
  */
-
 package dbox2;
 
 import dbox2.GUI.CoverFlow.*;
@@ -44,7 +43,6 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
 
     public static BoxListe bl = new BoxListe();
     BufferedImage[] images;
-
     //images
     final Icon fileEnabled;
     final Icon fileDisabled;
@@ -54,15 +52,14 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
     final Icon prefDisabled;
     final Icon searchArrow;
     final Icon searchArrowDisabled;
-
     protected JPanel coverflow;
     private CDShelf cdshelf;
-
     Point point = new Point();
 
     public void about() {
         mnuAboutActionPerformed(null);
     }
+
     public void preferences() {
         mnuPreferencesActionPerformed(null);
     }
@@ -72,9 +69,11 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         this.addFocusListener(this);
         setUndecorated(!Main.theme.isShowWindowDecoration());
 
-        if(Main.theme.isUnifiedToolbar())
+        if (Main.theme.isUnifiedToolbar()) {
             getRootPane().putClientProperty("apple.awt.brushMetalLook", Boolean.TRUE);
 
+            
+        }
         bl = deSerialize(Main.gameFile);
 
         //pref.readConfig(Main.configFile);
@@ -84,13 +83,12 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         try {
             initComponents();
 
-        }
-        catch(java.lang.ClassCastException e) {
+        } catch (java.lang.ClassCastException e) {
             pack();
         }
 
         // Genre filter menu
-        if(true) {
+        if (true) {
             JMenuItem m = new JMenuItem();
             m.setText("Favorites");
             m.addActionListener(new Filter(this));
@@ -98,7 +96,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             searchMenu.addSeparator();
         }
 
-        for(String s : Main.pref.getGenres()) {
+        for (String s : Main.pref.getGenres()) {
             JMenuItem m = new JMenuItem();
             m.setText(s);
             m.addActionListener(new Filter(this));
@@ -106,7 +104,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
 
             JCheckBoxMenuItem menu = new JCheckBoxMenuItem();
             menu.setText(s);
-            menu.addActionListener(new SetGenre(this,s));
+            menu.addActionListener(new SetGenre(this, s));
             menu.setVisible(true);
             mnuListSetGenre.add(menu);
         }
@@ -133,7 +131,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         jPanel1.setBorder(jTextField1.getBorder());
 
         // Show the getting started screen
-        if(Main.pref.isFirstStart()) {
+        if (Main.pref.isFirstStart()) {
             GettingStarted h = new GettingStarted(this, true);
             h.setVisible(true);
             Main.pref.setFirstStart(false);
@@ -141,49 +139,46 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         }
 
         // if the dosbox path is undefined, we try to find a built in
-        if(Main.pref.getDosBoxPath().equals("")) {
+        if (Main.pref.getDosBoxPath().equals("")) {
             try {
-                File dosbox = new File ("." + File.separatorChar + "Dosbox");
+                File dosbox = new File("." + File.separatorChar + "Dosbox");
 
                 String pathen = "";
 
                 File[] files = dosbox.listFiles();
                 for (File f : files) {
                     String s = f.getName().toLowerCase();
-                    if(s.equals("dosbox.exe")) { // win32
+                    if (s.equals("dosbox.exe")) { // win32
                         pathen = f.getAbsolutePath();
                         break;
-                    }
-                    else if(s.equals("dosbox.app")) { // mac
-                        pathen = f.getAbsolutePath()+"/Contents/MacOS/DOSBox";
+                    } else if (s.equals("dosbox.app")) { // mac
+                        pathen = f.getAbsolutePath() + "/Contents/MacOS/DOSBox";
                         break;
                     }
                 }
                 Main.pref.setDosBoxPath(pathen);
-           }
-            catch(Exception e) {
+            } catch (Exception e) {
 
             }
         }
 
         // If we're on mac
-        if(Main.pref.getDosBoxPath().equals("")) {
+        if (Main.pref.getDosBoxPath().equals("")) {
             try {
-                File dosbox = new File ("./D-Box.app/Contents/Resources/Java");
+                File dosbox = new File("./D-Box.app/Contents/Resources/Java");
 
                 String pathen = "";
 
                 File[] files = dosbox.listFiles();
                 for (File f : files) {
                     String s = f.getName().toLowerCase();
-                    if(s.equals("dosbox.app")) { // mac
-                        pathen = f.getAbsolutePath()+"/Contents/MacOS/DOSBox";
+                    if (s.equals("dosbox.app")) { // mac
+                        pathen = f.getAbsolutePath() + "/Contents/MacOS/DOSBox";
                         break;
                     }
                 }
                 Main.pref.setDosBoxPath(pathen);
-           }
-            catch(Exception e) {
+            } catch (Exception e) {
 
             }
         }
@@ -192,12 +187,12 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         createDropTarget(applicationList);
 
         // OSX stuff
-        if(helperClass.getOS() == helperClass.MACOS) {
+        if (helperClass.getOS() == helperClass.MACOS) {
             //buildOSXMenues();
             try {
                 OSXAdapter.setQuitHandler(this, getClass().getDeclaredMethod("dispose", (Class[]) null));
                 OSXAdapter.setAboutHandler(this, getClass().getDeclaredMethod("about", (Class[]) null));
-                OSXAdapter.setPreferencesHandler(this, getClass().getDeclaredMethod("preferences", (Class[])null));
+                OSXAdapter.setPreferencesHandler(this, getClass().getDeclaredMethod("preferences", (Class[]) null));
             } catch (NoSuchMethodException ex) {
                 Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SecurityException ex) {
@@ -209,20 +204,22 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
 
         setBackground(Main.theme.getBackgroundColor());
 
-        if(!Main.theme.isShowBorders()) {
+        if (!Main.theme.isShowBorders()) {
             jPanel1.setBorder(null);
         }
 
-        if(Main.pref.isStartWithFloppyFlow())
+        if (Main.pref.isStartWithFloppyFlow()) {
             toggleView();
 
+            
+        }
     }
 
     /**
      * Dynammicaly creates a floppyflow
      */
     private void createCoverFlow() {
-        if(cdshelf != null) {
+        if (cdshelf != null) {
             coverflow.remove(cdshelf);
             cdshelf = null;
         }
@@ -231,7 +228,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         cdshelf = new CDShelf(this);
         coverflow.add(new GradientPanel(), StackLayout.BOTTOM);
         coverflow.add(cdshelf, StackLayout.TOP);
-        coverflow.setPreferredSize(new Dimension(200,200));
+        coverflow.setPreferredSize(new Dimension(200, 200));
 
         createDropTarget(coverflow);
     }
@@ -241,14 +238,17 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
      * @param c the component that we want to be droppable
      */
     private void createDropTarget(Component c) {
-        new  FileDrop( c, new FileDrop.Listener() {
-            public void  filesDropped( java.io.File[] files ) {
-                if(files.length != 1) {
-                    int s = JOptionPane.showConfirmDialog(null, "You have dropped " + files.length + " files. Are you sure you want to continue?" , "Add multiple applications", JOptionPane.YES_NO_OPTION);
-                    if(s != JOptionPane.YES_OPTION)
+        new FileDrop(c, new FileDrop.Listener() {
+
+            public void filesDropped(java.io.File[] files) {
+                if (files.length != 1) {
+                    int s = JOptionPane.showConfirmDialog(null, "You have dropped " + files.length + " files. Are you sure you want to continue?", "Add multiple applications", JOptionPane.YES_NO_OPTION);
+                    if (s != JOptionPane.YES_OPTION) {
                         return;
+                        
+                    }
                 }
-                for(File f: files) {
+                for (File f : files) {
                     createNewMagicProfile(f.getAbsoluteFile());
                 }
             }
@@ -262,7 +262,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
      * @param file the main executable
      */
     private void createNewMagicProfile(File file) {
-        if(file.isDirectory()) {
+        if (file.isDirectory()) {
             File dirfiles[] = file.listFiles(new FileFilter() {
 
                 public boolean accept(File pathname) {
@@ -271,18 +271,27 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             });
 
 
-            while(true)
-                if(dirfiles.length == 1 && dirfiles[0].isDirectory())
+            while (true) {
+                if (dirfiles.length == 1 && dirfiles[0].isDirectory()) {
                     dirfiles = dirfiles[0].listFiles();
-                else
+                    
+                } else {
                     break;
 
+
+                }
+                
+            }
             int count = 0;
-            for(File f : dirfiles)
-                if(f.toString().toLowerCase().indexOf("setup") == -1 && f.toString().toLowerCase().indexOf("install") == -1 && (f.toString().toLowerCase().endsWith("pif") || f.toString().toLowerCase().endsWith("exe") || f.toString().toLowerCase().endsWith("com") || f.toString().toLowerCase().endsWith("bat")))
+            for (File f : dirfiles) {
+                if (f.toString().toLowerCase().indexOf("setup") == -1 && f.toString().toLowerCase().indexOf("install") == -1 && (f.toString().toLowerCase().endsWith("pif") || f.toString().toLowerCase().endsWith("exe") || f.toString().toLowerCase().endsWith("com") || f.toString().toLowerCase().endsWith("bat"))) {
                     count++;
 
-            if(count == 0) {
+                    
+                }
+
+            }
+            if (count == 0) {
                 JOptionPane.showMessageDialog(this, "Can't find any suitable executable files.", "Select another directory.", JOptionPane.INFORMATION_MESSAGE);
                 return;
             }
@@ -290,42 +299,56 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             String[] possible = new String[count];
 
             count = 0;
-            for(File f : dirfiles)
-                if(f.toString().toLowerCase().indexOf("setup") == -1 && f.toString().toLowerCase().indexOf("install") == -1 && (f.toString().toLowerCase().endsWith("pif") || f.toString().toLowerCase().endsWith("exe") || f.toString().toLowerCase().endsWith("com") || f.toString().toLowerCase().endsWith("bat")))
-                    possible[count++] = f.toString().substring(f.toString().lastIndexOf(File.separator)+1);
+            for (File f : dirfiles) {
+                if (f.toString().toLowerCase().indexOf("setup") == -1 && f.toString().toLowerCase().indexOf("install") == -1 && (f.toString().toLowerCase().endsWith("pif") || f.toString().toLowerCase().endsWith("exe") || f.toString().toLowerCase().endsWith("com") || f.toString().toLowerCase().endsWith("bat"))) {
+                    possible[count++] = f.toString().substring(f.toString().lastIndexOf(File.separator) + 1);
 
+
+                }
+                
+            }
             String chosen;
-            if(count == 1)
+            if (count == 1) {
                 chosen = possible[0];
-            else {
+                
+            } else {
                 chosen = (String) JOptionPane.showInputDialog(
                         null, "You have dropped a directory. What is the main executable?",
                         "What's the name of the game?",
                         JOptionPane.QUESTION_MESSAGE,
-                        null,possible,possible[0]);
-                if(chosen == null)
+                        null, possible, possible[0]);
+                if (chosen == null) {
                     return;
+                    
+                }
             }
 
-            for(File f:dirfiles)
-                if(f.toString().endsWith(chosen))
+            for (File f : dirfiles) {
+                if (f.toString().endsWith(chosen)) {
                     file = f;
 
+
+                }
+                
+            }
         }
-        if(file.getName().toLowerCase().endsWith("dat")) {
-            int s = JOptionPane.showConfirmDialog(this, "You are about to add the games from the game list '" + file.getName() + "' to your library. Continue?" , "Merge gamelist", JOptionPane.YES_NO_OPTION);
-            if(s != JOptionPane.YES_OPTION)
+        if (file.getName().toLowerCase().endsWith("dat")) {
+            int s = JOptionPane.showConfirmDialog(this, "You are about to add the games from the game list '" + file.getName() + "' to your library. Continue?", "Merge gamelist", JOptionPane.YES_NO_OPTION);
+            if (s != JOptionPane.YES_OPTION) {
                 return;
 
+                
+            }
             deSerialize(file.getAbsolutePath());
             updateList();
 
             return;
-        }
-        else if(!file.getName().toLowerCase().endsWith("exe") && !file.getName().toLowerCase().endsWith("com") && !file.getName().toLowerCase().endsWith("bat") && !file.getName().toLowerCase().endsWith("pif")) {
+        } else if (!file.getName().toLowerCase().endsWith("exe") && !file.getName().toLowerCase().endsWith("com") && !file.getName().toLowerCase().endsWith("bat") && !file.getName().toLowerCase().endsWith("pif")) {
             int s = JOptionPane.showConfirmDialog(this, "This doesn't look like an executable file. Executable files normally ends with .bat, .exe or .com.\n\nDo you still want to continue?", "You're almost there...", JOptionPane.YES_NO_OPTION);
-            if(s != JOptionPane.YES_OPTION)
+            if (s != JOptionPane.YES_OPTION) {
                 return;
+                
+            }
         }
 
         try {
@@ -336,20 +359,19 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             File[] files = file.getParentFile().listFiles();
             for (File f : files) {
                 String s = f.getName().toLowerCase();
-                if(s.endsWith("ico")) {
+                if (s.endsWith("ico")) {
                     d.setIcon(f.getAbsolutePath());
-                }
-                else if(s.endsWith("exe") || s.endsWith("bat") || s.endsWith("com")) {
-                    if(s.indexOf("setup") != -1 || s.indexOf("install") != -1) {
-                        d.setInstaller(f.toString().substring(f.toString().lastIndexOf(File.separator)+File.separator.length()));
+                } else if (s.endsWith("exe") || s.endsWith("bat") || s.endsWith("com")) {
+                    if (s.indexOf("setup") != -1 || s.indexOf("install") != -1) {
+                        d.setInstaller(f.toString().substring(f.toString().lastIndexOf(File.separator) + File.separator.length()));
                     }
 
                 }
             }
             String[] choice = new String[3];
 
-            choice[0] = file.getParentFile().getAbsolutePath().substring(file.getParentFile().getAbsolutePath().lastIndexOf(File.separator)+1);
-            choice[1] = file.getName().substring(0,1).toUpperCase() + file.getName().substring(1, file.getName().lastIndexOf('.')).toLowerCase();
+            choice[0] = file.getParentFile().getAbsolutePath().substring(file.getParentFile().getAbsolutePath().lastIndexOf(File.separator) + 1);
+            choice[1] = file.getName().substring(0, 1).toUpperCase() + file.getName().substring(1, file.getName().lastIndexOf('.')).toLowerCase();
             choice[2] = "Something else...";
 
             String input = (String) JOptionPane.showInputDialog(
@@ -357,21 +379,26 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                     "or select \"Something else...\" to type your own.",
                     "What's the name of the game?",
                     JOptionPane.QUESTION_MESSAGE,
-                    null,choice,choice[0]);
+                    null, choice, choice[0]);
 
-            if(input==null)
+            if (input == null) {
                 return;
 
-            if(input.equals(choice[2]))
+
+            }
+            if (input.equals(choice[2])) {
                 d.setName(JOptionPane.showInputDialog("Type the name of the application", choice[1]));
-            else
+                
+            } else {
                 d.setName(input);
 
+                
+            }
             bl.addGame(d);
             updateList();
-            }catch(Exception e) {
-                JOptionPane.showMessageDialog(this, "Something wrong happened. You have to add the application the hard way.", "Sorry...", JOptionPane.INFORMATION_MESSAGE);
-            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Something wrong happened. You have to add the application the hard way.", "Sorry...", JOptionPane.INFORMATION_MESSAGE);
+        }
     }
 
     @Override
@@ -401,9 +428,11 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             return new BoxListe();
         }
 
-        while(s.hasNext())
+        while (s.hasNext()) {
             config += s.nextLine() + "\n";
 
+            
+        }
         bl.readConfig(config);
         return bl;
     }
@@ -413,7 +442,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
      * @param fileName The filename that we write to
      */
     public void writeApplicationDatabase(String fileName) {
-	FileWriter fstream = null;
+        FileWriter fstream = null;
         try {
             fstream = new FileWriter(fileName);
             BufferedWriter writer = new BufferedWriter(fstream);
@@ -436,14 +465,13 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
      * Toggles between standard view and "floppy view"
      */
     private void toggleView() {
-        if(coverflow != null && coverflow.isVisible()) {
+        if (coverflow != null && coverflow.isVisible()) {
             coverflow.setVisible(false);
             applicationList.setVisible(true);
             jScrollPane1.setViewportView(applicationList);
             applicationList.requestFocus();
             Main.pref.setStartWithFloppyFlow(false);
-        }
-        else {
+        } else {
             coverflow = new JPanel();
             coverflow.setVisible(true);
             applicationList.setVisible(false);
@@ -460,10 +488,10 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
      * Putter boksen midt paa skjermen
      */
     public void centerScreen() {
-    	  Dimension dim = getToolkit().getScreenSize();
-    	  Rectangle abounds = getBounds();
-    	  setLocation((dim.width - abounds.width) / 2,
-    	      (dim.height - abounds.height) / 2);
+        Dimension dim = getToolkit().getScreenSize();
+        Rectangle abounds = getBounds();
+        setLocation((dim.width - abounds.width) / 2,
+                (dim.height - abounds.height) / 2);
     }
 
     /**
@@ -475,23 +503,27 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
      * @param dosPref Preferences that belongs to the DOS section
      * @param autoexecPref Preferences that belongs to the AUTOEXEC section
      */
-    private void writeConfig(String filename, HashMap<String, HashMap<String,String>> pref, ArrayList<String> autoexec) {
+    private void writeConfig(String filename, HashMap<String, HashMap<String, String>> pref, ArrayList<String> autoexec) {
 
-        String ut="";
+        String ut = "";
 
-        for(String s : pref.keySet()) {
+        for (String s : pref.keySet()) {
             ut += "[" + s + "]\n";
-            HashMap<String,String> properties = pref.get(s);
-            for(String p : properties.keySet())
-                ut+= p + " = " + properties.get(p) + "\n";
+            HashMap<String, String> properties = pref.get(s);
+            for (String p : properties.keySet()) {
+                ut += p + " = " + properties.get(p) + "\n";
 
-            ut+="\n";
+
+            }
+            ut += "\n";
         }
 
-        ut+="[AUTOEXEC]\n";
-        for(String s : autoexec)
-            ut+=s+"\n";
+        ut += "[AUTOEXEC]\n";
+        for (String s : autoexec) {
+            ut += s + "\n";
 
+            
+        }
         try {
             java.io.FileWriter fw = new java.io.FileWriter(filename);
             java.io.BufferedWriter bw = new java.io.BufferedWriter(fw);
@@ -503,17 +535,30 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         }
     }
 
-    private void updateList()  {
+    private void updateList() {
         int s = applicationList.getSelectedIndex();
         applicationList.setModel(new javax.swing.AbstractListModel() {
+
             String[] strings = bl.getGameList();
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { if(strings[i].equals("")) return "(untitled)"; else return strings[i]; }
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public Object getElementAt(int i) {
+                if (strings[i].equals("")) {
+                    return "(untitled)";
+                    
+                } else {
+                    return strings[i];
+                    
+                }
+            }
         });
 
         applicationList.setSelectedIndex(s);
 
-        if(coverflow != null && coverflow.isVisible()) {
+        if (coverflow != null && coverflow.isVisible()) {
             createCoverFlow();
             coverflow.updateUI();
         }
@@ -522,26 +567,47 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
     private void updateList(String search) {
         final String s = search;
         applicationList.setModel(new javax.swing.AbstractListModel() {
+
             String[] strings = bl.getGameList(s);
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public Object getElementAt(int i) {
+                return strings[i];
+            }
         });
     }
 
     public void updateListGenre(String search) {
         final String s = search;
         applicationList.setModel(new javax.swing.AbstractListModel() {
+
             String[] strings = bl.getGameListGenre(s);
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public Object getElementAt(int i) {
+                return strings[i];
+            }
         });
     }
 
     public void updateListFavorite() {
         applicationList.setModel(new javax.swing.AbstractListModel() {
+
             String[] strings = bl.getFavoriteGameList();
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+
+            public int getSize() {
+                return strings.length;
+            }
+
+            public Object getElementAt(int i) {
+                return strings[i];
+            }
         });
     }
 
@@ -572,8 +638,8 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         jSeparator2 = new javax.swing.JSeparator();
         mnuClear = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JSeparator();
-        mnuCheckNewest = new javax.swing.JMenuItem();
         mnuGettingStarted = new javax.swing.JMenuItem();
+        mnuCheckNewest = new javax.swing.JMenuItem();
         mnuAbout = new javax.swing.JMenuItem();
         mnuWeb = new javax.swing.JMenu();
         mnuHome = new javax.swing.JMenuItem();
@@ -713,14 +779,6 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         prefMenu.add(mnuTools);
         prefMenu.add(jSeparator1);
 
-        mnuCheckNewest.setText("Check for newer version");
-        mnuCheckNewest.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mnuCheckNewestActionPerformed(evt);
-            }
-        });
-        prefMenu.add(mnuCheckNewest);
-
         mnuGettingStarted.setText("Getting Started...");
         mnuGettingStarted.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -728,6 +786,14 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             }
         });
         prefMenu.add(mnuGettingStarted);
+
+        mnuCheckNewest.setText("Check for updates");
+        mnuCheckNewest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuCheckNewestActionPerformed(evt);
+            }
+        });
+        prefMenu.add(mnuCheckNewest);
 
         mnuAbout.setText("About D-Box version " + Main.MAJORVERSION + "." + Main.MINORVERSION + "");
         mnuAbout.addActionListener(new java.awt.event.ActionListener() {
@@ -1072,24 +1138,25 @@ private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_mnuAboutActionPerformed
 
 private void Double(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Double
-    if(evt.getClickCount() == 2 && !evt.isAltDown())
+    if (evt.getClickCount() == 2 && !evt.isAltDown()) {
         mnuRunActionPerformed(null);
-    else {
+        
+    } else {
 
     }
 }//GEN-LAST:event_Double
 
 private void mnuRunDosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRunDosBoxActionPerformed
     String[] par = new String[3];
-        par[0] = Main.pref.getDosBoxPath();
-        par[1] = "-c";
-        par[2] = "@echo Have fun! Best wishes from D-Box :)";
+    par[0] = Main.pref.getDosBoxPath();
+    par[1] = "-c";
+    par[2] = "@echo Have fun! Best wishes from D-Box :)";
 
-        try {
-            Runtime.getRuntime().exec(par);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+    try {
+        Runtime.getRuntime().exec(par);
+    } catch (IOException ex) {
+        ex.printStackTrace();
+    }
 }//GEN-LAST:event_mnuRunDosBoxActionPerformed
 
 private void mnuPrefsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrefsActionPerformed
@@ -1097,11 +1164,11 @@ private void mnuPrefsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     prf.setModal(true);
     prf.setVisible(true);
     prf = null;
-        try {
-            Main.pref.writeConfig(Main.configFile);
-        } catch (IOException ex) {
-            Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    try {
+        Main.pref.writeConfig(Main.configFile);
+    } catch (IOException ex) {
+        Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
+    }
     applicationList.repaint();
 }//GEN-LAST:event_mnuPrefsActionPerformed
 
@@ -1110,271 +1177,315 @@ private void mnuSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     runApplication(di.getInstaller());
 }//GEN-LAST:event_mnuSetupActionPerformed
 
-private String getCurrentDir() {
-    File dir1 = new File (".");
-     try {
-       return dir1.getCanonicalPath();
-     }
-     catch(Exception e) {
-       e.printStackTrace();
-       }
-    return null;
-}
+    private String getCurrentDir() {
+        File dir1 = new File(".");
+        try {
+            return dir1.getCanonicalPath();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-public void run() {
-    mnuRunActionPerformed(null);
-}
+    public void run() {
+        mnuRunActionPerformed(null);
+    }
 
 private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRunActionPerformed
     DosItem di = bl.getGame((String) applicationList.getSelectedValue());
-    if(di==null)
+    if (di == null) {
         return;
+        
+    }
     runApplication(di.getGame());
 }//GEN-LAST:event_mnuRunActionPerformed
 
-private JMenuItem cloneJMenu(JMenuItem original) {
-    JMenuItem clone = new JMenuItem();
-    clone.setText(original.getText());
-    if(original.getActionListeners().length > 0)
-        clone.addActionListener(original.getActionListeners()[0]);
-    return clone;
-}
-
-private void buildOSXMenues() {
-
-    JMenu file = new JMenu("File");
-    JMenu edit = new JMenu("Edit");
-    JMenu tools = new JMenu("Tools");
-
-    for(Component c :runMenu.getComponents()) {
-        if(c instanceof JSeparator)
-            file.add((JSeparator)c);
-        else
-            file.add(cloneJMenu((JMenuItem)c));
-    }
-
-    for(Component c :editMenu.getComponents())
-        if(c instanceof JSeparator)
-            edit.add((JSeparator)c);
-        else
-            edit.add(cloneJMenu((JMenuItem)c));
-
-    for(Component c :prefMenu.getComponents())
-        if(c instanceof JSeparator)
-            tools.add((JSeparator)c);
-        else
-            tools.add(cloneJMenu((JMenuItem)c));
-
-
-    JMenuBar bar = new JMenuBar();
-
-    bar.add(file);
-    bar.add(edit);
-    bar.add(tools);
-
-    this.setJMenuBar(bar);
-
-}
-
-private void runApplication(String program) {
-
-    // Do nothing if no applications are selected
-    if (applicationList.getSelectedIndex() == -1)
-        return;
-
-    // If there are no applications in the application list
-    if (bl.getNrGames() == 0) {
-        int answ = JOptionPane.showConfirmDialog(this,
-                "To make D-Box useful, you got to add a game or two. Do you want to add one now?",
-                null, JOptionPane.YES_NO_OPTION);
-        if (answ == JOptionPane.YES_OPTION) {
-            mnuNewActionPerformed(null);
+    private JMenuItem cloneJMenu(JMenuItem original) {
+        JMenuItem clone = new JMenuItem();
+        clone.setText(original.getText());
+        if (original.getActionListeners().length > 0) {
+            clone.addActionListener(original.getActionListeners()[0]);
+            
         }
-        return;
+        return clone;
     }
 
-    DosItem di = bl.getGame((String) applicationList.getSelectedValue());
+    private void buildOSXMenues() {
 
-    //Create HashMaps for preferences
-    HashMap<String,HashMap<String,String>>  allProps = new HashMap<String,HashMap<String,String>>();
-    HashMap<String,String>                  cpu      = new HashMap<String,String>();
-    HashMap<String,String>                  renderer = new HashMap<String,String>();
-    HashMap<String,String>                  sdl      = new HashMap<String,String>();
-    HashMap<String,String>                  dos      = new HashMap<String,String>();
-    HashMap<String,String>                  serial   = new HashMap<String,String>();
-    HashMap<String,String>                  ipx      = new HashMap<String,String>();
-    HashMap<String,String>                  dosbox   = new HashMap<String,String>();
-    HashMap<String,String>                  midi     = new HashMap<String,String>();
-    HashMap<String,String>                  gus      = new HashMap<String,String>();
-    HashMap<String,String>                  mixer    = new HashMap<String,String>();
+        JMenu file = new JMenu("File");
+        JMenu edit = new JMenu("Edit");
+        JMenu tools = new JMenu("Tools");
 
-    ArrayList<String>                       autoexec = new ArrayList<String>();
+        for (Component c : runMenu.getComponents()) {
+            if (c instanceof JSeparator) {
+                file.add((JSeparator) c);
+                
+            } else {
+                file.add(cloneJMenu((JMenuItem) c));
+                
+            }
+        }
 
-    String capturePath = getCaptureDirectory(di);
-    File dir = new File(capturePath);
+        for (Component c : editMenu.getComponents()) {
+            if (c instanceof JSeparator) {
+                edit.add((JSeparator) c);
+                
+            } else {
+                edit.add(cloneJMenu((JMenuItem) c));
 
-    if(!dir.exists()) {
-        if(dir.mkdirs())
-            System.out.println("Directory Created: " + capturePath);
-        else
-            System.out.println("Directory is not created");
+                
+            }
+
+        }
+        for (Component c : prefMenu.getComponents()) {
+            if (c instanceof JSeparator) {
+                tools.add((JSeparator) c);
+                
+            } else {
+                tools.add(cloneJMenu((JMenuItem) c));
+
+
+
+            }
+            
+        }
+        JMenuBar bar = new JMenuBar();
+
+        bar.add(file);
+        bar.add(edit);
+        bar.add(tools);
+
+        this.setJMenuBar(bar);
+
     }
 
-    dosbox.put("captures", capturePath);
+    private void runApplication(String program) {
 
-    // Split the extras string
-    String[] properties = new String[0];
-    String[][] finito = new String[0][0];
-    if(!di.getExtra().equals("")) {
-        //   Parse
-        properties = di.getExtra().substring(0, di.getExtra().length()-1).split(";");
-        finito = new String[properties.length][3];
-        if(!di.getExtra().equals("")) {
-            for(int i = 0; i < properties.length; i++) {
-                int first  = properties[i].indexOf(" => ");
-                int second = properties[i].indexOf(" = ");
-                if(first <= 0)
-                    continue;
+        // Do nothing if no applications are selected
+        if (applicationList.getSelectedIndex() == -1) {
+            return;
 
-                finito[i][0] = properties[i].substring(0, first);
-                if(finito[i][0].toLowerCase().equals("autoexec"))
-                    finito[i][1] = properties[i].substring(first+4);
-                else {
-                    finito[i][1] = properties[i].substring(first+4,second);
-                    finito[i][2] = properties[i].substring(second+3);
+            // If there are no applications in the application list
+            
+        }
+        if (bl.getNrGames() == 0) {
+            int answ = JOptionPane.showConfirmDialog(this,
+                    "To make D-Box useful, you got to add a game or two. Do you want to add one now?",
+                    null, JOptionPane.YES_NO_OPTION);
+            if (answ == JOptionPane.YES_OPTION) {
+                mnuNewActionPerformed(null);
+            }
+            return;
+        }
+
+        DosItem di = bl.getGame((String) applicationList.getSelectedValue());
+
+        //Create HashMaps for preferences
+        HashMap<String, HashMap<String, String>> allProps = new HashMap<String, HashMap<String, String>>();
+        HashMap<String, String> cpu = new HashMap<String, String>();
+        HashMap<String, String> renderer = new HashMap<String, String>();
+        HashMap<String, String> sdl = new HashMap<String, String>();
+        HashMap<String, String> dos = new HashMap<String, String>();
+        HashMap<String, String> serial = new HashMap<String, String>();
+        HashMap<String, String> ipx = new HashMap<String, String>();
+        HashMap<String, String> dosbox = new HashMap<String, String>();
+        HashMap<String, String> midi = new HashMap<String, String>();
+        HashMap<String, String> gus = new HashMap<String, String>();
+        HashMap<String, String> mixer = new HashMap<String, String>();
+
+        ArrayList<String> autoexec = new ArrayList<String>();
+
+        String capturePath = getCaptureDirectory(di);
+        File dir = new File(capturePath);
+
+        if (!dir.exists()) {
+            if (dir.mkdirs()) {
+                System.out.println("Directory Created: " + capturePath);
+                
+            } else {
+                System.out.println("Directory is not created");
+                
+            }
+        }
+
+        dosbox.put("captures", capturePath);
+
+        // Split the extras string
+        String[] properties = new String[0];
+        String[][] finito = new String[0][0];
+        if (!di.getExtra().equals("")) {
+            //   Parse
+            properties = di.getExtra().substring(0, di.getExtra().length() - 1).split(";");
+            finito = new String[properties.length][3];
+            if (!di.getExtra().equals("")) {
+                for (int i = 0; i < properties.length; i++) {
+                    int first = properties[i].indexOf(" => ");
+                    int second = properties[i].indexOf(" = ");
+                    if (first <= 0) {
+                        continue;
+
+                        
+                    }
+                    finito[i][0] = properties[i].substring(0, first);
+                    if (finito[i][0].toLowerCase().equals("autoexec")) {
+                        finito[i][1] = properties[i].substring(first + 4);
+                        
+                    } else {
+                        finito[i][1] = properties[i].substring(first + 4, second);
+                        finito[i][2] = properties[i].substring(second + 3);
+                    }
                 }
+            }
+        }
+
+
+        // Add settings to the configuration file
+        cpu.put("cycles", di.getCycles() + "");
+        addOtherSettings(finito, "cpu", cpu);
+        allProps.put("CPU", cpu);
+
+        renderer.put("frameskip", di.getFrameskip() + "");
+        addOtherSettings(finito, "renderer", renderer);
+        allProps.put("RENDERER", renderer);
+
+        sdl.put("fullscreen", Main.pref.isFullScreen() + "");
+        addOtherSettings(finito, "sdl", sdl);
+        allProps.put("SDL", sdl);
+
+        dos.put("keyboardlayout", Main.pref.getKeyboardCode());
+        addOtherSettings(finito, "dos", dos);
+        allProps.put("DOS", dos);
+
+        addOtherSettings(finito, "serial", serial);
+        allProps.put("SERIAL", serial);
+
+        addOtherSettings(finito, "ipx", ipx);
+        allProps.put("IPX", serial);
+
+        addOtherSettings(finito, "dosbox", dosbox);
+        allProps.put("DOSBOX", dosbox);
+
+        addOtherSettings(finito, "mixer", mixer);
+        allProps.put("MIXER", mixer);
+
+        addOtherSettings(finito, "gus", gus);
+        allProps.put("GUS", gus);
+
+        addOtherSettings(finito, "midi", midi);
+        allProps.put("MIDI", midi);
+
+        int number = 0;
+        if (!di.getCdrom().equals("")) { // If we should mount a CD ROM
+            String cd = "mount d \"" + di.getCdrom() + "\" -t cdrom ";
+            if (!di.getCdromLabel().equals("")) {
+                cd += "-label " + di.getCdromLabel();
+                
+            }
+            autoexec.add(number++, cd);
+        }
+        autoexec.add(number++, "mount c \"" + di.getPath() + "\"");
+        autoexec.add(number++, "C:");
+        autoexec.add(number++, program);
+        for (int i = 0; i < finito.length; i++) {
+            if (finito[i][0].toLowerCase().equals("autoexec")) {
+                autoexec.add(finito[i][1]);
+
+                // Write configfile
+
+            }
+            
+        }
+        writeConfig(Main.appFolder + "dosbox.conf",
+                allProps, autoexec);
+
+        // Build execute command
+        String[] par = new String[6];
+        par[0] = Main.pref.getDosBoxPath();
+
+        // If we should try to close the dosbox window or keep it open
+        if (!Main.pref.isKeepOpen()) {
+            par[1] = "-c";
+            par[2] = "exit";
+        } else {
+            par[1] = "-c";
+            par[2] = "@echo Keep on rockin' in the free world!";
+        }
+
+        par[3] = "-conf";
+        par[4] = Main.appFolder + "dosbox.conf";
+
+        if (Main.pref.isNoConcole()) {
+            par[5] = "-noconsole";
+            
+        } else {
+            par[5] = "";
+
+            // try to execute from the path if no dosbox path is present
+            
+        }
+        if (Main.pref.getDosBoxPath().equals("")) {
+            par[0] = "dosbox";
+        }
+
+        // Try to execute
+        try {
+            Runtime.getRuntime().exec(par);
+        } catch (IOException ex) {
+            // What to do if no dosbox path is available
+            if (Main.pref.getDosBoxPath().equals("")) {
+                String[] choices = {
+                    "Let me show you where DOSBox is!",
+                    "Please take me to DOSBox' homepage so I can download!",
+                    "Get me out of here!"
+                };
+                String input = (String) JOptionPane.showInputDialog(
+                        null, "D-Box needs DOSBox to work, but currently the path to DOSBox is set to nothing.\nIf you have DOSBox installed, please locate it for me. If not, please download and\ninstall DOSBox before continuing.\n\nPlease select your next step:",
+                        "Can't find DOSBox!",
+                        JOptionPane.QUESTION_MESSAGE,
+                        null, choices, choices[0]);
+                if (input.equals(choices[0])) {
+                    mnuPrefsActionPerformed(null);
+                    
+                } else if (input.equals(choices[1])) {
+                    BrowserControl.openUrl("http://www.dosbox.com/download.php?main=1");
+                    return;
+                } else {
+                    return;
+
+                }
+            } else {
+                ex.printStackTrace();
+                
             }
         }
     }
 
+    private void addOtherSettings(String[][] finito, String section, HashMap<String, String> props) {
+        for (int i = 0; i < finito.length; i++) {
+            if (finito[i][0].toLowerCase().equals(section.toLowerCase())) {
+                props.put(finito[i][1], finito[i][2]);
 
-    // Add settings to the configuration file
-    cpu.put("cycles", di.getCycles()+"");
-    addOtherSettings(finito, "cpu", cpu);
-    allProps.put("CPU", cpu);
-
-    renderer.put("frameskip", di.getFrameskip()+"");
-    addOtherSettings(finito, "renderer", renderer);
-    allProps.put("RENDERER", renderer);
-
-    sdl.put("fullscreen", Main.pref.isFullScreen()+"");
-    addOtherSettings(finito, "sdl", sdl);
-    allProps.put("SDL", sdl);
-
-    dos.put("keyboardlayout", Main.pref.getKeyboardCode());
-    addOtherSettings(finito, "dos", dos);
-    allProps.put("DOS", dos);
-
-    addOtherSettings(finito, "serial", serial);
-    allProps.put("SERIAL", serial);
-
-    addOtherSettings(finito, "ipx", ipx);
-    allProps.put("IPX", serial);
-
-    addOtherSettings(finito, "dosbox", dosbox);
-    allProps.put("DOSBOX", dosbox);
-
-    addOtherSettings(finito, "mixer", mixer);
-    allProps.put("MIXER", mixer);
-
-    addOtherSettings(finito, "gus", gus);
-    allProps.put("GUS", gus);
-
-    addOtherSettings(finito, "midi", midi);
-    allProps.put("MIDI", midi);
-
-    int number = 0;
-    if(!di.getCdrom().equals("")) { // If we should mount a CD ROM
-        String cd = "mount d \"" + di.getCdrom() + "\" -t cdrom ";
-        if(!di.getCdromLabel().equals(""))
-            cd+="-label " + di.getCdromLabel();
-        autoexec.add(number++, cd);
-    }
-    autoexec.add(number++,"mount c \""+di.getPath()+"\"");
-    autoexec.add(number++,"C:");
-    autoexec.add(number++,program);
-    for(int i = 0; i < finito.length;i++)
-        if(finito[i][0].toLowerCase().equals("autoexec"))
-            autoexec.add(finito[i][1]);
-
-    // Write configfile
-    writeConfig(Main.appFolder + "dosbox.conf",
-                allProps,autoexec);
-
-    // Build execute command
-    String[] par = new String[6];
-    par[0] = Main.pref.getDosBoxPath();
-
-    // If we should try to close the dosbox window or keep it open
-    if (!Main.pref.isKeepOpen()) {
-        par[1] = "-c";
-        par[2] = "exit";
-    } else {
-        par[1] = "-c";
-        par[2] = "@echo Keep on rockin' in the free world!";
-    }
-
-    par[3] = "-conf";
-    par[4] = Main.appFolder + "dosbox.conf";
-
-    if(Main.pref.isNoConcole())
-        par[5] = "-noconsole";
-    else
-        par[5] = "";
-
-    // try to execute from the path if no dosbox path is present
-    if (Main.pref.getDosBoxPath().equals("")) {
-        par[0] = "dosbox";
-    }
-
-    // Try to execute
-    try {
-        Runtime.getRuntime().exec(par);
-    } catch (IOException ex) {
-        // What to do if no dosbox path is available
-        if (Main.pref.getDosBoxPath().equals("")) {
-            String[] choices = {
-                "Let me show you where DOSBox is!",
-                "Please take me to DOSBox' homepage so I can download!",
-                "Get me out of here!"
-            };
-            String input = (String) JOptionPane.showInputDialog(
-                    null, "D-Box needs DOSBox to work, but currently the path to DOSBox is set to nothing.\nIf you have DOSBox installed, please locate it for me. If not, please download and\ninstall DOSBox before continuing.\n\nPlease select your next step:",
-                    "Can't find DOSBox!",
-                    JOptionPane.QUESTION_MESSAGE,
-                    null, choices, choices[0]);
-            if (input.equals(choices[0]))
-                mnuPrefsActionPerformed(null);
-            else if (input.equals(choices[1])) {
-                BrowserControl.openUrl("http://www.dosbox.com/download.php?main=1");
-                return;
-            } else
-                return;
+            }
+            
         }
-        else
-            ex.printStackTrace();
     }
-}
 
-private void addOtherSettings(String[][] finito, String section, HashMap<String,String> props) {
-    for(int i = 0; i < finito.length;i++)
-        if(finito[i][0].toLowerCase().equals(section.toLowerCase()))
-            props.put(finito[i][1], finito[i][2]);
-}
-
-private String getCaptureDirectory(DosItem di) {
-    return Main.appFolder + "captures" + File.separator + di.getUniqueID() + File.separator;
-}
-
+    private String getCaptureDirectory(DosItem di) {
+        return Main.appFolder + "captures" + File.separator + di.getUniqueID() + File.separator;
+    }
 
 private void mnuEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuEditActionPerformed
     String gm = "";
-    if(applicationList.getSelectedIndex() == -1)
+    if (applicationList.getSelectedIndex() == -1) {
         return;
 
-    if(!((String)applicationList.getSelectedValue()).equals("(untitled)"))
-        gm = (String)applicationList.getSelectedValue();
 
+    }
+    if (!((String) applicationList.getSelectedValue()).equals("(untitled)")) {
+        gm = (String) applicationList.getSelectedValue();
+
+        
+    }
     ItemGUI ui = new ItemGUI(bl.removeGame(gm), this);
     ui.setVisible(true);
     ui = null;
