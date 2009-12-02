@@ -648,7 +648,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         mnuQuit = new javax.swing.JMenuItem();
         searchMenu = new javax.swing.JPopupMenu();
         jTextField1 = new javax.swing.JTextField();
-        listMenu = new javax.swing.JPopupMenu();
+        popupMenu = new javax.swing.JPopupMenu();
         mnuListRun = new javax.swing.JMenuItem();
         mnuListSetup = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JSeparator();
@@ -656,6 +656,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         mnuListRemove = new javax.swing.JMenuItem();
         mnuListSetGenre = new javax.swing.JMenu();
         mnuListFavorite = new javax.swing.JCheckBoxMenuItem();
+        mnuViewScreenShot = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         applicationList = new javax.swing.JList();
         applicationList.setCellRenderer(new GameListRenderer());
@@ -840,7 +841,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                 mnuListRunActionPerformed(evt);
             }
         });
-        listMenu.add(mnuListRun);
+        popupMenu.add(mnuListRun);
 
         mnuListSetup.setText("Setup");
         mnuListSetup.addActionListener(new java.awt.event.ActionListener() {
@@ -848,8 +849,8 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                 mnuListSetupActionPerformed(evt);
             }
         });
-        listMenu.add(mnuListSetup);
-        listMenu.add(jSeparator3);
+        popupMenu.add(mnuListSetup);
+        popupMenu.add(jSeparator3);
 
         mnuListEdit.setText("Edit...");
         mnuListEdit.addActionListener(new java.awt.event.ActionListener() {
@@ -857,7 +858,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                 mnuListEditActionPerformed(evt);
             }
         });
-        listMenu.add(mnuListEdit);
+        popupMenu.add(mnuListEdit);
 
         mnuListRemove.setText("Remove...");
         mnuListRemove.addActionListener(new java.awt.event.ActionListener() {
@@ -865,10 +866,10 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                 mnuListRemoveActionPerformed(evt);
             }
         });
-        listMenu.add(mnuListRemove);
+        popupMenu.add(mnuListRemove);
 
         mnuListSetGenre.setText("Set Genre");
-        listMenu.add(mnuListSetGenre);
+        popupMenu.add(mnuListSetGenre);
 
         mnuListFavorite.setSelected(true);
         mnuListFavorite.setText("Favorite");
@@ -877,7 +878,16 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                 mnuListFavoriteActionPerformed(evt);
             }
         });
-        listMenu.add(mnuListFavorite);
+        popupMenu.add(mnuListFavorite);
+
+        mnuViewScreenShot.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_SPACE, 0));
+        mnuViewScreenShot.setText("View Screenshot");
+        mnuViewScreenShot.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuViewScreenShotActionPerformed(evt);
+            }
+        });
+        popupMenu.add(mnuViewScreenShot);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("D-Box");
@@ -1620,7 +1630,7 @@ private void applicationListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-
                 JCheckBoxMenuItem jc = (JCheckBoxMenuItem) c;
                 jc.setSelected(jc.getText().equals(genre));
             }
-            listMenu.show(evt.getComponent(), evt.getX(), evt.getY());
+            popupMenu.show(evt.getComponent(), evt.getX(), evt.getY());
         }
     }
 }//GEN-LAST:event_applicationListMouseReleased
@@ -1813,6 +1823,10 @@ private void mnuCheckNewestActionPerformed(java.awt.event.ActionEvent evt) {//GE
     Updater.CheckForUpdate(true);
 }//GEN-LAST:event_mnuCheckNewestActionPerformed
 
+private void mnuViewScreenShotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuViewScreenShotActionPerformed
+    mnuShowScreenShotActionPerformed(evt);
+}//GEN-LAST:event_mnuViewScreenShotActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JList applicationList;
@@ -1829,7 +1843,6 @@ private void mnuCheckNewestActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lblSearch;
-    private javax.swing.JPopupMenu listMenu;
     private javax.swing.JMenuItem mnuAbout;
     private javax.swing.JMenuItem mnuCheckNewest;
     private javax.swing.JMenuItem mnuClear;
@@ -1854,8 +1867,10 @@ private void mnuCheckNewestActionPerformed(java.awt.event.ActionEvent evt) {//GE
     private javax.swing.JMenuItem mnuShowScreenShot;
     private javax.swing.JMenu mnuTools;
     private javax.swing.JMenuItem mnuView;
+    private javax.swing.JMenuItem mnuViewScreenShot;
     private javax.swing.JMenu mnuWeb;
     private javax.swing.JPanel panelControls;
+    private javax.swing.JPopupMenu popupMenu;
     private javax.swing.JPopupMenu prefMenu;
     private javax.swing.JPopupMenu runMenu;
     private javax.swing.JPopupMenu searchMenu;
