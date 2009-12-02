@@ -163,9 +163,9 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
     }
 
     public void mouseWheelMoved(MouseWheelEvent e) {
-        if(e.getUnitsToScroll() > 3)
+        if(e.getWheelRotation() > 0)
             nextImage();
-        else if(e.getUnitsToScroll() < -3)
+        else if(e.getWheelRotation() < 0)
             prevImage();
     }
 
