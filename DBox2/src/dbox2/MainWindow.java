@@ -19,7 +19,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 
-import java.net.MalformedURLException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,10 +33,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JCheckBoxMenuItem;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 
 public class MainWindow extends javax.swing.JFrame implements FocusListener {
 
@@ -72,7 +68,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         if (Main.theme.isUnifiedToolbar()) {
             getRootPane().putClientProperty("apple.awt.brushMetalLook", Boolean.TRUE);
 
-            
+
         }
         bl = deSerialize(Main.gameFile);
 
@@ -158,7 +154,6 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                 }
                 Main.pref.setDosBoxPath(pathen);
             } catch (Exception e) {
-
             }
         }
 
@@ -179,7 +174,6 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                 }
                 Main.pref.setDosBoxPath(pathen);
             } catch (Exception e) {
-
             }
         }
 
@@ -211,7 +205,6 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         if (Main.pref.isStartWithFloppyFlow()) {
             toggleView();
 
-            
         }
     }
 
@@ -245,7 +238,6 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                     int s = JOptionPane.showConfirmDialog(null, "You have dropped " + files.length + " files. Are you sure you want to continue?", "Add multiple applications", JOptionPane.YES_NO_OPTION);
                     if (s != JOptionPane.YES_OPTION) {
                         return;
-                        
                     }
                 }
                 for (File f : files) {
@@ -274,20 +266,15 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             while (true) {
                 if (dirfiles.length == 1 && dirfiles[0].isDirectory()) {
                     dirfiles = dirfiles[0].listFiles();
-                    
                 } else {
                     break;
-
-
                 }
-                
+
             }
             int count = 0;
             for (File f : dirfiles) {
                 if (f.toString().toLowerCase().indexOf("setup") == -1 && f.toString().toLowerCase().indexOf("install") == -1 && (f.toString().toLowerCase().endsWith("pif") || f.toString().toLowerCase().endsWith("exe") || f.toString().toLowerCase().endsWith("com") || f.toString().toLowerCase().endsWith("bat"))) {
                     count++;
-
-                    
                 }
 
             }
@@ -302,15 +289,13 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             for (File f : dirfiles) {
                 if (f.toString().toLowerCase().indexOf("setup") == -1 && f.toString().toLowerCase().indexOf("install") == -1 && (f.toString().toLowerCase().endsWith("pif") || f.toString().toLowerCase().endsWith("exe") || f.toString().toLowerCase().endsWith("com") || f.toString().toLowerCase().endsWith("bat"))) {
                     possible[count++] = f.toString().substring(f.toString().lastIndexOf(File.separator) + 1);
-
-
                 }
-                
+
             }
             String chosen;
             if (count == 1) {
                 chosen = possible[0];
-                
+
             } else {
                 chosen = (String) JOptionPane.showInputDialog(
                         null, "You have dropped a directory. What is the main executable?",
@@ -319,17 +304,13 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                         null, possible, possible[0]);
                 if (chosen == null) {
                     return;
-                    
                 }
             }
 
             for (File f : dirfiles) {
                 if (f.toString().endsWith(chosen)) {
                     file = f;
-
-
                 }
-                
             }
         }
         if (file.getName().toLowerCase().endsWith("dat")) {
@@ -337,7 +318,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             if (s != JOptionPane.YES_OPTION) {
                 return;
 
-                
+
             }
             deSerialize(file.getAbsolutePath());
             updateList();
@@ -345,10 +326,8 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             return;
         } else if (!file.getName().toLowerCase().endsWith("exe") && !file.getName().toLowerCase().endsWith("com") && !file.getName().toLowerCase().endsWith("bat") && !file.getName().toLowerCase().endsWith("pif")) {
             int s = JOptionPane.showConfirmDialog(this, "This doesn't look like an executable file. Executable files normally ends with .bat, .exe or .com.\n\nDo you still want to continue?", "You're almost there...", JOptionPane.YES_NO_OPTION);
-            if (s != JOptionPane.YES_OPTION) {
+            if (s != JOptionPane.YES_OPTION)
                 return;
-                
-            }
         }
 
         try {
@@ -383,17 +362,16 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
 
             if (input == null) {
                 return;
-
-
             }
+
             if (input.equals(choice[2])) {
                 d.setName(JOptionPane.showInputDialog("Type the name of the application", choice[1]));
-                
-            } else {
-                d.setName(input);
 
-                
             }
+            else {
+                d.setName(input);
+            }
+
             bl.addGame(d);
             updateList();
         } catch (Exception e) {
@@ -430,8 +408,6 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
 
         while (s.hasNext()) {
             config += s.nextLine() + "\n";
-
-            
         }
         bl.readConfig(config);
         return bl;
@@ -512,8 +488,6 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             HashMap<String, String> properties = pref.get(s);
             for (String p : properties.keySet()) {
                 ut += p + " = " + properties.get(p) + "\n";
-
-
             }
             ut += "\n";
         }
@@ -521,9 +495,8 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         ut += "[AUTOEXEC]\n";
         for (String s : autoexec) {
             ut += s + "\n";
-
-            
         }
+
         try {
             java.io.FileWriter fw = new java.io.FileWriter(filename);
             java.io.BufferedWriter bw = new java.io.BufferedWriter(fw);
@@ -548,10 +521,9 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             public Object getElementAt(int i) {
                 if (strings[i].equals("")) {
                     return "(untitled)";
-                    
-                } else {
+                }
+                else {
                     return strings[i];
-                    
                 }
             }
         });
@@ -1138,7 +1110,6 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lblSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMouseClicked
-
 }//GEN-LAST:event_lblSearchMouseClicked
 
 private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutActionPerformed
@@ -1150,9 +1121,8 @@ private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 private void Double(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Double
     if (evt.getClickCount() == 2 && !evt.isAltDown()) {
         mnuRunActionPerformed(null);
-        
-    } else {
 
+    } else {
     }
 }//GEN-LAST:event_Double
 
@@ -1205,69 +1175,10 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     DosItem di = bl.getGame((String) applicationList.getSelectedValue());
     if (di == null) {
         return;
-        
+
     }
     runApplication(di.getGame());
 }//GEN-LAST:event_mnuRunActionPerformed
-
-    private JMenuItem cloneJMenu(JMenuItem original) {
-        JMenuItem clone = new JMenuItem();
-        clone.setText(original.getText());
-        if (original.getActionListeners().length > 0) {
-            clone.addActionListener(original.getActionListeners()[0]);
-            
-        }
-        return clone;
-    }
-
-    private void buildOSXMenues() {
-
-        JMenu file = new JMenu("File");
-        JMenu edit = new JMenu("Edit");
-        JMenu tools = new JMenu("Tools");
-
-        for (Component c : runMenu.getComponents()) {
-            if (c instanceof JSeparator) {
-                file.add((JSeparator) c);
-                
-            } else {
-                file.add(cloneJMenu((JMenuItem) c));
-                
-            }
-        }
-
-        for (Component c : editMenu.getComponents()) {
-            if (c instanceof JSeparator) {
-                edit.add((JSeparator) c);
-                
-            } else {
-                edit.add(cloneJMenu((JMenuItem) c));
-
-                
-            }
-
-        }
-        for (Component c : prefMenu.getComponents()) {
-            if (c instanceof JSeparator) {
-                tools.add((JSeparator) c);
-                
-            } else {
-                tools.add(cloneJMenu((JMenuItem) c));
-
-
-
-            }
-            
-        }
-        JMenuBar bar = new JMenuBar();
-
-        bar.add(file);
-        bar.add(edit);
-        bar.add(tools);
-
-        this.setJMenuBar(bar);
-
-    }
 
     private void runApplication(String program) {
 
@@ -1276,7 +1187,7 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
             return;
 
             // If there are no applications in the application list
-            
+
         }
         if (bl.getNrGames() == 0) {
             int answ = JOptionPane.showConfirmDialog(this,
@@ -1311,10 +1222,10 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         if (!dir.exists()) {
             if (dir.mkdirs()) {
                 System.out.println("Directory Created: " + capturePath);
-                
+
             } else {
                 System.out.println("Directory is not created");
-                
+
             }
         }
 
@@ -1334,12 +1245,12 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                     if (first <= 0) {
                         continue;
 
-                        
+
                     }
                     finito[i][0] = properties[i].substring(0, first);
                     if (finito[i][0].toLowerCase().equals("autoexec")) {
                         finito[i][1] = properties[i].substring(first + 4);
-                        
+
                     } else {
                         finito[i][1] = properties[i].substring(first + 4, second);
                         finito[i][2] = properties[i].substring(second + 3);
@@ -1389,7 +1300,7 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
             String cd = "mount d \"" + di.getCdrom() + "\" -t cdrom ";
             if (!di.getCdromLabel().equals("")) {
                 cd += "-label " + di.getCdromLabel();
-                
+
             }
             autoexec.add(number++, cd);
         }
@@ -1403,7 +1314,7 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                 // Write configfile
 
             }
-            
+
         }
         writeConfig(Main.appFolder + "dosbox.conf",
                 allProps, autoexec);
@@ -1426,12 +1337,12 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
         if (Main.pref.isNoConcole()) {
             par[5] = "-noconsole";
-            
+
         } else {
             par[5] = "";
 
             // try to execute from the path if no dosbox path is present
-            
+
         }
         if (Main.pref.getDosBoxPath().equals("")) {
             par[0] = "dosbox";
@@ -1455,7 +1366,7 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                         null, choices, choices[0]);
                 if (input.equals(choices[0])) {
                     mnuPrefsActionPerformed(null);
-                    
+
                 } else if (input.equals(choices[1])) {
                     BrowserControl.openUrl("http://www.dosbox.com/download.php?main=1");
                     return;
@@ -1465,7 +1376,7 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                 }
             } else {
                 ex.printStackTrace();
-                
+
             }
         }
     }
@@ -1474,9 +1385,7 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         for (int i = 0; i < finito.length; i++) {
             if (finito[i][0].toLowerCase().equals(section.toLowerCase())) {
                 props.put(finito[i][1], finito[i][2]);
-
             }
-            
         }
     }
 
@@ -1494,7 +1403,7 @@ private void mnuEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
     if (!((String) applicationList.getSelectedValue()).equals("(untitled)")) {
         gm = (String) applicationList.getSelectedValue();
 
-        
+
     }
     ItemGUI ui = new ItemGUI(bl.removeGame(gm), this);
     ui.setVisible(true);
@@ -1510,23 +1419,27 @@ private void mnuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 }//GEN-LAST:event_mnuNewActionPerformed
 
     private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSearchKeyReleased
-    if(txtSearch.getText().equals("Search"))
-        updateList();
-    else
-        updateList(txtSearch.getText());
+        if (txtSearch.getText().equals("Search")) {
+            updateList();
+        } else {
+            updateList(txtSearch.getText());
+        }
 }//GEN-LAST:event_txtSearchKeyReleased
 
 private void mnuDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDeleteActionPerformed
-    if(applicationList.getSelectedIndex() == -1)
+    if (applicationList.getSelectedIndex() == -1) {
         return;
+    }
     int a = JOptionPane.showConfirmDialog(this, "Are you sure you want to remove " +
             applicationList.getSelectedValue() + " from the list?", "Please Confirm",
             JOptionPane.YES_NO_OPTION);
-    if(a == JOptionPane.NO_OPTION)
+    if (a == JOptionPane.NO_OPTION) {
         return;
+    }
     String gm = "";
-    if(!((String)applicationList.getSelectedValue()).equals("(untitled)"))
-        gm = (String)applicationList.getSelectedValue();
+    if (!((String) applicationList.getSelectedValue()).equals("(untitled)")) {
+        gm = (String) applicationList.getSelectedValue();
+    }
 
     bl.removeGame(gm);
     updateList();
@@ -1537,84 +1450,78 @@ private void mnuExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_mnuExitActionPerformed
 
 private void applicationListKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_applicationListKeyPressed
-    if(evt.getKeyCode() == KeyEvent.VK_ENTER)
+    if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
         mnuRunActionPerformed(null);
-    if(evt.getKeyCode() == KeyEvent.VK_SPACE) {
+    }
+    if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
         showScreenCaptures();
     }
-    if(evt.getKeyCode() == KeyEvent.VK_DELETE || evt.getKeyCode() == KeyEvent.VK_BACK_SPACE)
+    if (evt.getKeyCode() == KeyEvent.VK_DELETE || evt.getKeyCode() == KeyEvent.VK_BACK_SPACE) {
         mnuDeleteActionPerformed(null);
+    }
 }//GEN-LAST:event_applicationListKeyPressed
 
-private void showScreenCaptures() {
-    File files[] = getCaptureFiles();
-    if(files == null || files.length == 0) {
-        JOptionPane.showMessageDialog(this, "To view screen captures for this game, you got to capture some screenshots first. Press Ctrl + F5 while your playing!");
+    private void showScreenCaptures() {
+        File files[] = getCaptureFiles();
+        if (files == null || files.length == 0) {
+            JOptionPane.showMessageDialog(this, "To view screen captures for this game, you got to capture some screenshots first. Press Ctrl + F5 while your playing!");
+        } else {
+            new ScreenShot(files);
+        }
     }
-    else
-        try {
-            new ScreenShot(files[0].toURI().toURL(),files);
-        } catch (MalformedURLException ex) {
-            JOptionPane.showMessageDialog(this, "Something's wrong! Sorry!");
-        }
-}
 
-private File[] getCaptureFiles() {
-    DosItem di = bl.getGame((String) applicationList.getSelectedValue());
-    File files[] = new File(getCaptureDirectory(di)).listFiles(new FileFilter() {
-        public boolean accept(File pathname) {
-            return (pathname.getAbsolutePath().toLowerCase().endsWith(".png") ||
-                   pathname.getAbsolutePath().toLowerCase().endsWith(".jpg"));
-        }
-    });
-    return files;
+    private File[] getCaptureFiles() {
+        DosItem di = bl.getGame((String) applicationList.getSelectedValue());
+        File files[] = new File(getCaptureDirectory(di)).listFiles(new FileFilter() {
 
-}
+            public boolean accept(File pathname) {
+                return (pathname.getAbsolutePath().toLowerCase().endsWith(".png") ||
+                        pathname.getAbsolutePath().toLowerCase().endsWith(".jpg"));
+            }
+        });
+        return files;
+
+    }
 private void jLabel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MousePressed
-editMenu.show(jLabel2, 0, jLabel2.getHeight()-10);
+    editMenu.show(jLabel2, 0, jLabel2.getHeight() - 10);
 
 }//GEN-LAST:event_jLabel2MousePressed
 
 private void jLabel2MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseReleased
-
 }//GEN-LAST:event_jLabel2MouseReleased
 
 private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-
 }//GEN-LAST:event_jLabel2MouseClicked
 
 private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
-    runMenu.show(jLabel4, 0, jLabel4.getHeight()-10);
+    runMenu.show(jLabel4, 0, jLabel4.getHeight() - 10);
 }//GEN-LAST:event_jLabel4MousePressed
 
 private void jLabel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseReleased
-
 }//GEN-LAST:event_jLabel4MouseReleased
 
 private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-
 }//GEN-LAST:event_jLabel4MouseClicked
 
 private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-    if(applicationList.isVisible())
+    if (applicationList.isVisible()) {
         mnuView.setText("Floppy Flow (Experimental)");
-    else
+    } else {
         mnuView.setText("List View (Classic)");
+    }
 
-    prefMenu.show(jLabel5, 0, jLabel5.getHeight()-10);
+    prefMenu.show(jLabel5, 0, jLabel5.getHeight() - 10);
 }//GEN-LAST:event_jLabel5MousePressed
 
 private void jLabel5MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseReleased
-
 }//GEN-LAST:event_jLabel5MouseReleased
 
 private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
-
 }//GEN-LAST:event_jLabel5MouseClicked
 
 private void applicationListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationListMouseReleased
-    if(evt.getButton() == MouseEvent.BUTTON3){//MouseEvent.BUTTON3) {
-        if(applicationList.getSelectedIndex() != -1) {
+    if (evt.getButton() == MouseEvent.BUTTON3) {//MouseEvent.BUTTON3) {
+        if (applicationList.getSelectedIndex() != -1) {
             final String gamename = applicationList.getSelectedValue().toString();
 
             // Set correct name
@@ -1626,7 +1533,7 @@ private void applicationListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-
             //get the genre
             final String genre = bl.getGame(gamename).getGenre();
 
-            for(Component c : mnuListSetGenre.getMenuComponents()) {
+            for (Component c : mnuListSetGenre.getMenuComponents()) {
                 JCheckBoxMenuItem jc = (JCheckBoxMenuItem) c;
                 jc.setSelected(jc.getText().equals(genre));
             }
@@ -1637,14 +1544,16 @@ private void applicationListMouseReleased(java.awt.event.MouseEvent evt) {//GEN-
 
 private void jLabel4MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseEntered
     jLabel4.setIcon(runEnabled);
-    if(prefMenu.isVisible() || editMenu.isVisible())
+    if (prefMenu.isVisible() || editMenu.isVisible()) {
         jLabel4MousePressed(null);
+    }
 }//GEN-LAST:event_jLabel4MouseEntered
 
 private void jLabel2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseEntered
     jLabel2.setIcon(fileEnabled);
-    if(prefMenu.isVisible() || runMenu.isVisible())
+    if (prefMenu.isVisible() || runMenu.isVisible()) {
         jLabel2MousePressed(null);
+    }
 }//GEN-LAST:event_jLabel2MouseEntered
 
 private void jLabel4MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseExited
@@ -1657,8 +1566,9 @@ private void jLabel2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:even
 
 private void jLabel5MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseEntered
     jLabel5.setIcon(prefEnabled);
-    if(runMenu.isVisible() || editMenu.isVisible())
+    if (runMenu.isVisible() || editMenu.isVisible()) {
         jLabel5MousePressed(null);
+    }
 }//GEN-LAST:event_jLabel5MouseEntered
 
 private void jLabel5MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseExited
@@ -1670,7 +1580,7 @@ private void mnuPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_mnuPreferencesActionPerformed
 
 private void mnuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuHomeActionPerformed
-   BrowserControl.openUrl("http://dbox.truben.no");
+    BrowserControl.openUrl("http://dbox.truben.no");
 }//GEN-LAST:event_mnuHomeActionPerformed
 
 private void mnuDosboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDosboxActionPerformed
@@ -1678,15 +1588,12 @@ private void mnuDosboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_mnuDosboxActionPerformed
 
 private void txtSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseEntered
-
 }//GEN-LAST:event_txtSearchMouseEntered
 
 private void txtSearchMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseExited
-
 }//GEN-LAST:event_txtSearchMouseExited
 
 private void txtSearchCaretUpdate(javax.swing.event.CaretEvent evt) {//GEN-FIRST:event_txtSearchCaretUpdate
-
 }//GEN-LAST:event_txtSearchCaretUpdate
 
 private void lblSearchMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblSearchMousePressed
@@ -1712,13 +1619,13 @@ private void txtSearchFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:ev
 }//GEN-LAST:event_txtSearchFocusGained
 
 private void txtSearchFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtSearchFocusLost
-    if(txtSearch.getText().equals(""))
+    if (txtSearch.getText().equals("")) {
         txtSearch.setText("Search");
+    }
     txtSearch.setForeground(Main.theme.getSearchInactiveColor());
 }//GEN-LAST:event_txtSearchFocusLost
 
 private void applicationListMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_applicationListMouseEntered
-
 }//GEN-LAST:event_applicationListMouseEntered
 
 private void mnuGettingStartedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuGettingStartedActionPerformed
@@ -1727,31 +1634,34 @@ private void mnuGettingStartedActionPerformed(java.awt.event.ActionEvent evt) {/
 }//GEN-LAST:event_mnuGettingStartedActionPerformed
 
 private void mnuImportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuImportActionPerformed
-    String file = helperClass.showFileChooser(this,"Select file",
+    String file = helperClass.showFileChooser(this, "Select file",
             new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".dat"},
             "D-Box Game Libraries (*.dat)"), false);
 
-    if(file != null) {
+    if (file != null) {
         deSerialize(file);
         updateList();
     }
 }//GEN-LAST:event_mnuImportActionPerformed
 
 private void mnuExportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuExportActionPerformed
-    String file = helperClass.showFileChooser(this,"Select file",
+    String file = helperClass.showFileChooser(this, "Select file",
             new FileChooserFilter(FileChooserFilter.EXTENSIONS, new String[]{".dat"},
             "D-Box Game Libraries (*.dat)"), false);
-    if(file != null) {
-        if(file.indexOf(".") == -1)
+    if (file != null) {
+        if (file.indexOf(".") == -1) {
             file = file + ".dat";
+        }
         writeApplicationDatabase(file);
     }
 }//GEN-LAST:event_mnuExportActionPerformed
 
 private void mnuClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuClearActionPerformed
-    int s = JOptionPane.showConfirmDialog(this, "You are you sure you want to remove all games from the game list?" ,
+    int s = JOptionPane.showConfirmDialog(this, "You are you sure you want to remove all games from the game list?",
             "Clear game list", JOptionPane.YES_NO_OPTION);
-    if(s != JOptionPane.YES_OPTION) return;
+    if (s != JOptionPane.YES_OPTION) {
+        return;
+    }
     bl = new BoxListe();
     updateList();
 }//GEN-LAST:event_mnuClearActionPerformed
@@ -1785,30 +1695,28 @@ private void mnuQuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 }//GEN-LAST:event_mnuQuitActionPerformed
 
 private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
-    // TODO add your handling code here:
 }//GEN-LAST:event_txtSearchActionPerformed
 
 private void panelControlsMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseDragged
-    if(evt.getButton() == MouseEvent.BUTTON1) {
+    if (evt.getButton() == MouseEvent.BUTTON1) {
         Point p = getLocation();
         setLocation(p.x + evt.getX() - point.x, p.y + evt.getY() - point.y);
     }
 }//GEN-LAST:event_panelControlsMouseDragged
 
 private void panelControlsMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseMoved
-
 }//GEN-LAST:event_panelControlsMouseMoved
 
 private void panelControlsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMouseClicked
-
 }//GEN-LAST:event_panelControlsMouseClicked
 
 private void panelControlsMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_panelControlsMousePressed
-    if(evt.getClickCount() == 2) {
-        if(getExtendedState() != MAXIMIZED_BOTH)
-            this.setExtendedState(this.MAXIMIZED_BOTH);
-        else
+    if (evt.getClickCount() == 2) {
+        if (getExtendedState() != MAXIMIZED_BOTH) {
+            this.setExtendedState(MainWindow.MAXIMIZED_BOTH);
+        } else {
             setExtendedState(NORMAL);
+        }
     }
 
     point.x = evt.getX();
@@ -1826,8 +1734,6 @@ private void mnuCheckNewestActionPerformed(java.awt.event.ActionEvent evt) {//GE
 private void mnuViewScreenShotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuViewScreenShotActionPerformed
     mnuShowScreenShotActionPerformed(evt);
 }//GEN-LAST:event_mnuViewScreenShotActionPerformed
-
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JList applicationList;
     private javax.swing.JPopupMenu editMenu;
@@ -1879,15 +1785,15 @@ private void mnuViewScreenShotActionPerformed(java.awt.event.ActionEvent evt) {/
     // End of variables declaration//GEN-END:variables
 
     public void focusGained(FocusEvent e) {
-        if(this.getFocusOwner() == this)
+        if (this.getFocusOwner() == this) {
             applicationList.requestFocus();
+        }
     }
 
     public void focusLost(FocusEvent e) {
-
     }
-
 }
+
 class Filter implements ActionListener {
 
     MainWindow mw;
@@ -1897,16 +1803,16 @@ class Filter implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        mw.txtSearch.setText(((JMenuItem)e.getSource()).getText());
-        String s = ((JMenuItem)e.getSource()).getText();
-        if(s.equals("Favorites"))
+        mw.txtSearch.setText(((JMenuItem) e.getSource()).getText());
+        String s = ((JMenuItem) e.getSource()).getText();
+        if (s.equals("Favorites")) {
             mw.updateListFavorite();
-        else
+        } else {
             mw.updateListGenre(s);
+        }
 
         mw.applicationList.requestFocus();
     }
-
 }
 
 class SetGenre implements ActionListener {
@@ -1925,5 +1831,4 @@ class SetGenre implements ActionListener {
 
         mw.applicationList.requestFocus();
     }
-
 }
