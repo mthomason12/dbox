@@ -2,7 +2,6 @@ package dbox2.GUI;
 
 import dbox2.Main;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
@@ -16,13 +15,10 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.BorderFactory;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
-import javax.swing.border.BevelBorder;
 
 /**
  *
@@ -35,11 +31,9 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
     int pictureNumber = 0;
 
 
-    public ScreenShot(URL url, File[] files) {
+    public ScreenShot(File[] files) {
         this.files = files;
-        panelImage = new PanelImage(url);
         setUp();
-        
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -93,19 +87,15 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
     private void showImage() {
         if(files != null) {
             try {
-                this.remove(panelImage);
-                panelImage = null;
+                if(panelImage != null)
+                    this.remove(panelImage);
+
                 panelImage = new PanelImage(files[pictureNumber].toURI().toURL());
-                panelImage.setBackground(Color.BLUE);
                 Image img = panelImage.getBackgroundImage();
-                this.setSize(new Dimension(img.getWidth(this),img.getHeight(this)));
+                this.setSize(new Dimension(img.getWidth(this), img.getHeight(this)));
                 panelImage.setSize(img.getWidth(this), img.getHeight(this));
-                panelImage.setVisible(true);
-                this.add(panelImage,BorderLayout.CENTER);
-                Dimension d = Main.n.getSize();
-                Point p = Main.n.getLocation();
-                p.setLocation(p.getX()+(d.getWidth()/2) - (this.getWidth()/2), p.getY()+(d.getHeight()/2) - (this.getHeight()/2));
-                this.setLocation(p);
+                this.add(panelImage, BorderLayout.CENTER);
+                centerScreen();
                 this.repaint();
             } catch (MalformedURLException ex) {
                 Logger.getLogger(ScreenShot.class.getName()).log(Level.SEVERE, null, ex);
@@ -126,22 +116,13 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
     }
 
     private void setUp() {
-        this.setLayout(new BorderLayout());
-        this.add(panelImage, BorderLayout.CENTER);
-        Image img = panelImage.getBackgroundImage();
-        this.setSize(new Dimension(img.getWidth(this),img.getHeight(this)));
-        this.setBackground(Color.BLACK);
+        this.setLayout(new BorderLayout(10, 10));
         this.setUndecorated(true);
         this.addMouseListener(this);
-        panelImage.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED,Color.WHITE,Color.WHITE));
         this.addKeyListener(this);
         this.addMouseWheelListener(this);
         this.addFocusListener(this);
-        Point p = Main.n.getLocation();
-        Dimension d = Main.n.getSize();
-        p.setLocation(p.getX()+(d.getWidth()/2) - (this.getWidth()/2), p.getY()+(d.getHeight()/2) - (this.getHeight()/2));
-        this.setLocation(p);
-
+        showImage();
         this.setVisible(true);
     }
 
@@ -167,6 +148,13 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
             nextImage();
         else if(e.getWheelRotation() < 0)
             prevImage();
+    }
+
+    private void centerScreen() {
+        Dimension d = Main.n.getSize();
+        Point p = Main.n.getLocation();
+        p.setLocation(p.getX()+(d.getWidth()/2) - (this.getWidth()/2), p.getY()+(d.getHeight()/2) - (this.getHeight()/2));
+        this.setLocation(p);
     }
 
     
