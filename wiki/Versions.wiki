@@ -63,3 +63,4 @@ http://dbox.googlecode.com/svn/wiki/img/screenshots/2.1/main.png
 Not released yet
 
   * [http://code.google.com/p/dbox/wiki/whatsnew22 What's new?]
+  * Test the beta: http://dbox.googlecode.com/files/dbox22beta.zip
