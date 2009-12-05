@@ -5,7 +5,7 @@
   * *D-Box now saves it's preferences in the system's "Application Data" folder*
   * *Updated user interface*
   * Added support for screen captures (screenshots) (issue 29)
-  * Check for updates (issue 23)
+  * Added "check for updates" feature (issue 23)
   * Initial support for themes (issue 24)
   * Possible to run DosBox without debug console (issue 25)
   * Fixed a nasty bug when you're browsing your disk (issue 22)
@@ -18,3 +18,4 @@
     * Possible to use the global menu's about and prefrences menuitems.
     * *Use unified toolbar by default*
     * Possible to move the window by dragging in the toolbar.
+    * New theme for OS-X
