@@ -32,6 +32,9 @@ public class NewPreferences implements Serializable {
     private boolean NoConcole = true;
     private int TypeOfFileDialog = 0;
     private int NumerOfColumnsInGameList = 1;
+    private int WindowHeight = 444;
+    private int WindowWidth = 593;
+
     private boolean StartWithFloppyFlow = false;
 
     public void setStartWithFloppyFlow(boolean StartWithFloppyFlow) {
@@ -75,6 +78,26 @@ public class NewPreferences implements Serializable {
     public void setFirstStart(boolean FirstStart) {
         this.FirstStart = FirstStart;
     }
+
+    public int getWindowHeight() {
+        return WindowHeight;
+    }
+
+    public void setWindowHeight(int WindowHeight) {
+        this.WindowHeight = WindowHeight;
+    }
+
+    public int getWindowWidth() {
+        return WindowWidth;
+    }
+
+    public void setWindowWidth(int WindowWidth) {
+        this.WindowWidth = WindowWidth;
+    }
+
+
+
+
 
     public void writeConfig(String filename) throws IOException {
         FileWriter fstream = new FileWriter(filename);
@@ -126,6 +149,10 @@ public class NewPreferences implements Serializable {
                 TypeOfFileDialog = Integer.parseInt(parts[1].trim());
             else if(parts[0].equals("numberofcolumns"))
                 NumerOfColumnsInGameList = Integer.parseInt(parts[1].trim());
+            else if(parts[0].equals("windowheight"))
+                WindowHeight = Integer.parseInt(parts[1].trim());
+            else if(parts[0].equals("windowwidth"))
+                WindowWidth = Integer.parseInt(parts[1].trim());
             else if(parts[0].equals("lastusedpath"))
                 LastUsedPath = parts[1].trim();
             else if(parts[0].equals("keyboardcode"))
@@ -169,6 +196,8 @@ public class NewPreferences implements Serializable {
                      "ShowIcons        := " + ShowIcons + "\n" +
                      "Theme            := " + Theme + "\n" +
                      "TypeOfFileDialog := " + TypeOfFileDialog + "\n" +
+                     "WindowHeight     := " + WindowHeight + "\n" +
+                     "WindowWidth      := " + WindowWidth + "\n" +
                      "UseBuiltInDosBox := " + BuiltInDosBox;
 
 

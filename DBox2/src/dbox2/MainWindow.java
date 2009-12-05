@@ -83,6 +83,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
             pack();
         }
 
+
         // Genre filter menu
         if (true) {
             JMenuItem m = new JMenuItem();
@@ -120,6 +121,8 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        this.setSize(Main.pref.getWindowWidth(), Main.pref.getWindowHeight());
 
         centerScreen();
         updateList();
@@ -383,6 +386,8 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
     public void dispose() {
         writeApplicationDatabase(Main.gameFile);
         try {
+            Main.pref.setWindowHeight(this.getHeight());
+            Main.pref.setWindowWidth(this.getWidth());
             Main.pref.writeConfig(Main.configFile);
         } catch (IOException ex) {
             Logger.getLogger(MainWindow.class.getName()).log(Level.SEVERE, null, ex);
@@ -1461,7 +1466,7 @@ private void applicationListKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST
     }
 }//GEN-LAST:event_applicationListKeyPressed
 
-    private void showScreenCaptures() {
+    public void showScreenCaptures() {
         File files[] = getCaptureFiles();
         if (files == null || files.length == 0) {
             JOptionPane.showMessageDialog(this, "To view screen captures for this game, you got to capture some screenshots first. Press Ctrl + F5 while your playing!");

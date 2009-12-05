@@ -1,6 +1,7 @@
 package dbox2.GUI.CoverFlow;
 
 import dbox2.DosItem;
+import dbox2.Main;
 import dbox2.MainWindow;
 import dbox2.util.ImageHandlerer;
 import java.awt.AlphaComposite;
@@ -630,6 +631,8 @@ public class CDShelf extends JPanel {
                 case KeyEvent.VK_PAGE_DOWN:
                     scrollAndAnimateBy(avatarAmount / 2);
                     break;
+                case KeyEvent.VK_SPACE:
+                    Main.n.showScreenCaptures();
             }
         }
     }

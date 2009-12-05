@@ -1,10 +1,15 @@
 package dbox2.GUI;
 
+import dbox2.DosItem;
 import dbox2.Main;
+import dbox2.MainWindow;
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.KeyEvent;
@@ -14,11 +19,15 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JDialog;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.PopupFactory;
 
 /**
  *
@@ -28,25 +37,71 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
 
     PanelImage panelImage;
     File[] files;
+    JPopupMenu popup;
     int pictureNumber = 0;
 
 
     public ScreenShot(File[] files) {
         this.files = files;
+        createPopupMenu();
         setUp();
     }
 
+    private void createPopupMenu() {
+        popup = new JPopupMenu();
+        JMenuItem close = new JMenuItem("Close Screenshot");
+        close.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        });
+        popup.add(close);
+
+        JMenuItem view = new JMenuItem("View in External Program");
+        view.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                launchLocalFile();
+                dispose();
+            }
+        });
+        popup.add(view);
+
+        JMenuItem delete = new JMenuItem("Delete Screenshot");
+        delete.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                deleteImage();
+                dispose();
+            }
+        });
+        popup.add(delete);
+
+        JMenuItem useAsIcon = new JMenuItem("Use Screenshot as Application Icon");
+        useAsIcon.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                DosItem di = MainWindow.bl.removeGame((String) Main.n.applicationList.getSelectedValue());
+                di.setIcon(getCurrentFile().getAbsolutePath());
+                MainWindow.bl.addGame(di);
+                dispose();
+            }
+        });
+        popup.add(useAsIcon);
+
+    }
+
     public void mouseClicked(MouseEvent e) {
-        dispose();
+        //dispose();
     }
 
     public void mousePressed(MouseEvent e) {
-        dispose();
+        if(e.getButton() == 1)
+            dispose();
+        else {
+            this.removeFocusListener(this);
+            popup.show(this, e.getX(), e.getY());
+        }
     }
 
-    public void mouseReleased(MouseEvent e) {
-        dispose();
-    }
+    public void mouseReleased(MouseEvent e) {}
 
     public void mouseEntered(MouseEvent e) {
     }
@@ -90,7 +145,7 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
                 if(panelImage != null)
                     this.remove(panelImage);
 
-                panelImage = new PanelImage(files[pictureNumber].toURI().toURL());
+                panelImage = new PanelImage(getCurrentFile().toURI().toURL());
                 Image img = panelImage.getBackgroundImage();
                 this.setSize(new Dimension(img.getWidth(this), img.getHeight(this)));
                 panelImage.setSize(img.getWidth(this), img.getHeight(this));
@@ -103,8 +158,7 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
         }
     }
 
-    public void keyReleased(KeyEvent e) {
-    }
+    public void keyReleased(KeyEvent e) {}
 
     @Override
     public void dispose() {
@@ -126,9 +180,7 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
         this.setVisible(true);
     }
 
-    public void focusGained(FocusEvent e) {
-
-    }
+    public void focusGained(FocusEvent e) {}
 
     public void focusLost(FocusEvent e) {
         dispose();
@@ -137,7 +189,7 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
     private void deleteImage() {
         this.removeFocusListener(this);
         if(JOptionPane.showConfirmDialog(this, "Do you want to delete this screenshot?") == JOptionPane.YES_OPTION) {
-            files[pictureNumber].delete();
+            getCurrentFile().delete();
             dispose();
         }
         this.addFocusListener(this);
@@ -155,6 +207,21 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
         Point p = Main.n.getLocation();
         p.setLocation(p.getX()+(d.getWidth()/2) - (this.getWidth()/2), p.getY()+(d.getHeight()/2) - (this.getHeight()/2));
         this.setLocation(p);
+    }
+
+    private void launchLocalFile() {
+        if(Desktop.isDesktopSupported()) {
+            try {
+                Desktop desktop = Desktop.getDesktop();
+                desktop.browse(getCurrentFile().toURI());
+            } catch (IOException ex) {
+                JOptionPane.showMessageDialog(null, "Could not display file.");
+            }
+        }
+    }
+
+    private File getCurrentFile() {
+        return files[pictureNumber];
     }
 
     
