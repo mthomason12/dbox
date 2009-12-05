@@ -7,8 +7,6 @@ import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -90,6 +88,8 @@ public class ThemeSupport {
         }
         else
             backgroundRepeat = 150;
+
+
     }
 
 

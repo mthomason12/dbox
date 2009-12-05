@@ -70,10 +70,10 @@ public class ItemGUI extends javax.swing.JDialog {
      * Putter boksen midt paa skjermen
      */
     public void centerScreen() {
-    	  Dimension dim = getToolkit().getScreenSize();
+    	  Dimension dimension = getToolkit().getScreenSize();
     	  Rectangle abounds = getBounds();
-    	  setLocation((dim.width - abounds.width) / 2,
-    	      (dim.height - abounds.height) / 2);
+    	  setLocation((dimension.width - abounds.width) / 2,
+    	      (dimension.height - abounds.height) / 2);
     }
     
     /** This method is called from within the constructor to
@@ -587,10 +587,10 @@ private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     this.setVisible(false);
 }//GEN-LAST:event_cmdConfirmActionPerformed
 
-private String stringifyModel(ListModel lm){
+private String stringifyModel(ListModel listmodel){
     String output = "";
-    for(int i = 0; i < lm.getSize(); i++) {
-        output += lm.getElementAt(i) + ";";
+    for(int i = 0; i < listmodel.getSize(); i++) {
+        output += listmodel.getElementAt(i) + ";";
     }
     return output;
 }
