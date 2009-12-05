@@ -11,6 +11,7 @@
   * Fixed a nasty bug when you're browsing your disk (issue 22)
   * D-Box now use the game's path as its default path instead of the last used (Issue 14)
   * More work on the "floppy flow"(new background, starts up in floppy flow if you closed D-Box while using floppy flow)
+  * Remembers the dimensions of the main window
   * Possible to display the application list in columns.
   * Removed helptext in toolbar.
   * MacOS specific issues:
