@@ -230,7 +230,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
 
         jPanel3.setOpaque(false);
 
-        cmbIconSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Small", "Medium", "Large", "X-Large" }));
+        cmbIconSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Small (16x16)", "Medium (24x24)", "Large (32x32)", "X-Large (48x48)", "Small Screenshot (160x100)", "Full Screenshot (320x200)" }));
         cmbIconSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbIconSizeActionPerformed(evt);
@@ -298,7 +298,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
                         .add(cmbColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel3)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 355, Short.MAX_VALUE)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 258, Short.MAX_VALUE)
                         .add(cmbIconSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );

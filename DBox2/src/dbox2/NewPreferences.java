@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 public class NewPreferences implements Serializable {
     
@@ -361,20 +362,38 @@ public class NewPreferences implements Serializable {
     }
 
     public void setIconSize(String s) {
-        final int[]    size = {16,22,32,48};
-        final String[] name = {"Small","Medium","Large", "X-Large"};
+        int[] dimensions = parseSize(s);
+        if(dimensions.length == 2) {
+            this.IconWidth = dimensions[0];
+            this.IconHeight = dimensions[1];
+        }
+        else {
+            System.out.println("[ERROR] Could not set icon size");
+        }
+    }
 
-        for(int i = 0; i < size.length; i++) {
-            if(name[i].equals(s)) {
-                setIconHeight(size[i]);
-                setIconWidth(size[i]);
-                return;
+    private int[] parseSize(String s) {
+        int startParantheze = s.lastIndexOf('(');
+        int endParantheze = s.lastIndexOf(')');
+
+        if(startParantheze > 0 && endParantheze > startParantheze) {
+            String parantheze = s.substring(startParantheze + 1, endParantheze);
+            System.out.println(parantheze);
+            String[] numbersAsString = parantheze.split("x");
+            if(numbersAsString.length == 2) {
+                
+                try {
+                    int[] numbersAsInt = new int[] {Integer.parseInt(numbersAsString[0]),Integer.parseInt(numbersAsString[1])};
+                    return numbersAsInt;
+                }
+                catch(NumberFormatException e) {}
             }
         }
+        return new int[]{};
     }
     
     public int getIconSizeIndex() {
-        final int[]    size = {16,22,32,48};
+        final int[]    size = {16,22,32,48,160,320};
 
         for(int i = 0; i < size.length; i++)
             if(Main.pref.getIconWidth() == size[i])

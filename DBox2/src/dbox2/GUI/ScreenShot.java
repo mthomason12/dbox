@@ -40,7 +40,6 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
     JPopupMenu popup;
     int pictureNumber = 0;
 
-
     public ScreenShot(File[] files) {
         this.files = files;
         createPopupMenu();
@@ -147,7 +146,9 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
 
                 panelImage = new PanelImage(getCurrentFile().toURI().toURL());
                 Image img = panelImage.getBackgroundImage();
+
                 this.setSize(new Dimension(img.getWidth(this), img.getHeight(this)));
+                
                 panelImage.setSize(img.getWidth(this), img.getHeight(this));
                 this.add(panelImage, BorderLayout.CENTER);
                 centerScreen();
