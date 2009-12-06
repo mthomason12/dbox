@@ -357,11 +357,16 @@ public class ThemeSupport {
 
         if(defaultGame == null) {
             int width = Main.pref.getIconWidth();
+            int height = Main.pref.getIconHeight();
             String ext = "";
             if(width <=16)
                 ext="-16";
             else if(width >= 17 && width <= 22)
                 ext="-22";
+            else if((double)width/(double)height == 1.6 && width <= 160)
+                ext="-160x100";
+            else if((double)width/(double)height == 1.6 && width >= 161)
+                ext="-320x200";
             else
                 ext="-32";
             return getClass().getResource("/dbox2/gameIcons/application-x-executable" + ext + ".png");
