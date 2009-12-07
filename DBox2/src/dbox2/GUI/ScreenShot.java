@@ -27,7 +27,6 @@ import javax.swing.JDialog;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
-import javax.swing.PopupFactory;
 
 /**
  *
@@ -45,6 +44,7 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
         createPopupMenu();
         setUp();
     }
+
 
     private void createPopupMenu() {
         popup = new JPopupMenu();
