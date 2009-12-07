@@ -85,6 +85,7 @@ public class ThemeSupport {
             gameFavoriteImage    = getClass().getResource("/dbox2/img/mac/favorite.png");
             gameNotFavoriteImage = getClass().getResource("/dbox2/img/emblem-notfavorite.png");
 
+            backgroundRepeat = 0;
         }
         else
             backgroundRepeat = 150;
