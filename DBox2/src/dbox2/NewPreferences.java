@@ -27,6 +27,7 @@ public class NewPreferences implements Serializable {
     private boolean BuiltInDosBox = false;
     private boolean ShowIcons = true;
     private boolean FirstStart = true;
+    private boolean CheckForUpdates = true;
     private int IconWidth = 22;
     private int IconHeight = 22;
     private boolean IconResize = true;
@@ -62,7 +63,13 @@ public class NewPreferences implements Serializable {
         this.Theme = Theme;
     }
 
+    public boolean isCheckForUpdates() {
+        return CheckForUpdates;
+    }
 
+    public void setCheckForUpdates(boolean CheckForUpdates) {
+        this.CheckForUpdates = CheckForUpdates;
+    }
 
     public boolean isBuiltInDosBox() {
         return BuiltInDosBox;
@@ -160,6 +167,8 @@ public class NewPreferences implements Serializable {
                 KeyBoardCode = parts[1].trim();
             else if(parts[0].equals("firststart"))
                 FirstStart = Boolean.parseBoolean(parts[1].trim());
+            else if(parts[0].equals("checkforupdates"))
+                CheckForUpdates = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("usebuiltindosbox"))
                 BuiltInDosBox = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("noconcole"))
@@ -192,6 +201,7 @@ public class NewPreferences implements Serializable {
                      "KeepOpen         := " + KeepOpen + "\n" +
                      "KeyBoardCode     := " + KeyBoardCode + "\n" +
                      "LastUsedPath     := " + LastUsedPath + "\n" +
+                     "CheckForUpdates  := " + CheckForUpdates + "\n" +
                      "NoConcole        := " + NoConcole + "\n" +
                      "NumberOfColumns  := " + NumerOfColumnsInGameList + "\n" +
                      "ShowIcons        := " + ShowIcons + "\n" +

@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
 
 /**
@@ -28,9 +29,21 @@ public class Updater {
                 int[] version = parseVersion(in.readLine());
                 boolean isNewerAvailable = isNewestVersion(version);
                 if (isNewerAvailable) {
-                    int answer = JOptionPane.showConfirmDialog(null, "There is a newer version of D-Box available!\nThe newest version is " +
-                            version[0] + "." + version[1] + " and you have version " + Main.MAJORVERSION + "." + Main.MINORVERSION +
-                            ".\nGo to D-Box' homepage and download?", "Newer version available", JOptionPane.YES_NO_OPTION);
+
+                    JCheckBox check = new JCheckBox("Do not show this message again.");
+
+                    String message = "There is a newer version of D-Box available!\nThe newest version is " +
+                                     version[0] + "." + version[1] + " and you have version " + Main.MAJORVERSION + "." + Main.MINORVERSION +
+                                     ".\nGo to D-Box' homepage and download?\n";
+                    Object[] params;
+                    if(!notify)
+                        params = new Object[]{message, check};
+                    else
+                        params =  new Object[]{message};
+                        
+                    int answer = JOptionPane.showConfirmDialog(null, params, "Newer version available", JOptionPane.YES_NO_OPTION);
+                    Main.pref.setCheckForUpdates(!check.isSelected());
+
                     if (answer == JOptionPane.YES_OPTION) {
                         BrowserControl.openUrl(dboxURL);
                     }
@@ -40,15 +53,18 @@ public class Updater {
                 }
 
             } catch (IOException ex) {
-                JOptionPane.showMessageDialog(null, "Unable to connect to... \n" + currentURL);
+                if (notify) JOptionPane.showMessageDialog(null, "Unable to connect to... \n" + currentURL);
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(null, "Unable to check for new version beacuse of server-side problems.");
+                if (notify) JOptionPane.showMessageDialog(null, "Unable to check for new version beacuse of server-side problems.");
             } finally {
                 try {
                     in.close();
                 } catch (IOException ex) {
                     Logger.getLogger(Updater.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (NullPointerException ex) {
+                    Logger.getLogger(Updater.class.getName()).log(Level.SEVERE, null, ex);
                 }
+
             }
         }
     }

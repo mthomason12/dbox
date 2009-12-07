@@ -1476,6 +1476,9 @@ private void applicationListKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST
     }
 
     private File[] getCaptureFiles() {
+        if(applicationList.getSelectedValue() == null)
+            return new File[]{};
+
         DosItem di = bl.getGame((String) applicationList.getSelectedValue());
         File files[] = new File(getCaptureDirectory(di)).listFiles(new FileFilter() {
 

@@ -64,6 +64,9 @@ public class Main {
             n = new MainWindow();
             
             n.setVisible(true);
+
+            if(pref.isCheckForUpdates())
+                Updater.CheckForUpdate(false);
             
         } catch (ClassNotFoundException ex) {
             Logger.getLogger("global").log(Level.SEVERE, null, ex);
