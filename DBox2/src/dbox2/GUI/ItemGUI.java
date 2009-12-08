@@ -12,6 +12,7 @@ import dbox2.*;
 import dbox2.util.FileChooserFilter;
 import dbox2.util.helperClass;
 import java.awt.*;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
@@ -237,10 +238,15 @@ public class ItemGUI extends javax.swing.JDialog {
         jLabel6.setText("How fast would you like the computer?");
         jLabel6.setToolTipText("How fast should the emulated\ncomputer be? If you draw the slider\nto the left, it will be slower, and to\nthe right it will be faster");
 
-        sldCycles.setMaximum(15000);
+        sldCycles.setMaximum(25000);
         sldCycles.setMinimum(1);
         sldCycles.setToolTipText("3000 CPU Cycles");
         sldCycles.setValue(3000);
+        sldCycles.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                sldCyclesMousePressed(evt);
+            }
+        });
         sldCycles.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 sldCyclesStateChanged(evt);
@@ -923,6 +929,27 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         JOptionPane.showMessageDialog(this, Icon, "Preview", JOptionPane.PLAIN_MESSAGE);
     }
 }//GEN-LAST:event_jButton6ActionPerformed
+
+private void sldCyclesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sldCyclesMousePressed
+    if(evt.getClickCount() == 2) {
+        String numberAsString = JOptionPane.showInputDialog(this, "Please enter the amount of instructions DOSBox should try to emulate each millisecond:",sldCycles.getValue());
+        try {
+            int number = Integer.parseInt(numberAsString);
+
+            if(number > sldCycles.getMaximum())
+                sldCycles.setMaximum(number);
+            if(number < 0)
+                return;
+            sldCycles.setValue(number);
+            sldCycles.setPaintLabels(true);
+            sldCycles.setPaintLabels(false);
+            sldCycles.repaint();
+        }
+        catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid number.");
+        }
+    }
+}//GEN-LAST:event_sldCyclesMousePressed
 
     private void addProperties(String section, String property, String value) {
         ListModel currentModel = listProperties.getModel();

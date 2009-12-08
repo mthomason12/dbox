@@ -26,6 +26,7 @@ public class NewPreferences implements Serializable {
     private boolean FullScreen = false;
     private boolean BuiltInDosBox = false;
     private boolean ShowIcons = true;
+    private boolean ShowText = true;
     private boolean FirstStart = true;
     private boolean CheckForUpdates = true;
     private int IconWidth = 22;
@@ -147,6 +148,8 @@ public class NewPreferences implements Serializable {
                 IconResize = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("showicons"))
                 ShowIcons = Boolean.parseBoolean(parts[1].trim());
+            else if(parts[0].equals("showtext"))
+                ShowText = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("fullscreen"))
                 FullScreen = Boolean.parseBoolean(parts[1].trim());
             else if(parts[0].equals("genres"))
@@ -205,6 +208,7 @@ public class NewPreferences implements Serializable {
                      "NoConcole        := " + NoConcole + "\n" +
                      "NumberOfColumns  := " + NumerOfColumnsInGameList + "\n" +
                      "ShowIcons        := " + ShowIcons + "\n" +
+                     "ShowText         := " + ShowText + "\n" +
                      "Theme            := " + Theme + "\n" +
                      "TypeOfFileDialog := " + TypeOfFileDialog + "\n" +
                      "WindowHeight     := " + WindowHeight + "\n" +
@@ -230,6 +234,14 @@ public class NewPreferences implements Serializable {
                 splitt[i] = splitt[i].trim();
             setGenres(splitt);
         }
+    }
+
+    public boolean isShowText() {
+        return ShowText;
+    }
+
+    public void setShowText(boolean ShowText) {
+        this.ShowText = ShowText;
     }
 
     public boolean isFullScreen() {

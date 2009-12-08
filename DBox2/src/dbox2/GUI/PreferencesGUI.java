@@ -37,6 +37,8 @@ public class PreferencesGUI extends javax.swing.JDialog {
 
         chkCheckForUpdates.setSelected(Main.pref.isCheckForUpdates());
 
+        fixListDisplayOptions();
+
         iconindex = cmbIconSize.getSelectedIndex();
 
         themeName.setText(Main.pref.getTheme());
@@ -47,6 +49,8 @@ public class PreferencesGUI extends javax.swing.JDialog {
 
         centerScreen();
     }
+
+
     
     /**
      * Putter boksen midt paa skjermen
@@ -102,6 +106,8 @@ public class PreferencesGUI extends javax.swing.JDialog {
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         cmbColumns = new javax.swing.JComboBox();
+        cmbListDisplay = new javax.swing.JComboBox();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Preferences");
@@ -286,7 +292,11 @@ public class PreferencesGUI extends javax.swing.JDialog {
 
         jLabel6.setText("Number of Columns in Application List");
 
-        cmbColumns.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1 Column", "2 Columns", "3 Columns", "4 Columns", "5 Columns" }));
+        cmbColumns.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1 Column", "2 Columns", "3 Columns", "4 Columns", "5 Columns", "6 Columns", "7 Columns", "8 Columns" }));
+
+        cmbListDisplay.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Image and Text", "Text", "Image" }));
+
+        jLabel7.setText("Show Application in Applications List as");
 
         org.jdesktop.layout.GroupLayout jPanel3Layout = new org.jdesktop.layout.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -309,7 +319,11 @@ public class PreferencesGUI extends javax.swing.JDialog {
                     .add(jPanel3Layout.createSequentialGroup()
                         .add(jLabel3)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 132, Short.MAX_VALUE)
-                        .add(cmbIconSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(cmbIconSize, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .add(jLabel7)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 132, Short.MAX_VALUE)
+                        .add(cmbListDisplay, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -333,7 +347,11 @@ public class PreferencesGUI extends javax.swing.JDialog {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel6)
                     .add(cmbColumns, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(47, 47, 47))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(cmbListDisplay, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(jLabel7))
+                .add(14, 14, 14))
         );
 
         jTabbedPane1.addTab("Appearance", jPanel3);
@@ -393,6 +411,21 @@ private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FI
     Main.pref.setNoConcole(!chkNoConcole.isSelected());
     Main.pref.setKeyboardCountry(cmbKeyboard.getSelectedItem().toString());
     Main.pref.setCheckForUpdates(chkCheckForUpdates.isSelected());
+
+    switch(cmbListDisplay.getSelectedIndex()) {
+        case 0:
+            Main.pref.setShowIcons(true);
+            Main.pref.setShowText(true);
+            break;
+        case 1:
+            Main.pref.setShowIcons(false);
+            Main.pref.setShowText(true);
+            break;
+        case 2:
+            Main.pref.setShowIcons(true);
+            Main.pref.setShowText(false);
+            break;
+    }
 
 
     Main.pref.setNumerOfColumnsInGameList(cmbColumns.getSelectedIndex()+1);
@@ -476,6 +509,7 @@ private void chkNoConcoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JComboBox cmbColumns;
     private javax.swing.JComboBox cmbIconSize;
     private javax.swing.JComboBox cmbKeyboard;
+    private javax.swing.JComboBox cmbListDisplay;
     private javax.swing.JButton cmdBrowse;
     private javax.swing.JButton cmdBrowse1;
     private javax.swing.JButton cmdConfirm;
@@ -487,6 +521,7 @@ private void chkNoConcoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -498,6 +533,21 @@ private void chkNoConcoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
     @Override
     public void dispose() {
         cmdConfirmActionPerformed(null);
+    }
+
+    private void fixListDisplayOptions() {
+        boolean text = Main.pref.isShowText();
+        boolean image = Main.pref.isShowIcons();
+        if(text && image)
+            cmbListDisplay.setSelectedIndex(0);
+        else if(text && !image)
+            cmbListDisplay.setSelectedIndex(1);
+        else if(!text && image)
+            cmbListDisplay.setSelectedIndex(2);
+        else
+            cmbListDisplay.setSelectedIndex(-1);
+
+
     }
 
 }
