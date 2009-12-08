@@ -362,8 +362,8 @@ public class ThemeSupport {
             String ext = "";
             if(width <=16)
                 ext="-16";
-            else if(width >= 17 && width <= 22)
-                ext="-22";
+            else if(width >= 17 && width <= 24)
+                ext="-24";
             else if((double)width/(double)height == 1.6 && width <= 160)
                 ext="-160x100";
             else if((double)width/(double)height == 1.6 && width >= 161)

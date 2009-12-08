@@ -246,7 +246,7 @@ public class PreferencesGUI extends javax.swing.JDialog {
 
         jPanel3.setOpaque(false);
 
-        cmbIconSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Small (16x16)", "Medium (24x24)", "Large (32x32)", "X-Large (48x48)", "Small Screenshot (160x100)", "Full Screenshot (320x200)" }));
+        cmbIconSize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Small (16x16)", "Medium (22x22)", "Large (32x32)", "X-Large (48x48)", "Small Screenshot (160x100)", "Full Screenshot (320x200)" }));
         cmbIconSize.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbIconSizeActionPerformed(evt);

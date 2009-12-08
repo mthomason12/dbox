@@ -29,8 +29,8 @@ public class NewPreferences implements Serializable {
     private boolean ShowText = true;
     private boolean FirstStart = true;
     private boolean CheckForUpdates = true;
-    private int IconWidth = 22;
-    private int IconHeight = 22;
+    private int IconWidth = 32;
+    private int IconHeight = 32;
     private boolean IconResize = true;
     private boolean NoConcole = true;
     private int TypeOfFileDialog = 0;
@@ -415,7 +415,7 @@ public class NewPreferences implements Serializable {
     }
     
     public int getIconSizeIndex() {
-        final int[]    size = {16,24,32,48,160,320};
+        final int[]    size = {16,22,32,48,160,320};
 
         for(int i = 0; i < size.length; i++)
             if(Main.pref.getIconWidth() == size[i])
