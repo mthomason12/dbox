@@ -1,0 +1,5 @@
+#summary Screenshots are pictures of programs that are running
+
+= Introduction =
+
+A screenshot is a picture of a program that's running. It's also called "Screen Capture". D-Box have built in support for screenshots. Read more about screen shots in D-Box here: AddScreenShot
