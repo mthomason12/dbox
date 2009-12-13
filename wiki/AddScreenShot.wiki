@@ -1,6 +1,6 @@
 #summary How to capture a screen shot, and view it using D-Box
 
-_This feature is only available in D-Box 2.2 and newer_
+_Please note: This feature is only available in D-Box 2.2 and newer_
 
 = Introduction =
 
