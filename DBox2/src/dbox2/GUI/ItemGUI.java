@@ -806,7 +806,7 @@ private void cmdAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
     values.put("AUTOEXEC", null);
     values.put("SDL", sdl);
     values.put("DOSBOX", dosbox);
-    values.put("RENDERER", renderer);
+    values.put("RENDER", renderer);
     values.put("DOS", dos);
     values.put("IPX", ipx);
     values.put("SERIAL", serial);

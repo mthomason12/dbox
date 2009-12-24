@@ -25,10 +25,13 @@ class GameListRenderer extends JLabel implements ListCellRenderer {
             boolean cellHasFocus)   // the list and the cell have the focus
     {
         String s = value.toString();
-        if(Main.pref.isShowText())
+        if(Main.pref.isShowText()) {
             setText(" " + s);
-        else
+        }
+        else {
             setText("");
+        }
+
 
         this.setBorder(BorderFactory.createEmptyBorder(2, 5, 2, 0));
         this.setLayout(new BorderLayout());

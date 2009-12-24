@@ -18,7 +18,7 @@ public class DosItem implements Serializable {
     private String gamefile = "";
     private String installer = "";
     private String icon = "";
-    private int cycles = 6000;
+    private int cycles = 8000;
     private int frameskip = 0;
     private String cdrom = "";
     private String cdromLabel = "";
