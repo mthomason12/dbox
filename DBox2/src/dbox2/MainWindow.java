@@ -609,6 +609,9 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         prefMenu = new javax.swing.JPopupMenu();
         mnuPreferences = new javax.swing.JMenuItem();
         mnuView = new javax.swing.JMenuItem();
+        mnuHelp = new javax.swing.JMenu();
+        mnuHelpAd = new javax.swing.JMenuItem();
+        mnuHelpScreen = new javax.swing.JMenuItem();
         mnuTools = new javax.swing.JMenu();
         mnuImport = new javax.swing.JMenuItem();
         mnuExport = new javax.swing.JMenuItem();
@@ -727,9 +730,24 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         });
         prefMenu.add(mnuView);
 
-        mnuTools.setText("Advanced Options");
+        mnuHelp.setText("Help");
 
-        mnuImport.setText("Import Game List");
+        mnuHelpAd.setText("How do I add an Application?");
+        mnuHelpAd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mnuHelpAdActionPerformed(evt);
+            }
+        });
+        mnuHelp.add(mnuHelpAd);
+
+        mnuHelpScreen.setText("How do I Capture and view Screenshots?");
+        mnuHelp.add(mnuHelpScreen);
+
+        prefMenu.add(mnuHelp);
+
+        mnuTools.setText("Application List Tools");
+
+        mnuImport.setText("Import Application List");
         mnuImport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuImportActionPerformed(evt);
@@ -737,7 +755,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         });
         mnuTools.add(mnuImport);
 
-        mnuExport.setText("Export Game List");
+        mnuExport.setText("Export Application List");
         mnuExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuExportActionPerformed(evt);
@@ -746,7 +764,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         mnuTools.add(mnuExport);
         mnuTools.add(jSeparator2);
 
-        mnuClear.setText("Clear Game List");
+        mnuClear.setText("Clear Application List");
         mnuClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuClearActionPerformed(evt);
@@ -962,7 +980,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         });
 
         jLabel5.setIcon(new javax.swing.ImageIcon(Main.theme.getToolsInactiveImage()));
-        jLabel5.setToolTipText("Preferences");
+        jLabel5.setToolTipText("Tools");
         jLabel5.setIconTextGap(0);
 
         binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, prefMenu, org.jdesktop.beansbinding.ObjectProperty.create(), jLabel5, org.jdesktop.beansbinding.BeanProperty.create("componentPopupMenu"));
@@ -1272,7 +1290,7 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
         renderer.put("frameskip", di.getFrameskip() + "");
         addOtherSettings(finito, "renderer", renderer);
-        allProps.put("RENDERER", renderer);
+        allProps.put("RENDER", renderer);
 
         sdl.put("fullscreen", Main.pref.isFullScreen() + "");
         addOtherSettings(finito, "sdl", sdl);
@@ -1742,6 +1760,11 @@ private void mnuCheckNewestActionPerformed(java.awt.event.ActionEvent evt) {//GE
 private void mnuViewScreenShotActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuViewScreenShotActionPerformed
     mnuShowScreenShotActionPerformed(evt);
 }//GEN-LAST:event_mnuViewScreenShotActionPerformed
+
+private void mnuHelpAdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuHelpAdActionPerformed
+    BrowserControl.openUrl("http://code.google.com/p/dbox/wiki/AddApplications");
+}//GEN-LAST:event_mnuHelpAdActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JList applicationList;
     private javax.swing.JPopupMenu editMenu;
@@ -1765,6 +1788,9 @@ private void mnuViewScreenShotActionPerformed(java.awt.event.ActionEvent evt) {/
     private javax.swing.JMenuItem mnuEdit2;
     private javax.swing.JMenuItem mnuExport;
     private javax.swing.JMenuItem mnuGettingStarted;
+    private javax.swing.JMenu mnuHelp;
+    private javax.swing.JMenuItem mnuHelpAd;
+    private javax.swing.JMenuItem mnuHelpScreen;
     private javax.swing.JMenuItem mnuHome;
     private javax.swing.JMenuItem mnuImport;
     private javax.swing.JMenuItem mnuListEdit;

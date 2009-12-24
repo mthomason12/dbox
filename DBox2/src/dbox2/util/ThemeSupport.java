@@ -257,6 +257,8 @@ public class ThemeSupport {
     }
 
     private Color decodeColor(String s) {
+        if(s.length() == 0)
+            return Color.black;
         if(s.charAt(0) != '#')
             return Color.decode("#" + s);
         return Color.decode(s);

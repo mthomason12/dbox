@@ -109,14 +109,34 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuViewActionPerformed"/>
           </Events>
         </MenuItem>
+        <Menu class="javax.swing.JMenu" name="mnuHelp">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Help"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuHelpAd">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="How do I add an Application?"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuHelpAdActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="mnuHelpScreen">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="How do I Capture and view Screenshots?"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
         <Menu class="javax.swing.JMenu" name="mnuTools">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Advanced Options"/>
+            <Property name="text" type="java.lang.String" value="Application List Tools"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="mnuImport">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Import Game List"/>
+                <Property name="text" type="java.lang.String" value="Import Application List"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuImportActionPerformed"/>
@@ -124,7 +144,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuExport">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Export Game List"/>
+                <Property name="text" type="java.lang.String" value="Export Application List"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuExportActionPerformed"/>
@@ -134,7 +154,7 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="mnuClear">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Clear Game List"/>
+                <Property name="text" type="java.lang.String" value="Clear Application List"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="mnuClearActionPerformed"/>
@@ -397,7 +417,7 @@
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="441" max="32767" attributes="0"/>
+                  <EmptySpace pref="409" max="32767" attributes="0"/>
                   <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -465,7 +485,7 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
               <Connection code="new javax.swing.ImageIcon(Main.theme.getToolsInactiveImage())" type="code"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Preferences"/>
+            <Property name="toolTipText" type="java.lang.String" value="Tools"/>
             <Property name="iconTextGap" type="int" value="0"/>
           </Properties>
           <BindingProperties>

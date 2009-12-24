@@ -80,14 +80,14 @@ public class GettingStarted extends javax.swing.JDialog {
         jLabel8.setFont(jLabel8.getFont().deriveFont(jLabel8.getFont().getStyle() | java.awt.Font.BOLD));
         jLabel8.setText("The gamelist");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/media-playback-start.png"))); // NOI18N
-        jLabel4.setText("Game on! This is the most important button: Press this to run the game!");
+        jLabel4.setIcon(new javax.swing.ImageIcon(Main.theme.getPlayActiveImage()));
+        jLabel4.setText("Game on! Press this button to run or set up your game.");
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/utilities-terminal.png"))); // NOI18N
-        jLabel6.setText("Press this to add a new game, edit the game preferences or delete a boring one");
+        jLabel6.setIcon(new javax.swing.ImageIcon(Main.theme.getEditActiveImage()));
+        jLabel6.setText("Press this button to add a new game, edit the game preferences or delete a boring one");
 
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/emblem-system.png"))); // NOI18N
-        jLabel7.setText("Click on this to change the path to the DosBox executable, full screen settings and more");
+        jLabel7.setIcon(new javax.swing.ImageIcon(Main.theme.getToolsActiveImage()));
+        jLabel7.setText("Click on this to set D-Box' preferences, back up your game list or change to \"floppy-flow\"");
 
         jLabel3.setFont(jLabel3.getFont().deriveFont(jLabel3.getFont().getStyle() | java.awt.Font.BOLD));
         jLabel3.setText("Basic usage");
@@ -98,13 +98,13 @@ public class GettingStarted extends javax.swing.JDialog {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/gamelist.png"))); // NOI18N
         jLabel9.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel10.setText("- Drop a game into the game list to add it quickly. D-Box will try to find the");
+        jLabel10.setText("- To add a game, simply drag the game folder from your file manager, and drop it");
 
-        jLabel11.setText("- Contains all your games, search or filter it by using the search box");
+        jLabel11.setText("- Contains all your games. Search or filter it by using the search box to the upper right");
 
-        jLabel13.setText("  correct name, icon and setup file");
+        jLabel13.setText("   on this list.");
 
-        jLabel12.setText("- Press enter to run a game, delete or backspace to remove it");
+        jLabel12.setText("- Press enter or double click with your mouse to run a game");
 
         jButton1.setText("Close");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -117,7 +117,7 @@ public class GettingStarted extends javax.swing.JDialog {
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
 
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18));
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Getting started");
 
@@ -128,14 +128,14 @@ public class GettingStarted extends javax.swing.JDialog {
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .add(jLabel5)
-                .addContainerGap(566, Short.MAX_VALUE))
+                .addContainerGap(569, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .add(19, 19, 19)
                 .add(jLabel5)
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(getContentPane());
@@ -143,54 +143,53 @@ public class GettingStarted extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel2)
-                            .add(jLabel8)
-                            .add(layout.createSequentialGroup()
-                                .add(10, 10, 10)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel4)
-                                    .add(jLabel6)
-                                    .add(jLabel7)))
-                            .add(jLabel3)
-                            .add(jLabel1)
-                            .add(layout.createSequentialGroup()
-                                .add(10, 10, 10)
-                                .add(jLabel9)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel10)
-                                    .add(jLabel11)
-                                    .add(jLabel13)
-                                    .add(jLabel12)))))
-                    .add(layout.createSequentialGroup()
-                        .add(621, 621, 621)
-                        .add(jButton1)))
+                .add(621, 621, 621)
+                .add(jButton1)
                 .addContainerGap())
             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(layout.createSequentialGroup()
+                .addContainerGap()
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel2)
+                    .add(jLabel3)
+                    .add(jLabel1)
+                    .add(layout.createSequentialGroup()
+                        .add(10, 10, 10)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel4)
+                            .add(jLabel6)
+                            .add(jLabel7)))
+                    .add(jLabel8)
+                    .add(layout.createSequentialGroup()
+                        .add(14, 14, 14)
+                        .add(jLabel9)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jLabel10)
+                            .add(jLabel11)
+                            .add(jLabel13)
+                            .add(jLabel12))))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(11, 11, 11)
                 .add(jLabel1)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel2)
                 .add(18, 18, 18)
                 .add(jLabel3)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jLabel4)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(12, 12, 12)
                 .add(jLabel6)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jLabel7)
-                .add(11, 11, 11)
-                .add(jLabel8)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jLabel8)
+                .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel9)
                     .add(layout.createSequentialGroup()
@@ -201,7 +200,7 @@ public class GettingStarted extends javax.swing.JDialog {
                         .add(jLabel13)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(jLabel12)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(18, 18, 18)
                 .add(jButton1)
                 .addContainerGap())
         );

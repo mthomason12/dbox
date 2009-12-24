@@ -1,11 +1,11 @@
 package dbox2;
+
 /**
  * Preferences.java
  *
  * Created on 8. juni 2007, 16:39
  * @author Truben
  **/
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,7 +16,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 public class NewPreferences implements Serializable {
-    
+
     private String DosBoxPath = "";
     private String[] Genres;
     private String LastUsedPath = "";
@@ -37,7 +37,6 @@ public class NewPreferences implements Serializable {
     private int NumerOfColumnsInGameList = 1;
     private int WindowHeight = 444;
     private int WindowWidth = 593;
-
     private boolean StartWithFloppyFlow = false;
 
     public void setStartWithFloppyFlow(boolean StartWithFloppyFlow) {
@@ -104,10 +103,6 @@ public class NewPreferences implements Serializable {
         this.WindowWidth = WindowWidth;
     }
 
-
-
-
-
     public void writeConfig(String filename) throws IOException {
         FileWriter fstream = new FileWriter(filename);
         BufferedWriter out = new BufferedWriter(fstream);
@@ -129,109 +124,109 @@ public class NewPreferences implements Serializable {
         try {
             s = new Scanner(new File(filename));
         } catch (FileNotFoundException ex) {
-            
         }
-        while(s.hasNextLine()) {
+        while (s.hasNextLine()) {
             String io = s.nextLine();
-            if(io.trim().startsWith("#") || io.trim().equals(""))
+            if (io.trim().startsWith("#") || io.trim().equals("")) {
                 continue; // Comment or blank line
-
+            }
             String parts[] = io.split(":=");
             parts[0] = parts[0].toLowerCase().trim();
-            if(parts[0].equals("dosboxpath"))
+            if (parts[0].equals("dosboxpath")) {
                 DosBoxPath = parts[1].trim();
-            else if(parts[0].equals("iconwidth"))
+            } else if (parts[0].equals("iconwidth")) {
                 IconWidth = Integer.parseInt(parts[1].trim());
-            else if(parts[0].equals("iconheight"))
+            } else if (parts[0].equals("iconheight")) {
                 IconHeight = Integer.parseInt(parts[1].trim());
-            else if(parts[0].equals("iconresize"))
+            } else if (parts[0].equals("iconresize")) {
                 IconResize = Boolean.parseBoolean(parts[1].trim());
-            else if(parts[0].equals("showicons"))
+            } else if (parts[0].equals("showicons")) {
                 ShowIcons = Boolean.parseBoolean(parts[1].trim());
-            else if(parts[0].equals("showtext"))
+            } else if (parts[0].equals("showtext")) {
                 ShowText = Boolean.parseBoolean(parts[1].trim());
-            else if(parts[0].equals("fullscreen"))
+            } else if (parts[0].equals("fullscreen")) {
                 FullScreen = Boolean.parseBoolean(parts[1].trim());
-            else if(parts[0].equals("genres"))
+            } else if (parts[0].equals("genres")) {
                 stringToGenres(parts[1].trim());
-            else if(parts[0].equals("keepopen"))
+            } else if (parts[0].equals("keepopen")) {
                 KeepOpen = Boolean.parseBoolean(parts[1].trim());
-            else if(parts[0].equals("typeoffiledialog"))
+            } else if (parts[0].equals("typeoffiledialog")) {
                 TypeOfFileDialog = Integer.parseInt(parts[1].trim());
-            else if(parts[0].equals("numberofcolumns"))
+            } else if (parts[0].equals("numberofcolumns")) {
                 NumerOfColumnsInGameList = Integer.parseInt(parts[1].trim());
-            else if(parts[0].equals("windowheight"))
+            } else if (parts[0].equals("windowheight")) {
                 WindowHeight = Integer.parseInt(parts[1].trim());
-            else if(parts[0].equals("windowwidth"))
+            } else if (parts[0].equals("windowwidth")) {
                 WindowWidth = Integer.parseInt(parts[1].trim());
-            else if(parts[0].equals("lastusedpath"))
+            } else if (parts[0].equals("lastusedpath")) {
                 LastUsedPath = parts[1].trim();
-            else if(parts[0].equals("keyboardcode"))
+            } else if (parts[0].equals("keyboardcode")) {
                 KeyBoardCode = parts[1].trim();
-            else if(parts[0].equals("firststart"))
+            } else if (parts[0].equals("firststart")) {
                 FirstStart = Boolean.parseBoolean(parts[1].trim());
-            else if(parts[0].equals("checkforupdates"))
+            } else if (parts[0].equals("checkforupdates")) {
                 CheckForUpdates = Boolean.parseBoolean(parts[1].trim());
-            else if(parts[0].equals("usebuiltindosbox"))
+            } else if (parts[0].equals("usebuiltindosbox")) {
                 BuiltInDosBox = Boolean.parseBoolean(parts[1].trim());
-            else if(parts[0].equals("noconcole"))
+            } else if (parts[0].equals("noconcole")) {
                 NoConcole = Boolean.parseBoolean(parts[1].trim());
-            else if(parts[0].equals("floppyflow"))
+            } else if (parts[0].equals("floppyflow")) {
                 StartWithFloppyFlow = Boolean.parseBoolean(parts[1].trim());
-            else if(parts[0].equals("theme"))
+            } else if (parts[0].equals("theme")) {
                 Theme = parts[1].trim();
+            }
         }
     }
 
     @Override
     public String toString() {
-        
+
         System.out.println("[INFO] Writing preferences.");
 
-        return       "########################################################################\n" +
-                     "###                        D-Box' config file                        ###\n" +
-                     "###         If it contains errors, D-Box will overwrite it!          ###\n" +
-                     "### If you want to reset settings, simply delete the file or a line. ###\n" +
-                     "########################################################################\n\n" +
-                     "DosBoxPath       := " + DosBoxPath + "\n" +
-                     "FirstStart       := " + FirstStart + "\n" +
-                     "FloppyFlow       := " + StartWithFloppyFlow + "\n" +
-                     "FullScreen       := " + FullScreen + "\n" +
-                     "Genres           := " + genresToString() + "\n" +
-                     "IconHeight       := " + IconHeight + "\n" +
-                     "IconResize       := " + IconResize + "\n" +
-                     "IconWidth        := " + IconWidth + "\n" +
-                     "KeepOpen         := " + KeepOpen + "\n" +
-                     "KeyBoardCode     := " + KeyBoardCode + "\n" +
-                     "LastUsedPath     := " + LastUsedPath + "\n" +
-                     "CheckForUpdates  := " + CheckForUpdates + "\n" +
-                     "NoConcole        := " + NoConcole + "\n" +
-                     "NumberOfColumns  := " + NumerOfColumnsInGameList + "\n" +
-                     "ShowIcons        := " + ShowIcons + "\n" +
-                     "ShowText         := " + ShowText + "\n" +
-                     "Theme            := " + Theme + "\n" +
-                     "TypeOfFileDialog := " + TypeOfFileDialog + "\n" +
-                     "WindowHeight     := " + WindowHeight + "\n" +
-                     "WindowWidth      := " + WindowWidth + "\n" +
-                     "UseBuiltInDosBox := " + BuiltInDosBox;
-
-
+        return "########################################################################\n"
+                + "###                        D-Box' config file                        ###\n"
+                + "###         If it contains errors, D-Box will overwrite it!          ###\n"
+                + "### If you want to reset settings, simply delete the file or a line. ###\n"
+                + "########################################################################\n\n"
+                + "DosBoxPath       := " + DosBoxPath + "\n"
+                + "FirstStart       := " + FirstStart + "\n"
+                + "FloppyFlow       := " + StartWithFloppyFlow + "\n"
+                + "FullScreen       := " + FullScreen + "\n"
+                + "Genres           := " + genresToString() + "\n"
+                + "IconHeight       := " + IconHeight + "\n"
+                + "IconResize       := " + IconResize + "\n"
+                + "IconWidth        := " + IconWidth + "\n"
+                + "KeepOpen         := " + KeepOpen + "\n"
+                + "KeyBoardCode     := " + KeyBoardCode + "\n"
+                + "LastUsedPath     := " + LastUsedPath + "\n"
+                + "CheckForUpdates  := " + CheckForUpdates + "\n"
+                + "NoConcole        := " + NoConcole + "\n"
+                + "NumberOfColumns  := " + NumerOfColumnsInGameList + "\n"
+                + "ShowIcons        := " + ShowIcons + "\n"
+                + "ShowText         := " + ShowText + "\n"
+                + "Theme            := " + Theme + "\n"
+                + "TypeOfFileDialog := " + TypeOfFileDialog + "\n"
+                + "WindowHeight     := " + WindowHeight + "\n"
+                + "WindowWidth      := " + WindowWidth + "\n"
+                + "UseBuiltInDosBox := " + BuiltInDosBox;
     }
 
     private String genresToString() {
         String out = "";
-        for (String string : Genres)
+        for (String string : Genres) {
             out += string + ", ";
-        return out.substring(0, out.length()-2);
+        }
+        return out.substring(0, out.length() - 2);
     }
 
     private void stringToGenres(String s) {
-        if(s.equals(""))
+        if (s.equals("")) {
             return;
-        else {
+        } else {
             String[] splitt = s.split(",");
-            for (int i =0;i<splitt.length;i++)
+            for (int i = 0; i < splitt.length; i++) {
                 splitt[i] = splitt[i].trim();
+            }
             setGenres(splitt);
         }
     }
@@ -259,13 +254,13 @@ public class NewPreferences implements Serializable {
     public void setKeepOpen(boolean KeepOpen) {
         this.KeepOpen = KeepOpen;
     }
-    
+
     /** Creates a new instance of Preferences */
     public NewPreferences() {
         DosBoxPath = "";
-        Genres = new String[] { "Action", "Adventure", "Arcade", "Board", "Platform", "Puzzle",
-                                "Racing", "RPG", "Simulation", "Sports", "Strategy", "Text Based",
-                                "Utility", "Unsorted" };
+        Genres = new String[]{"Action", "Adventure", "Arcade", "Board", "Platform", "Puzzle",
+                    "Racing", "RPG", "Simulation", "Sports", "Strategy", "Text Based",
+                    "Utility", "Unsorted"};
     }
 
     public String getDosBoxPath() {
@@ -363,33 +358,38 @@ public class NewPreferences implements Serializable {
     public void setKeyboardCountry(String country) {
         this.KeyBoardCode = translateLanguage(country, true);
     }
+
     public void setKeyboardCode(String country) {
         this.KeyBoardCode = country;
     }
+
     public int getKeyboardIndex() {
-        String[] code    = new String[] {"be","br","cf","cz","dk","su","fr",
-                                         "gr","hu","it","la","nl","no","pl",
-                                         "po","sl","sp","sv","sf","sg","uk",
-                                         "us","dv103","yu"};
-        for(int i = 0; i < code.length; i++)
-            if(code[i].toLowerCase().equals(KeyBoardCode.toLowerCase()))
+        String[] code = new String[]{"be", "br", "cf", "cz", "dk", "su", "fr",
+            "gr", "hu", "it", "la", "nl", "no", "pl",
+            "po", "sl", "sp", "sv", "sf", "sg", "uk",
+            "us", "dv103", "yu"};
+        for (int i = 0; i < code.length; i++) {
+            if (code[i].toLowerCase().equals(KeyBoardCode.toLowerCase())) {
                 return i;
+            }
+        }
         return 0;
     }
+
     public String getKeyboardCountry() {
         return translateLanguage(KeyBoardCode, false);
     }
+
     public String getKeyboardCode() {
         return KeyBoardCode;
     }
 
     public void setIconSize(String s) {
         int[] dimensions = parseSize(s);
-        if(dimensions.length == 2) {
+        if (dimensions.length == 2) {
             this.IconWidth = dimensions[0];
             this.IconHeight = dimensions[1];
-        }
-        else {
+        } else {
             System.out.println("[ERROR] Could not set icon size");
         }
     }
@@ -398,33 +398,33 @@ public class NewPreferences implements Serializable {
         int startParantheze = s.lastIndexOf('(');
         int endParantheze = s.lastIndexOf(')');
 
-        if(startParantheze > 0 && endParantheze > startParantheze) {
+        if (startParantheze > 0 && endParantheze > startParantheze) {
             String parantheze = s.substring(startParantheze + 1, endParantheze);
             System.out.println(parantheze);
             String[] numbersAsString = parantheze.split("x");
-            if(numbersAsString.length == 2) {
-                
+            if (numbersAsString.length == 2) {
+
                 try {
-                    int[] numbersAsInt = new int[] {Integer.parseInt(numbersAsString[0]),Integer.parseInt(numbersAsString[1])};
+                    int[] numbersAsInt = new int[]{Integer.parseInt(numbersAsString[0]), Integer.parseInt(numbersAsString[1])};
                     return numbersAsInt;
+                } catch (NumberFormatException e) {
                 }
-                catch(NumberFormatException e) {}
             }
         }
         return new int[]{};
     }
-    
-    public int getIconSizeIndex() {
-        final int[]    size = {16,22,32,48,160,320};
 
-        for(int i = 0; i < size.length; i++)
-            if(Main.pref.getIconWidth() == size[i])
+    public int getIconSizeIndex() {
+        final int[] size = {16, 22, 32, 48, 160, 320};
+
+        for (int i = 0; i < size.length; i++) {
+            if (Main.pref.getIconWidth() == size[i]) {
                 return i;
-        
+            }
+        }
+
         return -1;
     }
-
-
 
     /**
      * @param name The name of language or country
@@ -432,22 +432,22 @@ public class NewPreferences implements Serializable {
      * @return the right country or abbr
      */
     private String translateLanguage(String name, boolean type) {
-        String[] country = new String[] { "Belgium", "Brazil", "Canadian-French", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Hungary", "Italy", "Latin America", "Netherlands", "Norway", "Poland", "Portugal", "Slovak Republic", "Spain", "Sweden", "Switzerland (French)", "Switzerland (German)", "United Kingdom", "United States", "United States (Dvorak)", "Yugoslavia (Serbo-Croatian)" };
-        String[] code    = new String[] { "be"     , "br"    , "cf"             , "cz"            , "dk"     , "su"     , "fr"    , "gr"     , "hu"     , "it"   , "la"           , "nl"         , "no"    , "pl"    , "po"      , "sl"             , "sp"   , "sv"    , "sf"                  , "sg"                  , "uk"            , "us"           , "dv103"                 , "yu"                          };
-        if(type) {
-            for(int i = 0; i < country.length; i++) {
-                if(name.toLowerCase().equals(country[i].toLowerCase()))
+        String[] country = new String[]{"Belgium", "Brazil", "Canadian-French", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Hungary", "Italy", "Latin America", "Netherlands", "Norway", "Poland", "Portugal", "Slovak Republic", "Spain", "Sweden", "Switzerland (French)", "Switzerland (German)", "United Kingdom", "United States", "United States (Dvorak)", "Yugoslavia (Serbo-Croatian)"};
+        String[] code = new String[]{"be", "br", "cf", "cz", "dk", "su", "fr", "gr", "hu", "it", "la", "nl", "no", "pl", "po", "sl", "sp", "sv", "sf", "sg", "uk", "us", "dv103", "yu"};
+        if (type) {
+            for (int i = 0; i < country.length; i++) {
+                if (name.toLowerCase().equals(country[i].toLowerCase())) {
                     return code[i];
+                }
             }
-        }
-        else {
-            for(int i = 0; i < code.length; i++) {
-                if(name.toLowerCase().equals(code[i].toLowerCase()))
+        } else {
+            for (int i = 0; i < code.length; i++) {
+                if (name.toLowerCase().equals(code[i].toLowerCase())) {
                     return country[i];
+                }
             }
         }
         return name;
-
     }
 
     public int getNumerOfColumnsInGameList() {
@@ -457,7 +457,4 @@ public class NewPreferences implements Serializable {
     public void setNumerOfColumnsInGameList(int NumerOfColumnsInGameList) {
         this.NumerOfColumnsInGameList = NumerOfColumnsInGameList;
     }
-
-    
-
 }
