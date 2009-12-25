@@ -13,7 +13,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 
 public class NewPreferences implements Serializable {
 
@@ -29,8 +28,8 @@ public class NewPreferences implements Serializable {
     private boolean ShowText = true;
     private boolean FirstStart = true;
     private boolean CheckForUpdates = true;
-    private int IconWidth = 32;
-    private int IconHeight = 32;
+    private int IconWidth = 22;
+    private int IconHeight = 22;
     private boolean IconResize = true;
     private boolean NoConcole = true;
     private int TypeOfFileDialog = 0;
