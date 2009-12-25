@@ -1,5 +1,4 @@
 #summary Check out what's new in D-Box 2.1
-#labels Featured
 
 = What's new in D-Box 2.1 =
 
