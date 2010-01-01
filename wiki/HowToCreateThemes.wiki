@@ -1,0 +1,94 @@
+#summary How to create themes for D-Box 2.2
+
+= Introduction =
+
+D-Box 2.2 supports "theming". Theming is a method to alter the look of the application. Themes in D-Box consists of two parts: A theme file that defines the theme, and images that the theme uses.
+
+
+= Theme properties =
+
+The theme file contains a set of properties. All properties is defined in this manner:
+
+{{{
+property := value
+}}}
+
+For example:
+
+{{{
+name := Truben.no
+}}}
+
+The available properties are:
+
+*name*
+
+Defines the name of the theme
+
+Example:
+
+name := A cool theme
+
+*author*
+
+Credits the author of the theme.
+
+Example:
+
+author := Peder
+
+*url*
+
+The url to the theme's homepage. note that you can't use //
+
+Example:
+
+url := truben.no
+
+*header-background-image*
+
+Sets the background image for the toolbar.
+
+Example:
+
+header-background-image := img/background.png
+
+*header-background-repeat*
+
+Defines how many times the background image should be repeated. If you don't want a background image, set this property to 0.
+
+Example:
+
+header-background-image := 100
+
+*window-background-color*
+
+Defines the background color of the window. The color is defined using the same notation as you would use in HTML and CSS. [http://en.wikipedia.org/wiki/Hex_triplet#Hex_triplet More info]
+
+Example:
+
+window-background-color := #FF0000
+
+This would produce a red window.
+
+*gamelist-background-color*
+*gamelist-foreground-color*
+*gamelist-selected-background-color*
+*gamelist-selected-foreground-color*
+*gamelist-dafaultgame-image*
+*gamelist-favorite-image*
+*gamelist-notfavorite-image*
+*search-background-color*
+*search-foreground-color*
+*search-inactive-color*
+*header-play-active-image*
+*header-play-inactive-image*
+*header-edit-active-image*
+*header-edit-inactive-image*
+*header-tools-active-image*
+*header-tools-inactive-image*
+*header-search-active-image*
+*header-search-inactive-image*
+*show-borders*
+*show-window-border*
+*show-unified-toolbar*
