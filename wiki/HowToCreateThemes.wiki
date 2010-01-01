@@ -26,49 +26,49 @@ The available properties are:
 Defines the name of the theme
 
 Example:
-
+{{{
 name := A cool theme
-
+}}}
 *author*
 
 Credits the author of the theme.
 
 Example:
-
+{{{
 author := Peder
-
+}}}
 *url*
 
 The url to the theme's homepage. note that you can't use //
 
 Example:
-
+{{{
 url := truben.no
-
+}}}
 *header-background-image*
 
 Sets the background image for the toolbar.
 
 Example:
-
+{{{
 header-background-image := img/background.png
-
+}}}
 *header-background-repeat*
 
 Defines how many times the background image should be repeated. If you don't want a background image, set this property to 0.
 
 Example:
-
+{{{
 header-background-image := 100
-
+}}}
 *window-background-color*
 
 Defines the background color of the window. The color is defined using the same notation as you would use in HTML and CSS. [http://en.wikipedia.org/wiki/Hex_triplet#Hex_triplet More info]
 
 Example:
-
+{{{
 window-background-color := #FF0000
-
+}}}
 This would produce a red window.
 
 *gamelist-background-color*
