@@ -59,7 +59,7 @@ Defines how many times the background image should be repeated. If you don't wan
 
 Example:
 {{{
-header-background-image := 100
+header-background-repeat := 100
 }}}
 *window-background-color*
 
@@ -72,7 +72,25 @@ window-background-color := #FF0000
 This would produce a red window.
 
 *gamelist-background-color*
+
+Defines the background color of the gamelist. The color is defined using the same notation as you would use in HTML and CSS. [http://en.wikipedia.org/wiki/Hex_triplet#Hex_triplet More info]
+
+Example:
+{{{
+gamelist-background-color := #FF0000
+}}}
+This would produce a red gamelist.
+
 *gamelist-foreground-color*
+
+Defines the text color in the gamelist. The color is defined using the same notation as you would use in HTML and CSS. [http://en.wikipedia.org/wiki/Hex_triplet#Hex_triplet More info]
+
+Example:
+{{{
+gamelist-foreground-color := #FF0000
+}}}
+This would produce a red window.
+
 *gamelist-selected-background-color*
 *gamelist-selected-foreground-color*
 *gamelist-dafaultgame-image*
