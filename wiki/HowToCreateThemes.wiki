@@ -1,4 +1,5 @@
 #summary How to create themes for D-Box 2.2
+#labels Featured
 
 = Introduction =
 
@@ -92,21 +93,47 @@ gamelist-foreground-color := #FF0000
 This would produce a red window.
 
 *gamelist-selected-background-color*
+
 *gamelist-selected-foreground-color*
+
 *gamelist-dafaultgame-image*
+
 *gamelist-favorite-image*
+
 *gamelist-notfavorite-image*
+
 *search-background-color*
+
 *search-foreground-color*
+
 *search-inactive-color*
+
 *header-play-active-image*
+
 *header-play-inactive-image*
+
 *header-edit-active-image*
+
 *header-edit-inactive-image*
+
 *header-tools-active-image*
+
 *header-tools-inactive-image*
+
 *header-search-active-image*
+
 *header-search-inactive-image*
+
 *show-borders*
+
 *show-window-border*
+
 *show-unified-toolbar*
+
+Defines if the theme should use the unified toolbar on MacOS X. Possible values are _true_ and _false_. Default is _true_.
+
+Example:
+
+{{{
+show-unified-toolbar := false
+}}}
