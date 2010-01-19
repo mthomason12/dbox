@@ -1,6 +1,17 @@
 #summary Frequently Asked Questions
 #labels Featured
 
+----
+*Q:* What does "how fast would you like the computer?" mean?
+
+*A:* DosBox doesn't only emulate DOS, it also emulates a x86 processor (CPU).  If you set the emulation speed to very fast, DosBox will need more CPU power to do the emulation.
+
+Some older games use the CPU speed to set the speed of the game. If this happens, you have to slow down the emulation speed so that it matches the speed of the computers from the era the game was created.
+
+You can change the speed of the emulated CPU while you're running a program. Hit CTRL-F11 to slow down the emulation and CTRL-F12 to speed it up.
+
+----
+
 *Q:* What is the difference between D-Box and DosBox
 
 *A:* DosBox is the program that emulates your program. D-Box is a program that makes it easier to use DosBox.
