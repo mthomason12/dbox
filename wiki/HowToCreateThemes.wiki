@@ -114,7 +114,7 @@ This would make the text color to the selected item red.
 
 *gamelist-dafaultgame-image*
 
-The relative path to an image that represent a game if no other image is added. Supported formats are GIF, PNG, JPG and ICO.
+The relative path to an image that represent a game if no other image is added. Supported formats are GIF, PNG and JPG.
 
 Example:
 {{{
@@ -140,7 +140,7 @@ The relative path to an image that is present if the game is NOT marked as a fav
 
 Example:
 {{{
-gamelist-notfavorite-image := img/favorite.png
+gamelist-notfavorite-image := img/notfavorite.png
 }}}
 
 In this example the image is in the "img" folder.
@@ -171,9 +171,21 @@ In this example the image is in the "img" folder.
 
 Show borders around the search-box or not. Default is true.
 
+Example:
+
+{{{
+show-borders := false
+}}}
+
 *show-window-border*
 
 Defines if D-Box should draw the standard border around the main window. This setting is experimental only, and should not be used. The default is true.
+
+Example:
+
+{{{
+show-window-border := false
+}}}
 
 *show-unified-toolbar*
 
