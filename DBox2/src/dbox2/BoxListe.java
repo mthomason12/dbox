@@ -107,14 +107,26 @@ public class BoxListe implements Serializable {
         int counter=0;
         searchstr=searchstr.toLowerCase();
         
-        for(DosItem item : gamelist)
-            if(item.getName().toLowerCase().indexOf(searchstr) != -1 || item.getKeywords().toLowerCase().indexOf(searchstr) != -1 || item.getGenre().toLowerCase().indexOf(searchstr) != -1)
+        for(DosItem item : gamelist) {
+            if(item.getName().toLowerCase().indexOf(searchstr) != -1 || 
+               item.getKeywords().toLowerCase().indexOf(searchstr) != -1 ||
+               item.getGenre().toLowerCase().indexOf(searchstr) != -1  ||
+               item.getYear().toLowerCase().indexOf(searchstr) != -1  ||
+               item.getDeveloper().toLowerCase().indexOf(searchstr) != -1  ||
+               item.getPublisher().toLowerCase().indexOf(searchstr) != -1)
+                
                 count++;
+        }
         
         String[] temp = new String[count];
             
         for(DosItem item : gamelist) {
-            if(item.getName().toLowerCase().indexOf(searchstr) != -1 || item.getKeywords().toLowerCase().indexOf(searchstr) != -1 || item.getGenre().toLowerCase().indexOf(searchstr) != -1) {
+            if(item.getName().toLowerCase().indexOf(searchstr) != -1 ||
+               item.getKeywords().toLowerCase().indexOf(searchstr) != -1 ||
+               item.getGenre().toLowerCase().indexOf(searchstr) != -1  ||
+               item.getYear().toLowerCase().indexOf(searchstr) != -1  ||
+               item.getDeveloper().toLowerCase().indexOf(searchstr) != -1  ||
+               item.getPublisher().toLowerCase().indexOf(searchstr) != -1) {
                 temp[counter++] = item.getName();
             }
         }
@@ -239,6 +251,12 @@ public class BoxListe implements Serializable {
                         d.setName(value);
                     else if(keyword.equals("path"))
                         d.setPath(value);
+                    else if(keyword.equals("year"))
+                        d.setYear(value);
+                    else if(keyword.equals("developer"))
+                        d.setDeveloper(value);
+                    else if(keyword.equals("publisher"))
+                        d.setPublisher(value);
                     else if(keyword.equals("game"))
                         d.setGame(value);
                     else if(keyword.equals("keywords"))

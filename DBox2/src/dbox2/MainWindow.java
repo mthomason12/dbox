@@ -12,6 +12,7 @@ import dbox2.GUI.PreferencesGUI;
 import dbox2.GUI.ScreenShot;
 import dbox2.util.FileChooserFilter;
 import dbox2.util.OSXAdapter;
+import dbox2.util.OnlineResource;
 import dbox2.util.helperClass;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -350,29 +351,37 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
 
                 }
             }
-            String[] choice = new String[3];
 
-            choice[0] = file.getParentFile().getAbsolutePath().substring(file.getParentFile().getAbsolutePath().lastIndexOf(File.separator) + 1);
-            choice[1] = file.getName().substring(0, 1).toUpperCase() + file.getName().substring(1, file.getName().lastIndexOf('.')).toLowerCase();
-            choice[2] = "Something else...";
-
-            String input = (String) JOptionPane.showInputDialog(
-                    null, "What is the title of the application? Select one of the proposals,\n" +
-                    "or select \"Something else...\" to type your own.",
-                    "What's the name of the game?",
-                    JOptionPane.QUESTION_MESSAGE,
-                    null, choice, choice[0]);
-
-            if (input == null) {
-                return;
-            }
-
-            if (input.equals(choice[2])) {
-                d.setName(JOptionPane.showInputDialog("Type the name of the application", choice[1]));
-
+            String hash = OnlineResource.getMD5(file.getAbsolutePath());
+            OnlineResource or = new OnlineResource(hash);
+            if(or.isValid()) {
+                d = or.fillInInformation(d);
             }
             else {
-                d.setName(input);
+                String[] choice = new String[3];
+
+                choice[0] = file.getParentFile().getAbsolutePath().substring(file.getParentFile().getAbsolutePath().lastIndexOf(File.separator) + 1);
+                choice[1] = file.getName().substring(0, 1).toUpperCase() + file.getName().substring(1, file.getName().lastIndexOf('.')).toLowerCase();
+                choice[2] = "Something else...";
+
+                String input = (String) JOptionPane.showInputDialog(
+                        null, "What is the title of the application? Select one of the proposals,\n" +
+                        "or select \"Something else...\" to type your own.",
+                        "What's the name of the game?",
+                        JOptionPane.QUESTION_MESSAGE,
+                        null, choice, choice[0]);
+
+                if (input == null) {
+                    return;
+                }
+
+                if (input.equals(choice[2])) {
+                    d.setName(JOptionPane.showInputDialog("Type the name of the application", choice[1]));
+
+                }
+                else {
+                    d.setName(input);
+                }
             }
 
             bl.addGame(d);

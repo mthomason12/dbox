@@ -30,6 +30,33 @@ public class DosItem implements Serializable {
     private ImageIcon imageIcon = ImageHandlerer.getDefaultIcon();
     private int size = Main.pref.getIconHeight();
     private String uniqueID;
+    private String year = "";
+    private String developer = "";
+    private String publisher = "";
+
+    public String getDeveloper() {
+        return developer;
+    }
+
+    public void setDeveloper(String developer) {
+        this.developer = developer;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
 
     public String getUniqueID() {
         return uniqueID;
@@ -184,6 +211,9 @@ public class DosItem implements Serializable {
                 "  cycles := " + getCycles() + "\n" +
                 "  frameskip := " + getFrameskip() + "\n" +
                 "  favorite := " + isStar() + "\n" +
+                "  year := " + getYear() + "\n" +
+                "  developer := " + getDeveloper() + "\n" +
+                "  publisher := " + getPublisher() + "\n" +
                 "end game\n\n";
     }
 
