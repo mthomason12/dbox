@@ -69,7 +69,7 @@ public class ThemeSupport {
 
     private void fixIfMac() {
         if(helperClass.getOS() == helperClass.MACOS) {
-            backgroundRepeat = 0;
+            //backgroundRepeat = 0;
             playInactiveImage = getClass().getResource("/dbox2/img/mac/play.png");
             playActiveImage = getClass().getResource("/dbox2/img/mac/play_select.png");
 
@@ -85,10 +85,10 @@ public class ThemeSupport {
             gameFavoriteImage    = getClass().getResource("/dbox2/img/mac/favorite.png");
             gameNotFavoriteImage = getClass().getResource("/dbox2/img/emblem-notfavorite.png");
 
-            backgroundRepeat = 0;
+            //backgroundRepeat = 0;
         }
         else
-            backgroundRepeat = 150;
+            backgroundRepeat = 170;
 
 
     }

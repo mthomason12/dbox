@@ -16,7 +16,7 @@ import javax.swing.*;
 public class Main {
 
     public static final int MAJORVERSION = 2;
-    public static final int MINORVERSION = 2;
+    public static final int MINORVERSION = 3;
     public static String appFolder = helperClass.getWorkingDirectory("dbox").getAbsolutePath() + File.separator;
     public static String configFile = appFolder  + "dbox.config";
     public static String gameFile = appFolder + "gamelist.dat";

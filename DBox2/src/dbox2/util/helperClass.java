@@ -77,7 +77,7 @@ public class helperClass {
             return false;
         if(Main.pref.getTypeOfFileDialog() == 2)
             return true;
-        if("Mac OS X".equals(System.getProperty("os.name")))
+        if(Main.pref.getTypeOfFileDialog() == 0 && "Mac OS X".equals(System.getProperty("os.name")))
             return true;
         return false;
     }
