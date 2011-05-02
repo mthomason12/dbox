@@ -5,3 +5,4 @@
   * Fixed a bug when double clicking in the game list
   * A mouse click on the play button in the toolbar starts the game. Right-click to get the menu.
   * Faster database
+  * Fixed a bug in config file
