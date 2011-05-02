@@ -5,3 +5,4 @@
   * Possible to change drive letter for CD-ROM
   * Fixed a bug when double clicking in the game list
   * A mouse click on the play button in the toolbar starts the game. Right-click to get the menu.
+  * Faster database
