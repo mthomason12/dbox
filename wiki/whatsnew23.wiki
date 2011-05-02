@@ -1,5 +1,4 @@
-#summary Check out what's new in D-Box 2.2
-
+#summary Check out what's new in D-Box 2.3
 =What's new in D-Box 2.3=
 
   * Possible to change drive letter for CD-ROM
