@@ -21,6 +21,7 @@ public class DosItem implements Serializable {
     private int cycles = 8000;
     private int frameskip = 0;
     private String cdrom = "";
+    private String cdromLetter = "D";
     private String cdromLabel = "";
     private String floppy = "";
     private String extra = "";
@@ -34,6 +35,14 @@ public class DosItem implements Serializable {
     private String developer = "";
     private String publisher = "";
 
+    public String getCdromLetter() {
+        return cdromLetter;
+    }
+
+    public void setCdromLetter(String cdromLetter) {
+        this.cdromLetter = cdromLetter;
+    }
+    
     public String getDeveloper() {
         return developer;
     }
@@ -206,6 +215,7 @@ public class DosItem implements Serializable {
                 "  floppy := " + getFloppy() + "\n" +
                 "  cdrom := " + getCdrom() + "\n" +
                 "  cdromlabel := " + getCdromLabel() + "\n" +
+                "  cdromletter := " + getCdromLetter() + "\n" +
                 "  extra :=" + getExtra() + "\n" +
                 "  icon := " + getIcon() + "\n" +
                 "  cycles := " + getCycles() + "\n" +

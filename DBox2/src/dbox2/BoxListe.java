@@ -208,15 +208,13 @@ public class BoxListe implements Serializable {
         while(s.hasNextLine()) {
             counter++;
             String linje = s.nextLine().trim();
-            if(linje.startsWith("#") || linje.equals(""))
-                continue;
 
-            if(linje.toLowerCase().equals("start game")) {
+            if(linje.equals("start game")) {
                 d = new DosItem();
                 isInGame = true;
                 continue;
             }
-            else if(linje.toLowerCase().equals("end game")) {
+            else if(linje.equals("end game")) {
                 if(d == null) {
                     System.out.println("Error in gamefile! No 'start game' before 'end game': " + counter);
                     continue;
@@ -271,6 +269,8 @@ public class BoxListe implements Serializable {
                         d.setCdromLabel(value);
                     else if(keyword.equals("uniqueid"))
                         d.setUniqueID(value);
+                    else if(keyword.equals("cdromletter"))
+                        d.setUniqueID(value); 
                     else if(keyword.equals("icon"))
                         d.setIcon(value);
                     else if(keyword.equals("extra"))
@@ -294,7 +294,4 @@ public class BoxListe implements Serializable {
         }
         System.out.println("Gamelist read in " + (System.currentTimeMillis() - times) + " milliseconds.");
     }
-    
-    
-    
 }

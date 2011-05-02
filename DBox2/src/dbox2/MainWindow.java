@@ -1151,7 +1151,7 @@ private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_mnuAboutActionPerformed
 
 private void Double(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_Double
-    if (evt.getClickCount() == 2 && !evt.isAltDown()) {
+    if (evt.getClickCount() == 2 && !evt.isAltDown() && (evt.getModifiers() & evt.BUTTON1_MASK) != 0) {
         mnuRunActionPerformed(null);
 
     } else {
@@ -1329,7 +1329,7 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
 
         int number = 0;
         if (!di.getCdrom().equals("")) { // If we should mount a CD ROM
-            String cd = "mount d \"" + di.getCdrom() + "\" -t cdrom ";
+            String cd = "mount " + di.getCdromLetter() + " \"" + di.getCdrom() + "\" -t cdrom ";
             if (!di.getCdromLabel().equals("")) {
                 cd += "-label " + di.getCdromLabel();
 
@@ -1529,7 +1529,12 @@ private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:eve
 }//GEN-LAST:event_jLabel2MouseClicked
 
 private void jLabel4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MousePressed
-    runMenu.show(jLabel4, 0, jLabel4.getHeight() - 10);
+    if(evt.getButton() == MouseEvent.BUTTON1) {
+        mnuRunActionPerformed(null);
+    }
+    else {
+        runMenu.show(jLabel4, 0, jLabel4.getHeight() - 10);
+    }
 }//GEN-LAST:event_jLabel4MousePressed
 
 private void jLabel4MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseReleased
