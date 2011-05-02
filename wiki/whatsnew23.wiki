@@ -6,3 +6,4 @@
   * A mouse click on the play button in the toolbar starts the game. Right-click to get the menu.
   * Faster database
   * Fixed a bug in config file
+  * VERY limited support for getting meta info for game online
