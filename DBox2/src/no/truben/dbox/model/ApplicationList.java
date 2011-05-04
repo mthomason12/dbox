@@ -8,7 +8,6 @@
 
 package no.truben.dbox.model;
 
-import no.truben.dbox.model.ApplicationBean;
 import java.util.*;
 import java.io.*;
 import javax.swing.JOptionPane;
@@ -238,7 +237,7 @@ public class ApplicationList implements Serializable {
                     final String value;
 
                     if(start != -1) { 
-                        keyword = linje.substring(0, start).toLowerCase().trim();
+                        keyword = linje.substring(0, start).trim();
                         value = linje.substring(start + 2).trim();
                     }
                     else

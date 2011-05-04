@@ -12,7 +12,7 @@ import no.truben.dbox.util.BrowserControl;
 import no.truben.dbox.model.ApplicationBean;
 import no.truben.dbox.*;
 import no.truben.dbox.util.FileChooserFilter;
-import no.truben.dbox.util.OnlineResource;
+import no.truben.dbox.util.onlineresource.TrubenResource;
 import no.truben.dbox.util.HelperClass;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -1031,8 +1031,8 @@ private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     if(appPath.getText().endsWith("/") || appPath.getText().endsWith("\\"))
         filename = appPath.getText() + appExec.getText();
     
-    String hash = OnlineResource.getMD5(filename);
-    OnlineResource or = new OnlineResource(hash);
+    String hash = TrubenResource.getMD5(filename);
+    TrubenResource or = new TrubenResource(hash);
 
     System.out.println("-" + hash);
     

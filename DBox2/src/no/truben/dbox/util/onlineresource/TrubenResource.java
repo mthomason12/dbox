@@ -1,5 +1,6 @@
-package no.truben.dbox.util;
+package no.truben.dbox.util.onlineresource;
 
+import no.truben.dbox.util.onlineresource.OnlineResource;
 import no.truben.dbox.model.ApplicationBean;
 import java.io.BufferedReader;
 import java.io.File;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author truben
  */
-public class OnlineResource {
+public class TrubenResource implements OnlineResource {
 
     private final String SEARCH_URL = "http://dbox.truben.no/GameDB/search.php?query=";
 
@@ -30,7 +31,7 @@ public class OnlineResource {
     private String year = "";
     private boolean valid = false;
 
-    public OnlineResource(String hash) {
+    public TrubenResource(String hash) {
         try {
             URL updateURL = new URL(SEARCH_URL + hash);
             BufferedReader in = new BufferedReader(new InputStreamReader(updateURL.openStream()));
@@ -62,7 +63,7 @@ public class OnlineResource {
 
             }
         } catch (IOException ex) {
-            Logger.getLogger(OnlineResource.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TrubenResource.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -100,14 +101,14 @@ public class OnlineResource {
                     }
                 }
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(OnlineResource.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TrubenResource.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NoSuchAlgorithmException ex) {
-                Logger.getLogger(OnlineResource.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TrubenResource.class.getName()).log(Level.SEVERE, null, ex);
             } finally {
                 try {
                     is.close();
                 } catch (IOException ex) {
-                    Logger.getLogger(OnlineResource.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TrubenResource.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             return "";
@@ -115,6 +116,7 @@ public class OnlineResource {
 
     }
 
+    @Override
     public ApplicationBean fillInInformation(ApplicationBean di) {
         if(this.isValid()) {
             di.setGenre(genre);
@@ -129,26 +131,32 @@ public class OnlineResource {
 
 
 
+    @Override
     public String getDeveloper() {
         return developer;
     }
 
+    @Override
     public String getGenre() {
         return genre;
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public String getPublisher() {
         return publisher;
     }
 
+    @Override
     public String getYear() {
         return year;
     }
 
+    @Override
     public boolean isValid() {
         return valid;
     }
