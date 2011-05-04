@@ -9,7 +9,7 @@ package no.truben.dbox.GUI.windows;
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import no.truben.dbox.util.BrowserControl;
-import no.truben.dbox.Main;
+import no.truben.dbox.util.Constants;
 
 /**
  *
@@ -45,7 +45,7 @@ public class About extends javax.swing.JDialog {
         setResizable(false);
 
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, 24));
-        jLabel1.setText("D-Box " + Main.MAJORVERSION + "." + Main.MINORVERSION + "");
+        jLabel1.setText("D-Box " + Constants.MAJOR_VERSION + "." + Constants.MINOR_VERSION + "");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         jLabel2.setText("Code and design by Peder Skeidsvoll");

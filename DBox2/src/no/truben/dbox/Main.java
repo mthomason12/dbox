@@ -11,15 +11,14 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import no.truben.dbox.util.Constants;
 
 /**
  * @author Truben
  */
 
 public class Main {
-
-    public static final int MAJORVERSION = 2;
-    public static final int MINORVERSION = 3;
+    
     public static String appFolder = HelperClass.getWorkingDirectory("dbox").getAbsolutePath() + File.separator;
     public static String configFile = appFolder  + "dbox.config";
     public static String gameFile = appFolder + "gamelist.dat";
@@ -46,7 +45,7 @@ public class Main {
                     System.out.println("Use gamefile file " + gameFile);
                 }
                 if(args[i].toLowerCase().startsWith("-ver")) {
-                    System.out.println("D-Box " + MAJORVERSION + "." + MINORVERSION);
+                    System.out.println("D-Box " + Constants.MAJOR_VERSION + "." + Constants.MINOR_VERSION);
                     return;
                 }
             }

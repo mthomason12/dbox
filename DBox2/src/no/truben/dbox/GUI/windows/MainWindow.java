@@ -43,6 +43,7 @@ import no.truben.dbox.GUI.ScreenShot;
 import no.truben.dbox.util.BrowserControl;
 import no.truben.dbox.util.FileDrop;
 import no.truben.dbox.Main;
+import no.truben.dbox.util.Constants;
 
 public class MainWindow extends javax.swing.JFrame implements FocusListener {
 
@@ -808,7 +809,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         });
         prefMenu.add(mnuCheckNewest);
 
-        mnuAbout.setText("About D-Box version " + Main.MAJORVERSION + "." + Main.MINORVERSION + "");
+        mnuAbout.setText("About D-Box version " + Constants.MAJOR_VERSION + "." + Constants.MINOR_VERSION + "");
         mnuAbout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 mnuAboutActionPerformed(evt);
