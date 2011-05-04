@@ -225,13 +225,13 @@ public class BoxListe implements Serializable {
             }
             else if(isInGame) {
                 try {
-                    // remove comments
-                    int start = linje.indexOf("#");
+                    // remove comments Removed... to slow
+                    //int start = linje.indexOf("#");
 
-                    if(start != -1)
-                        linje = linje.substring(0, start);
+                    //if(start != -1)
+                    //    linje = linje.substring(0, start);
 
-                    start = linje.indexOf(":=");
+                    int start = linje.indexOf(":=");
 
                     final String keyword;
                     final String value;
