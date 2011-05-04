@@ -15,17 +15,14 @@ import no.truben.dbox.Main;
  * @author truben
  */
 public class Updater {
-
-    private static String currentURL = "http://dbox.truben.no/current.php";
-    private static String dboxURL = "http://dbox.truben.no";
-
+    
     public static void CheckForUpdate(boolean notify) {
         URL updateURL;
         {
             BufferedReader in = null;
             try {
 
-                updateURL = new URL(currentURL);
+                updateURL = new URL(Constants.CURRENT_URL);
                 in = new BufferedReader(new InputStreamReader(updateURL.openStream()));
                 int[] version = parseVersion(in.readLine());
                 boolean isNewerAvailable = isNewestVersion(version);
@@ -34,7 +31,7 @@ public class Updater {
                     JCheckBox check = new JCheckBox("Do not show this message again.");
 
                     String message = "There is a newer version of D-Box available!\nThe newest version is " +
-                                     version[0] + "." + version[1] + " and you have version " + Main.MAJORVERSION + "." + Main.MINORVERSION +
+                                     version[0] + "." + version[1] + " and you have version " + Constants.MAJOR_VERSION + "." + Constants.MINOR_VERSION +
                                      ".\nGo to D-Box' homepage and download?\n";
                     Object[] params;
                     if(!notify)
@@ -46,15 +43,15 @@ public class Updater {
                     Main.pref.setCheckForUpdates(!check.isSelected());
 
                     if (answer == JOptionPane.YES_OPTION) {
-                        BrowserControl.openUrl(dboxURL);
+                        BrowserControl.openUrl(Constants.DBOX_HOME_URL);
                     }
                 } else if (notify) {
-                    JOptionPane.showMessageDialog(null, "You have the newest version (" + Main.MAJORVERSION + "." + Main.MINORVERSION +
+                    JOptionPane.showMessageDialog(null, "You have the newest version (" + Constants.MAJOR_VERSION + "." + Constants.MINOR_VERSION +
                             ")! Congratulations!", "No need to update", JOptionPane.INFORMATION_MESSAGE);
                 }
 
             } catch (IOException ex) {
-                if (notify) JOptionPane.showMessageDialog(null, "Unable to connect to... \n" + currentURL);
+                if (notify) JOptionPane.showMessageDialog(null, "Unable to connect to... \n" + Constants.CURRENT_URL);
             } catch (NumberFormatException ex) {
                 if (notify) JOptionPane.showMessageDialog(null, "Unable to check for new version beacuse of server-side problems.");
             } finally {
@@ -79,9 +76,9 @@ public class Updater {
     }
 
     private static boolean isNewestVersion(int[] version) {
-        if (version[0] > Main.MAJORVERSION) {
+        if (version[0] > Constants.MAJOR_VERSION) {
             return true;
         }
-        return version[1] > Main.MINORVERSION;
+        return version[1] > Constants.MINOR_VERSION;
     }
 }
