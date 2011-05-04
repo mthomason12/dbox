@@ -10,7 +10,7 @@ import no.truben.dbox.GUI.windows.About;
 import no.truben.dbox.util.Updater;
 import no.truben.dbox.model.ApplicationList;
 import no.truben.dbox.model.ApplicationBean;
-import no.truben.dbox.GUI.CoverFlow.*;
+import no.truben.dbox.GUI.floppyFlow.*;
 import no.truben.dbox.GUI.windows.EditApplication;
 import no.truben.dbox.GUI.ScreenShot;
 import no.truben.dbox.util.FileChooserFilter;
