@@ -1,8 +1,8 @@
 package no.truben.dbox.GUI.CoverFlow;
 
-import no.truben.dbox.DosItem;
+import no.truben.dbox.model.ApplicationBean;
 import no.truben.dbox.Main;
-import no.truben.dbox.MainWindow;
+import no.truben.dbox.GUI.windows.MainWindow;
 import no.truben.dbox.util.ImageHandlerer;
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -459,7 +459,7 @@ public class CDShelf extends JPanel {
             artworks = new LinkedList<URL>();
             for(String s : MainWindow.bl.getGameList()) {
                 avatarsText.add(s);
-                DosItem di = MainWindow.bl.getGame(s);
+                ApplicationBean di = MainWindow.bl.getGame(s);
                 String ikon = di.getIcon();
                 if(ikon.equals("")) {
                     artworks.add(MainWindow.class.getResource("/dbox2/img/coverflow/no-cover.png"));

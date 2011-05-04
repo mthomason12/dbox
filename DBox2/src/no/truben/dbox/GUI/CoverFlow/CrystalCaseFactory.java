@@ -1,6 +1,6 @@
 package no.truben.dbox.GUI.CoverFlow;
 
-import no.truben.dbox.MainWindow;
+import no.truben.dbox.GUI.windows.MainWindow;
 import java.awt.*;
 import java.awt.image.*;
 import java.awt.geom.*;

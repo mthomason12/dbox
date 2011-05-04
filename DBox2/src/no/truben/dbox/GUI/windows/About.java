@@ -4,19 +4,21 @@
  * Created on August 5, 2007, 4:40 PM
  */
 
-package no.truben.dbox;
+package no.truben.dbox.GUI.windows;
 
 import java.awt.Dimension;
 import java.awt.Rectangle;
+import no.truben.dbox.util.BrowserControl;
+import no.truben.dbox.Main;
 
 /**
  *
  * @author  Truben
  */
-public class AboutWindow extends javax.swing.JDialog {
+public class About extends javax.swing.JDialog {
     
     /** Creates new form AboutWindow */
-    public AboutWindow(java.awt.Frame parent, boolean modal) {
+    public About(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         centerScreen();

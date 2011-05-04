@@ -1,4 +1,4 @@
-package no.truben.dbox;
+package no.truben.dbox.util;
 
 import java.lang.reflect.Method;
 

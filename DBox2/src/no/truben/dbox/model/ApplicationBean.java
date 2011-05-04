@@ -5,13 +5,14 @@
  * @author Truben
  *
  */
-package no.truben.dbox;
+package no.truben.dbox.model;
 
 import no.truben.dbox.util.ImageHandlerer;
 import java.io.Serializable;
 import javax.swing.ImageIcon;
+import no.truben.dbox.Main;
 
-public class DosItem implements Serializable {
+public class ApplicationBean implements Serializable {
 
     private String name = "";
     private String path = "";
@@ -122,7 +123,7 @@ public class DosItem implements Serializable {
     }
 
     /** Creates a new instance of DosItem */
-    public DosItem() {
+    public ApplicationBean() {
         // Generate unique id
         setUniqueID((int)(Math.random() * 1000000) + "");
     }
@@ -231,7 +232,7 @@ public class DosItem implements Serializable {
         this.keywords = keywords;
     }
 
-    public boolean equals(DosItem d) {
+    public boolean equals(ApplicationBean d) {
         if (d.getCycles() != cycles) {
             return false;
         }

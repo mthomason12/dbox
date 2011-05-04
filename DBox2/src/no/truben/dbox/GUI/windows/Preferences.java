@@ -6,7 +6,7 @@
  * @author Truben
  */
 
-package no.truben.dbox.GUI;
+package no.truben.dbox.GUI.windows;
 
 import no.truben.dbox.Main;
 import no.truben.dbox.util.FileChooserFilter;
@@ -19,12 +19,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
 
-public class PreferencesGUI extends javax.swing.JDialog {
+public class Preferences extends javax.swing.JDialog {
 
     private int iconindex;
     
     /** Creates new form PreferencesGUI */
-    public PreferencesGUI() {
+    public Preferences() {
         
         initComponents();
 
@@ -449,7 +449,7 @@ private void restart() {
         Main.n.setVisible(false);
         Main.n.dispose();
     } catch (IOException ex) {
-        Logger.getLogger(PreferencesGUI.class.getName()).log(Level.SEVERE, null, ex);
+        Logger.getLogger(Preferences.class.getName()).log(Level.SEVERE, null, ex);
     }
 }
 

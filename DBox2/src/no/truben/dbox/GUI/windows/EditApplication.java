@@ -6,8 +6,10 @@
  * @author  Truben
  */
 
-package no.truben.dbox.GUI;
+package no.truben.dbox.GUI.windows;
 
+import no.truben.dbox.util.BrowserControl;
+import no.truben.dbox.model.ApplicationBean;
 import no.truben.dbox.*;
 import no.truben.dbox.util.FileChooserFilter;
 import no.truben.dbox.util.OnlineResource;
@@ -23,14 +25,15 @@ import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;
 import nl.ikarus.nxt.priv.imageio.icoreader.obj.ICOFile;
 import nl.ikarus.nxt.priv.imageio.icoreader.obj.IconEntry;
+import no.truben.dbox.GUI.windows.listRenderers.ExpertListRenderer;
 
-public class ItemGUI extends javax.swing.JDialog {
+public class EditApplication extends javax.swing.JDialog {
     
-    private DosItem dos;
+    private ApplicationBean dos;
     private MainWindow g;
     
-    public ItemGUI(MainWindow parent) {
-        dos = new DosItem();
+    public EditApplication(MainWindow parent) {
+        dos = new ApplicationBean();
 
         g = parent;
         setModal(true);
@@ -40,7 +43,7 @@ public class ItemGUI extends javax.swing.JDialog {
         centerScreen();
     }
     
-    public ItemGUI(DosItem di, MainWindow parent) {
+    public EditApplication(ApplicationBean di, MainWindow parent) {
         dos = di;
         initComponents();
         cmbGenre.setModel(new javax.swing.DefaultComboBoxModel(Main.pref.getGenres()));
@@ -685,7 +688,7 @@ private void sldCyclesPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-
 
 
 private void cmdConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdConfirmActionPerformed
-    DosItem d = new DosItem();
+    ApplicationBean d = new ApplicationBean();
 
     // Set prefrences
     d.setName(appName.getText());
