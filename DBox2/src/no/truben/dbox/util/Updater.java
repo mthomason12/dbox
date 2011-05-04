@@ -1,4 +1,4 @@
-package no.truben.dbox;
+package no.truben.dbox.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,6 +8,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 import javax.swing.JOptionPane;
+import no.truben.dbox.Main;
 
 /**
  *

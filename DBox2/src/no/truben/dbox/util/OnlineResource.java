@@ -1,6 +1,6 @@
 package no.truben.dbox.util;
 
-import no.truben.dbox.DosItem;
+import no.truben.dbox.model.ApplicationBean;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -115,7 +115,7 @@ public class OnlineResource {
 
     }
 
-    public DosItem fillInInformation(DosItem di) {
+    public ApplicationBean fillInInformation(ApplicationBean di) {
         if(this.isValid()) {
             di.setGenre(genre);
             di.setDeveloper(developer);

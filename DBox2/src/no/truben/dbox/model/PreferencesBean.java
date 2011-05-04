@@ -1,4 +1,4 @@
-package no.truben.dbox;
+package no.truben.dbox.model;
 
 /**
  * Preferences.java
@@ -13,8 +13,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Scanner;
+import no.truben.dbox.Main;
 
-public class NewPreferences implements Serializable {
+public class PreferencesBean implements Serializable {
 
     private String DosBoxPath = "";
     private String[] Genres;
@@ -255,7 +256,7 @@ public class NewPreferences implements Serializable {
     }
 
     /** Creates a new instance of Preferences */
-    public NewPreferences() {
+    public PreferencesBean() {
         DosBoxPath = "";
         Genres = new String[]{"Action", "Adventure", "Arcade", "Board", "Platform", "Puzzle",
                     "Racing", "RPG", "Simulation", "Sports", "Strategy", "Text Based",

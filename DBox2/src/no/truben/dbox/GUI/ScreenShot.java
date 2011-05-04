@@ -1,8 +1,8 @@
 package no.truben.dbox.GUI;
 
-import no.truben.dbox.DosItem;
+import no.truben.dbox.GUI.windows.MainWindow;
+import no.truben.dbox.model.ApplicationBean;
 import no.truben.dbox.Main;
-import no.truben.dbox.MainWindow;
 import java.awt.BorderLayout;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -77,7 +77,7 @@ public class ScreenShot extends JDialog implements MouseListener, KeyListener, F
         JMenuItem useAsIcon = new JMenuItem("Use Screenshot as Application Icon");
         useAsIcon.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                DosItem di = MainWindow.bl.removeGame((String) Main.n.applicationList.getSelectedValue());
+                ApplicationBean di = MainWindow.bl.removeGame((String) Main.n.applicationList.getSelectedValue());
                 di.setIcon(getCurrentFile().getAbsolutePath());
                 MainWindow.bl.addGame(di);
                 dispose();

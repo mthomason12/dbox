@@ -6,19 +6,20 @@
  * @author Truben
  */
 
-package no.truben.dbox;
+package no.truben.dbox.model;
 
+import no.truben.dbox.model.ApplicationBean;
 import java.util.*;
 import java.io.*;
 import javax.swing.JOptionPane;
 
-public class BoxListe implements Serializable {
+public class ApplicationList implements Serializable {
     
-    private final List<DosItem> gamelist;
+    private final List<ApplicationBean> gamelist;
     
     /** Creates a new instance of BoxListe */
-    public BoxListe() {
-        gamelist = new ArrayList<DosItem>();
+    public ApplicationList() {
+        gamelist = new ArrayList<ApplicationBean>();
     }
     
     /**
@@ -28,12 +29,12 @@ public class BoxListe implements Serializable {
      * @param name The name of the game
      * @return The name of the game, null if no game is found
      **/
-    public DosItem getGame(String name) {
+    public ApplicationBean getGame(String name) {
         if(name == null)
             return null;
         
         name = name.toLowerCase();
-        for(DosItem item : gamelist) {
+        for(ApplicationBean item : gamelist) {
             if(item.getName().toLowerCase().equals(name)) {
                 return item;
             }
@@ -46,9 +47,9 @@ public class BoxListe implements Serializable {
      * @param name The name of the game we want to remove
      * @return The game that we removed
      **/
-    public DosItem removeGame(String name) {
+    public ApplicationBean removeGame(String name) {
         name = name.toLowerCase();
-        for(DosItem item : gamelist) {
+        for(ApplicationBean item : gamelist) {
             if(item.getName().toLowerCase().equals(name)) {
                 gamelist.remove(item);
                 return item;
@@ -65,7 +66,7 @@ public class BoxListe implements Serializable {
      * Adds the game to the list
      * @param di The game we want to add
      **/
-    public void addGame(DosItem di) {
+    public void addGame(ApplicationBean di) {
         gamelist.add(di);
     }
     
@@ -76,7 +77,7 @@ public class BoxListe implements Serializable {
     public String[] getGameList() {
         String[] temp = new String[gamelist.size()];
         int count=0;
-        for(DosItem item : gamelist) {
+        for(ApplicationBean item : gamelist) {
             temp[count++] = item.getName();
         }
         Arrays.sort(temp);
@@ -90,7 +91,7 @@ public class BoxListe implements Serializable {
     public String[] getIconList() {
         String[] temp = new String[gamelist.size()];
         int count=0;
-        for(DosItem item : gamelist) {
+        for(ApplicationBean item : gamelist) {
             temp[count++] = item.getIcon();
         }
         return temp;
@@ -107,7 +108,7 @@ public class BoxListe implements Serializable {
         int counter=0;
         searchstr=searchstr.toLowerCase();
         
-        for(DosItem item : gamelist) {
+        for(ApplicationBean item : gamelist) {
             if(item.getName().toLowerCase().indexOf(searchstr) != -1 || 
                item.getKeywords().toLowerCase().indexOf(searchstr) != -1 ||
                item.getGenre().toLowerCase().indexOf(searchstr) != -1  ||
@@ -120,7 +121,7 @@ public class BoxListe implements Serializable {
         
         String[] temp = new String[count];
             
-        for(DosItem item : gamelist) {
+        for(ApplicationBean item : gamelist) {
             if(item.getName().toLowerCase().indexOf(searchstr) != -1 ||
                item.getKeywords().toLowerCase().indexOf(searchstr) != -1 ||
                item.getGenre().toLowerCase().indexOf(searchstr) != -1  ||
@@ -138,13 +139,13 @@ public class BoxListe implements Serializable {
         int count=0;
         int counter=0;
 
-        for(DosItem item : gamelist)
+        for(ApplicationBean item : gamelist)
             if(item.isStar())
                 count++;
 
         String[] temp = new String[count];
 
-        for(DosItem item : gamelist) {
+        for(ApplicationBean item : gamelist) {
             if(item.isStar())
                 temp[counter++] = item.getName();
         }
@@ -167,13 +168,13 @@ public class BoxListe implements Serializable {
         int counter=0;
         searchstr=searchstr.toLowerCase();
 
-        for(DosItem item : gamelist)
+        for(ApplicationBean item : gamelist)
             if(item.getGenre().toLowerCase().equals(searchstr.toLowerCase()))
                 count++;
 
         String[] temp = new String[count];
 
-        for(DosItem item : gamelist) {
+        for(ApplicationBean item : gamelist) {
             if(item.getGenre().toLowerCase().equals(searchstr.toLowerCase())) {
                 temp[counter++] = item.getName();
             }
@@ -193,7 +194,7 @@ public class BoxListe implements Serializable {
 
     public String toConfigString() {
         String out = "## D-Box Game file. Do not edit if you don't know what you're doing! ##\n\n";
-        for (DosItem dosItem : gamelist) {
+        for (ApplicationBean dosItem : gamelist) {
             out += dosItem.toConfigString();
         }
         return out;
@@ -202,7 +203,7 @@ public class BoxListe implements Serializable {
     public void readConfig(String config) {
         long times = System.currentTimeMillis();
         Scanner s = new Scanner(config);
-        DosItem d = null;
+        ApplicationBean d = null;
         int counter = 0;
         boolean isInGame = false;
         while(s.hasNextLine()) {
@@ -210,7 +211,7 @@ public class BoxListe implements Serializable {
             String linje = s.nextLine().trim();
 
             if(linje.equals("start game")) {
-                d = new DosItem();
+                d = new ApplicationBean();
                 isInGame = true;
                 continue;
             }

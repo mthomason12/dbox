@@ -4,11 +4,14 @@
  * Created on July 26, 2007, 8:54 PM
  * @author Truben
  */
-package no.truben.dbox;
+package no.truben.dbox.GUI.windows;
 
+import no.truben.dbox.GUI.windows.About;
+import no.truben.dbox.util.Updater;
+import no.truben.dbox.model.ApplicationList;
+import no.truben.dbox.model.ApplicationBean;
 import no.truben.dbox.GUI.CoverFlow.*;
-import no.truben.dbox.GUI.ItemGUI;
-import no.truben.dbox.GUI.PreferencesGUI;
+import no.truben.dbox.GUI.windows.EditApplication;
 import no.truben.dbox.GUI.ScreenShot;
 import no.truben.dbox.util.FileChooserFilter;
 import no.truben.dbox.util.OSXAdapter;
@@ -35,10 +38,15 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JPanel;
+import no.truben.dbox.GUI.windows.listRenderers.GameListRenderer;
+import no.truben.dbox.GUI.ScreenShot;
+import no.truben.dbox.util.BrowserControl;
+import no.truben.dbox.util.FileDrop;
+import no.truben.dbox.Main;
 
 public class MainWindow extends javax.swing.JFrame implements FocusListener {
 
-    public static BoxListe bl = new BoxListe();
+    public static ApplicationList bl = new ApplicationList();
     BufferedImage[] images;
     //images
     final Icon fileEnabled;
@@ -335,7 +343,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
         }
 
         try {
-            DosItem d = new DosItem();
+            ApplicationBean d = new ApplicationBean();
             d.setGame(file.getName());
             d.setPath(file.getAbsolutePath().substring(0, file.getAbsolutePath().lastIndexOf(File.separatorChar)));
 
@@ -410,14 +418,14 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
      * @param name The name of the database
      * @return the database
      */
-    private BoxListe deSerialize(String name) {
+    private ApplicationList deSerialize(String name) {
         String config = "";
         Scanner s = null;
 
         try {
             s = new Scanner(new File(name));
         } catch (FileNotFoundException ex) {
-            return new BoxListe();
+            return new ApplicationList();
         }
 
         while (s.hasNext()) {
@@ -1102,7 +1110,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                 .add(jLabel2)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(jLabel5)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 441, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 409, Short.MAX_VALUE)
                 .add(jPanel1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -1145,7 +1153,7 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
 }//GEN-LAST:event_lblSearchMouseClicked
 
 private void mnuAboutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuAboutActionPerformed
-    AboutWindow a = new AboutWindow(this, true);
+    About a = new About(this, true);
     a.setVisible(true);
     a = null;
 }//GEN-LAST:event_mnuAboutActionPerformed
@@ -1172,7 +1180,7 @@ private void mnuRunDosBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-
 }//GEN-LAST:event_mnuRunDosBoxActionPerformed
 
 private void mnuPrefsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuPrefsActionPerformed
-    PreferencesGUI prf = new PreferencesGUI();
+    Preferences prf = new Preferences();
     prf.setModal(true);
     prf.setVisible(true);
     prf = null;
@@ -1185,7 +1193,7 @@ private void mnuPrefsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
 }//GEN-LAST:event_mnuPrefsActionPerformed
 
 private void mnuSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuSetupActionPerformed
-    DosItem di = bl.getGame((String) applicationList.getSelectedValue());
+    ApplicationBean di = bl.getGame((String) applicationList.getSelectedValue());
     runApplication(di.getInstaller());
 }//GEN-LAST:event_mnuSetupActionPerformed
 
@@ -1204,7 +1212,7 @@ private void mnuSetupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     }
 
 private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuRunActionPerformed
-    DosItem di = bl.getGame((String) applicationList.getSelectedValue());
+    ApplicationBean di = bl.getGame((String) applicationList.getSelectedValue());
     if (di == null) {
         return;
 
@@ -1231,7 +1239,7 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
             return;
         }
 
-        DosItem di = bl.getGame((String) applicationList.getSelectedValue());
+        ApplicationBean di = bl.getGame((String) applicationList.getSelectedValue());
 
         //Create HashMaps for preferences
         HashMap<String, HashMap<String, String>> allProps = new HashMap<String, HashMap<String, String>>();
@@ -1421,7 +1429,7 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         }
     }
 
-    private String getCaptureDirectory(DosItem di) {
+    private String getCaptureDirectory(ApplicationBean di) {
         return Main.appFolder + "captures" + File.separator + di.getUniqueID() + File.separator;
     }
 
@@ -1437,14 +1445,14 @@ private void mnuEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST
 
 
     }
-    ItemGUI ui = new ItemGUI(bl.removeGame(gm), this);
+    EditApplication ui = new EditApplication(bl.removeGame(gm), this);
     ui.setVisible(true);
     ui = null;
     updateList();
 }//GEN-LAST:event_mnuEditActionPerformed
 
 private void mnuNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuNewActionPerformed
-    ItemGUI ui = new ItemGUI(this);
+    EditApplication ui = new EditApplication(this);
     ui.setVisible(true);
     ui = null;
     updateList();
@@ -1506,7 +1514,7 @@ private void applicationListKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST
         if(applicationList.getSelectedValue() == null)
             return new File[]{};
 
-        DosItem di = bl.getGame((String) applicationList.getSelectedValue());
+        ApplicationBean di = bl.getGame((String) applicationList.getSelectedValue());
         File files[] = new File(getCaptureDirectory(di)).listFiles(new FileFilter() {
 
             public boolean accept(File pathname) {
@@ -1702,7 +1710,7 @@ private void mnuClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     if (s != JOptionPane.YES_OPTION) {
         return;
     }
-    bl = new BoxListe();
+    bl = new ApplicationList();
     updateList();
 }//GEN-LAST:event_mnuClearActionPerformed
 
@@ -1874,7 +1882,7 @@ class SetGenre implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        DosItem di = MainWindow.bl.getGame(mw.applicationList.getSelectedValue().toString());
+        ApplicationBean di = MainWindow.bl.getGame(mw.applicationList.getSelectedValue().toString());
         di.setGenre(genre);
 
         mw.applicationList.requestFocus();

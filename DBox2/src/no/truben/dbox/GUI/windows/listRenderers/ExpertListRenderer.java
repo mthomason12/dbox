@@ -1,4 +1,4 @@
-package no.truben.dbox.GUI;
+package no.truben.dbox.GUI.windows.listRenderers;
 
 /**
  *
@@ -10,20 +10,17 @@ import java.awt.Component;
 import java.awt.GridLayout;
 import javax.swing.*;
 
-class ExpertListRenderer extends JLabel implements ListCellRenderer {
+public class ExpertListRenderer extends JLabel implements ListCellRenderer {
 
     JLabel section = new JLabel();
     JLabel property = new JLabel();
     JLabel propertyvalue = new JLabel();
 
-    ExpertListRenderer() {
+    public ExpertListRenderer() {
         this.setLayout(new GridLayout(1,3));
         this.add(section);
         this.add(property);
         this.add(propertyvalue);
-        
-        
-
     }
 
 

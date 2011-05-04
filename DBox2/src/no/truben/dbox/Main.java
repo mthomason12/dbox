@@ -1,5 +1,8 @@
 package no.truben.dbox;
 
+import no.truben.dbox.GUI.windows.MainWindow;
+import no.truben.dbox.model.PreferencesBean;
+import no.truben.dbox.util.Updater;
 import no.truben.dbox.util.OSXAdapter;
 import no.truben.dbox.util.ThemeSupport;
 import no.truben.dbox.util.HelperClass;
@@ -20,7 +23,7 @@ public class Main {
     public static String appFolder = HelperClass.getWorkingDirectory("dbox").getAbsolutePath() + File.separator;
     public static String configFile = appFolder  + "dbox.config";
     public static String gameFile = appFolder + "gamelist.dat";
-    public final static NewPreferences pref = new NewPreferences();
+    public final static PreferencesBean pref = new PreferencesBean();
     public static MainWindow n;
     public static ThemeSupport theme;
 
@@ -81,7 +84,7 @@ public class Main {
         }
     }
 
-    static void requestClose() {
+    public static void requestClose() {
             if(!n.isVisible()) {
                 n.bl.clearList();
                 n = null;

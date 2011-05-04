@@ -1,17 +1,19 @@
 
-package no.truben.dbox;
+package no.truben.dbox.GUI.windows.listRenderers;
 
+import no.truben.dbox.GUI.windows.MainWindow;
 import no.truben.dbox.util.ImageHandlerer;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import javax.swing.*;
+import no.truben.dbox.Main;
 
 /**
  *
  * @author Truben
  */
-class GameListRenderer extends JLabel implements ListCellRenderer {
+public class GameListRenderer extends JLabel implements ListCellRenderer {
 
     ImageIcon favorite = ImageHandlerer.resizeIcon(new ImageIcon(Main.theme.getGameFavoriteImage()));
     ImageIcon notfavorite = ImageHandlerer.resizeIcon(new ImageIcon(Main.theme.getGameNotFavoriteImage()));
