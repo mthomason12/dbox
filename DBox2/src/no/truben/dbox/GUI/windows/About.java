@@ -130,7 +130,7 @@ public class About extends javax.swing.JDialog {
     }//GEN-LAST:event_jLabel5MouseClicked
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        BrowserControl.openUrl("http://dbox.googlecode.com");
+        BrowserControl.openUrl(Constants.DBOX_HOME_URL);
     }//GEN-LAST:event_jLabel7MouseClicked
 
     private void jLabel6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel6MouseClicked

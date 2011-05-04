@@ -15,7 +15,7 @@ import no.truben.dbox.GUI.windows.EditApplication;
 import no.truben.dbox.GUI.ScreenShot;
 import no.truben.dbox.util.FileChooserFilter;
 import no.truben.dbox.util.OSXAdapter;
-import no.truben.dbox.util.OnlineResource;
+import no.truben.dbox.util.onlineresource.TrubenResource;
 import no.truben.dbox.util.HelperClass;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -361,8 +361,8 @@ public class MainWindow extends javax.swing.JFrame implements FocusListener {
                 }
             }
 
-            String hash = OnlineResource.getMD5(file.getAbsolutePath());
-            OnlineResource or = new OnlineResource(hash);
+            String hash = TrubenResource.getMD5(file.getAbsolutePath());
+            TrubenResource or = new TrubenResource(hash);
             if(or.isValid()) {
                 d = or.fillInInformation(d);
             }
@@ -1409,7 +1409,7 @@ private void mnuRunActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
                     mnuPrefsActionPerformed(null);
 
                 } else if (input.equals(choices[1])) {
-                    BrowserControl.openUrl("http://www.dosbox.com/download.php?main=1");
+                    BrowserControl.openUrl(Constants.DOSBOX_DOWNLOAD_URL);
                     return;
                 } else {
                     return;
@@ -1629,11 +1629,11 @@ private void mnuPreferencesActionPerformed(java.awt.event.ActionEvent evt) {//GE
 }//GEN-LAST:event_mnuPreferencesActionPerformed
 
 private void mnuHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuHomeActionPerformed
-    BrowserControl.openUrl("http://dbox.truben.no");
+    BrowserControl.openUrl(Constants.DBOX_HOME_URL);
 }//GEN-LAST:event_mnuHomeActionPerformed
 
 private void mnuDosboxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuDosboxActionPerformed
-    BrowserControl.openUrl("http://dosbox.com");
+    BrowserControl.openUrl(Constants.DOSBOX_HOME_URL);
 }//GEN-LAST:event_mnuDosboxActionPerformed
 
 private void txtSearchMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtSearchMouseEntered

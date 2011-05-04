@@ -6,6 +6,10 @@ import no.truben.dbox.util.ImageHandlerer;
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import javax.swing.*;
 import no.truben.dbox.Main;
 
@@ -41,7 +45,7 @@ public class GameListRenderer extends JLabel implements ListCellRenderer {
         if (Main.pref.isShowIcons()) {
             setSize(this.getWidth()/2, Main.pref.getIconHeight()+4);
             try {
-                setIcon(MainWindow.bl.getGame(s).getImageIcon());
+                loadImageAsync(s);
             }
             catch(NullPointerException e) {
                 // Do nothing
@@ -76,6 +80,21 @@ public class GameListRenderer extends JLabel implements ListCellRenderer {
 
 
         return this;
+    }
+    
+    private void loadImageAsync(final String s) {
+        Future<String> future;
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+	future = executorService.submit(new Callable<String>(){
+		public String call(){
+			setIcon(MainWindow.bl.getGame(s).getImageIcon());
+                        return "done";
+		}
+	});
+        
+        
+
     }
 
 }
