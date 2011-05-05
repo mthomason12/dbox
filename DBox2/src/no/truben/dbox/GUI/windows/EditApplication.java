@@ -25,6 +25,7 @@ import javax.swing.*;
 import nl.ikarus.nxt.priv.imageio.icoreader.obj.ICOFile;
 import nl.ikarus.nxt.priv.imageio.icoreader.obj.IconEntry;
 import no.truben.dbox.GUI.windows.listRenderers.ExpertListRenderer;
+import no.truben.dbox.util.Constants;
 
 public class EditApplication extends javax.swing.JDialog {
     
@@ -907,7 +908,7 @@ private void cmdAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:
         addProperties(section, getString("Enter command"), null);
     else {
         HashMap<String,String> properties = values.get(section);
-        if(properties.size() == 0) {
+        if( properties.isEmpty() ) {
             String name  = getString("Enter attribute name: ");
             if(name == null)
                 return;
@@ -961,7 +962,7 @@ private void cmdRemoveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIR
 }//GEN-LAST:event_cmdRemoveActionPerformed
 
 private void jLabel14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel14MouseClicked
-    BrowserControl.openUrl("http://www.dosbox.com/wiki/Dosbox.conf");
+    BrowserControl.openUrl(Constants.DOSBOX_CONFIG_URL);
 }//GEN-LAST:event_jLabel14MouseClicked
 
 private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -982,7 +983,7 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     else
         ext="-32";
 
-    ImageIcon ii = new ImageIcon(getClass().getResource("/dbox2/gameIcons/application-x-executable"+ext+".png"));
+    ImageIcon ii = new ImageIcon(getClass().getResource(Constants.IMAGE_FOLDER + "gameIcons/application-x-executable" + ext + ".png"));
     if(fil.exists()) {
         if(ikon.toLowerCase().endsWith("ico")) { // If the file is a ICO file
             try {
