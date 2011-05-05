@@ -13,34 +13,32 @@ import java.util.Scanner;
  * @author truben
  */
 public class ThemeSupport {
-
-    private final String imgFolder = "/no/truben/dbox/img/";
     
     private String name   = "Default theme";
     private String author = "Truben";
     private String url    = "http://www.truben.no";
 
-    private URL playInactiveImage = getClass().getResource(imgFolder + "media-playback-start-disabled.png");
-    private URL playActiveImage = getClass().getResource(imgFolder + "media-playback-start.png");
+    private URL playInactiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "media-playback-start-disabled.png");
+    private URL playActiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "media-playback-start.png");
 
-    private URL editInactiveImage = getClass().getResource(imgFolder + "utilities-terminal-disabled.png");
-    private URL editActiveImage = getClass().getResource(imgFolder + "utilities-terminal.png");
+    private URL editInactiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "utilities-terminal-disabled.png");
+    private URL editActiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "utilities-terminal.png");
 
-    private URL toolsInactiveImage = getClass().getResource(imgFolder + "emblem-system-disabled.png");
-    private URL toolsActiveImage = getClass().getResource(imgFolder + "emblem-system.png");
+    private URL toolsInactiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "emblem-system-disabled.png");
+    private URL toolsActiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "emblem-system.png");
 
-    private URL searchInactiveImage = getClass().getResource(imgFolder + "down-arrow-disabled.png");
-    private URL searchActiveImage = getClass().getResource(imgFolder + "down-arrow.png");
+    private URL searchInactiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "down-arrow-disabled.png");
+    private URL searchActiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "down-arrow.png");
 
-    private URL gameFavoriteImage    = getClass().getResource(imgFolder + "emblem-favorite.png");
-    private URL gameNotFavoriteImage = getClass().getResource(imgFolder + "emblem-notfavorite.png");
+    private URL gameFavoriteImage    = getClass().getResource(Constants.IMAGE_FOLDER + "emblem-favorite.png");
+    private URL gameNotFavoriteImage = getClass().getResource(Constants.IMAGE_FOLDER + "emblem-notfavorite.png");
 
     private boolean showWindowDecoration = true;
     private boolean showBorders = true;
 
     private boolean unifiedToolbar = true;
 
-    private URL backgroundImage = getClass().getResource(imgFolder + "bg.jpg");
+    private URL backgroundImage = getClass().getResource(Constants.IMAGE_FOLDER + "bg.jpg");
     private int backgroundRepeat;
     private Color backgroundColor = java.awt.SystemColor.window;
 
@@ -72,20 +70,20 @@ public class ThemeSupport {
     private void fixIfMac() {
         if(HelperClass.getOS() == HelperClass.MACOS) {
             //backgroundRepeat = 0;
-            playInactiveImage = getClass().getResource(imgFolder + "mac/play.png");
-            playActiveImage = getClass().getResource(imgFolder + "mac/play_select.png");
+            playInactiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "mac/play.png");
+            playActiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "mac/play_select.png");
 
-            editInactiveImage = getClass().getResource(imgFolder + "mac/edit.png");
-            editActiveImage = getClass().getResource(imgFolder + "mac/edit_select.png");
+            editInactiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "mac/edit.png");
+            editActiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "mac/edit_select.png");
 
-            toolsInactiveImage = getClass().getResource(imgFolder + "mac/system.png");
-            toolsActiveImage = getClass().getResource(imgFolder + "mac/system_select.png");
+            toolsInactiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "mac/system.png");
+            toolsActiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "mac/system_select.png");
 
-            searchInactiveImage = getClass().getResource(imgFolder + "down-arrow-disabled.png");
-            searchActiveImage = getClass().getResource(imgFolder + "down-arrow.png");
+            searchInactiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "down-arrow-disabled.png");
+            searchActiveImage = getClass().getResource(Constants.IMAGE_FOLDER + "down-arrow.png");
 
-            gameFavoriteImage    = getClass().getResource(imgFolder + "mac/favorite.png");
-            gameNotFavoriteImage = getClass().getResource(imgFolder + "emblem-notfavorite.png");
+            gameFavoriteImage    = getClass().getResource(Constants.IMAGE_FOLDER + "mac/favorite.png");
+            gameNotFavoriteImage = getClass().getResource(Constants.IMAGE_FOLDER + "emblem-notfavorite.png");
 
             //backgroundRepeat = 0;
         }
@@ -374,7 +372,7 @@ public class ThemeSupport {
                 ext="-320x200";
             else
                 ext="-32";
-            return getClass().getResource(imgFolder + "gameIcons/application-x-executable" + ext + ".png");
+            return getClass().getResource(Constants.IMAGE_FOLDER + "gameIcons/application-x-executable" + ext + ".png");
         }
         else {
             return defaultGame;

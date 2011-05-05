@@ -1,4 +1,4 @@
-package no.truben.dbox.GUI;
+package no.truben.dbox.GUI.windows;
 
 import no.truben.dbox.GUI.windows.MainWindow;
 import no.truben.dbox.model.ApplicationBean;
@@ -27,6 +27,7 @@ import javax.swing.JDialog;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
+import no.truben.dbox.GUI.PanelImage;
 
 /**
  *

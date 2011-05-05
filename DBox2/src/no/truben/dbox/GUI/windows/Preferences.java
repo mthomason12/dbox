@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.*;
+import no.truben.dbox.util.Constants;
 
 public class Preferences extends javax.swing.JDialog {
 
@@ -73,7 +74,7 @@ public class Preferences extends javax.swing.JDialog {
         cmdConfirm = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel()
         {
-            ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/bg.jpg"));
+            ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource(Constants.IMAGE_FOLDER + "bg.jpg"));
             Image image = backImage.getImage();
             int w = backImage.getIconWidth();
 
@@ -164,7 +165,7 @@ public class Preferences extends javax.swing.JDialog {
             }
         });
 
-        cmdBrowse.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/folder.png"))); // NOI18N
+        cmdBrowse.setIcon(new javax.swing.ImageIcon(getClass().getResource(Constants.IMAGE_FOLDER + "folder.png")));
         cmdBrowse.setToolTipText("Browse...");
         cmdBrowse.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +205,7 @@ public class Preferences extends javax.swing.JDialog {
                 .addContainerGap()
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .add(txtDosBoxPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                        .add(txtDosBoxPath, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(cmdBrowse))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -231,7 +232,7 @@ public class Preferences extends javax.swing.JDialog {
                 .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(cmbKeyboard, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                     .add(jLabel2))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 40, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 39, Short.MAX_VALUE)
                 .add(chkCheckForUpdates, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(chkKeepOpen, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -268,7 +269,7 @@ public class Preferences extends javax.swing.JDialog {
 
         jLabel4.setText("Theme Path:");
 
-        cmdBrowse1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/folder.png"))); // NOI18N
+        cmdBrowse1.setIcon(new javax.swing.ImageIcon(getClass().getResource(Constants.IMAGE_FOLDER + "folder.png")));
         cmdBrowse1.setToolTipText("Browse...");
         cmdBrowse1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,7 +308,7 @@ public class Preferences extends javax.swing.JDialog {
                 .add(jPanel3Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jLabel4)
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .add(themeName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 474, Short.MAX_VALUE)
+                        .add(themeName, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 429, Short.MAX_VALUE)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(cmdBrowse1))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, jButton1)
