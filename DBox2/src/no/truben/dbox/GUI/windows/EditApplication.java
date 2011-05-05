@@ -15,7 +15,6 @@ import no.truben.dbox.util.FileChooserFilter;
 import no.truben.dbox.util.onlineresource.TrubenResource;
 import no.truben.dbox.util.HelperClass;
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
@@ -195,7 +194,7 @@ public class EditApplication extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
 
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18));
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Edit Game");
 
@@ -228,7 +227,7 @@ public class EditApplication extends javax.swing.JDialog {
 
         jLabel3.setText("Executable");
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/folder.png"))); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/no/truben/dbox/img/folder.png"))); // NOI18N
         jButton1.setToolTipText("Browse...");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -261,7 +260,7 @@ public class EditApplication extends javax.swing.JDialog {
             }
         });
 
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/folder.png"))); // NOI18N
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/no/truben/dbox/img/folder.png"))); // NOI18N
         jButton4.setToolTipText("Browse...");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,7 +291,7 @@ public class EditApplication extends javax.swing.JDialog {
             }
         });
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/image-x-generic.png"))); // NOI18N
+        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/no/truben/dbox/img/image-x-generic.png"))); // NOI18N
         jButton6.setToolTipText("Preview");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -358,7 +357,7 @@ public class EditApplication extends javax.swing.JDialog {
 
         jLabel4.setText("Setup");
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/folder.png"))); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/no/truben/dbox/img/folder.png"))); // NOI18N
         jButton2.setToolTipText("Browse...");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -370,7 +369,7 @@ public class EditApplication extends javax.swing.JDialog {
 
         jLabel7.setText("CD-ROM Directory");
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/folder.png"))); // NOI18N
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/no/truben/dbox/img/folder.png"))); // NOI18N
         jButton3.setToolTipText("Browse...");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -383,7 +382,7 @@ public class EditApplication extends javax.swing.JDialog {
 
         appFrameSkip.setModel(new javax.swing.SpinnerNumberModel(0, 0, 9, 1));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/format-text-bold.png"))); // NOI18N
+        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/no/truben/dbox/img/format-text-bold.png"))); // NOI18N
         jButton5.setToolTipText("Set CD-ROM label");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -488,7 +487,7 @@ public class EditApplication extends javax.swing.JDialog {
 
         chkFavorite.setText("Mark as favorite");
 
-        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/dbox2/img/emblem-favorite.png"))); // NOI18N
+        jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/no/truben/dbox/img/emblem-favorite.png"))); // NOI18N
 
         jLabel15.setLabelFor(cmbGenre);
         jLabel15.setText("Year:");

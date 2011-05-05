@@ -74,7 +74,7 @@
         <Property name="opaque" type="boolean" value="false"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel()&#xa;{&#xa;    ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource(&quot;/dbox2/img/bg.jpg&quot;));&#xa;    Image image = backImage.getImage();&#xa;    int w = backImage.getIconWidth();&#xa;&#xa;    public void paintComponent (Graphics g) {&#xa;        for(int i=0;i&lt;100;i++)&#xa;        g.drawImage(image, w*i, 0, this);&#xa;        super.paintComponent(g);&#xa;    }&#xa;}&#xa;"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JPanel()&#xa;{&#xa;    ImageIcon backImage = new javax.swing.ImageIcon(getClass().getResource(Constants.IMAGE_FOLDER + &quot;bg.jpg&quot;));&#xa;    Image image = backImage.getImage();&#xa;    int w = backImage.getIconWidth();&#xa;&#xa;    public void paintComponent (Graphics g) {&#xa;        for(int i=0;i&lt;100;i++)&#xa;        g.drawImage(image, w*i, 0, this);&#xa;        super.paintComponent(g);&#xa;    }&#xa;}&#xa;"/>
       </AuxValues>
 
       <Layout>
@@ -134,7 +134,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="txtDosBoxPath" pref="474" max="32767" attributes="0"/>
+                              <Component id="txtDosBoxPath" pref="429" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="cmdBrowse" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -168,7 +168,7 @@
                           <Component id="cmbKeyboard" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="40" max="32767" attributes="0"/>
+                      <EmptySpace pref="39" max="32767" attributes="0"/>
                       <Component id="chkCheckForUpdates" min="-2" pref="18" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="chkKeepOpen" min="-2" pref="18" max="-2" attributes="0"/>
@@ -238,8 +238,8 @@
             </Component>
             <Component class="javax.swing.JButton" name="cmdBrowse">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/dbox2/img/folder.png"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.ImageIcon(getClass().getResource(Constants.IMAGE_FOLDER + &quot;folder.png&quot;))" type="code"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Browse..."/>
               </Properties>
@@ -308,7 +308,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <Component id="themeName" pref="474" max="32767" attributes="0"/>
+                              <Component id="themeName" pref="429" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="cmdBrowse1" min="-2" max="-2" attributes="0"/>
                           </Group>
@@ -404,8 +404,8 @@
             </Component>
             <Component class="javax.swing.JButton" name="cmdBrowse1">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/dbox2/img/folder.png"/>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new javax.swing.ImageIcon(getClass().getResource(Constants.IMAGE_FOLDER + &quot;folder.png&quot;))" type="code"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value="Browse..."/>
               </Properties>
