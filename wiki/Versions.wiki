@@ -63,5 +63,13 @@ http://dbox.googlecode.com/svn/wiki/img/screenshots/2.1/main.png
 http://dbox.googlecode.com/svn/wiki/img/screenshots/2.2/main.png
 
   * [http://code.google.com/p/dbox/wiki/whatsnew22 What's new?]
-  * 17000 downloads and counting...
+  * 18000 downloads
   * _Download: http://dbox.googlecode.com/files/dbox22.zip _
+
+== D-Box 2.3 ==
+
+http://dbox.googlecode.com/svn/wiki/img/screenshots/2.2/main.png
+
+  * [http://code.google.com/p/dbox/wiki/whatsnew23 What's new?]
+  * 50 downloads and counting...
+  * _Download: http://dbox.googlecode.com/files/dbox23.zip _
