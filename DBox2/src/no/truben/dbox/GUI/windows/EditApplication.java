@@ -978,12 +978,14 @@ private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     String ext = "";
     if(width <=16)
         ext="-16";
-    else if(width >= 17 && width <= 22)
-        ext="-22";
+    else if(width >= 17 && width <= 24)
+        ext="-24";
     else
         ext="-32";
-
-    ImageIcon ii = new ImageIcon(getClass().getResource(Constants.IMAGE_FOLDER + "gameIcons/application-x-executable" + ext + ".png"));
+    
+    String path = Constants.IMAGE_FOLDER + "gameIcons/application-x-executable" + ext + ".png";
+    ImageIcon ii = new ImageIcon(getClass().getResource(path));
+   
     if(fil.exists()) {
         if(ikon.toLowerCase().endsWith("ico")) { // If the file is a ICO file
             try {

@@ -145,9 +145,9 @@
                           </Group>
                           <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="chkKeepOpen" alignment="1" pref="513" max="32767" attributes="0"/>
-                          <Component id="chkFullscreen" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="chkNoConcole" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="chkCheckForUpdates" alignment="0" pref="513" max="32767" attributes="0"/>
+                          <Component id="chkFullscreen" alignment="0" pref="513" max="32767" attributes="0"/>
+                          <Component id="chkNoConcole" alignment="0" pref="513" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
