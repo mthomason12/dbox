@@ -18,6 +18,7 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import javax.imageio.ImageIO;
 import javax.imageio.stream.ImageInputStream;
@@ -38,6 +39,7 @@ public class EditApplication extends javax.swing.JDialog {
         g = parent;
         setModal(true);
         initComponents();
+        createYearList("1990");
         cmbGenre.setModel(new javax.swing.DefaultComboBoxModel(Main.pref.getGenres()));
         cmbGenre.setSelectedItem(dos.getGenre());
         centerScreen();
@@ -48,8 +50,8 @@ public class EditApplication extends javax.swing.JDialog {
         initComponents();
         cmbGenre.setModel(new javax.swing.DefaultComboBoxModel(Main.pref.getGenres()));
         centerScreen();
-        
         setModal(true);
+        
         createYearList(dos.getYear());
 
         g = parent;
@@ -77,10 +79,10 @@ public class EditApplication extends javax.swing.JDialog {
     }
 
     private void createYearList(String year) {
-        String[] years = new String[41];
+        String[] years = new String[42];
         years[0] = "";
         for(int i = 1; i < 40; i++)
-            years[i] = "" + (2010 - i);
+            years[i] = "" + (2011 - i);
 
         int place = -1;
 
@@ -195,7 +197,7 @@ public class EditApplication extends javax.swing.JDialog {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setOpaque(false);
 
-        jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Lucida Grande", 2, 18));
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Edit Game");
 
