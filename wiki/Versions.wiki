@@ -71,5 +71,5 @@ http://dbox.googlecode.com/svn/wiki/img/screenshots/2.2/main.png
 http://dbox.googlecode.com/svn/wiki/img/screenshots/2.2/main.png
 
   * [http://code.google.com/p/dbox/wiki/whatsnew23 What's new?]
-  * 1500 downloads and counting...
+  * 3000 downloads and counting...
   * _Download: http://dbox.googlecode.com/files/dbox23.zip _
