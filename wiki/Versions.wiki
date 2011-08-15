@@ -3,7 +3,7 @@
 
 = Introduction =
 
-I thought it might be funny to see how D-Box evolves, so this page will include screenshots and maybe some facts about the previous versions of D-Box.
+I thought it might be interesting to see how D-Box evolves, so this page will include screenshots and maybe some facts about the previous versions of D-Box.
 
 
 == D-Box 1.0 ==
