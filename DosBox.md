@@ -1,0 +1,3 @@
+An MS DOS Emulator. More info at http://en.wikipedia.org/wiki/Dosbox. Download latest dosbox here: http://dosbox.sourceforge.net/download.php. D-Box depends on having DosBox binaries available. D-Box 2.0 and newer ships with the newest version of DOSBox in the Mac and Windows versions.
+
+![http://dbox.googlecode.com/svn/wiki/img/icons/dosbox.png](http://dbox.googlecode.com/svn/wiki/img/icons/dosbox.png)

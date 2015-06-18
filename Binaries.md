@@ -1,0 +1,1 @@
+Binaries is the same as executable files, i.e. ".exe" files on Windows. DosBox' binary is i.e. dosbox.exe and D-Box' is dbox.jar. Source code files are not binaries.
